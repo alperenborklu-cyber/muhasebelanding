@@ -21,7 +21,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Mali Müşavirlik",
     date: "15 Ocak 2026",
     readTime: "4 dk okuma",
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-18.webp",
     author: "ROTAYD Teşvik Departmanı",
     tags: ["SGK Teşvikleri", "İstihdam", "Personel Maliyeti", "6111 Teşviki"],
     content: [
@@ -38,7 +38,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Devlet Teşvikleri",
     date: "28 Ocak 2026",
     readTime: "5 dk okuma",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-19.webp",
     author: "ROTAYD Yatırım Masası",
     tags: ["Yatırım Teşvik", "KDV İstisnası", "Gümrük Muafiyeti", "Vergi İndirimi"],
     content: [
@@ -55,7 +55,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Yönetim Muhasebesi",
     date: "04 Şubat 2026",
     readTime: "6 dk okuma",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-20.webp",
     author: "ROTAYD Mali Analiz Ekibi",
     tags: ["Yönetim Muhasebesi", "Finansal Analiz", "Kârlılık", "Bütçe Planlama"],
     content: [
@@ -72,7 +72,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "KOSGEB",
     date: "11 Şubat 2026",
     readTime: "4 dk okuma",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-21.webp",
     author: "ROTAYD Hibe & Proje Departmanı",
     tags: ["KOSGEB", "Yeşil Sanayi", "KOBİGEL", "Geri Ödemesiz Hibe"],
     content: [
@@ -89,7 +89,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Vergi Mevzuatı",
     date: "18 Şubat 2026",
     readTime: "3 dk okuma",
-    image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-22.webp",
     author: "ROTAYD Mevzuat Masası",
     tags: ["E-Defter", "E-Fatura", "VUK", "Vergi Cezaları"],
     content: [
@@ -106,7 +106,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Mali Müşavirlik",
     date: "25 Şubat 2026",
     readTime: "5 dk okuma",
-    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-23.webp",
     author: "ROTAYD Şirketler Masası",
     tags: ["Nevi Değişikliği", "Anonim Şirket", "Vergi Muafiyeti", "Hisse Devri"],
     content: [
@@ -123,7 +123,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Devlet Teşvikleri",
     date: "01 Mart 2026",
     readTime: "4 dk okuma",
-    image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-24.webp",
     author: "ROTAYD İhracat Masası",
     tags: ["İhracat Teşvikleri", "Ticaret Bakanlığı", "Fuar Desteği", "Kira Hibesi"],
     content: [
@@ -140,7 +140,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Devlet Teşvikleri",
     date: "10 Mart 2026",
     readTime: "6 dk okuma",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-25.webp",
     author: "ROTAYD Teknoloji Masası",
     tags: ["Ar-Ge Merkezi", "Tasarım Merkezi", "Stopaj Teşviki", "TÜBİTAK"],
     content: [
@@ -157,7 +157,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Vergi Mevzuatı",
     date: "17 Mart 2026",
     readTime: "5 dk okuma",
-    image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-26.webp",
     author: "ROTAYD Denetim Grubu",
     tags: ["Enflasyon Düzeltmesi", "Bilanço", "VUK", "Vergi Matrahı"],
     content: [
@@ -174,7 +174,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Mali Müşavirlik",
     date: "24 Mart 2026",
     readTime: "4 dk okuma",
-    image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/photo-27.webp",
     author: "ROTAYD Bordrolama Masası",
     tags: ["Bordrolama", "BPO", "İnsan Kaynakları", "Gizlilik"],
     content: [

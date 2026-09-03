@@ -125,7 +125,7 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all">
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80"
+                  src="/images/photo-1.webp"
                   alt="Kurumsal Hizmet Mimarisi"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -145,7 +145,7 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all">
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80"
+                  src="/images/photo-2.webp"
                   alt="Stratejik Çözüm Ortakları"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -165,7 +165,7 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all">
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80"
+                  src="/images/photo-3.webp"
                   alt="Kurumsal Sosyal Sorumluluk"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -202,7 +202,7 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-[#d4af37]/30 hover:border-[#d4af37] transition-all duration-300 flex flex-col justify-between">
               <div className="relative h-56 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
+                  src="/images/photo-4.webp"
                   alt="Mali Müşavirlik & Muhasebe"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -246,7 +246,7 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-[#d4af37]/30 hover:border-[#d4af37] transition-all duration-300 flex flex-col justify-between">
               <div className="relative h-56 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80"
+                  src="/images/photo-5.webp"
                   alt="Yönetim Danışmanlığı & Teşvikler"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"

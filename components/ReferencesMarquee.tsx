@@ -4,24 +4,24 @@ import Image from "next/image";
 
 // 18 Verified Real Turkish Corporate & Client Brands with Authentic White Logos
 const REFERENCES = [
-  { name: "TÜRK HAVA YOLLARI", file: "thy.png", desc: "Havacılık & Global Taşımacılık" },
-  { name: "TRENDYOL", file: "trendyol.png", desc: "E-Ticaret Lideri" },
-  { name: "GETİR", file: "getir.png", desc: "Teknoloji & Lojistik" },
-  { name: "PARİBU", file: "paribu.png", desc: "Kripto Varlık Platformu" },
-  { name: "TÜRKİYE İŞ BANKASI", file: "isbank.png", desc: "Bankacılık & Finans" },
-  { name: "AKBANK", file: "akbank.png", desc: "Özel Bankacılık & Finans" },
-  { name: "VESTEL", file: "vestel.png", desc: "Tüketici Elektroniği & Üretim" },
-  { name: "BEKO", file: "beko.png", desc: "Dayanıklı Tüketim & İhracat" },
-  { name: "PEGASUS HAVA YOLLARI", file: "pegasus.png", desc: "Havacılık Taşımacılığı" },
-  { name: "T.C. TİCARET BAKANLIĞI", file: "ticaret.png", desc: "İhracat Destekleri" },
-  { name: "TRT", file: "trt.png", desc: "Yayıncılık & Medya" },
-  { name: "LİVA PASTANELERİ", file: "liva.png", desc: "Gıda & Mağazacılık" },
-  { name: "140JOURNOS", file: "140journos.png", desc: "Dijital Yayıncılık" },
-  { name: "FOODCOIN", file: "foodcoin.png", desc: "Finansal Teknoloji" },
-  { name: "GOETHE INSTITUT", file: "goethe.png", desc: "Kültür & Eğitim Kurumu" },
-  { name: "EUREKO SİGORTA", file: "eureko.png", desc: "Kurumsal Sigortacılık" },
-  { name: "HEPİYİ SİGORTA", file: "hepiyi.png", desc: "Dijital Sigorta" },
-  { name: "NEOVA KATILIM", file: "neova.png", desc: "Katılım Sigortacılığı" }
+  { name: "TÜRK HAVA YOLLARI", file: "thy.webp", desc: "Havacılık & Global Taşımacılık" },
+  { name: "TRENDYOL", file: "trendyol.webp", desc: "E-Ticaret Lideri" },
+  { name: "GETİR", file: "getir.webp", desc: "Teknoloji & Lojistik" },
+  { name: "PARİBU", file: "paribu.webp", desc: "Kripto Varlık Platformu" },
+  { name: "TÜRKİYE İŞ BANKASI", file: "isbank.webp", desc: "Bankacılık & Finans" },
+  { name: "AKBANK", file: "akbank.webp", desc: "Özel Bankacılık & Finans" },
+  { name: "VESTEL", file: "vestel.webp", desc: "Tüketici Elektroniği & Üretim" },
+  { name: "BEKO", file: "beko.webp", desc: "Dayanıklı Tüketim & İhracat" },
+  { name: "PEGASUS HAVA YOLLARI", file: "pegasus.webp", desc: "Havacılık Taşımacılığı" },
+  { name: "T.C. TİCARET BAKANLIĞI", file: "ticaret.webp", desc: "İhracat Destekleri" },
+  { name: "TRT", file: "trt.webp", desc: "Yayıncılık & Medya" },
+  { name: "LİVA PASTANELERİ", file: "liva.webp", desc: "Gıda & Mağazacılık" },
+  { name: "140JOURNOS", file: "140journos.webp", desc: "Dijital Yayıncılık" },
+  { name: "FOODCOIN", file: "foodcoin.webp", desc: "Finansal Teknoloji" },
+  { name: "GOETHE INSTITUT", file: "goethe.webp", desc: "Kültür & Eğitim Kurumu" },
+  { name: "EUREKO SİGORTA", file: "eureko.webp", desc: "Kurumsal Sigortacılık" },
+  { name: "HEPİYİ SİGORTA", file: "hepiyi.webp", desc: "Dijital Sigorta" },
+  { name: "NEOVA KATILIM", file: "neova.webp", desc: "Katılım Sigortacılığı" }
 ];
 
 export default function ReferencesMarquee() {

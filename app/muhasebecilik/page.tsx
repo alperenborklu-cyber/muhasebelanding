@@ -17,37 +17,37 @@ export default function MuhasebecilikPage() {
   const services = [
     {
       title: "Yönetim Muhasebesi",
-      image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+      image: "/images/photo-6.webp",
       desc: "Finansal röntgen, maliyet analizleri ve aylık yönetim raporlamasıyla kârlılığı artıran stratejik finans yönetimi.",
       points: ["Maliyet Analizi", "Bütçe Projeksiyonu", "Aylık Yönetim Raporu"]
     },
     {
       title: "Mali Müşavirlik & Vergi Mevzuatı",
-      image: "https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=800&q=80",
+      image: "/images/photo-7.webp",
       desc: "Mevzuata tam uyum, vergi indirimlerinden maksimum faydalanma, beyanname hazırlama ve defter tutma.",
       points: ["KDV, Kurumlar Vergisi", "E-Defter / E-Fatura", "Vergi İnceleme Danışmanlığı"]
     },
     {
       title: "SGK ve İstihdam Teşvikleri",
-      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
+      image: "/images/photo-8.webp",
       desc: "Geriye dönük ve cari dönem prim analizleriyle şirketinize milyonlarca liralık net nakit tasarruf.",
       points: ["6111 ve Güncel Teşvikler", "Geriye Dönük İadeler", "Aylık SGK Prim İndirimi"]
     },
     {
       title: "Bordrolama & Personel Özlük",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+      image: "/images/photo-9.webp",
       desc: "İş Kanunu'na tam uyumlu, %100 gizlilik esaslı bordro hazırlama ve personel özlük yönetimi.",
       points: ["Gizli Maaş Bordrosu", "Kıdem / İhbar Hesaplama", "Özlük Dosyası Uyumu"]
     },
     {
       title: "Şirket Kuruluşu & Tür Değişikliği",
-      image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
+      image: "/images/photo-10.webp",
       desc: "Anonim ve Limited şirket kuruluşu, A.Ş. nevi değişikliğiyle hisse satışında %0 vergi avantajı.",
       points: ["Ana Sözleşme & Tescil", "LTD'den A.Ş.'ye Geçiş", "Sermaye Artırımı & Birleşme"]
     },
     {
       title: "Mali Tablolar & Denetim Desteği",
-      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80",
+      image: "/images/photo-11.webp",
       desc: "TMS/TFRS ve VUK standartlarında bilanço ve gelir tablosu analizi, banka kredibilitesi optimizasyonu.",
       points: ["Mali Tablo Analizi", "Banka Kredi Rasyoları", "Bağımsız Denetim Hazırlığı"]
     }
