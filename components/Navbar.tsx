@@ -14,7 +14,8 @@ import {
   BookOpen,
   Sun,
   Moon,
-  Building2
+  Building2,
+  MessageSquare
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -117,9 +118,10 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => scrollToSection("contact")}
-              className="px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
+              className="px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center space-x-1 cursor-pointer"
             >
-              İletişim
+              <MessageSquare className="w-3.5 h-3.5 text-[#d4af37]" />
+              <span>İletişim</span>
             </button>
           </nav>
 
@@ -232,9 +234,13 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => scrollToSection("contact")}
-                className="w-full text-left text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5"
+                className="w-full text-left text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
               >
-                İletişim & Lokasyon
+                <span className="flex items-center space-x-2">
+                  <MessageSquare className="w-4 h-4 text-[#d4af37]" />
+                  <span>İletişim & Lokasyon</span>
+                </span>
+                <ArrowRight className="w-4 h-4 text-white/40" />
               </button>
 
               <div className="pt-3 border-t border-white/10 flex flex-col space-y-2">
