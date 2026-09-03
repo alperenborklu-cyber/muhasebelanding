@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Col 1 */}
           <div className="space-y-4">
-            <Link href="/" className="inline-block text-2xl font-black tracking-widest text-white hover:text-[#d4af37] transition-colors">
+            <Link href="/" className="footer-brand inline-block text-2xl font-black tracking-widest text-white hover:text-[#d4af37] transition-colors">
               ROTAYD
             </Link>
             <p className="text-xs text-white/60 leading-relaxed">

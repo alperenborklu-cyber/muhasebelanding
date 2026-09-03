@@ -276,6 +276,10 @@ html.light-mode footer a:hover {
   color: #05112e !important;
 }
 
+html.light-mode footer .footer-brand {
+  color: #05112e !important;
+}
+
 /* ==========================================================================
    EXCEPTIONS FOR 3D CANVAS DOOR SECTION: MUST ALWAYS REMAIN DARK & PURE WHITE
    ========================================================================== */
