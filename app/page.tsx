@@ -246,7 +246,7 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-[#d4af37]/30 hover:border-[#d4af37] transition-all duration-300 flex flex-col justify-between">
               <div className="relative h-56 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80"
+                  src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80"
                   alt="Yönetim Danışmanlığı & Teşvikler"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"

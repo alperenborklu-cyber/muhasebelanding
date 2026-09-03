@@ -23,7 +23,7 @@ export default function MuhasebecilikPage() {
     },
     {
       title: "Mali Müşavirlik & Vergi Mevzuatı",
-      image: "https://images.unsplash.com/photo-1551836022-8b285b6f94e1?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=800&q=80",
       desc: "Mevzuata tam uyum, vergi indirimlerinden maksimum faydalanma, beyanname hazırlama ve defter tutma.",
       points: ["KDV, Kurumlar Vergisi", "E-Defter / E-Fatura", "Vergi İnceleme Danışmanlığı"]
     },
