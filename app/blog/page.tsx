@@ -40,7 +40,7 @@ export default function BlogPage() {
   const featuredPost = BLOG_POSTS[0];
 
   return (
-    <div className="bg-[#040a1a] text-white pt-28 pb-24">
+    <div className="min-h-screen bg-[#040a1a] text-white pt-28 pb-24 page-container">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumbs & Header */}
         <div className="flex items-center space-x-2 text-xs text-white/50 mb-6">

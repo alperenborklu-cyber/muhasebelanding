@@ -60,7 +60,7 @@ export default function DanismanlikPage() {
   ];
 
   return (
-    <div className="bg-[#040a1a] text-white pt-28 pb-20 transition-colors duration-300">
+    <div className="min-h-screen bg-[#040a1a] text-white pt-28 pb-20 transition-colors duration-300 page-container">
       {/* Header */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-16">
         <div className="flex items-center space-x-2 text-xs text-white/50 mb-6">

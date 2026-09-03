@@ -28,7 +28,7 @@ export default function BlogPostDetail({ params }: { params: { slug: string } })
   const fallbackRelated = relatedPosts.length > 0 ? relatedPosts : BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   return (
-    <div className="bg-[#040a1a] text-white pt-28 pb-24">
+    <div className="min-h-screen bg-[#040a1a] text-white pt-28 pb-24 page-container">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link */}
         <div className="mb-8">

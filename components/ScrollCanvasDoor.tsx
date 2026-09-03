@@ -191,7 +191,7 @@ export default function ScrollCanvasDoor() {
   const portalScale = useTransform(smoothProgress, [0.73, 0.85], [0.94, 1]);
 
   return (
-    <div ref={containerRef} className="relative h-[420vh] bg-[#040a1a]">
+    <div id="canvas-door-section" ref={containerRef} className="relative h-[420vh] bg-[#040a1a]">
       {/* Loading Screen */}
       {!isLoaded && (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#040a1a] text-white px-6">

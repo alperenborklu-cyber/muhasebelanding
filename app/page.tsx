@@ -39,7 +39,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[#040a1a] text-white transition-colors duration-300">
+    <div className="bg-[#040a1a] text-white transition-colors duration-300 page-container">
       {/* 1. Creative Scrollytelling Golden Door Canvas */}
       <ScrollCanvasDoor />
 

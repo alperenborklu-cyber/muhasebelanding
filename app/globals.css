@@ -112,20 +112,65 @@ body {
 }
 
 /* ==========================================================================
-   LIGHT MODE: HIGH-CONTRAST PURE WHITE BACKGROUND WITH DEEP NAVY TYPOGRAPHY
+   LIGHT MODE: BULLETPROOF HIGH-CONTRAST SYSTEM (NO NAVY-ON-NAVY EVER)
    ========================================================================== */
 
-html.light-mode {
+/* 1. Global Page Backgrounds */
+html.light-mode,
+html.light-mode body,
+html.light-mode .page-container,
+html.light-mode main {
   background-color: #f8fafc !important;
   color: #05112e !important;
 }
 
-html.light-mode body {
+/* 2. Overwrite ALL dark section and container backgrounds outside the 3D canvas */
+html.light-mode .page-container div,
+html.light-mode .page-container section {
+  border-color: #cbd5e1;
+}
+
+html.light-mode section {
   background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light-mode section.bg-\[\#020612\],
+html.light-mode section#contact {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* 3. Cards & Glass Panels in Light Mode */
+html.light-mode .glass-panel {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #05112e !important;
+  box-shadow: 0 4px 20px -2px rgba(5, 17, 46, 0.08) !important;
+}
+
+html.light-mode .glass-panel:hover {
+  border-color: rgba(133, 93, 16, 0.45) !important;
+  box-shadow: 0 15px 30px -5px rgba(5, 17, 46, 0.12) !important;
+}
+
+/* 4. Pills, Badges & Chips in Light Mode */
+html.light-mode .bg-\[\#071128\],
+html.light-mode .bg-white\/5,
+html.light-mode .bg-white\/10 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
   color: #05112e !important;
 }
 
-/* General Typography in Light Mode: Force Deep Navy */
+/* Stat & Service icon circles */
+html.light-mode .bg-\[\#0b1938\],
+html.light-mode .bg-\[\#0e214d\] {
+  background-color: #eef2f8 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* 5. Typography on Light Surfaces: High Contrast Deep Navy */
 html.light-mode h1,
 html.light-mode h2,
 html.light-mode h3,
@@ -135,22 +180,28 @@ html.light-mode h6 {
   color: #05112e !important;
 }
 
-html.light-mode #canvas-hero-title,
-html.light-mode #canvas-hero-title span {
-  color: #ffffff !important;
-}
-
 html.light-mode p,
 html.light-mode li,
 html.light-mode label {
   color: #0d2048 !important;
 }
 
-html.light-mode span {
-  color: inherit;
+html.light-mode .page-container .text-white,
+html.light-mode .page-container [class*="text-white"] {
+  color: #05112e !important;
 }
 
-/* Gold Gradient in Light Mode (Deep Sapphire to Gold - 100% Legible) */
+html.light-mode .page-container .text-white\/70,
+html.light-mode .page-container .text-white\/65,
+html.light-mode .page-container .text-white\/60 {
+  color: #173268 !important;
+}
+
+html.light-mode .page-container .text-white\/50 {
+  color: #2b4c8f !important;
+}
+
+/* Gold Gradient in Light Mode (Deep Navy to Rich Gold) */
 html.light-mode .gold-gradient-text {
   background: linear-gradient(135deg, #05112e 0%, #0d2861 55%, #855d10 100%) !important;
   -webkit-background-clip: text !important;
@@ -159,59 +210,15 @@ html.light-mode .gold-gradient-text {
   font-weight: 700;
 }
 
-/* Header in Light Mode */
-html.light-mode header {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 1px solid #cbd5e1 !important;
-  box-shadow: 0 4px 20px -2px rgba(5, 17, 46, 0.06) !important;
+/* Gold Buttons: Keep black text on gold background */
+html.light-mode a[class*="from-[#d4af37]"],
+html.light-mode a[class*="from-[#d4af37]"] span,
+html.light-mode button[class*="from-[#d4af37]"],
+html.light-mode button[class*="from-[#d4af37]"] span {
+  color: #000000 !important;
 }
 
-html.light-mode header a,
-html.light-mode header button {
-  color: #05112e !important;
-}
-
-/* Mobile Drawer in Light Mode */
-html.light-mode .md\:hidden {
-  color: #05112e !important;
-}
-
-/* Glass Panels and Cards in Light Mode */
-html.light-mode .glass-panel {
-  background: #ffffff !important;
-  border: 1px solid #cbd5e1 !important;
-  color: #05112e !important;
-  box-shadow: 0 10px 25px -5px rgba(5, 17, 46, 0.08), 0 8px 10px -6px rgba(5, 17, 46, 0.04) !important;
-}
-
-html.light-mode .glass-panel:hover {
-  border-color: rgba(133, 93, 16, 0.45) !important;
-  box-shadow: 0 20px 35px -10px rgba(5, 17, 46, 0.12) !important;
-}
-
-/* Sections in Light Mode */
-html.light-mode section {
-  background-color: #f8fafc;
-  border-color: #cbd5e1 !important;
-}
-
-html.light-mode #referanslar {
-  background-color: #f1f5f9 !important;
-  border-color: #cbd5e1 !important;
-}
-
-html.light-mode #referanslar .group {
-  background: #ffffff !important;
-  border-color: #cbd5e1 !important;
-  box-shadow: 0 4px 15px rgba(5, 17, 46, 0.06) !important;
-}
-
-html.light-mode #referanslar img {
-  filter: brightness(0) !important;
-  opacity: 0.85 !important;
-}
-
-/* Form Inputs in Light Mode */
+/* 6. Form Inputs in Light Mode */
 html.light-mode input,
 html.light-mode select,
 html.light-mode textarea {
@@ -225,8 +232,37 @@ html.light-mode textarea::placeholder {
   color: #64748b !important;
 }
 
-/* Footer in Light Mode */
-html.light-mode footer {
+/* 7. References Marquee in Light Mode */
+html.light-mode #referanslar {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light-mode #referanslar .group {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 10px rgba(5, 17, 46, 0.05) !important;
+}
+
+html.light-mode #referanslar img {
+  filter: brightness(0) !important;
+  opacity: 0.85 !important;
+}
+
+/* 8. Header & Footer in Light Mode */
+html.light-mode header {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+  box-shadow: 0 4px 20px -2px rgba(5, 17, 46, 0.06) !important;
+}
+
+html.light-mode header a,
+html.light-mode header button {
+  color: #05112e !important;
+}
+
+html.light-mode footer,
+html.light-mode footer#contact {
   background-color: #ffffff !important;
   border-top: 1px solid #cbd5e1 !important;
   color: #0d2048 !important;
@@ -240,8 +276,42 @@ html.light-mode footer a:hover {
   color: #05112e !important;
 }
 
-/* Text color helpers in light mode */
-html.light-mode .text-white,
-html.light-mode [class*="text-white"] {
-  color: #05112e !important;
+/* ==========================================================================
+   EXCEPTIONS FOR 3D CANVAS DOOR SECTION: MUST ALWAYS REMAIN DARK & PURE WHITE
+   ========================================================================== */
+html.light-mode #canvas-door-section {
+  background-color: #040a1a !important;
+}
+
+html.light-mode #canvas-door-section h1,
+html.light-mode #canvas-door-section h2,
+html.light-mode #canvas-door-section h3,
+html.light-mode #canvas-door-section h1 span,
+html.light-mode #canvas-door-section h2 span,
+html.light-mode #canvas-door-section h3 span,
+html.light-mode #canvas-door-section p,
+html.light-mode #canvas-door-section span,
+html.light-mode #canvas-door-section a {
+  color: #ffffff !important;
+}
+
+html.light-mode #canvas-door-section .gold-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #faecc0 40%, #d4af37 80%, #b89025 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html.light-mode #canvas-door-section .glass-panel {
+  background: rgba(7, 17, 40, 0.85) !important;
+  border-color: rgba(212, 175, 55, 0.35) !important;
+}
+
+html.light-mode #canvas-door-section .bg-\[\#040f2a\]\/75 {
+  background-color: rgba(4, 15, 42, 0.8) !important;
+  border-color: rgba(212, 175, 55, 0.35) !important;
+}
+
+html.light-mode #canvas-door-section .bg-\[\#07173e\]\/90 {
+  background-color: rgba(7, 23, 62, 0.9) !important;
+  border-color: #d4af37 !important;
 }
