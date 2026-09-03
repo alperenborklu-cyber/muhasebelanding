@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #040a1a;
+  --foreground: #ededed;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #040a1a;
+  color: #ededed;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  background-color: #040a1a;
+  color: #ededed;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Luxury minimal scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #112240;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(7, 17, 40, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(11, 25, 56, 0.85);
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 20px 40px -15px rgba(212, 175, 55, 0.15);
+  transform: translateY(-4px);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #faecc0 40%, #d4af37 80%, #b89025 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-border {
+  border-image: linear-gradient(to right, #d4af37, rgba(212, 175, 55, 0.2), #d4af37) 1;
+}
+
+.navy-radial-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(29, 67, 145, 0.25) 0%, rgba(4, 10, 26, 0.95) 75%, #040a1a 100%);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(212,175,55,0.2) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
