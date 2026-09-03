@@ -50,10 +50,7 @@ export default function Home() {
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 border-b border-[#d4af37]/20 bg-[#040a1a] transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-[#d4af37]/30 bg-[#071128] text-[11px] font-semibold text-[#d4af37] tracking-wider uppercase">
-              <Award className="w-3.5 h-3.5" />
-              <span>Güven & Başarı Sayaçları</span>
-            </div>
+
             <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
               Performans <span className="gold-gradient-text font-serif italic">Göstergelerimiz</span>
             </h2>
