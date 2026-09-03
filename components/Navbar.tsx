@@ -21,6 +21,18 @@ import { useTheme } from "@/context/ThemeContext";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const scrollToSection = (sectionId: string) => {
+    setMobileMenuOpen(false);
+    if (pathname === "/") {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.location.href = `/?nav=${sectionId}`;
+    }
+  };
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
 
@@ -93,20 +105,22 @@ export default function Navbar() {
               <span>Blog & Rehber</span>
             </Link>
 
-            <Link
-              href="/#referanslar"
-              className="px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center space-x-1"
+            <button
+              type="button"
+              onClick={() => scrollToSection("referanslar")}
+              className="px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center space-x-1 cursor-pointer"
             >
               <Building2 className="w-3.5 h-3.5 text-[#d4af37]" />
               <span>Referanslar</span>
-            </Link>
+            </button>
 
-            <Link
-              href="/#contact"
-              className="px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all"
+            <button
+              type="button"
+              onClick={() => scrollToSection("contact")}
+              className="px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
             >
               İletişim
-            </Link>
+            </button>
           </nav>
 
           {/* Quick Contact & Theme Toggle */}
@@ -204,24 +218,24 @@ export default function Navbar() {
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </Link>
-              <Link
-                href="/#referanslar"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
+              <button
+                type="button"
+                onClick={() => scrollToSection("referanslar")}
+                className="w-full text-left text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
               >
                 <span className="flex items-center space-x-2">
                   <Building2 className="w-4 h-4 text-[#d4af37]" />
                   <span>Referanslar</span>
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
-              </Link>
-              <Link
-                href="/#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5"
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection("contact")}
+                className="w-full text-left text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5"
               >
                 İletişim & Lokasyon
-              </Link>
+              </button>
 
               <div className="pt-3 border-t border-white/10 flex flex-col space-y-2">
                 <a

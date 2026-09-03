@@ -18,7 +18,7 @@ import {
   Sparkles,
   BookOpen
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BLOG_POSTS } from "@/lib/blogData";
 
 export default function Home() {
@@ -31,6 +31,23 @@ export default function Home() {
   });
 
   const latestPosts = BLOG_POSTS.slice(0, 3);
+
+  // Clean any #hash from URL and handle smooth scroll query
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (window.location.hash) {
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+      const params = new URLSearchParams(window.location.search);
+      const navTarget = params.get("nav");
+      if (navTarget) {
+        setTimeout(() => {
+          document.getElementById(navTarget)?.scrollIntoView({ behavior: "smooth" });
+          window.history.replaceState(null, "", window.location.pathname);
+        }, 300);
+      }
+    }
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

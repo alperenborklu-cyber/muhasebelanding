@@ -85,13 +85,14 @@ export default function DanismanlikPage() {
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
-              <a
-                href="#consultation"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#b89025] text-black font-semibold text-xs hover:opacity-90 transition-all flex items-center space-x-2"
+              <button
+                type="button"
+                onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#b89025] text-black font-semibold text-xs hover:opacity-90 transition-all flex items-center space-x-2 cursor-pointer"
               >
                 <span>Teşvik Uygunluk Analizi Yapın</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+              </button>
               <a
                 href="tel:05536221122"
                 className="px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2"
