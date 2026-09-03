@@ -168,13 +168,9 @@ export default function ScrollCanvasDoor() {
     return () => window.removeEventListener("resize", handleResize);
   }, [isLoaded, smoothProgress, renderFrame]);
 
-  // Scrollytelling Transformations
-  const scrollIndicatorOpacity = useTransform(smoothProgress, [0, 0.07, 0.12], [1, 0.7, 0]);
-  const scrollIndicatorY = useTransform(smoothProgress, [0, 0.12], [0, 15]);
-
-  // Beat A: 0% -> 20% (Hero positioned higher, navy texts for high contrast over gold door)
+  // Beat A: 0% -> 20% (Pure White Typography in Bottom-Left corner)
   const beatAOpacity = useTransform(smoothProgress, [0, 0.02, 0.16, 0.22], [1, 1, 0.9, 0]);
-  const beatAY = useTransform(smoothProgress, [0, 0.2], [0, -35]);
+  const beatAY = useTransform(smoothProgress, [0, 0.2], [0, -20]);
 
   // Beat B: 24% -> 46% (Left aligned)
   const beatBOpacity = useTransform(smoothProgress, [0.24, 0.28, 0.42, 0.47], [0, 1, 1, 0]);
@@ -230,46 +226,16 @@ export default function ScrollCanvasDoor() {
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#040a1a] via-[#040a1a]/70 to-transparent pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/80 to-transparent pointer-events-none" />
 
-        {/* BEAT A: 0 - 20% (Hero positioned higher, box-free floating lacivert typography) */}
+        {/* BEAT A: 0 - 20% (Pure White Typography in Bottom-Left corner, Exactly Like Reference Image) */}
         <motion.div
           style={{ opacity: beatAOpacity, y: beatAY }}
-          className="absolute inset-x-0 top-0 pt-20 sm:pt-24 md:pt-28 flex flex-col items-center text-center px-4 sm:px-6 pointer-events-none z-20"
+          className="absolute bottom-8 sm:bottom-12 md:bottom-14 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
         >
-          <div className="max-w-3xl mx-auto space-y-4 sm:space-y-5">
-            {/* Logo */}
-            <div className="relative h-11 sm:h-14 w-48 sm:w-64 mx-auto">
-              <Image
-                src="/logobeyaz.png"
-                alt="ROTAYD"
-                fill
-                className="object-contain filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
-                priority
-              />
-            </div>
-
-            {/* Headline in Lacivert (Navy) */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-[#0c1f4a] leading-tight filter drop-shadow-[0_2px_8px_rgba(255,255,255,0.85)]">
-              Geleceğin <span className="text-[#0c1f4a] font-serif italic font-normal">Finans & Yönetim</span> Kapısı
-            </h1>
-
-          </div>
-        </motion.div>
-
-        {/* Scroll To Explore Indicator */}
-        <motion.div
-          style={{ opacity: scrollIndicatorOpacity, y: scrollIndicatorY }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 pointer-events-none z-20"
-        >
-          <span className="text-[10px] uppercase tracking-[0.25em] text-[#faecc0]/90 font-medium bg-[#040a1a]/60 px-3 py-1 rounded-full backdrop-blur-sm border border-[#d4af37]/20">
-            Kapıyı Açmak İçin Aşağı Kaydırın
-          </span>
-          <div className="w-5 h-9 rounded-full border border-[#d4af37]/50 flex items-start justify-center p-1 backdrop-blur-sm bg-black/40">
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-              className="w-1 h-2 bg-[#d4af37] rounded-full"
-            />
-          </div>
+          <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-white filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <span className="font-extrabold text-white">Geleceğin</span>
+            <span className="font-serif italic font-normal text-white">Finans &amp; Yönetim</span>
+            <span className="font-extrabold text-white">Kapısı</span>
+          </h1>
         </motion.div>
 
         {/* BEAT B: 25 - 45% (Left Aligned - Muhasebe Beat) */}

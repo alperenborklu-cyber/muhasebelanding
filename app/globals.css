@@ -135,6 +135,11 @@ html.light-mode h6 {
   color: #05112e !important;
 }
 
+html.light-mode #canvas-hero-title,
+html.light-mode #canvas-hero-title span {
+  color: #ffffff !important;
+}
+
 html.light-mode p,
 html.light-mode li,
 html.light-mode label {
