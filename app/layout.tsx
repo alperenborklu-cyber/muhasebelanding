@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://rotayd.com'),
   title: "ROTAYD | Mali Müşavirlik & Yönetim Danışmanlığı",
   description: "Geleceğe yön verebilmek için, geleceğin inşa edilmesinde aktif rol almak gerektiğine inanıyor ve ROTA'nızı birlikte belirliyoruz. Yönetim muhasebesi, vergi danışmanlığı, yatırım teşvikleri ve kurumsal çözümler.",
-  keywords: "Rotayd, Mali Müşavirlik, Muhasebe, Yönetim Danışmanlığı, SGK Teşvikleri, Yatırım Teşvik, KOSGEB, Denizli Muhasebeci, Ankara Mali Müşavirlik",
+  keywords: "Rotayd, Mali Müşavirlik, Muhasebe, Yönetim Danışmanlığı, SGK Teşvikleri, Yatırım Teşvik, KOSGEB, Çankaya Muhasebeci, Ankara Mali Müşavirlik, Konutkent Suit Tower",
   openGraph: {
     title: "ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı",
     description: "Geleceğin Finans ve Yönetim Mimarisi. Stratejik yönetim muhasebesi ve devlet teşvikleri rehberliği.",

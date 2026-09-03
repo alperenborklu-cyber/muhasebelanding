@@ -105,9 +105,16 @@ export default function Footer() {
                 <Mail className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
                 <a href="mailto:info@rotayd.com" className="hover:text-white">info@rotayd.com</a>
               </div>
-              <div className="flex items-center space-x-2.5">
-                <MapPin className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span className="text-white/60">Denizli & Ankara Ofisleri</span>
+              <div className="flex items-start space-x-2.5">
+                <MapPin className="w-3.5 h-3.5 text-[#d4af37] shrink-0 mt-0.5" />
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Konutkent+Mahallesi+Diyap+A%C4%9Fa+Caddesi+No:74+Suit+Tower+B+Blok+Kat:6+No:39+%C3%87ankaya+Ankara"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white leading-relaxed transition-colors"
+                >
+                  Konutkent Mahallesi Diyap Ağa Caddesi No:74 Suit Tower B Blok Kat:6 No:39 Çankaya / Ankara
+                </a>
               </div>
             </div>
           </div>
