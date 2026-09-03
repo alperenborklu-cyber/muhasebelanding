@@ -248,7 +248,7 @@ export default function ScrollCanvasDoor() {
             </div>
 
             {/* Headline in Lacivert (Navy) */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-[#1d3b7d] leading-tight filter drop-shadow-[0_2px_8px_rgba(255,255,255,0.85)]">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-[#0c1f4a] leading-tight filter drop-shadow-[0_2px_8px_rgba(255,255,255,0.85)]">
               Geleceğin <span className="text-[#0c1f4a] font-serif italic font-normal">Finans & Yönetim</span> Kapısı
             </h1>
 

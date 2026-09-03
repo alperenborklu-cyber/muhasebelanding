@@ -93,10 +93,7 @@ export default function Footer() {
               İletişim & Randevu
             </h3>
             <div className="space-y-2.5 text-xs">
-              <div className="flex items-center space-x-2.5">
-                <Phone className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <a href="tel:02582120444" className="hover:text-white font-medium">0(258) 212 0 444</a>
-              </div>
+
               <div className="flex items-center space-x-2.5">
                 <Phone className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
                 <a href="tel:05536221122" className="hover:text-white">0553 622 11 22</a>

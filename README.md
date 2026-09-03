@@ -27,6 +27,6 @@ npm start
 
 ## 📞 İletişim
 
-- **Telefon:** 0(258) 212 0 444 / 0553 622 11 22
+- **Telefon (GSM):** 0553 622 11 22
 - **E-Posta:** info@rotayd.com
 - **Lokasyon:** Konutkent Mahallesi Diyap Ağa Caddesi No:74 Suit Tower B Blok Kat:6 No:39 Çankaya / Ankara

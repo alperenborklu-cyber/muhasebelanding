@@ -126,11 +126,11 @@ export default function Navbar() {
             </button>
 
             <a
-              href="tel:02582120444"
+              href="tel:05536221122"
               className="flex items-center space-x-1.5 text-xs text-white/80 hover:text-[#d4af37] transition-colors py-1.5 px-3 rounded-full border border-white/10 hover:border-[#d4af37]/40 bg-[#071128]/50"
             >
               <Phone className="w-3.5 h-3.5 text-[#d4af37]" />
-              <span className="font-semibold tracking-wide">0(258) 212 0 444</span>
+              <span className="font-semibold tracking-wide">0553 622 11 22</span>
             </a>
 
             <a
@@ -225,11 +225,11 @@ export default function Navbar() {
 
               <div className="pt-3 border-t border-white/10 flex flex-col space-y-2">
                 <a
-                  href="tel:02582120444"
+                  href="tel:05536221122"
                   className="flex items-center justify-center space-x-2 py-2 rounded-xl bg-white/5 text-sm font-medium text-white"
                 >
                   <Phone className="w-4 h-4 text-[#d4af37]" />
-                  <span>0(258) 212 0 444</span>
+                  <span>0553 622 11 22</span>
                 </a>
               </div>
             </div>
