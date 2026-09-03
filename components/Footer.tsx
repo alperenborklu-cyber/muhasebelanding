@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Phone, Mail, MapPin, ArrowUpRight, ShieldCheck, Briefcase, BookOpen } from "lucide-react";
 
 export default function Footer() {
@@ -13,14 +12,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Col 1 */}
           <div className="space-y-4">
-            <div className="relative h-10 w-44">
-              <Image
-                src="/logobeyaz.png"
-                alt="ROTAYD"
-                fill
-                className="object-contain"
-              />
-            </div>
+            <Link href="/" className="inline-block text-2xl font-black tracking-widest text-white hover:text-[#d4af37] transition-colors">
+              ROTAYD
+            </Link>
             <p className="text-xs text-white/60 leading-relaxed">
               Mali müşavirlik, stratejik yönetim muhasebesi ve devlet teşvikleri rehberliği.
             </p>
