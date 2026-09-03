@@ -48,16 +48,16 @@ export default function ReferencesMarquee() {
           {marqueeItems.map((item, idx) => (
             <div
               key={`${item.name}-${idx}`}
-              className="group relative flex items-center justify-center px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4af37]/50 backdrop-blur-sm transition-all duration-300 shrink-0 w-52 sm:w-60 h-24 shadow-sm"
+              className="group relative flex items-center justify-center px-8 py-5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-[#d4af37]/50 backdrop-blur-sm transition-all duration-300 shrink-0 w-64 sm:w-72 md:w-80 h-28 sm:h-32 shadow-md"
               title={item.name}
             >
-              <div className="relative h-10 sm:h-12 w-full flex items-center justify-center">
+              <div className="relative h-14 sm:h-16 md:h-18 w-full max-w-[210px] sm:max-w-[240px] flex items-center justify-center">
                 <Image
                   src={`/references/${item.file}`}
                   alt={item.name}
                   fill
-                  className="object-contain filter brightness-0 invert opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
-                  sizes="(max-width: 768px) 140px, 180px"
+                  className="object-contain filter brightness-0 invert opacity-95 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"
+                  sizes="(max-width: 768px) 200px, 240px"
                 />
               </div>
             </div>
