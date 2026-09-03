@@ -4,12 +4,25 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Phone, Menu, X, ArrowRight, ShieldCheck, Briefcase, BookOpen } from "lucide-react";
+import { 
+  Phone, 
+  Menu, 
+  X, 
+  ArrowRight, 
+  ShieldCheck, 
+  Briefcase, 
+  BookOpen,
+  Sun,
+  Moon,
+  Building2
+} from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,11 +42,11 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Brand Logo */}
+          {/* Brand Logo - Links to Home */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative h-9 w-40 sm:h-10 sm:w-44 transition-transform duration-300 group-hover:scale-[1.02]">
               <Image
-                src="/logobeyaz.png"
+                src={theme === "light" ? "/logo.png" : "/logobeyaz.png"}
                 alt="ROTAYD"
                 fill
                 className="object-contain"
@@ -81,10 +94,11 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/#stats"
-              className="px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all"
+              href="/#referanslar"
+              className="px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center space-x-1"
             >
-              Rakamlar
+              <Building2 className="w-3.5 h-3.5 text-[#d4af37]" />
+              <span>Referanslar</span>
             </Link>
 
             <Link
@@ -95,8 +109,22 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* Quick Contact & Action */}
+          {/* Quick Contact & Theme Toggle */}
           <div className="hidden sm:flex items-center space-x-3">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full border border-white/10 hover:border-[#d4af37]/50 bg-white/5 hover:bg-white/10 text-white transition-all shadow-sm flex items-center justify-center"
+              aria-label="Temayı Değiştir"
+              title={theme === "dark" ? "Aydınlık Moda Geç" : "Karanlık Moda Geç"}
+            >
+              {theme === "dark" ? (
+                <Sun className="w-4 h-4 text-[#d4af37] animate-spin-slow" />
+              ) : (
+                <Moon className="w-4 h-4 text-[#07173e]" />
+              )}
+            </button>
+
             <a
               href="tel:02582120444"
               className="flex items-center space-x-1.5 text-xs text-white/80 hover:text-[#d4af37] transition-colors py-1.5 px-3 rounded-full border border-white/10 hover:border-[#d4af37]/40 bg-[#071128]/50"
@@ -119,8 +147,16 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile menu toggle button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile menu toggle & Theme toggle on mobile */}
+          <div className="md:hidden flex items-center space-x-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full border border-white/10 bg-white/5 text-white transition-all"
+              aria-label="Temayı Değiştir"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4 text-[#d4af37]" /> : <Moon className="w-4 h-4 text-[#07173e]" />}
+            </button>
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg bg-white/5 text-white/80 hover:text-white focus:outline-none"
@@ -169,11 +205,15 @@ export default function Navbar() {
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </Link>
               <Link
-                href="/#stats"
+                href="/#referanslar"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5"
+                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
               >
-                Rakamlarla Rota
+                <span className="flex items-center space-x-2">
+                  <Building2 className="w-4 h-4 text-[#d4af37]" />
+                  <span>Referanslar</span>
+                </span>
+                <ArrowRight className="w-4 h-4 text-white/40" />
               </Link>
               <Link
                 href="/#contact"

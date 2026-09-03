@@ -5,12 +5,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { 
   ShieldCheck, 
-  TrendingUp, 
   CheckCircle2, 
   ArrowRight, 
   Phone, 
-  ChevronRight,
-  Sparkles
+  ChevronRight
 } from "lucide-react";
 
 export default function MuhasebecilikPage() {
@@ -19,44 +17,44 @@ export default function MuhasebecilikPage() {
   const services = [
     {
       title: "Yönetim Muhasebesi",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
       desc: "Finansal röntgen, maliyet analizleri ve aylık yönetim raporlamasıyla kârlılığı artıran stratejik finans yönetimi.",
       points: ["Maliyet Analizi", "Bütçe Projeksiyonu", "Aylık Yönetim Raporu"]
     },
     {
       title: "Mali Müşavirlik & Vergi Mevzuatı",
-      image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1551836022-8b285b6f94e1?auto=format&fit=crop&w=800&q=80",
       desc: "Mevzuata tam uyum, vergi indirimlerinden maksimum faydalanma, beyanname hazırlama ve defter tutma.",
       points: ["KDV, Kurumlar Vergisi", "E-Defter / E-Fatura", "Vergi İnceleme Danışmanlığı"]
     },
     {
       title: "SGK ve İstihdam Teşvikleri",
-      image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
       desc: "Geriye dönük ve cari dönem prim analizleriyle şirketinize milyonlarca liralık net nakit tasarruf.",
       points: ["6111 ve Güncel Teşvikler", "Geriye Dönük İadeler", "Aylık SGK Prim İndirimi"]
     },
     {
       title: "Bordrolama & Personel Özlük",
-      image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
       desc: "İş Kanunu'na tam uyumlu, %100 gizlilik esaslı bordro hazırlama ve personel özlük yönetimi.",
       points: ["Gizli Maaş Bordrosu", "Kıdem / İhbar Hesaplama", "Özlük Dosyası Uyumu"]
     },
     {
       title: "Şirket Kuruluşu & Tür Değişikliği",
-      image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80",
       desc: "Anonim ve Limited şirket kuruluşu, A.Ş. nevi değişikliğiyle hisse satışında %0 vergi avantajı.",
       points: ["Ana Sözleşme & Tescil", "LTD'den A.Ş.'ye Geçiş", "Sermaye Artırımı & Birleşme"]
     },
     {
       title: "Mali Tablolar & Denetim Desteği",
-      image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80",
       desc: "TMS/TFRS ve VUK standartlarında bilanço ve gelir tablosu analizi, banka kredibilitesi optimizasyonu.",
       points: ["Mali Tablo Analizi", "Banka Kredi Rasyoları", "Bağımsız Denetim Hazırlığı"]
     }
   ];
 
   return (
-    <div className="bg-[#040a1a] text-white pt-28 pb-20">
+    <div className="bg-[#040a1a] text-white pt-28 pb-20 transition-colors duration-300">
       {/* Header */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-16">
         <div className="flex items-center space-x-2 text-xs text-white/50 mb-6">

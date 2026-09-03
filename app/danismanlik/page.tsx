@@ -8,8 +8,7 @@ import {
   CheckCircle2, 
   ArrowRight, 
   Phone, 
-  ChevronRight,
-  Sparkles
+  ChevronRight
 } from "lucide-react";
 
 export default function DanismanlikPage() {
@@ -18,42 +17,42 @@ export default function DanismanlikPage() {
   const programs = [
     {
       title: "Yatırım Teşvik Belgesi",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
       desc: "Makine alımlarında KDV istisnası, gümrük muafiyeti ve %90'a varan kurumlar vergisi indirimi.",
       badge: "Sanayi Bakanlığı",
       points: ["KDV & Gümrük İstisnası", "Vergi İndirimi", "Faiz / Kâr Payı Desteği"]
     },
     {
       title: "KOSGEB Hibe Programları",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1581092335878-2d9ff86ca2bf?auto=format&fit=crop&w=800&q=80",
       desc: "AR-GE, ÜR-GE, KOBİGEL ve Yeşil Sanayi desteklerinde geri ödemesiz hibe proje yazımı.",
       badge: "KOBİ Destekleri",
       points: ["Yeşil Sanayi GES Hibesi", "KOBİGEL Dijitalleşme", "Geri Ödemesiz Kaynak"]
     },
     {
       title: "Ticaret Bakanlığı İhracat Destekleri",
-      image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80",
       desc: "Yurt dışı fuar katılımları, ofis/mağaza kira desteği ve marka tescilde %50-%70 devlet hibesi.",
       badge: "İhracat",
       points: ["Fuar Katılım Hibesi", "Yurt Dışı Ofis Kirası", "Pazara Giriş Belgeleri"]
     },
     {
       title: "Kurumsal Gelişim Danışmanlığı",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80",
       desc: "Organizasyonel yapılanma, süreç optimizasyonu ve 360° şirket projeksiyon raporlaması.",
       badge: "Strateji",
       points: ["Süreç İyileştirme", "İç Kontrol & Risk", "Stratejik Yönetim"]
     },
     {
       title: "Ar-Ge ve Tasarım Merkezi Kurulumu",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=80",
       desc: "Personel gelir vergisi stopaj terkini, damga vergisi muafiyeti ve %100 Ar-Ge vergi indirimi.",
       badge: "İnovasyon",
       points: ["Stopaj & SGK Muafiyeti", "TÜBİTAK TEYDEB", "Gümrük İstisnası"]
     },
     {
       title: "İnsan Kaynakları Danışmanlığı",
-      image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1551836022-4c4c79ecde51?auto=format&fit=crop&w=800&q=80",
       desc: "Yetkin personel seçme-yerleştirme, performans sistemi ve İK süreçlerinin yeniden yapılandırılması.",
       badge: "Yetenek Yönetimi",
       points: ["Seçme & Yerleştirme", "Performans Kriterleri", "Görev Tanımları"]
@@ -61,7 +60,7 @@ export default function DanismanlikPage() {
   ];
 
   return (
-    <div className="bg-[#040a1a] text-white pt-28 pb-20">
+    <div className="bg-[#040a1a] text-white pt-28 pb-20 transition-colors duration-300">
       {/* Header */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-16">
         <div className="flex items-center space-x-2 text-xs text-white/50 mb-6">
@@ -82,7 +81,7 @@ export default function DanismanlikPage() {
             </h1>
 
             <p className="text-sm sm:text-base text-white/70 font-light max-w-2xl leading-relaxed">
-              Yatırım teşvik belgesi, KOSGEB hibeleri ve bakanlık desteklerini bir arada haritalandırarak firmanızın gelecekteki rotasını birlikte çiziyoruz.
+              Yatırım teşvik belgesi, KOSGEB hibeleri ve bakanlık desteklerini bir arada haritalandırarak firmanızın gelecekteki rotasını çiziyoruz.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">

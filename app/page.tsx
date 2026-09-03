@@ -1,6 +1,8 @@
 "use client";
 
 import ScrollCanvasDoor from "@/components/ScrollCanvasDoor";
+import ReferencesMarquee from "@/components/ReferencesMarquee";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import Link from "next/link";
 import Image from "next/image";
 import { 
@@ -14,9 +16,7 @@ import {
   CheckCircle2, 
   Building2, 
   Sparkles,
-  BookOpen,
-  Calendar,
-  Clock
+  BookOpen
 } from "lucide-react";
 import { useState } from "react";
 import { BLOG_POSTS } from "@/lib/blogData";
@@ -39,88 +39,97 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[#040a1a] text-white">
+    <div className="bg-[#040a1a] text-white transition-colors duration-300">
       {/* 1. Creative Scrollytelling Golden Door Canvas */}
       <ScrollCanvasDoor />
 
-      {/* 2. Rakamlarla ROTA (ROTAYD Statistics) */}
-      <section id="stats" className="relative py-24 px-4 sm:px-6 lg:px-8 border-t border-[#d4af37]/20 bg-[#040a1a]">
+      {/* 2. Sürekli Dönen Türk Firmaları Referanslar Silsilesi */}
+      <ReferencesMarquee />
+
+      {/* 3. Animasyonlu Sayaçlar (Rakamlarla ROTAYD) */}
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 border-b border-[#d4af37]/20 bg-[#040a1a] transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-[#d4af37]/30 bg-[#071128] text-[11px] font-semibold text-[#d4af37] tracking-wider uppercase">
+          <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-[#d4af37]/30 bg-[#071128] text-[11px] font-semibold text-[#d4af37] tracking-wider uppercase">
               <Award className="w-3.5 h-3.5" />
-              <span>Güven & Başarı Tablosu</span>
+              <span>Güven & Başarı Sayaçları</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white">
-              Rakamlarla <span className="gold-gradient-text font-serif italic">ROTAYD</span>
+            <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
+              Performans <span className="gold-gradient-text font-serif italic">Göstergelerimiz</span>
             </h2>
             <p className="text-white/60 text-xs sm:text-sm">
-              Mali disiplin ve devlet teşviklerinde kanıtlanmış somut sonuçlar.
+              Mali disiplin ve devlet teşviklerinde denetimden geçmiş somut kazanımlar.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Stat 1 */}
+            {/* Stat 1 - 2.600.000 TL Animated Counter */}
             <div className="glass-panel p-8 rounded-3xl border border-[#d4af37]/25 text-center group hover:border-[#d4af37] transition-all">
               <div className="w-14 h-14 rounded-2xl bg-[#0b1938] border border-[#d4af37]/30 flex items-center justify-center mx-auto mb-5">
                 <TrendingUp className="w-7 h-7 text-[#d4af37]" />
               </div>
               <div className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
-                <span className="gold-gradient-text">2.600.000+</span> <span className="text-xl text-[#d4af37]">TL</span>
+                <span className="gold-gradient-text">
+                  <AnimatedCounter to={2600000} duration={2.2} />
+                </span>{" "}
+                <span className="text-xl text-[#d4af37]">TL</span>
               </div>
               <h3 className="text-sm font-semibold text-white/90">
-                Kazanılan SGK Teşviki
+                Kazanılan SGK İstihdam Teşviki
               </h3>
               <p className="text-xs text-white/50 mt-1">
-                Net istihdam prim tasarrufu.
+                İşletmeler adına tahsil edilen net prim tasarrufu.
               </p>
             </div>
 
-            {/* Stat 2 */}
+            {/* Stat 2 - %99 Animated Counter */}
             <div className="glass-panel p-8 rounded-3xl border border-[#d4af37]/25 text-center group hover:border-[#d4af37] transition-all">
               <div className="w-14 h-14 rounded-2xl bg-[#0b1938] border border-[#d4af37]/30 flex items-center justify-center mx-auto mb-5">
                 <Target className="w-7 h-7 text-[#d4af37]" />
               </div>
               <div className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
-                <span className="gold-gradient-text">%99</span>
+                <span className="gold-gradient-text">
+                  %<AnimatedCounter to={99} duration={1.8} separator={false} />
+                </span>
               </div>
               <h3 className="text-sm font-semibold text-white/90">
-                Proje Başarı Oranı
+                Proje ve Teşvik Başarı Oranı
               </h3>
               <p className="text-xs text-white/50 mt-1">
-                KOSGEB ve teşvik onay standardı.
+                KOSGEB ve Bakanlık dosya kabul oranı.
               </p>
             </div>
 
-            {/* Stat 3 */}
+            {/* Stat 3 - 1.162+ Animated Counter */}
             <div className="glass-panel p-8 rounded-3xl border border-[#d4af37]/25 text-center group hover:border-[#d4af37] transition-all">
               <div className="w-14 h-14 rounded-2xl bg-[#0b1938] border border-[#d4af37]/30 flex items-center justify-center mx-auto mb-5">
                 <Award className="w-7 h-7 text-[#d4af37]" />
               </div>
               <div className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
-                <span className="gold-gradient-text">1.162+</span>
+                <span className="gold-gradient-text">
+                  <AnimatedCounter to={1162} duration={2.2} />+
+                </span>
               </div>
               <h3 className="text-sm font-semibold text-white/90">
-                Tamamlanan Proje
+                Tamamlanan Kurumsal Proje
               </h3>
               <p className="text-xs text-white/50 mt-1">
-                Danışmanlık sunulan şirket adedi.
+                Danışmanlık sunulan aktif şirket adedi.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. Görsel Kartlarla Kurumsal Yaklaşım (Minimalist Text + High-res Stock Images) */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#040a1a]">
+      {/* 4. Türk İş Dünyası Görsel Kartları (Zero Duplicate Images) */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#040a1a] transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1 */}
             <div className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all">
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
-                  alt="Kalite Anlayışımız"
+                  src="https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80"
+                  alt="Kurumsal Hizmet Mimarisi"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -136,12 +145,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Card 2 */}
             <div className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all">
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
-                  alt="Çözüm Ortaklarımız"
+                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80"
+                  alt="Stratejik Çözüm Ortakları"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -157,12 +165,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Card 3 */}
             <div className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all">
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80"
-                  alt="Sosyal Sorumluluk"
+                  src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80"
+                  alt="Kurumsal Sosyal Sorumluluk"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -181,8 +188,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Split Portal Görsel Kartları */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#040a1a] via-[#071330] to-[#040a1a] border-t border-white/5">
+      {/* 5. Split Portal Görsel Kartları */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#040a1a] via-[#071330] to-[#040a1a] border-t border-white/5 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14 space-y-2">
             <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
@@ -198,8 +205,8 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-[#d4af37]/30 hover:border-[#d4af37] transition-all duration-300 flex flex-col justify-between">
               <div className="relative h-56 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80"
-                  alt="Muhasebecilik"
+                  src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
+                  alt="Mali Müşavirlik & Muhasebe"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -242,8 +249,8 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-[#d4af37]/30 hover:border-[#d4af37] transition-all duration-300 flex flex-col justify-between">
               <div className="relative h-56 w-full overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-                  alt="Danışmanlık"
+                  src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80"
+                  alt="Yönetim Danışmanlığı & Teşvikler"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -285,8 +292,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Güncel Blog & Mevzuat Yazıları (New Showcase) */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#040a1a]">
+      {/* 6. Güncel Blog & Rehberler Vitrini */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#040a1a] transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-4">
             <div>
@@ -351,8 +358,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. İletişim Formu (Minimal) */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#020612] border-t border-white/10">
+      {/* 7. İletişim Formu */}
+      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#020612] border-t border-white/10 transition-colors duration-300">
         <div className="max-w-3xl mx-auto glass-panel p-8 sm:p-12 rounded-3xl border border-[#d4af37]/30 shadow-2xl">
           <div className="text-center space-y-2 mb-8">
             <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">

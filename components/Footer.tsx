@@ -22,7 +22,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-xs text-white/60 leading-relaxed">
-              Geleceğe yön verebilmek için ROTA&apos;nızı birlikte belirliyoruz. Mali müşavirlik, yönetim muhasebesi ve devlet teşvikleri rehberliği.
+              Mali müşavirlik, stratejik yönetim muhasebesi ve devlet teşvikleri rehberliği.
             </p>
           </div>
 

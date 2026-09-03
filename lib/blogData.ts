@@ -27,7 +27,7 @@ export const BLOG_POSTS: BlogPost[] = [
     content: [
       "Türkiye'de faaliyet gösteren işletmelerin en önemli gider kalemlerinden biri istihdam maliyetleridir. Sosyal Güvenlik Kurumu (SGK) ve İŞKUR tarafından yürütülen teşvik programları, doğru analiz edildiğinde şirket bütçelerinde milyonlarca liralık tasarruf sağlayabilir.",
       "6111 Sayılı Genç ve Kadın İstihdamı Teşviki, 7103 Sayılı İmalat ve Bilişim Teşviki ve engelli istihdamı indirimleri başta olmak üzere, ortalama sigortalı sayısına göre hesaplanan haklar çoğu şirket tarafından farkında olmadan kaçırılmaktadır.",
-      "ROTAYD olarak geliştirdiğimiz analitik yazılımlarla geriye dönük 6 aylık ve cari dönem personel bordrolarınızı tarıyor, yasal haklarınızı kuruşu kuruşuna tespit ederek şirketinize nakit tasarruf kazandırıyoruz."
+      "ROTAYD olarak geliştirdiğimiz analitik altyapıyla geriye dönük ve cari dönem personel bordrolarınızı tarıyor, yasal haklarınızı kuruşu kuruşuna tespit ederek şirketinize nakit tasarruf kazandırıyoruz."
     ]
   },
   {
@@ -56,12 +56,12 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "04 Şubat 2026",
     readTime: "6 dk okuma",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-    author: "Süleyman Bey & Mali Analiz Ekibi",
+    author: "ROTAYD Mali Analiz Ekibi",
     tags: ["Yönetim Muhasebesi", "Finansal Analiz", "Kârlılık", "Bütçe Planlama"],
     content: [
       "Geleneksel muhasebe geçmişi kaydeder; yönetim muhasebesi ise geleceğe yön verir. Şirket yöneticilerinin doğru zamanda doğru yatırımı yapabilmesi için anlık mali göstergelere ihtiyacı vardır.",
-      "1. Birim Maliyet Ayrıştırması: Hangi ürün veya hizmetin gerçekte ne kadar kâr bıraktığını tespit edin.\n2. Nakit Akış Simülasyonu: Beklenmeyen nakit sıkışıklıklarını en az 90 gün önceden öngörün.\n3. Başabaş (Break-Even) Noktası Takibi: Sabit ve değişken gider dengesini optimize edin.",
-      "ROTAYD, şirket yönetim kurullarına özel hazırladığı dashboard ve periyodik sunumlarla kârlılığı optimize eden finansal mimariyi kurmaktadır."
+      "Birim maliyet ayrıştırması, nakit akış projeksiyonu ve kârlılık rasyolarıyla şirketin tüm finansal omurgası güvenceye alınır.",
+      "ROTAYD, yönetim kurullarına özel hazırladığı dashboard ve periyodik sunumlarla kârlılığı optimize eden finansal mimariyi kurmaktadır."
     ]
   },
   {
@@ -77,8 +77,8 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["KOSGEB", "Yeşil Sanayi", "KOBİGEL", "Geri Ödemesiz Hibe"],
     content: [
       "KOSGEB tarafından Avrupa Yeşil Mutabakatı uyum süreci kapsamında devreye alınan Yeşil Sanayi Destek Programı, enerji tüketimini azaltan ve karbon ayak izini düşüren işletmelere büyük ölçekli kaynak aktarmaktadır.",
-      "KOBİGEL kapsamında dijital dönüşüm, otomasyon, ERP yazılım yatırımları ve modern tezgah alımları %70 ila %85 oranında desteklenmektedir.",
-      "Proje dosyasının eksiksiz kurgulanması, bağımsız değerlendirici puanlamasında en yüksek skoru almak için ROTAYD danışmanları tam destek vermektedir."
+      "KOBİGEL kapsamında dijital dönüşüm, otomasyon ve modern tezgah yatırımları %70 ila %85 oranında desteklenmektedir.",
+      "Proje dosyasının eksiksiz kurgulanması ve en yüksek değerlendirme puanının alınması için ROTAYD danışmanları tam destek vermektedir."
     ]
   },
   {
@@ -107,12 +107,12 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "25 Şubat 2026",
     readTime: "5 dk okuma",
     image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80",
-    author: "ROTAYD Şirketler Hukuku & Mali Birim",
+    author: "ROTAYD Şirketler Masası",
     tags: ["Nevi Değişikliği", "Anonim Şirket", "Vergi Muafiyeti", "Hisse Devri"],
     content: [
       "Büyüyen KOBİ'lerin en çok tercih ettiği yapısal dönüşümlerin başında Limited Şirket'ten (LTD) Anonim Şirket'e (A.Ş.) nevi değişikliği gelmektedir.",
-      "En kritik avantaj: Anonim şirketlerde basılı hisse senetleri veya geçici ilmuhaberler 2 yıl elde tutulduktan sonra satıldığında elde edilen değer artış kazancı tamamen gelir vergisinden muaftır. Ayrıca ortakların vergi/SGK borçlarına karşı şahsi mal varlığı sorumluluğu sınırlandırılır.",
-      "ROTAYD, özvarlık tespit raporundan ticaret sicil tesciline kadar nevi değişikliği sürecini hiçbir vergi cezası veya aksama olmadan yönetmektedir."
+      "En kritik avantaj: Anonim şirketlerde basılı hisse senetleri 2 yıl elde tutulduktan sonra satıldığında elde edilen değer artış kazancı tamamen gelir vergisinden muaftır.",
+      "ROTAYD, özvarlık tespit raporundan ticaret sicil tesciline kadar nevi değişikliği sürecini güvenle yönetmektedir."
     ]
   },
   {
@@ -128,8 +128,8 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["İhracat Teşvikleri", "Ticaret Bakanlığı", "Fuar Desteği", "Kira Hibesi"],
     content: [
       "Türkiye'den dünyaya açılan şirketlerin küresel rekabet gücünü artırmak amacıyla Ticaret Bakanlığı çok geniş kapsamlı destek paketleri sunmaktadır.",
-      "Yurt dışı yetkili fuar harcamaları, hedef ülkelerde açılan ofis ve depo kiraları, marka tescil masrafları ve CE/ISO gibi uluslararası kalite sertifikasyonları hibe kapsamındadır.",
-      "Desteklerin onaylanabilmesi için başvuru süreleri ve fatura akışlarının bakanlık yönergesine tam uyması gerekir. ROTAYD uzmanları evrak yönetimini titizlikle koordine eder."
+      "Yurt dışı yetkili fuar harcamaları, hedef ülkelerde açılan ofis ve depo kiraları, marka tescil masrafları hibe kapsamındadır.",
+      "Desteklerin onaylanabilmesi için başvuru süreleri ve fatura akışları titizlikle koordine edilmelidir."
     ]
   },
   {
@@ -145,8 +145,8 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["Ar-Ge Merkezi", "Tasarım Merkezi", "Stopaj Teşviki", "TÜBİTAK"],
     content: [
       "5746 Sayılı Kanun kapsamında Ar-Ge veya Tasarım Merkezi belgesi alan şirketler muazzam vergisel ve finansal ayrıcalıklar kazanır.",
-      "Merkezde çalışan personellerin gelir vergisi stopajı terkin edilir, damga vergisinden muaf tutulur ve yapılan Ar-Ge harcamalarının %100'ü kurumlar vergisi matrahından indirilir.",
-      "ROTAYD; fizibilite, organizasyonel yapı, personel kotası ve bakanlık denetim sunumlarına kadar anahtar teslim merkez kurulumu gerçekleştirmektedir."
+      "Merkezde çalışan personellerin gelir vergisi stopajı terkin edilir, damga vergisinden muaf tutulur ve harcamalar kurumlar vergisinden indirilir.",
+      "ROTAYD; fizibilite, organizasyonel yapı ve bakanlık denetim sunumlarına kadar anahtar teslim merkez kurulumu gerçekleştirir."
     ]
   },
   {
@@ -158,19 +158,19 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "17 Mart 2026",
     readTime: "5 dk okuma",
     image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80",
-    author: "ROTAYD Baş Denetçi Grubu",
+    author: "ROTAYD Denetim Grubu",
     tags: ["Enflasyon Düzeltmesi", "Bilanço", "VUK", "Vergi Matrahı"],
     content: [
-      "Enflasyon düzeltmesi, yüksek enflasyon dönemlerinde mali tabloların gerçek durumu yansıtması amacıyla uygulanan karmaşık bir muhasebe metodolojisidir.",
-      "Duran varlıklar, stoklar ve özkaynak kalemlerinin düzeltme katsayılarıyla güncellenmesi bazı şirketlerde vergi yükü doğururken, bazı şirketlerde ise ciddi vergi kalkanı oluşturmaktadır.",
-      "ROTAYD, firmanızın bilanço simülasyonunu önceden çıkartarak sürpriz vergi tahakkuklarının önüne geçer ve stratejik bilanço yönetimi sağlar."
+      "Enflasyon düzeltmesi, yüksek enflasyon dönemlerinde mali tabloların gerçek durumu yansıtması amacıyla uygulanan muhasebe metodolojisidir.",
+      "Duran varlıklar ve özkaynak kalemlerinin düzeltme katsayılarıyla güncellenmesi stratejik bilanço yönetimi gerektirir.",
+      "ROTAYD, firmanızın bilanço simülasyonunu önceden çıkartarak sürpriz vergi tahakkuklarının önüne geçer."
     ]
   },
   {
     id: "10",
     slug: "bordrolama-sureclerinde-dis-kaynak-kullaniminin-faydalari",
     title: "Bordrolama Süreçlerinde Dış Kaynak (BPO) Kullanımının 6 Faydası",
-    excerpt: "Maaş gizliliğinin korunması, yasal ceza risklerinin sıfırlanması ve İK departmanının ana iş hedeflerine odaklanmasını sağlayan modern yöntem.",
+    excerpt: "Maaş gizliliğinin korunması, yasal ceza risklerinin sıfırlanması ve İK departmanının ana hedeflere odaklanmasını sağlayan modern yöntem.",
     category: "Mali Müşavirlik",
     date: "24 Mart 2026",
     readTime: "4 dk okuma",
@@ -178,9 +178,9 @@ export const BLOG_POSTS: BlogPost[] = [
     author: "ROTAYD Bordrolama Masası",
     tags: ["Bordrolama", "BPO", "İnsan Kaynakları", "Gizlilik"],
     content: [
-      "Şirket içi maaş dengelerinin korunması ve çalışan gizliliği günümüz kurumsal dünyasında kritik bir konudur. Bordrolama sürecini dış kaynağa devreden işletmeler şirket içi bilgi sızıntılarını tamamen engeller.",
-      "1. Tam Maaş Gizliliği\n2. SGK ve İş Kanunu Cezalarından %100 Muafiyet\n3. Zaman ve Yazılım Tasarrufu\n4. Kıdem ve İhbar Karşılıklarının Hatasız Takibi\n5. İstihdam Teşviklerinin Otomatik Entegrasyonu\n6. İK'nın Stratejik Yetenek Yönetimine Odaklanması.",
-      "ROTAYD Bordrolama Hizmetleri, en üst düzey güvenlik protokolleriyle çalışanlarınızın haklarını ve şirketinizin itibarını korur."
+      "Şirket içi maaş dengelerinin korunması ve çalışan gizliliği günümüz kurumsal dünyasında kritik bir konudur. Bordrolama sürecini dış kaynağa devreden işletmeler bilgi sızıntılarını engeller.",
+      "Maaş gizliliği, SGK cezalarından tam muafiyet, zaman tasarrufu ve teşviklerin hatasız takibi sağlanır.",
+      "ROTAYD Bordrolama Hizmetleri, en üst düzey güvenlik protokolleriyle çalışanlarınızın haklarını korur."
     ]
   }
 ];

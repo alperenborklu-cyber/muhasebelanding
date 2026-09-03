@@ -252,10 +252,6 @@ export default function ScrollCanvasDoor() {
               Geleceğin <span className="text-[#0c1f4a] font-serif italic font-normal">Finans & Yönetim</span> Kapısı
             </h1>
 
-            {/* Subtitle in Lacivert */}
-            <p className="max-w-xl mx-auto text-xs sm:text-base text-[#122858] font-bold tracking-wide filter drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)]">
-              Geleceğe yön verebilmek için ROTA&apos;nızı birlikte belirliyoruz.
-            </p>
           </div>
         </motion.div>
 
