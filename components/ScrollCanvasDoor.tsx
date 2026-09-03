@@ -102,9 +102,13 @@ export default function ScrollCanvasDoor() {
     ctx.scale(dpr, dpr);
     ctx.clearRect(0, 0, clientWidth, clientHeight);
 
-    // Responsive contain / cover scaling
+    // Responsive contain / cover scaling with downward positioning
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = clientWidth / clientHeight;
+
+    // Slight scale (1.05) to ensure top edge blends seamlessly when shifted down
+    const baseScale = 1.05;
+    const downwardOffset = Math.max(28, Math.round(clientHeight * 0.045));
 
     let drawW: number;
     let drawH: number;
@@ -112,26 +116,27 @@ export default function ScrollCanvasDoor() {
     let drawY: number;
 
     if (canvasRatio > imgRatio) {
-      drawW = clientWidth;
-      drawH = clientWidth / imgRatio;
-      drawX = 0;
-      drawY = (clientHeight - drawH) / 2;
-    } else {
-      drawH = clientHeight;
-      drawW = clientHeight * imgRatio;
+      drawW = clientWidth * baseScale;
+      drawH = drawW / imgRatio;
       drawX = (clientWidth - drawW) / 2;
-      drawY = 0;
+      drawY = (clientHeight - drawH) / 2 + downwardOffset;
+    } else {
+      drawH = clientHeight * baseScale;
+      drawW = drawH * imgRatio;
+      drawX = (clientWidth - drawW) / 2;
+      drawY = (clientHeight - drawH) / 2 + downwardOffset;
     }
 
     ctx.drawImage(img, drawX, drawY, drawW, drawH);
 
-    // Deep luxury navy ambient vignette blend
+    // Deep luxury navy ambient vignette blend centered on the shifted door
+    const vignetteCenterY = clientHeight / 2 + downwardOffset * 0.5;
     const gradient = ctx.createRadialGradient(
       clientWidth / 2,
-      clientHeight / 2,
+      vignetteCenterY,
       Math.min(clientWidth, clientHeight) * 0.35,
       clientWidth / 2,
-      clientHeight / 2,
+      vignetteCenterY,
       Math.max(clientWidth, clientHeight) * 0.72
     );
     gradient.addColorStop(0, "rgba(4, 10, 26, 0)");
@@ -298,12 +303,6 @@ export default function ScrollCanvasDoor() {
           className="absolute inset-0 z-30 flex flex-col items-center justify-center px-4 sm:px-8 py-12"
         >
           <div className="text-center mb-6 sm:mb-8 max-w-2xl">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-[#d4af37]/40 bg-[#071128]/80 backdrop-blur-md mb-2.5">
-              <Sparkles className="w-3 h-3 text-[#d4af37]" />
-              <span className="text-[10px] font-semibold tracking-widest text-[#faecc0] uppercase">
-                Kapı Açıldı • Rotanızı Belirleyin
-              </span>
-            </div>
             <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
               Hangi Kanatta <span className="gold-gradient-text font-serif italic">Rehberlik</span> Almak İstersiniz?
             </h2>
