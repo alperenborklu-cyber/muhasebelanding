@@ -111,7 +111,6 @@ export default function ScrollCanvasDoor() {
     let drawX: number;
     let drawY: number;
 
-    // Cover math with subtle aspect adjustment
     if (canvasRatio > imgRatio) {
       drawW = clientWidth;
       drawH = clientWidth / imgRatio;
@@ -170,19 +169,18 @@ export default function ScrollCanvasDoor() {
   }, [isLoaded, smoothProgress, renderFrame]);
 
   // Scrollytelling Transformations
-  // "Scroll to Explore" prompt (0% -> 10% fadeout)
   const scrollIndicatorOpacity = useTransform(smoothProgress, [0, 0.07, 0.12], [1, 0.7, 0]);
   const scrollIndicatorY = useTransform(smoothProgress, [0, 0.12], [0, 15]);
 
-  // Beat A: 0% -> 20% (Hero positioned higher up, elegant logo, white text with gold "Finans & Yönetim")
+  // Beat A: 0% -> 20% (Hero positioned higher, navy texts for high contrast over gold door)
   const beatAOpacity = useTransform(smoothProgress, [0, 0.02, 0.16, 0.22], [1, 1, 0.9, 0]);
   const beatAY = useTransform(smoothProgress, [0, 0.2], [0, -35]);
 
-  // Beat B: 24% -> 46% (Left aligned - Muhasebe Preview)
+  // Beat B: 24% -> 46% (Left aligned)
   const beatBOpacity = useTransform(smoothProgress, [0.24, 0.28, 0.42, 0.47], [0, 1, 1, 0]);
   const beatBY = useTransform(smoothProgress, [0.24, 0.28, 0.42, 0.47], [30, 0, 0, -30]);
 
-  // Beat C: 49% -> 70% (Right aligned - Danışmanlık Preview)
+  // Beat C: 49% -> 70% (Right aligned)
   const beatCOpacity = useTransform(smoothProgress, [0.49, 0.53, 0.67, 0.72], [0, 1, 1, 0]);
   const beatCY = useTransform(smoothProgress, [0.49, 0.53, 0.67, 0.72], [30, 0, 0, -30]);
 
@@ -232,30 +230,30 @@ export default function ScrollCanvasDoor() {
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#040a1a] via-[#040a1a]/70 to-transparent pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/80 to-transparent pointer-events-none" />
 
-        {/* BEAT A: 0 - 20% (Hero positioned higher up, elegant logo, all white text with gold "Finans & Yönetim") */}
+        {/* BEAT A: 0 - 20% (Hero positioned higher, crystal-clear NAVY typography with frosted contrast card) */}
         <motion.div
           style={{ opacity: beatAOpacity, y: beatAY }}
-          className="absolute inset-x-0 top-0 pt-20 sm:pt-24 md:pt-28 flex flex-col items-center text-center px-4 sm:px-6 pointer-events-none z-20"
+          className="absolute inset-x-0 top-0 pt-16 sm:pt-20 md:pt-24 flex flex-col items-center text-center px-4 sm:px-6 pointer-events-none z-20"
         >
-          <div className="max-w-4xl mx-auto space-y-4 sm:space-y-5">
-            {/* Elegant Minimal Logo */}
-            <div className="relative h-10 sm:h-12 w-44 sm:w-56 mx-auto transition-transform">
+          <div className="max-w-2xl mx-auto rounded-3xl p-6 sm:p-8 bg-white/85 backdrop-blur-xl border border-[#d4af37]/60 shadow-[0_20px_50px_rgba(0,0,0,0.35)] space-y-3 sm:space-y-4">
+            {/* Dark Navy Original Logo */}
+            <div className="relative h-10 sm:h-12 w-44 sm:w-56 mx-auto">
               <Image
-                src="/logobeyaz.png"
+                src="/logo.png"
                 alt="ROTAYD"
                 fill
-                className="object-contain filter drop-shadow-[0_2px_16px_rgba(212,175,55,0.25)]"
+                className="object-contain filter drop-shadow-sm"
                 priority
               />
             </div>
 
-            {/* Headline: ALL crisp white, ONLY "Finans & Yönetim" in gold */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight text-white leading-tight">
-              Geleceğin <span className="gold-gradient-text font-serif italic font-normal">Finans & Yönetim</span> Kapısı
+            {/* Headline in PURE LACİVERT (Deep Navy) - Ultra legible against gold */}
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#07173e] leading-tight">
+              Geleceğin <span className="text-[#13357b] font-serif italic font-normal underline decoration-[#d4af37]/50 decoration-2 underline-offset-4">Finans & Yönetim</span> Kapısı
             </h1>
 
-            {/* Minimal Subtitle */}
-            <p className="max-w-xl mx-auto text-xs sm:text-base text-white/75 font-light tracking-wide">
+            {/* Minimal Subtitle in Deep Navy */}
+            <p className="max-w-lg mx-auto text-xs sm:text-sm text-[#091b40] font-semibold tracking-wide">
               Geleceğe yön verebilmek için ROTA&apos;nızı birlikte belirliyoruz.
             </p>
           </div>
@@ -266,10 +264,10 @@ export default function ScrollCanvasDoor() {
           style={{ opacity: scrollIndicatorOpacity, y: scrollIndicatorY }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 pointer-events-none z-20"
         >
-          <span className="text-[10px] uppercase tracking-[0.25em] text-[#faecc0]/80 font-medium">
+          <span className="text-[10px] uppercase tracking-[0.25em] text-[#faecc0]/90 font-medium bg-[#040a1a]/60 px-3 py-1 rounded-full backdrop-blur-sm border border-[#d4af37]/20">
             Kapıyı Açmak İçin Aşağı Kaydırın
           </span>
-          <div className="w-5 h-9 rounded-full border border-[#d4af37]/40 flex items-start justify-center p-1 backdrop-blur-sm bg-black/20">
+          <div className="w-5 h-9 rounded-full border border-[#d4af37]/50 flex items-start justify-center p-1 backdrop-blur-sm bg-black/40">
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
@@ -278,7 +276,7 @@ export default function ScrollCanvasDoor() {
           </div>
         </motion.div>
 
-        {/* BEAT B: 25 - 45% (Left Aligned - Muhasebe Beat - Minimalist Copy) */}
+        {/* BEAT B: 25 - 45% (Left Aligned - Muhasebe Beat) */}
         <motion.div
           style={{ opacity: beatBOpacity, y: beatBY }}
           className="absolute left-6 sm:left-12 lg:left-24 top-1/2 -translate-y-1/2 max-w-md z-20 pointer-events-none"
@@ -305,7 +303,7 @@ export default function ScrollCanvasDoor() {
           </div>
         </motion.div>
 
-        {/* BEAT C: 50 - 70% (Right Aligned - Danışmanlık Beat - Minimalist Copy) */}
+        {/* BEAT C: 50 - 70% (Right Aligned - Danışmanlık Beat) */}
         <motion.div
           style={{ opacity: beatCOpacity, y: beatCY }}
           className="absolute right-6 sm:right-12 lg:right-24 top-1/2 -translate-y-1/2 max-w-md z-20 pointer-events-none text-right"
@@ -337,7 +335,6 @@ export default function ScrollCanvasDoor() {
           style={{ opacity: beatDOpacity, y: beatDY, scale: portalScale }}
           className="absolute inset-0 z-30 flex flex-col items-center justify-center px-4 sm:px-8 py-12"
         >
-          {/* Header prompt */}
           <div className="text-center mb-6 sm:mb-8 max-w-2xl">
             <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-[#d4af37]/40 bg-[#071128]/80 backdrop-blur-md mb-2.5">
               <Sparkles className="w-3 h-3 text-[#d4af37]" />
@@ -350,7 +347,6 @@ export default function ScrollCanvasDoor() {
             </h2>
           </div>
 
-          {/* DUAL SPLIT PORTAL CARDS */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl w-full">
             {/* SOL KAPI: MUHASEBECİLİK */}
             <Link
