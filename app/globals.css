@@ -201,6 +201,11 @@ html.light-mode #referanslar .group {
   box-shadow: 0 4px 15px rgba(5, 17, 46, 0.06) !important;
 }
 
+html.light-mode #referanslar img {
+  filter: brightness(0) !important;
+  opacity: 0.85 !important;
+}
+
 /* Form Inputs in Light Mode */
 html.light-mode input,
 html.light-mode select,
