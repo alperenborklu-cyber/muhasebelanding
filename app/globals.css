@@ -48,13 +48,13 @@ body {
   background: #d4af37;
 }
 
-/* Glassmorphism helpers */
+/* Glassmorphism helpers - Dark Mode Default */
 .glass-panel {
-  background: rgba(7, 17, 40, 0.65);
+  background: rgba(7, 17, 40, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel-hover {
@@ -62,7 +62,7 @@ body {
 }
 
 .glass-panel-hover:hover {
-  background: rgba(11, 25, 56, 0.85);
+  background: rgba(11, 25, 56, 0.9);
   border-color: rgba(212, 175, 55, 0.5);
   box-shadow: 0 20px 40px -15px rgba(212, 175, 55, 0.15);
   transform: translateY(-4px);
@@ -108,105 +108,130 @@ body {
 }
 
 .animate-marquee {
-  animation: marquee 28s linear infinite;
+  animation: marquee 32s linear infinite;
 }
 
-/* ==========================================================
-   LIGHT MODE STYLING: WHITE BACKGROUND WITH DEEP NAVY TEXT
-   ========================================================== */
+/* ==========================================================================
+   LIGHT MODE: HIGH-CONTRAST PURE WHITE BACKGROUND WITH DEEP NAVY TYPOGRAPHY
+   ========================================================================== */
+
 html.light-mode {
-  background-color: #f8fafc;
-  color: #07173e;
+  background-color: #f8fafc !important;
+  color: #05112e !important;
 }
 
 html.light-mode body {
-  background-color: #f8fafc;
-  color: #07173e;
-}
-
-html.light-mode .glass-panel {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(7, 23, 62, 0.12);
-  color: #07173e;
-  box-shadow: 0 10px 30px -10px rgba(7, 23, 62, 0.08);
-}
-
-html.light-mode .glass-panel-hover:hover {
-  background: #ffffff;
-  border-color: rgba(7, 23, 62, 0.3);
-  box-shadow: 0 20px 40px -15px rgba(7, 23, 62, 0.12);
-}
-
-html.light-mode .text-white {
-  color: #07173e !important;
-}
-
-html.light-mode .text-white\/90 {
-  color: #07173e !important;
-}
-
-html.light-mode .text-white\/80 {
-  color: #0c2356 !important;
-}
-
-html.light-mode .text-white\/70 {
-  color: #162f62 !important;
-}
-
-html.light-mode .text-white\/65,
-html.light-mode .text-white\/60 {
-  color: #234382 !important;
-}
-
-html.light-mode .text-white\/50,
-html.light-mode .text-white\/40 {
-  color: #3b5b9c !important;
-}
-
-html.light-mode .bg-\[\#040a1a\] {
   background-color: #f8fafc !important;
+  color: #05112e !important;
 }
 
-html.light-mode .bg-\[\#020612\] {
-  background-color: #eef2f8 !important;
+/* General Typography in Light Mode: Force Deep Navy */
+html.light-mode h1,
+html.light-mode h2,
+html.light-mode h3,
+html.light-mode h4,
+html.light-mode h5,
+html.light-mode h6 {
+  color: #05112e !important;
 }
 
-html.light-mode .bg-\[\#030816\] {
-  background-color: #f1f5f9 !important;
+html.light-mode p,
+html.light-mode li,
+html.light-mode label {
+  color: #0d2048 !important;
 }
 
-html.light-mode .border-white\/10 {
-  border-color: rgba(7, 23, 62, 0.12) !important;
+html.light-mode span {
+  color: inherit;
 }
 
-html.light-mode .border-white\/5 {
-  border-color: rgba(7, 23, 62, 0.08) !important;
-}
-
-html.light-mode .bg-white\/5 {
-  background-color: rgba(7, 23, 62, 0.05) !important;
-}
-
-html.light-mode .bg-white\/10 {
-  background-color: rgba(7, 23, 62, 0.08) !important;
-}
-
+/* Gold Gradient in Light Mode (Deep Sapphire to Gold - 100% Legible) */
 html.light-mode .gold-gradient-text {
-  background: linear-gradient(135deg, #07173e 0%, #0d2861 40%, #b89025 80%, #916d1a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #05112e 0%, #0d2861 55%, #855d10 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #05112e !important;
+  font-weight: 700;
+}
+
+/* Header in Light Mode */
+html.light-mode header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+  box-shadow: 0 4px 20px -2px rgba(5, 17, 46, 0.06) !important;
+}
+
+html.light-mode header a,
+html.light-mode header button {
+  color: #05112e !important;
+}
+
+/* Mobile Drawer in Light Mode */
+html.light-mode .md\:hidden {
+  color: #05112e !important;
+}
+
+/* Glass Panels and Cards in Light Mode */
+html.light-mode .glass-panel {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #05112e !important;
+  box-shadow: 0 10px 25px -5px rgba(5, 17, 46, 0.08), 0 8px 10px -6px rgba(5, 17, 46, 0.04) !important;
+}
+
+html.light-mode .glass-panel:hover {
+  border-color: rgba(133, 93, 16, 0.45) !important;
+  box-shadow: 0 20px 35px -10px rgba(5, 17, 46, 0.12) !important;
+}
+
+/* Sections in Light Mode */
+html.light-mode section {
+  background-color: #f8fafc;
+  border-color: #cbd5e1 !important;
 }
 
 html.light-mode #referanslar {
   background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
 }
 
 html.light-mode #referanslar .group {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-color: rgba(7, 23, 62, 0.12) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 15px rgba(5, 17, 46, 0.06) !important;
 }
 
-html.light-mode #referanslar img {
-  filter: invert(0.85) hue-rotate(180deg) brightness(0.2) contrast(1.2);
+/* Form Inputs in Light Mode */
+html.light-mode input,
+html.light-mode select,
+html.light-mode textarea {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #05112e !important;
+}
+
+html.light-mode input::placeholder,
+html.light-mode textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Footer in Light Mode */
+html.light-mode footer {
+  background-color: #ffffff !important;
+  border-top: 1px solid #cbd5e1 !important;
+  color: #0d2048 !important;
+}
+
+html.light-mode footer a {
+  color: #0d2048 !important;
+}
+
+html.light-mode footer a:hover {
+  color: #05112e !important;
+}
+
+/* Text color helpers in light mode */
+html.light-mode .text-white,
+html.light-mode [class*="text-white"] {
+  color: #05112e !important;
 }
