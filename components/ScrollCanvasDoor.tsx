@@ -230,30 +230,30 @@ export default function ScrollCanvasDoor() {
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#040a1a] via-[#040a1a]/70 to-transparent pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/80 to-transparent pointer-events-none" />
 
-        {/* BEAT A: 0 - 20% (Hero positioned higher, crystal-clear NAVY typography with frosted contrast card) */}
+        {/* BEAT A: 0 - 20% (Hero positioned higher, box-free floating lacivert typography) */}
         <motion.div
           style={{ opacity: beatAOpacity, y: beatAY }}
-          className="absolute inset-x-0 top-0 pt-16 sm:pt-20 md:pt-24 flex flex-col items-center text-center px-4 sm:px-6 pointer-events-none z-20"
+          className="absolute inset-x-0 top-0 pt-20 sm:pt-24 md:pt-28 flex flex-col items-center text-center px-4 sm:px-6 pointer-events-none z-20"
         >
-          <div className="max-w-2xl mx-auto rounded-3xl p-6 sm:p-8 bg-white/85 backdrop-blur-xl border border-[#d4af37]/60 shadow-[0_20px_50px_rgba(0,0,0,0.35)] space-y-3 sm:space-y-4">
-            {/* Dark Navy Original Logo */}
-            <div className="relative h-10 sm:h-12 w-44 sm:w-56 mx-auto">
+          <div className="max-w-3xl mx-auto space-y-4 sm:space-y-5">
+            {/* Logo */}
+            <div className="relative h-11 sm:h-14 w-48 sm:w-64 mx-auto">
               <Image
-                src="/logo.png"
+                src="/logobeyaz.png"
                 alt="ROTAYD"
                 fill
-                className="object-contain filter drop-shadow-sm"
+                className="object-contain filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
                 priority
               />
             </div>
 
-            {/* Headline in PURE LACİVERT (Deep Navy) - Ultra legible against gold */}
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#07173e] leading-tight">
-              Geleceğin <span className="text-[#13357b] font-serif italic font-normal underline decoration-[#d4af37]/50 decoration-2 underline-offset-4">Finans & Yönetim</span> Kapısı
+            {/* Headline in Lacivert (Navy) */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-[#1d3b7d] leading-tight filter drop-shadow-[0_2px_8px_rgba(255,255,255,0.85)]">
+              Geleceğin <span className="text-[#0c1f4a] font-serif italic font-normal">Finans & Yönetim</span> Kapısı
             </h1>
 
-            {/* Minimal Subtitle in Deep Navy */}
-            <p className="max-w-lg mx-auto text-xs sm:text-sm text-[#091b40] font-semibold tracking-wide">
+            {/* Subtitle in Lacivert */}
+            <p className="max-w-xl mx-auto text-xs sm:text-base text-[#122858] font-bold tracking-wide filter drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)]">
               Geleceğe yön verebilmek için ROTA&apos;nızı birlikte belirliyoruz.
             </p>
           </div>

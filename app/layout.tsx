@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     description: "Geleceğin Finans ve Yönetim Mimarisi. Stratejik yönetim muhasebesi ve devlet teşvikleri rehberliği.",
     images: ["/logo.png"],
   },
+  icons: {
+    icon: [
+      { url: '/icon.png' },
+      { url: '/favicon.ico' },
+    ],
+    apple: '/apple-icon.png',
+  },
 };
 
 export default function RootLayout({
