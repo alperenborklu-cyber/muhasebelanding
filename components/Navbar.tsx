@@ -45,17 +45,6 @@ export default function Navbar() {
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
             <Link
-              href="/"
-              className={`px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium transition-all ${
-                pathname === "/"
-                  ? "text-white bg-[#0f214a] border border-[#d4af37]/30 shadow-sm"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              Ana Sayfa
-            </Link>
-
-            <Link
               href="/muhasebecilik"
               className={`px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-medium transition-all flex items-center space-x-1.5 ${
                 pathname.startsWith("/muhasebe")
@@ -146,13 +135,6 @@ export default function Navbar() {
         {mobileMenuOpen && (
           <div className="md:hidden mt-3 rounded-2xl bg-[#06112c]/95 border border-[#d4af37]/20 p-5 shadow-2xl backdrop-blur-2xl">
             <div className="flex flex-col space-y-2.5">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5"
-              >
-                Ana Sayfa
-              </Link>
               <Link
                 href="/muhasebecilik"
                 onClick={() => setMobileMenuOpen(false)}
