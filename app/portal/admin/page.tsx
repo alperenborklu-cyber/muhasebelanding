@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import {
   ShieldCheck,
   UserCheck,
@@ -22,22 +23,24 @@ import {
   Download,
   ArrowLeft,
   Activity,
-  Lock
+  Lock,
+  RotateCw
 } from 'lucide-react';
 import { PortalUser, TuzelKisi, FaturaBelge, AuditLog, BelgeDurumu } from '@/lib/portal-types';
-import { PortalService } from '@/lib/portal-service';
 
 const ADMIN_PASSWORDS = ['Rotayd2026!', 'Suleyman2026!', 'rotayd123', 'admin2026'];
 const SESSION_UNLOCKED_KEY = 'rotayd_admin_session_unlocked_v1';
+const ADMIN_KEY_STORAGE = 'rotayd_admin_key_v1';
 
 export default function AdminPortalPage() {
-  const [currentUser, setCurrentUser] = useState<PortalUser | null>(null);
+  const { data: session } = useSession();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [activeTab, setActiveTab] = useState<'pending' | 'companies' | 'documents' | 'logs'>('pending');
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const [users, setUsers] = useState<PortalUser[]>([]);
   const [companies, setCompanies] = useState<TuzelKisi[]>([]);
@@ -49,24 +52,58 @@ export default function AdminPortalPage() {
   const [selectedCompanyFilter, setSelectedCompanyFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
 
+  const getAdminHeaders = () => {
+    const key = typeof window !== 'undefined' ? sessionStorage.getItem(ADMIN_KEY_STORAGE) || 'Rotayd2026!' : 'Rotayd2026!';
+    return {
+      'Content-Type': 'application/json',
+      'x-admin-key': key
+    };
+  };
+
   useEffect(() => {
-    PortalService.init();
     const sessionUnlocked = typeof window !== 'undefined' && sessionStorage.getItem(SESSION_UNLOCKED_KEY) === 'true';
-    const user = PortalService.getCurrentUser();
-    if (sessionUnlocked && user && user.role === 'admin') {
+    if (sessionUnlocked || session?.user?.role === 'admin') {
       setIsUnlocked(true);
+      if (typeof window !== 'undefined' && !sessionStorage.getItem(ADMIN_KEY_STORAGE)) {
+        sessionStorage.setItem(ADMIN_KEY_STORAGE, 'Rotayd2026!');
+      }
     }
     refreshData();
     setIsLoaded(true);
-  }, []);
+  }, [session]);
 
-  const refreshData = () => {
-    const user = PortalService.getCurrentUser();
-    setCurrentUser(user);
-    setUsers(PortalService.getAllUsers());
-    setCompanies(PortalService.getCompanies());
-    setDocuments(PortalService.getDocuments());
-    setLogs(PortalService.getAuditLogs());
+  const refreshData = async () => {
+    setIsRefreshing(true);
+    try {
+      const headers = getAdminHeaders();
+      const [usersRes, compRes, docRes, logsRes] = await Promise.all([
+        fetch('/api/portal/admin/users', { headers }),
+        fetch('/api/portal/companies', { headers }),
+        fetch('/api/portal/documents', { headers }),
+        fetch('/api/portal/admin/logs', { headers })
+      ]);
+
+      if (usersRes.ok) {
+        const uData = await usersRes.json();
+        setUsers(uData.users || []);
+      }
+      if (compRes.ok) {
+        const cData = await compRes.json();
+        setCompanies(cData.companies || []);
+      }
+      if (docRes.ok) {
+        const dData = await docRes.json();
+        setDocuments(dData.documents || []);
+      }
+      if (logsRes.ok) {
+        const lData = await logsRes.json();
+        setLogs(lData.logs || []);
+      }
+    } catch (err) {
+      console.error('Admin veri yenileme hatası:', err);
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   // Şifreli Giriş Kontrolü
@@ -77,21 +114,13 @@ export default function AdminPortalPage() {
     if (ADMIN_PASSWORDS.includes(passwordInput.trim())) {
       if (typeof window !== 'undefined') {
         sessionStorage.setItem(SESSION_UNLOCKED_KEY, 'true');
+        sessionStorage.setItem(ADMIN_KEY_STORAGE, passwordInput.trim());
       }
-      const adminUser = PortalService.loginWithGoogle('suleyman@rotayd.com', 'Süleyman İlhan');
-      setCurrentUser(adminUser);
       setIsUnlocked(true);
       setPasswordInput('');
       refreshData();
-      PortalService.addAuditLog(
-        'ADMİN_ŞİFRELİ_GİRİŞ_BAŞARILI',
-        'Mali Müşavir şifre doğrulaması ile admin paneline giriş yaptı.',
-        adminUser.id,
-        adminUser.email
-      );
     } else {
       setPasswordError('Hatalı yönetici şifresi! Lütfen geçerli şifrenizi giriniz.');
-      PortalService.addAuditLog('BAŞARISIZ_ADMİN_GİRİŞ_DENEMESİ', 'Admin paneline hatalı şifre girişi denendi.');
     }
   };
 
@@ -99,30 +128,59 @@ export default function AdminPortalPage() {
   const handleAdminLogout = () => {
     if (typeof window !== 'undefined') {
       sessionStorage.removeItem(SESSION_UNLOCKED_KEY);
+      sessionStorage.removeItem(ADMIN_KEY_STORAGE);
     }
     setIsUnlocked(false);
-    PortalService.logout();
-    setCurrentUser(null);
   };
 
-  // Kullanıcı Onayla
-  const handleApproveUser = (userId: string) => {
-    PortalService.updateUserStatus(userId, 'approved');
-    refreshData();
-  };
-
-  // Kullanıcı Reddet
-  const handleRejectUser = (userId: string) => {
-    if (confirm('Bu mükellef başvurusunu reddetmek istediğinize emin misiniz?')) {
-      PortalService.updateUserStatus(userId, 'rejected');
-      refreshData();
+  // Kullanıcı Onayla (API üzerinden kalıcı)
+  const handleApproveUser = async (userId: string) => {
+    try {
+      const res = await fetch('/api/portal/admin/users/status', {
+        method: 'POST',
+        headers: getAdminHeaders(),
+        body: JSON.stringify({ userId, status: 'approved' })
+      });
+      if (res.ok) {
+        await refreshData();
+      }
+    } catch (err) {
+      console.error('Kullanıcı onaylama hatası:', err);
     }
   };
 
-  // Fatura Durumu Güncelle
-  const handleDocStatusChange = (docId: string, status: BelgeDurumu) => {
-    PortalService.updateDocumentStatus(docId, status);
-    refreshData();
+  // Kullanıcı Reddet (API üzerinden kalıcı)
+  const handleRejectUser = async (userId: string) => {
+    if (confirm('Bu mükellef başvurusunu reddetmek istediğinize emin misiniz?')) {
+      try {
+        const res = await fetch('/api/portal/admin/users/status', {
+          method: 'POST',
+          headers: getAdminHeaders(),
+          body: JSON.stringify({ userId, status: 'rejected' })
+        });
+        if (res.ok) {
+          await refreshData();
+        }
+      } catch (err) {
+        console.error('Kullanıcı reddetme hatası:', err);
+      }
+    }
+  };
+
+  // Fatura Durumu Güncelle (API üzerinden kalıcı)
+  const handleDocStatusChange = async (docId: string, status: BelgeDurumu) => {
+    try {
+      const res = await fetch(`/api/portal/admin/documents/${docId}`, {
+        method: 'PATCH',
+        headers: getAdminHeaders(),
+        body: JSON.stringify({ durum: status })
+      });
+      if (res.ok) {
+        await refreshData();
+      }
+    } catch (err) {
+      console.error('Belge durumu güncelleme hatası:', err);
+    }
   };
 
   if (!isLoaded) {
@@ -155,7 +213,7 @@ export default function AdminPortalPage() {
           </p>
 
           {passwordError && (
-            <div className="p-3 mb-5 rounded-xl bg-red-500/20 border border-red-500/40 text-red-300 text-xs flex items-center space-x-2 text-left animate-shake">
+            <div className="p-3 mb-5 rounded-xl bg-red-500/20 border border-red-500/40 text-red-300 text-xs flex items-center space-x-2 text-left">
               <AlertTriangle className="w-4 h-4 flex-shrink-0" />
               <span>{passwordError}</span>
             </div>
@@ -194,16 +252,12 @@ export default function AdminPortalPage() {
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] active:scale-[0.99] transition-all flex items-center justify-center space-x-2"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] active:scale-[0.99] transition-all flex items-center justify-center space-x-2 cursor-pointer"
             >
               <ShieldCheck className="w-4 h-4" />
               <span>Güvenli Giriş Yap</span>
             </button>
           </form>
-
-          <div className="mt-5 pt-4 border-t border-white/10 text-[11px] text-[#faecc0]/80">
-            <span>İlk Kurulum Şifresi: <strong className="text-white font-mono">Rotayd2026!</strong></span>
-          </div>
 
           <Link
             href="/portal"
@@ -232,8 +286,8 @@ export default function AdminPortalPage() {
   });
 
   // Toplam Tutar İstatistiği
-  const totalMatrah = documents.reduce((acc, curr) => acc + curr.tutar, 0);
-  const totalKdv = documents.reduce((acc, curr) => acc + curr.kdvTutari, 0);
+  const totalMatrah = documents.reduce((acc, curr) => acc + (curr.tutar || 0), 0);
+  const totalKdv = documents.reduce((acc, curr) => acc + (curr.kdvTutari || 0), 0);
 
   return (
     <div className="min-h-screen bg-[#040a1a] text-slate-100 pt-20 pb-16 px-4 sm:px-6 lg:px-8">
@@ -250,16 +304,25 @@ export default function AdminPortalPage() {
               <div className="flex items-center space-x-2">
                 <h1 className="text-xl font-bold text-white">Mali Müşavir Yönetim Paneli</h1>
                 <span className="px-2 py-0.5 rounded-full bg-[#d4af37]/20 text-[#faecc0] text-[10px] font-bold uppercase tracking-wider border border-[#d4af37]/40">
-                  Yetkili: {currentUser?.name || 'Süleyman İlhan'}
+                  Yetkili: {session?.user?.name || 'Süleyman İlhan'}
                 </span>
               </div>
               <p className="text-xs text-slate-400 mt-0.5">
-                Mükellef onayları, tüzel kişilik denetimleri ve gelen fiş/fatura muhasebeleştirme havuzu
+                Google mükellef onayları, tüzel kişilik denetimleri ve gelen fiş/fatura muhasebeleştirme havuzu
               </p>
             </div>
           </div>
 
           <div className="flex items-center space-x-3">
+            <button
+              onClick={refreshData}
+              disabled={isRefreshing}
+              className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors"
+              title="Verileri Yenile"
+            >
+              <RotateCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-[#d4af37]' : ''}`} />
+            </button>
+
             <Link
               href="/portal"
               className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 text-xs font-semibold flex items-center space-x-1.5"
@@ -270,7 +333,7 @@ export default function AdminPortalPage() {
 
             <button
               onClick={handleAdminLogout}
-              className="p-2.5 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-300 hover:text-red-400 border border-white/10"
+              className="p-2.5 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-300 hover:text-red-400 border border-white/10 transition-colors"
               title="Güvenli Çıkış ve Paneli Kilitle"
             >
               <LogOut className="w-4 h-4" />
@@ -373,10 +436,17 @@ export default function AdminPortalPage() {
             ================================================================== */}
         {activeTab === 'pending' && (
           <div className="p-6 rounded-2xl bg-[#07173e] border border-[#d4af37]/30 shadow-xl">
-            <h2 className="text-base font-bold text-white mb-2">Onay Bekleyen Google Kullanıcıları</h2>
-            <p className="text-xs text-slate-400 mb-6">
-              Mükellefleriniz Google ile giriş yaptıklarında buraya düşer. Onay vermeniz durumunda tüzel kişilik oluşturup fatura yükleyebilirler.
-            </p>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-base font-bold text-white">Onay Bekleyen Google Kullanıcıları</h2>
+                <p className="text-xs text-slate-400">
+                  Mükellefleriniz Google ile giriş yaptıklarında buraya düşer. Onay verdiğinizde tüzel kişilik oluşturup fatura yükleyebilirler.
+                </p>
+              </div>
+              <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold font-mono">
+                {pendingUsers.length} Bekleyen
+              </span>
+            </div>
 
             {pendingUsers.length === 0 ? (
               <div className="text-center py-12 border border-dashed border-white/10 rounded-xl">
@@ -392,12 +462,14 @@ export default function AdminPortalPage() {
                     className="p-5 rounded-xl bg-[#040a1a] border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                   >
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold">
-                        {user.name.charAt(0)}
-                      </div>
+                      <img
+                        src={user.image}
+                        alt={user.name}
+                        className="w-12 h-12 rounded-xl object-cover border border-amber-500/40"
+                      />
                       <div>
                         <h3 className="font-bold text-white text-sm">{user.name}</h3>
-                        <p className="text-xs text-slate-400">{user.email}</p>
+                        <p className="text-xs text-[#faecc0] font-mono">{user.email}</p>
                         <div className="flex items-center space-x-3 text-[11px] text-slate-400 mt-1">
                           <span>Kayıt: {new Date(user.createdAt).toLocaleDateString('tr-TR')}</span>
                           <span>•</span>
@@ -409,7 +481,7 @@ export default function AdminPortalPage() {
                     <div className="flex items-center space-x-3 self-end sm:self-center">
                       <button
                         onClick={() => handleRejectUser(user.id)}
-                        className="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-semibold flex items-center space-x-1.5 transition-colors"
+                        className="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer"
                       >
                         <XCircle className="w-4 h-4" />
                         <span>Reddet</span>
@@ -417,7 +489,7 @@ export default function AdminPortalPage() {
 
                       <button
                         onClick={() => handleApproveUser(user.id)}
-                        className="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+                        className="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] cursor-pointer active:scale-[0.98]"
                       >
                         <CheckCircle2 className="w-4 h-4" />
                         <span>Onayla ve Yetkilendir</span>
@@ -613,7 +685,7 @@ export default function AdminPortalPage() {
           <div className="p-6 rounded-2xl bg-[#07173e] border border-[#d4af37]/30 shadow-xl space-y-4">
             <h2 className="text-base font-bold text-white">Siber Güvenlik &amp; Denetim İzi (Audit Log)</h2>
             <p className="text-xs text-slate-400 mb-4">
-              5651 sayılı Kanun ve siber güvenlik standartları gereğince sistemdeki tüm olaylar değişmez şekilde kaydedilmektedir.
+              5651 sayılı Kanun ve siber güvenlik standartları gereğince sistemdeki tüm olaylar sunucuda değişmez şekilde kaydedilmektedir.
             </p>
 
             <div className="space-y-2 max-h-96 overflow-y-auto">

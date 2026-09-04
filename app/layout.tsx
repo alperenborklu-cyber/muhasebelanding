@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import { ThemeProvider } from "@/context/ThemeContext";
+import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rotayd.com'),
@@ -32,16 +32,15 @@ export default function RootLayout({
   return (
     <html lang="tr" className="scroll-smooth">
       <body className="bg-[#040a1a] text-white antialiased selection:bg-[#d4af37] selection:text-[#040a1a] transition-colors duration-300">
-        <ThemeProvider>
+        <Providers>
           <Navbar />
           <main className="min-h-screen">
             {children}
           </main>
           <Footer />
           <FloatingWhatsApp />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
 }
-
