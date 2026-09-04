@@ -71,7 +71,7 @@ export default function Home() {
               </div>
               <div className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
                 <span className="gold-gradient-text">
-                  <AnimatedCounter to={2600000} duration={2.2} />
+                  <AnimatedCounter from={1850000} to={2600000} duration={1.8} />
                 </span>{" "}
                 <span className="text-xl text-[#d4af37]">TL</span>
               </div>
@@ -90,7 +90,7 @@ export default function Home() {
               </div>
               <div className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
                 <span className="gold-gradient-text">
-                  %<AnimatedCounter to={99} duration={1.8} separator={false} />
+                  %<AnimatedCounter from={85} to={99} duration={1.5} separator={false} />
                 </span>
               </div>
               <h3 className="text-sm font-semibold text-white/90">
@@ -108,7 +108,7 @@ export default function Home() {
               </div>
               <div className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
                 <span className="gold-gradient-text">
-                  <AnimatedCounter to={1162} duration={2.2} />+
+                  <AnimatedCounter from={880} to={1162} duration={1.8} />+
                 </span>
               </div>
               <h3 className="text-sm font-semibold text-white/90">

@@ -49,43 +49,41 @@ export default function ScrollCanvasDoor() {
     restDelta: 0.0001,
   });
 
-  // Preload all 120 frames with progress reporting
+  // Preload frames with immediate initial readiness
   useEffect(() => {
     let isCancelled = false;
     const loadedImgs: HTMLImageElement[] = [];
-    let count = 0;
 
     for (let i = 0; i < TOTAL_FRAMES; i++) {
       const img = new window.Image();
       img.src = `/sequence/frame_${i}.webp`;
       img.onload = () => {
         if (isCancelled) return;
-        count++;
-        setLoadedCount(count);
-        if (count === TOTAL_FRAMES) {
-          setImages(loadedImgs);
+        setLoadedCount((prev) => prev + 1);
+        if (i === 0) {
           setIsLoaded(true);
         }
       };
       img.onerror = () => {
         if (isCancelled) return;
-        count++;
-        setLoadedCount(count);
-        if (count === TOTAL_FRAMES) {
-          setImages(loadedImgs);
-          setIsLoaded(true);
-        }
+        setLoadedCount((prev) => prev + 1);
       };
       loadedImgs.push(img);
     }
 
-    // Preloader timeout fallback to ensure page is never blocked
+    setImages(loadedImgs);
+
+    // If frame 0 is already cached
+    if (loadedImgs[0]?.complete && loadedImgs[0].naturalWidth > 0) {
+      setIsLoaded(true);
+    }
+
+    // Safety fallback - activate canvas within 200ms
     const fallbackTimer = setTimeout(() => {
       if (!isCancelled) {
-        setImages(loadedImgs);
         setIsLoaded(true);
       }
-    }, 2000);
+    }, 200);
 
     return () => {
       isCancelled = true;
@@ -106,7 +104,22 @@ export default function ScrollCanvasDoor() {
       Math.max(0, Math.floor(progress * images.length))
     );
 
-    const img = images[frameIndex];
+    let img = images[frameIndex];
+    // If target frame hasn't finished loading yet, pick the nearest available frame so canvas never flickers
+    if (!img || !img.complete || img.naturalWidth === 0) {
+      for (let offset = 1; offset < images.length; offset++) {
+        const lower = frameIndex - offset;
+        if (lower >= 0 && images[lower]?.complete && images[lower].naturalWidth > 0) {
+          img = images[lower];
+          break;
+        }
+        const higher = frameIndex + offset;
+        if (higher < images.length && images[higher]?.complete && images[higher].naturalWidth > 0) {
+          img = images[higher];
+          break;
+        }
+      }
+    }
     if (!img || !img.complete || img.naturalWidth === 0) return;
 
     // Device Pixel Ratio for ultra-crisp Retina display
@@ -305,39 +318,18 @@ export default function ScrollCanvasDoor() {
 
   return (
     <div id="canvas-door-section" ref={containerRef} className="relative h-[420vh] bg-[#040a1a]">
-      {/* Loading Screen */}
-      {!isLoaded && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#040a1a] text-white px-6">
-          <div className="relative h-12 w-48 mb-8 animate-pulse">
-            <Image
-              src="/logobeyaz.png"
-              alt="ROTAYD Logo"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-
-          <div className="w-64 max-w-xs h-1.5 bg-[#0b1938] rounded-full overflow-hidden mb-4 border border-[#d4af37]/20">
-            <div
-              className="h-full bg-gradient-to-r from-[#b89025] via-[#d4af37] to-[#faecc0] transition-all duration-150 rounded-full"
-              style={{ width: `${(loadedCount / TOTAL_FRAMES) * 100}%` }}
-            />
-          </div>
-
-          <div className="flex items-center space-x-2 text-xs font-mono text-[#d4af37]">
-            <Sparkles className="w-3.5 h-3.5 animate-spin" />
-            <span>Deneyim Yükleniyor... {Math.round((loadedCount / TOTAL_FRAMES) * 100)}%</span>
-          </div>
-        </div>
-      )}
-
       {/* Sticky Fullscreen Canvas Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#040a1a]">
+        {/* Instant Hero First Frame Poster so the door renders with zero delay */}
+        <div 
+          className="absolute inset-0 bg-[#040a1a] bg-cover bg-center -z-10 opacity-60 pointer-events-none"
+          style={{ backgroundImage: "url('/sequence/frame_0.webp')" }}
+        />
+
         <canvas
           ref={canvasRef}
-          className="h-full w-full object-cover transition-opacity duration-700"
-          style={{ opacity: isLoaded ? 1 : 0 }}
+          className="h-full w-full object-cover transition-opacity duration-500"
+          style={{ opacity: isLoaded ? 1 : 0.8 }}
         />
 
         {/* Ambient Top & Bottom Vignette Overlays */}
