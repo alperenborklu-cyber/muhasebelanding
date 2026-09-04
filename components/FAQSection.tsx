@@ -160,12 +160,7 @@ export default function FAQSection() {
                   aria-expanded={isOpen}
                   className="w-full text-left px-5 sm:px-7 py-5 sm:py-6 flex items-start sm:items-center justify-between gap-4 cursor-pointer group"
                 >
-                  <div className="space-y-1.5 pr-2">
-                    <div className="flex items-center space-x-2">
-                      <span className="faq-tag px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#d4af37]/15 text-[#faecc0] border border-[#d4af37]/30">
-                        {item.tag}
-                      </span>
-                    </div>
+                  <div className="pr-2">
                     <h3 className={`text-sm sm:text-base font-semibold transition-colors leading-snug ${
                       isOpen ? "text-[#faecc0]" : "text-white group-hover:text-[#faecc0]"
                     }`}>
