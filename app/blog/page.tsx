@@ -50,7 +50,7 @@ export default function BlogPage() {
         <div className="flex items-center space-x-2 text-xs text-white/50 mb-6">
           <Link href="/" className="hover:text-white">Ana Sayfa</Link>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-[#d4af37]">Mali & Yönetim Rehberi</span>
+          <span className="text-[#d4af37]">Blog</span>
         </div>
 
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">

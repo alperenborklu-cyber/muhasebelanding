@@ -104,7 +104,7 @@ export default function Navbar() {
               }`}
             >
               <BookOpen className="w-3.5 h-3.5 text-[#d4af37]" />
-              <span>Blog & Rehber</span>
+              <span>Blog</span>
             </Link>
 
             <Link
@@ -229,7 +229,7 @@ export default function Navbar() {
               >
                 <span className="flex items-center space-x-2">
                   <BookOpen className="w-4 h-4 text-[#d4af37]" />
-                  <span>Mali & Teşvik Rehberi (Blog)</span>
+                  <span>Blog</span>
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </Link>

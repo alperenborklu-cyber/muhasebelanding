@@ -37,7 +37,7 @@ export default function BlogPostDetail({ params }: { params: { slug: string } })
             className="inline-flex items-center space-x-2 text-xs text-[#d4af37] hover:text-white transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Tüm Rehberlere Dön</span>
+            <span>Blog&apos;a Dön</span>
           </Link>
         </div>
 

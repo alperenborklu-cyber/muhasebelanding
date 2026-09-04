@@ -16,7 +16,9 @@ import {
   CheckCircle2, 
   Building2, 
   Sparkles,
-  BookOpen
+  BookOpen,
+  Calendar,
+  Clock
 } from "lucide-react";
 import AppointmentForm from "@/components/AppointmentForm";
 import { useState, useEffect } from "react";
@@ -300,7 +302,7 @@ export default function Home() {
             <div>
               <div className="inline-flex items-center space-x-2 text-[11px] font-semibold text-[#d4af37] uppercase tracking-wider mb-2">
                 <BookOpen className="w-3.5 h-3.5" />
-                <span>Güncel Rehberler</span>
+                <span>Güncel Blog</span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-light text-white">
                 Mali & Yönetim <span className="gold-gradient-text font-serif italic">Blogu</span>
@@ -310,7 +312,7 @@ export default function Home() {
               href="/blog"
               className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#d4af37] hover:text-white transition-colors"
             >
-              <span>Tüm 10 Rehberi İnceleyin</span>
+              <span>Tüm Yazıları İnceleyin</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -330,18 +332,23 @@ export default function Home() {
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#040a1a] via-transparent to-transparent" />
-                    <span className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-[#071330]/90 border border-[#d4af37]/30 text-[#d4af37] text-[10px] font-semibold">
+                    <div className="absolute top-3 left-3 bg-[#071330]/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 text-[10px] text-[#d4af37] font-semibold">
                       {post.category}
-                    </span>
+                    </div>
                   </div>
                   <div className="p-5 space-y-2">
-                    <div className="flex items-center space-x-2 text-[11px] text-white/40">
-                      <span>{post.date}</span>
+                    <div className="flex items-center space-x-3 text-[11px] text-white/40">
+                      <span className="flex items-center space-x-1">
+                        <Calendar className="w-3 h-3 text-[#d4af37]" />
+                        <span>{post.date}</span>
+                      </span>
                       <span>•</span>
-                      <span>{post.readTime}</span>
+                      <span className="flex items-center space-x-1">
+                        <Clock className="w-3 h-3 text-[#d4af37]" />
+                        <span>{post.readTime}</span>
+                      </span>
                     </div>
-                    <h3 className="text-base font-bold text-white group-hover:text-[#faecc0] transition-colors leading-snug">
+                    <h3 className="text-sm font-bold text-white group-hover:text-[#faecc0] transition-colors line-clamp-2">
                       {post.title}
                     </h3>
                     <p className="text-xs text-white/60 line-clamp-2">
@@ -350,7 +357,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="px-5 pb-5 pt-1 text-xs text-[#d4af37] font-medium flex items-center space-x-1">
-                  <span>Rehberi Oku</span>
+                  <span>Devamını Oku</span>
                   <ArrowRight className="w-3 h-3" />
                 </div>
               </Link>

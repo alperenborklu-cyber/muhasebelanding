@@ -74,7 +74,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/blog" className="text-white/60 hover:text-[#d4af37] transition-colors flex items-center space-x-1">
-                  <span>Mevzuat & Teşvik Blogu</span>
+                  <span>Blog</span>
                   <ArrowUpRight className="w-3 h-3 text-[#d4af37]" />
                 </Link>
               </li>
