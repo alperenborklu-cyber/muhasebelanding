@@ -382,12 +382,12 @@ export default function ScrollCanvasDoor() {
                   <path
                     d="M 0 476 L 0 101 A 118 101 0 0 1 118 0 L 118 476 Z"
                     style={{
-                      fill: hoveredDoor === "left" && !openingDoor ? "rgba(56, 189, 248, 0.50)" : "transparent",
-                      stroke: hoveredDoor === "left" && !openingDoor ? "#38bdf8" : "transparent",
+                      fill: hoveredDoor === "left" && !openingDoor ? "rgba(11, 29, 74, 0.72)" : "transparent",
+                      stroke: hoveredDoor === "left" && !openingDoor ? "#1d4ed8" : "transparent",
                       strokeWidth: hoveredDoor === "left" && !openingDoor ? 2.5 : 0,
                     }}
-                    className={`door-wing-left transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(56,189,248,0.50)] group-hover:!stroke-[#38bdf8] group-hover:!stroke-[2.5px] [filter:drop-shadow(0_0_14px_rgba(56,189,248,0.85))] ${
-                      hoveredDoor === "left" && !openingDoor ? "is-hovered !fill-[rgba(56,189,248,0.50)] !stroke-[#38bdf8] !stroke-[2.5px]" : ""
+                    className={`door-wing-left transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(11,29,74,0.72)] group-hover:!stroke-[#1d4ed8] group-hover:!stroke-[2.5px] [filter:drop-shadow(0_0_16px_rgba(29,78,216,0.65))] ${
+                      hoveredDoor === "left" && !openingDoor ? "is-hovered !fill-[rgba(11,29,74,0.72)] !stroke-[#1d4ed8] !stroke-[2.5px]" : ""
                     }`}
                   />
                 </svg>
@@ -398,8 +398,8 @@ export default function ScrollCanvasDoor() {
                     hoveredDoor === "left" && !openingDoor ? "is-hovered !opacity-100" : ""
                   }`}
                 >
-                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(56,189,248,0.7)] whitespace-nowrap">
-                    <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(11,29,74,0.9)] whitespace-nowrap">
+                    <span className="w-2 h-2 rounded-full bg-[#1d4ed8] border border-[#d4af37]/60 animate-pulse" />
                     <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
                       muhasebecilik
                     </span>
@@ -433,12 +433,12 @@ export default function ScrollCanvasDoor() {
                   <path
                     d="M 0 476 L 0 0 A 118 101 0 0 1 118 101 L 118 476 Z"
                     style={{
-                      fill: hoveredDoor === "right" && !openingDoor ? "rgba(56, 189, 248, 0.50)" : "transparent",
-                      stroke: hoveredDoor === "right" && !openingDoor ? "#38bdf8" : "transparent",
+                      fill: hoveredDoor === "right" && !openingDoor ? "rgba(11, 29, 74, 0.72)" : "transparent",
+                      stroke: hoveredDoor === "right" && !openingDoor ? "#1d4ed8" : "transparent",
                       strokeWidth: hoveredDoor === "right" && !openingDoor ? 2.5 : 0,
                     }}
-                    className={`door-wing-right transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(56,189,248,0.50)] group-hover:!stroke-[#38bdf8] group-hover:!stroke-[2.5px] [filter:drop-shadow(0_0_14px_rgba(56,189,248,0.85))] ${
-                      hoveredDoor === "right" && !openingDoor ? "is-hovered !fill-[rgba(56,189,248,0.50)] !stroke-[#38bdf8] !stroke-[2.5px]" : ""
+                    className={`door-wing-right transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(11,29,74,0.72)] group-hover:!stroke-[#1d4ed8] group-hover:!stroke-[2.5px] [filter:drop-shadow(0_0_16px_rgba(29,78,216,0.65))] ${
+                      hoveredDoor === "right" && !openingDoor ? "is-hovered !fill-[rgba(11,29,74,0.72)] !stroke-[#1d4ed8] !stroke-[2.5px]" : ""
                     }`}
                   />
                 </svg>
@@ -449,8 +449,8 @@ export default function ScrollCanvasDoor() {
                     hoveredDoor === "right" && !openingDoor ? "is-hovered !opacity-100" : ""
                   }`}
                 >
-                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(56,189,248,0.7)] whitespace-nowrap">
-                    <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(11,29,74,0.9)] whitespace-nowrap">
+                    <span className="w-2 h-2 rounded-full bg-[#1d4ed8] border border-[#d4af37]/60 animate-pulse" />
                     <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
                       danışmanlık
                     </span>
