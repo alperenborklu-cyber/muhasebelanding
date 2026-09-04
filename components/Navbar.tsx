@@ -136,6 +136,18 @@ export default function Navbar() {
               <MessageSquare className="w-3.5 h-3.5 text-[#d4af37]" />
               <span>İletişim</span>
             </button>
+
+            <Link
+              href="/portal"
+              className={`px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-semibold transition-all flex items-center space-x-1.5 ${
+                pathname.startsWith("/portal")
+                  ? "text-black bg-gradient-to-r from-[#faecc0] to-[#d4af37] shadow-md shadow-[#d4af37]/30"
+                  : "text-[#faecc0] hover:text-white bg-[#d4af37]/15 hover:bg-[#d4af37]/25 border border-[#d4af37]/40"
+              }`}
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#d4af37]" />
+              <span>Mükellef Portalı</span>
+            </Link>
           </nav>
 
           {/* Quick Contact & Theme Toggle */}
@@ -266,6 +278,18 @@ export default function Navbar() {
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </button>
+
+              <Link
+                href="/portal"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm font-semibold py-2.5 px-3 rounded-lg text-[#faecc0] bg-[#d4af37]/15 border border-[#d4af37]/30 hover:bg-[#d4af37]/25 flex items-center justify-between transition-colors"
+              >
+                <span className="flex items-center space-x-2">
+                  <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
+                  <span>Mükellef Portalı (Fiş &amp; Fatura)</span>
+                </span>
+                <ArrowRight className="w-4 h-4 text-[#d4af37]" />
+              </Link>
 
               <div className="pt-3 border-t border-white/10 flex flex-col space-y-2">
                 <a
