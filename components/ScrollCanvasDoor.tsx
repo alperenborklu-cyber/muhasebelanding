@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -17,12 +18,23 @@ import {
 const TOTAL_FRAMES = 120;
 
 export default function ScrollCanvasDoor() {
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loadedCount, setLoadedCount] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredPortal, setHoveredPortal] = useState<"left" | "right" | null>(null);
+  const [hoveredDoor, setHoveredDoor] = useState<"left" | "right" | null>(null);
+  const [openingDoor, setOpeningDoor] = useState<"left" | "right" | null>(null);
+  const isOpeningAnimRef = useRef(false);
+  const [scrollProgressVal, setScrollProgressVal] = useState(0);
+  const [doorLayout, setDoorLayout] = useState<{
+    drawX: number;
+    drawY: number;
+    drawW: number;
+    drawH: number;
+  } | null>(null);
 
   // Framer motion scroll tracking
   const { scrollYProgress } = useScroll({
@@ -149,29 +161,116 @@ export default function ScrollCanvasDoor() {
     ctx.restore();
   }, [images]);
 
+  // Measure canvas and calculate image draw bounds for overlay positioning
+  const updateLayout = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const clientWidth = canvas.clientWidth;
+    const clientHeight = canvas.clientHeight;
+    if (!clientWidth || !clientHeight) return;
+
+    const imgRatio = 1280 / 720;
+    const canvasRatio = clientWidth / clientHeight;
+    const baseScale = 1.05;
+    const downwardOffset = Math.max(28, Math.round(clientHeight * 0.045));
+
+    let drawW: number;
+    let drawH: number;
+    let drawX: number;
+    let drawY: number;
+
+    if (canvasRatio > imgRatio) {
+      drawW = clientWidth * baseScale;
+      drawH = drawW / imgRatio;
+      drawX = (clientWidth - drawW) / 2;
+      drawY = (clientHeight - drawH) / 2 + downwardOffset;
+    } else {
+      drawH = clientHeight * baseScale;
+      drawW = drawH * imgRatio;
+      drawX = (clientWidth - drawW) / 2;
+      drawY = (clientHeight - drawH) / 2 + downwardOffset;
+    }
+
+    setDoorLayout({ drawX, drawY, drawW, drawH });
+  }, []);
+
   // Hook render loop to smoothed scroll progress
   useEffect(() => {
     const unsubscribe = smoothProgress.on("change", (latest) => {
-      renderFrame(latest);
+      if (!isOpeningAnimRef.current) {
+        setScrollProgressVal(latest);
+        renderFrame(latest);
+      }
     });
 
-    if (isLoaded) {
+    if (isLoaded && !isOpeningAnimRef.current) {
       renderFrame(smoothProgress.get());
+      updateLayout();
     }
 
     return () => unsubscribe();
-  }, [smoothProgress, isLoaded, renderFrame]);
+  }, [smoothProgress, isLoaded, renderFrame, updateLayout]);
 
-  // Resize listener
+  // Handle interactive door selection & cinematic door opening animation
+  const handleDoorSelect = useCallback(
+    (door: "left" | "right", e: React.MouseEvent) => {
+      e.preventDefault();
+      if (isOpeningAnimRef.current) return;
+      isOpeningAnimRef.current = true;
+      setOpeningDoor(door);
+      setHoveredDoor(null);
+
+      const destination = door === "left" ? "/muhasebecilik" : "/danismanlik";
+      const startProgress = smoothProgress.get();
+      const targetProgress = 0.58; // Frame ~70: doors swing wide open into hallway
+      const duration = 1200; // ms
+      const startTime = performance.now();
+
+      const animateStep = (now: number) => {
+        const elapsed = now - startTime;
+        const t = Math.min(1, elapsed / duration);
+        // Smooth cubic ease out curve
+        const ease = 1 - Math.pow(1 - t, 3);
+        const currentProgress = startProgress + (targetProgress - startProgress) * ease;
+
+        renderFrame(currentProgress);
+
+        if (t < 1) {
+          requestAnimationFrame(animateStep);
+        } else {
+          router.push(destination);
+        }
+      };
+
+      requestAnimationFrame(animateStep);
+    },
+    [smoothProgress, renderFrame, router]
+  );
+
+  // Resize listener & observer
   useEffect(() => {
     const handleResize = () => {
       if (isLoaded) {
         renderFrame(smoothProgress.get());
+        updateLayout();
       }
     };
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isLoaded, smoothProgress, renderFrame]);
+
+    const canvas = canvasRef.current;
+    let ro: ResizeObserver | null = null;
+    if (canvas && typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(() => {
+        handleResize();
+      });
+      ro.observe(canvas);
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (ro) ro.disconnect();
+    };
+  }, [isLoaded, smoothProgress, renderFrame, updateLayout]);
 
   // Beat A: 0% -> 20% (Pure White Typography in Bottom-Left corner)
   const beatAOpacity = useTransform(smoothProgress, [0, 0.02, 0.16, 0.22], [1, 1, 0.9, 0]);
@@ -189,6 +288,11 @@ export default function ScrollCanvasDoor() {
   const beatDOpacity = useTransform(smoothProgress, [0.73, 0.8, 1], [0, 1, 1]);
   const beatDY = useTransform(smoothProgress, [0.73, 0.82], [40, 0]);
   const portalScale = useTransform(smoothProgress, [0.73, 0.85], [0.94, 1]);
+
+  // Interactive Door Hover Opacity (active during Beat A, fades as door opens)
+  const doorHoverOpacity = useTransform(smoothProgress, [0, 0.02, 0.16, 0.22], [1, 1, 0.9, 0]);
+  const beatDPointerEvents = useTransform(smoothProgress, (v) => (v > 0.73 ? "auto" : "none"));
+  const isDoorInteractive = isLoaded && scrollProgressVal < 0.20;
 
   return (
     <div id="canvas-door-section" ref={containerRef} className="relative h-[420vh] bg-[#040a1a]">
@@ -230,6 +334,131 @@ export default function ScrollCanvasDoor() {
         {/* Ambient Top & Bottom Vignette Overlays */}
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#040a1a] via-[#040a1a]/70 to-transparent pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/80 to-transparent pointer-events-none" />
+
+        {/* Interactive Door Wings Overlay (Beat A: Mouse Hover Effect) */}
+        {doorLayout && isLoaded && (
+          <motion.div
+            style={{
+              opacity: openingDoor ? 0 : doorHoverOpacity,
+              pointerEvents: openingDoor ? "none" : (isDoorInteractive ? "auto" : "none"),
+              display: scrollProgressVal < 0.22 ? "block" : "none",
+            }}
+            className="absolute inset-0 z-40 transition-opacity duration-300"
+          >
+            <div
+              style={{
+                position: "absolute",
+                left: `${doorLayout.drawX}px`,
+                top: `${doorLayout.drawY}px`,
+                width: `${doorLayout.drawW}px`,
+                height: `${doorLayout.drawH}px`,
+              }}
+              className="pointer-events-none relative"
+            >
+              {/* SOL KAPI LINK (MUHASEBECİLİK) */}
+              <Link
+                href="/muhasebecilik"
+                onClick={(e) => handleDoorSelect("left", e)}
+                onMouseEnter={() => !openingDoor && setHoveredDoor("left")}
+                onMouseLeave={() => !openingDoor && setHoveredDoor(null)}
+                style={{
+                  position: "absolute",
+                  left: `${(522 / 1280) * 100}%`,
+                  top: `${(94 / 720) * 100}%`,
+                  width: `${(118 / 1280) * 100}%`,
+                  height: `${(476 / 720) * 100}%`,
+                }}
+                className={`door-link-left group pointer-events-auto cursor-pointer block focus:outline-none ${
+                  openingDoor ? "pointer-events-none" : ""
+                }`}
+                aria-label="Muhasebecilik Kapısı"
+              >
+                {/* SVG for Arched Door Shape */}
+                <svg
+                  viewBox="0 0 118 476"
+                  className="w-full h-full overflow-visible pointer-events-none"
+                >
+                  <path
+                    d="M 0 476 L 0 101 A 118 101 0 0 1 118 0 L 118 476 Z"
+                    style={{
+                      fill: hoveredDoor === "left" && !openingDoor ? "rgba(56, 189, 248, 0.50)" : "transparent",
+                      stroke: hoveredDoor === "left" && !openingDoor ? "#38bdf8" : "transparent",
+                      strokeWidth: hoveredDoor === "left" && !openingDoor ? 2.5 : 0,
+                    }}
+                    className={`door-wing-left transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(56,189,248,0.50)] group-hover:!stroke-[#38bdf8] group-hover:!stroke-[2.5px] [filter:drop-shadow(0_0_14px_rgba(56,189,248,0.85))] ${
+                      hoveredDoor === "left" && !openingDoor ? "is-hovered !fill-[rgba(56,189,248,0.50)] !stroke-[#38bdf8] !stroke-[2.5px]" : ""
+                    }`}
+                  />
+                </svg>
+
+                {/* Sol Kapı Çubuğu (Muhasebecilik Bar) */}
+                <div
+                  className={`door-bar-left absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-300 z-30 opacity-0 group-hover:opacity-100 ${
+                    hoveredDoor === "left" && !openingDoor ? "is-hovered !opacity-100" : ""
+                  }`}
+                >
+                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(56,189,248,0.7)] whitespace-nowrap">
+                    <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+                    <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
+                      muhasebecilik
+                    </span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* SAĞ KAPI LINK (DANIŞMANLIK) */}
+              <Link
+                href="/danismanlik"
+                onClick={(e) => handleDoorSelect("right", e)}
+                onMouseEnter={() => !openingDoor && setHoveredDoor("right")}
+                onMouseLeave={() => !openingDoor && setHoveredDoor(null)}
+                style={{
+                  position: "absolute",
+                  left: `${(640 / 1280) * 100}%`,
+                  top: `${(94 / 720) * 100}%`,
+                  width: `${(118 / 1280) * 100}%`,
+                  height: `${(476 / 720) * 100}%`,
+                }}
+                className={`door-link-right group pointer-events-auto cursor-pointer block focus:outline-none ${
+                  openingDoor ? "pointer-events-none" : ""
+                }`}
+                aria-label="Danışmanlık Kapısı"
+              >
+                {/* SVG for Arched Door Shape */}
+                <svg
+                  viewBox="0 0 118 476"
+                  className="w-full h-full overflow-visible pointer-events-none"
+                >
+                  <path
+                    d="M 0 476 L 0 0 A 118 101 0 0 1 118 101 L 118 476 Z"
+                    style={{
+                      fill: hoveredDoor === "right" && !openingDoor ? "rgba(56, 189, 248, 0.50)" : "transparent",
+                      stroke: hoveredDoor === "right" && !openingDoor ? "#38bdf8" : "transparent",
+                      strokeWidth: hoveredDoor === "right" && !openingDoor ? 2.5 : 0,
+                    }}
+                    className={`door-wing-right transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(56,189,248,0.50)] group-hover:!stroke-[#38bdf8] group-hover:!stroke-[2.5px] [filter:drop-shadow(0_0_14px_rgba(56,189,248,0.85))] ${
+                      hoveredDoor === "right" && !openingDoor ? "is-hovered !fill-[rgba(56,189,248,0.50)] !stroke-[#38bdf8] !stroke-[2.5px]" : ""
+                    }`}
+                  />
+                </svg>
+
+                {/* Sağ Kapı Çubuğu (Danışmanlık Bar) */}
+                <div
+                  className={`door-bar-right absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-300 z-30 opacity-0 group-hover:opacity-100 ${
+                    hoveredDoor === "right" && !openingDoor ? "is-hovered !opacity-100" : ""
+                  }`}
+                >
+                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(56,189,248,0.7)] whitespace-nowrap">
+                    <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+                    <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
+                      danışmanlık
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </motion.div>
+        )}
 
         {/* BEAT A: 0 - 20% (Pure White Typography in Bottom-Left corner, Exactly Like Reference Image) */}
         <motion.div
@@ -299,8 +528,14 @@ export default function ScrollCanvasDoor() {
 
         {/* BEAT D: 75 - 100% (THE GRAND OPENING - SPLIT PORTAL) */}
         <motion.div
-          style={{ opacity: beatDOpacity, y: beatDY, scale: portalScale }}
-          className="absolute inset-0 z-30 flex flex-col items-center justify-center px-4 sm:px-8 py-12"
+          style={{
+            opacity: beatDOpacity,
+            y: beatDY,
+            scale: portalScale,
+            display: scrollProgressVal > 0.70 ? "flex" : "none",
+            pointerEvents: scrollProgressVal > 0.73 ? "auto" : "none",
+          }}
+          className="absolute inset-0 z-30 flex flex-col items-center justify-center px-4 sm:px-8 py-12 pointer-events-none"
         >
           <div className="text-center mb-6 sm:mb-8 max-w-2xl">
             <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
@@ -314,7 +549,7 @@ export default function ScrollCanvasDoor() {
               href="/muhasebecilik"
               onMouseEnter={() => setHoveredPortal("left")}
               onMouseLeave={() => setHoveredPortal(null)}
-              className={`group relative rounded-3xl p-7 transition-all duration-500 overflow-hidden border ${
+              className={`group pointer-events-auto relative rounded-3xl p-7 transition-all duration-500 overflow-hidden border ${
                 hoveredPortal === "left"
                   ? "border-[#d4af37] bg-[#07173e]/90 shadow-[0_0_40px_rgba(212,175,55,0.3)] -translate-y-2 scale-[1.02]"
                   : "border-[#d4af37]/30 bg-[#040f2a]/75 backdrop-blur-xl hover:border-[#d4af37]/70"
@@ -366,7 +601,7 @@ export default function ScrollCanvasDoor() {
               href="/danismanlik"
               onMouseEnter={() => setHoveredPortal("right")}
               onMouseLeave={() => setHoveredPortal(null)}
-              className={`group relative rounded-3xl p-7 transition-all duration-500 overflow-hidden border ${
+              className={`group pointer-events-auto relative rounded-3xl p-7 transition-all duration-500 overflow-hidden border ${
                 hoveredPortal === "right"
                   ? "border-[#d4af37] bg-[#07173e]/90 shadow-[0_0_40px_rgba(212,175,55,0.3)] -translate-y-2 scale-[1.02]"
                   : "border-[#d4af37]/30 bg-[#040f2a]/75 backdrop-blur-xl hover:border-[#d4af37]/70"
@@ -414,6 +649,26 @@ export default function ScrollCanvasDoor() {
             </Link>
           </div>
         </motion.div>
+
+        {/* Cinematic Door Opening Transition Screen */}
+        {openingDoor && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.85, duration: 0.35 }}
+            className="fixed inset-0 z-50 bg-[#040a1a]/95 flex flex-col items-center justify-center pointer-events-none backdrop-blur-sm"
+          >
+            <div className="flex flex-col items-center space-y-4">
+              <div className="relative w-12 h-12">
+                <div className="absolute inset-0 rounded-full border-2 border-[#d4af37]/20" />
+                <div className="absolute inset-0 rounded-full border-2 border-[#d4af37] border-t-transparent animate-spin" />
+              </div>
+              <p className="text-sm font-medium tracking-widest text-[#faecc0] uppercase">
+                {openingDoor === "left" ? "Muhasebecilik Kapısı Açılıyor..." : "Danışmanlık Kapısı Açılıyor..."}
+              </p>
+            </div>
+          </motion.div>
+        )}
       </div>
     </div>
   );

@@ -319,3 +319,73 @@ html.light-mode #canvas-door-section .bg-\[\#07173e\]\/90 {
   background-color: rgba(7, 23, 62, 0.9) !important;
   border-color: #d4af37 !important;
 }
+
+/* ==========================================================================
+   INTERACTIVE GOLDEN DOOR HOVER SYSTEM (50% TRANSPARENT LIGHT BLUE + BARS)
+   ========================================================================== */
+.door-wing-left,
+.door-wing-right {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 0;
+  cursor: pointer;
+  pointer-events: all;
+  transition: fill 0.3s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.door-bar-left,
+.door-bar-right {
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Left Door Hover State */
+.door-link-left:hover .door-wing-left,
+.door-wing-left.is-hovered {
+  fill: rgba(56, 189, 248, 0.50) !important;
+  stroke: #38bdf8 !important;
+  stroke-width: 2.5px !important;
+  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.8)) !important;
+}
+
+.door-link-left:hover .door-bar-left,
+.door-bar-left.is-hovered {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Right Door Hover State */
+.door-link-right:hover .door-wing-right,
+.door-wing-right.is-hovered {
+  fill: rgba(56, 189, 248, 0.50) !important;
+  stroke: #38bdf8 !important;
+  stroke-width: 2.5px !important;
+  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.8)) !important;
+}
+
+.door-link-right:hover .door-bar-right,
+.door-bar-right.is-hovered {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Suppress Hover When Door Opening Is Triggered */
+.door-link-left.pointer-events-none,
+.door-link-right.pointer-events-none {
+  pointer-events: none !important;
+}
+
+.door-link-left.pointer-events-none:hover .door-wing-left,
+.door-link-right.pointer-events-none:hover .door-wing-right {
+  fill: transparent !important;
+  stroke: transparent !important;
+  filter: none !important;
+}
+
+.door-link-left.pointer-events-none:hover .door-bar-left,
+.door-link-right.pointer-events-none:hover .door-bar-right {
+  opacity: 0 !important;
+}
+
