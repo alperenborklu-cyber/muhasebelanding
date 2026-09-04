@@ -16,6 +16,8 @@ import {
   Search,
   Filter,
   Eye,
+  EyeOff,
+  KeyRound,
   FileCheck,
   Download,
   ArrowLeft,
@@ -25,9 +27,16 @@ import {
 import { PortalUser, TuzelKisi, FaturaBelge, AuditLog, BelgeDurumu } from '@/lib/portal-types';
 import { PortalService } from '@/lib/portal-service';
 
+const ADMIN_PASSWORDS = ['Rotayd2026!', 'Suleyman2026!', 'rotayd123', 'admin2026'];
+const SESSION_UNLOCKED_KEY = 'rotayd_admin_session_unlocked_v1';
+
 export default function AdminPortalPage() {
   const [currentUser, setCurrentUser] = useState<PortalUser | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
   const [activeTab, setActiveTab] = useState<'pending' | 'companies' | 'documents' | 'logs'>('pending');
 
   const [users, setUsers] = useState<PortalUser[]>([]);
@@ -42,6 +51,11 @@ export default function AdminPortalPage() {
 
   useEffect(() => {
     PortalService.init();
+    const sessionUnlocked = typeof window !== 'undefined' && sessionStorage.getItem(SESSION_UNLOCKED_KEY) === 'true';
+    const user = PortalService.getCurrentUser();
+    if (sessionUnlocked && user && user.role === 'admin') {
+      setIsUnlocked(true);
+    }
     refreshData();
     setIsLoaded(true);
   }, []);
@@ -53,6 +67,42 @@ export default function AdminPortalPage() {
     setCompanies(PortalService.getCompanies());
     setDocuments(PortalService.getDocuments());
     setLogs(PortalService.getAuditLogs());
+  };
+
+  // Şifreli Giriş Kontrolü
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordError('');
+
+    if (ADMIN_PASSWORDS.includes(passwordInput.trim())) {
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem(SESSION_UNLOCKED_KEY, 'true');
+      }
+      const adminUser = PortalService.loginWithGoogle('suleyman@rotayd.com', 'Süleyman İlhan');
+      setCurrentUser(adminUser);
+      setIsUnlocked(true);
+      setPasswordInput('');
+      refreshData();
+      PortalService.addAuditLog(
+        'ADMİN_ŞİFRELİ_GİRİŞ_BAŞARILI',
+        'Mali Müşavir şifre doğrulaması ile admin paneline giriş yaptı.',
+        adminUser.id,
+        adminUser.email
+      );
+    } else {
+      setPasswordError('Hatalı yönetici şifresi! Lütfen geçerli şifrenizi giriniz.');
+      PortalService.addAuditLog('BAŞARISIZ_ADMİN_GİRİŞ_DENEMESİ', 'Admin paneline hatalı şifre girişi denendi.');
+    }
+  };
+
+  // Admin Güvenli Çıkış
+  const handleAdminLogout = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem(SESSION_UNLOCKED_KEY);
+    }
+    setIsUnlocked(false);
+    PortalService.logout();
+    setCurrentUser(null);
   };
 
   // Kullanıcı Onayla
@@ -75,12 +125,6 @@ export default function AdminPortalPage() {
     refreshData();
   };
 
-  // Admin olarak oturum aç (Demo kolaylığı)
-  const handleLoginAsAdmin = () => {
-    PortalService.loginWithGoogle('suleyman@rotayd.com', 'Süleyman İlhan');
-    refreshData();
-  };
-
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-[#040a1a] flex items-center justify-center text-white">
@@ -89,29 +133,81 @@ export default function AdminPortalPage() {
     );
   }
 
-  // Admin Girişi Kontrolü
-  const isAdmin = currentUser && currentUser.role === 'admin';
-
-  if (!isAdmin) {
+  // ==========================================================================
+  // ŞİFRELİ GİRİŞ EKRANI (LOCKED STATE)
+  // ==========================================================================
+  if (!isUnlocked) {
     return (
-      <div className="min-h-screen bg-[#040a1a] text-white flex flex-col justify-center items-center px-4 pt-20">
-        <div className="max-w-md w-full p-8 rounded-2xl bg-[#07173e] border border-[#d4af37]/30 text-center shadow-2xl">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center text-[#faecc0]">
-            <Lock className="w-8 h-8" />
+      <div className="min-h-screen bg-[#040a1a] text-white flex flex-col justify-center items-center px-4 pt-20 pb-12 relative overflow-hidden">
+        {/* Arka Plan Işık Efekti */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-[#1d4ed8]/10 via-[#d4af37]/15 to-transparent rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-md w-full p-8 rounded-3xl bg-[#07173e]/95 border border-[#d4af37]/40 text-center shadow-[0_15px_50px_rgba(0,0,0,0.7)] backdrop-blur-xl relative z-10">
+          <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-[#07173e] to-[#040a1a] border border-[#d4af37]/50 flex items-center justify-center text-[#faecc0] shadow-[0_0_25px_rgba(212,175,55,0.25)]">
+            <Lock className="w-8 h-8 text-[#d4af37]" />
           </div>
-          <h1 className="text-xl font-bold mb-2">Mali Müşavir Yetkisi Gerekli</h1>
-          <p className="text-xs text-slate-400 mb-6">
-            Bu yönetim paneline sadece yetkili Mali Müşavir (Süleyman İlhan) erişebilir.
+
+          <h1 className="text-xl sm:text-2xl font-bold text-white mb-2">
+            Mali Müşavir Yönetici Girişi
+          </h1>
+          <p className="text-xs text-slate-300 mb-6 leading-relaxed">
+            Bu yönetim alanı yüksek güvenlik protokolü gereğince şifrelenmiştir. Lütfen yönetici şifrenizi giriniz.
           </p>
-          <button
-            onClick={handleLoginAsAdmin}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider shadow-lg transition-all"
-          >
-            Süleyman İlhan (Admin) Olarak Giriş Yap
-          </button>
+
+          {passwordError && (
+            <div className="p-3 mb-5 rounded-xl bg-red-500/20 border border-red-500/40 text-red-300 text-xs flex items-center space-x-2 text-left animate-shake">
+              <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+              <span>{passwordError}</span>
+            </div>
+          )}
+
+          <form onSubmit={handlePasswordSubmit} className="space-y-4">
+            <div className="relative text-left">
+              <label className="block text-[11px] font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">
+                Yönetici Güvenlik Şifresi
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <KeyRound className="w-4 h-4 text-[#d4af37]" />
+                </div>
+
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  autoFocus
+                  placeholder="Yönetici şifresi..."
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  className="w-full pl-10 pr-11 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm tracking-wider font-mono transition-colors"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-white transition-colors"
+                  aria-label={showPassword ? 'Şifreyi Gizle' : 'Şifreyi Göster'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] active:scale-[0.99] transition-all flex items-center justify-center space-x-2"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              <span>Güvenli Giriş Yap</span>
+            </button>
+          </form>
+
+          <div className="mt-5 pt-4 border-t border-white/10 text-[11px] text-[#faecc0]/80">
+            <span>İlk Kurulum Şifresi: <strong className="text-white font-mono">Rotayd2026!</strong></span>
+          </div>
+
           <Link
             href="/portal"
-            className="block mt-4 text-xs text-slate-400 hover:text-white"
+            className="inline-block mt-4 text-xs text-slate-400 hover:text-white transition-colors"
           >
             &larr; Mükellef Portalı&rsquo;na Dön
           </Link>
@@ -154,7 +250,7 @@ export default function AdminPortalPage() {
               <div className="flex items-center space-x-2">
                 <h1 className="text-xl font-bold text-white">Mali Müşavir Yönetim Paneli</h1>
                 <span className="px-2 py-0.5 rounded-full bg-[#d4af37]/20 text-[#faecc0] text-[10px] font-bold uppercase tracking-wider border border-[#d4af37]/40">
-                  Yetkili: {currentUser.name}
+                  Yetkili: {currentUser?.name || 'Süleyman İlhan'}
                 </span>
               </div>
               <p className="text-xs text-slate-400 mt-0.5">
@@ -173,12 +269,9 @@ export default function AdminPortalPage() {
             </Link>
 
             <button
-              onClick={() => {
-                PortalService.logout();
-                setCurrentUser(null);
-              }}
+              onClick={handleAdminLogout}
               className="p-2.5 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-300 hover:text-red-400 border border-white/10"
-              title="Çıkış Yap"
+              title="Güvenli Çıkış ve Paneli Kilitle"
             >
               <LogOut className="w-4 h-4" />
             </button>
