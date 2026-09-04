@@ -1,62 +1,43 @@
 import { NextAuthOptions } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { ServerDb } from './server-db';
 import { UserRole, UserStatus } from './portal-types';
 
-const providers = [];
-
-// 1. Google OAuth Provider (Canlı ve Yerel Google Girişi)
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-  providers.push(
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      authorization: {
-        params: {
-          prompt: 'select_account',
-          access_type: 'offline',
-          response_type: 'code'
-        }
-      }
-    })
-  );
-}
-
-// 2. Geliştirici / Test Modu Simülatörü (Google API anahtarları henüz girilmemişse veya yerel testler için)
-// Bu sağlayıcı production ortamında tamamen devre dışıdır.
-if (process.env.NODE_ENV !== 'production') {
-  providers.push(
+export const authOptions: NextAuthOptions = {
+  providers: [
     CredentialsProvider({
-      id: 'google-dev-mock',
-      name: 'Google Geliştirici Simülasyonu',
+      id: 'mukellef-auth',
+      name: 'Mükellef Girişi',
       credentials: {
-        email: { label: 'Google E-Posta', type: 'email' },
-        name: { label: 'Google Ad Soyad', type: 'text' }
+        email: { label: 'E-Posta Adresi', type: 'email' },
+        name: { label: 'Ad Soyad', type: 'text' },
+        phone: { label: 'Telefon Numarası', type: 'text' }
       },
       async authorize(credentials) {
         if (!credentials?.email) return null;
-        const name = credentials.name || credentials.email.split('@')[0];
-        const dbUser = ServerDb.upsertGoogleUser({
-          email: credentials.email,
+
+        const email = credentials.email.trim().toLowerCase();
+        const name = credentials.name?.trim() || email.split('@')[0];
+        const phone = credentials.phone?.trim();
+
+        // Kullanıcıyı veritabanında ara veya yeni başvuru olarak 'pending' statüsüyle kaydet
+        const user = ServerDb.registerOrLoginUser({
+          email,
           name,
-          image: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}&backgroundColor=07173e&textColor=d4af37`
+          phone
         });
+
         return {
-          id: dbUser.id,
-          name: dbUser.name,
-          email: dbUser.email,
-          image: dbUser.image,
-          role: dbUser.role,
-          status: dbUser.status
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          image: user.image,
+          role: user.role,
+          status: user.status
         };
       }
     })
-  );
-}
-
-export const authOptions: NextAuthOptions = {
-  providers,
+  ],
   session: {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60 // 30 gün
@@ -67,33 +48,14 @@ export const authOptions: NextAuthOptions = {
     error: '/portal'
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
-      if (!user.email) return false;
-
-      // Google OAuth sağlayıcısından gelen kullanıcıyı sunucu veritabanında kaydet veya güncelle
-      if (account?.provider === 'google') {
-        const dbUser = ServerDb.upsertGoogleUser({
-          email: user.email,
-          name: user.name || 'Mükellef',
-          image: user.image
-        });
-        user.id = dbUser.id;
-        user.role = dbUser.role;
-        user.status = dbUser.status;
-      }
-      return true;
-    },
-
     async jwt({ token, user }) {
-      // İlk girişte token'a kullanıcı bilgilerini yaz
       if (user) {
         token.id = user.id;
         token.role = user.role;
         token.status = user.status;
       }
 
-      // Her token yenilendiğinde veritabanından güncel onay durumunu sorgula
-      // Böylece admin onay verdiğinde kullanıcının oturumu anında "approved" olarak güncellenir!
+      // Veritabanından her zaman anlık onay durumunu sorgula (Admin onay verince anında güncellenir)
       if (token.email) {
         const dbUser = ServerDb.getUserByEmail(token.email);
         if (dbUser) {

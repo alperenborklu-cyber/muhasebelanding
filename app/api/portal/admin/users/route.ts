@@ -22,3 +22,26 @@ export async function GET(request: Request) {
   const users = ServerDb.getAllUsers();
   return NextResponse.json({ users });
 }
+
+export async function POST(request: Request) {
+  const session = await getServerSession(authOptions);
+  const authHeader = request.headers.get('x-admin-key');
+
+  if (!isAuthorizedAdmin(session, authHeader)) {
+    return NextResponse.json({ error: 'Yetkisiz işlem.' }, { status: 403 });
+  }
+
+  try {
+    const body = await request.json();
+    const { name, email, phone } = body;
+
+    if (!email) {
+      return NextResponse.json({ error: 'E-posta adresi zorunludur.' }, { status: 400 });
+    }
+
+    const result = ServerDb.createPreApprovedUser({ name, email, phone });
+    return NextResponse.json(result);
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Sunucu hatası.' }, { status: 500 });
+  }
+}

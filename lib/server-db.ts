@@ -168,8 +168,8 @@ export const ServerDb = {
     return data.users.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   },
 
-  // Google OAuth ile Girişte Kullanıcı Kaydı / Eşleştirmesi
-  upsertGoogleUser(profile: { name: string; email: string; image?: string | null }): PortalUser {
+  // Mükellef Girişi / Kaydı (Google bağımsız doğrudan kayıt ve giriş)
+  registerOrLoginUser(profile: { name: string; email: string; phone?: string; image?: string | null }): PortalUser {
     const data = this.ensureStorage();
     const cleanEmail = profile.email.trim().toLowerCase();
     const existing = data.users.find(u => u.email.toLowerCase() === cleanEmail);
@@ -178,19 +178,18 @@ export const ServerDb = {
     const isSystemAdmin = adminEmails.includes(cleanEmail);
 
     if (existing) {
-      // Eğer admin e-postası ise admin ve approved olduğundan emin ol
       if (isSystemAdmin && (existing.role !== 'admin' || existing.status !== 'approved')) {
         existing.role = 'admin';
         existing.status = 'approved';
         existing.updatedAt = new Date().toISOString();
         this.saveData(data);
       }
-      this.addAuditLog('KULLANICI_GİRİŞİ', `Google OAuth ile giriş yapıldı: ${cleanEmail}`, existing.id, existing.email);
+      this.addAuditLog('KULLANICI_GİRİŞİ', `Mükellef girişi yapıldı: ${cleanEmail}`, existing.id, existing.email);
       return existing;
     }
 
     // YENİ KULLANICI:
-    // Admin e-postası ise otomatik 'approved' & 'admin', diğerleri ise 'pending' & 'user'!
+    // Admin e-postası ise otomatik 'approved' & 'admin', diğerleri ise KESİNLİKLE 'pending' (onay bekliyor)!
     const role: UserRole = isSystemAdmin ? 'admin' : 'user';
     const status: UserStatus = isSystemAdmin ? 'approved' : 'pending';
 
@@ -209,13 +208,55 @@ export const ServerDb = {
     this.saveData(data);
 
     this.addAuditLog(
-      'YENİ_KULLANICI_KAYDI',
-      `Google hesabı ile yeni kayıt oluşturuldu (${newUser.status === 'pending' ? 'Mali Müşavir Onayı Bekleniyor' : 'Doğrulanmış Admin'}): ${cleanEmail}`,
+      'YENİ_MÜKELLEF_BAŞVURUSU',
+      `Yeni mükellef başvurusu kaydedildi (${newUser.status === 'pending' ? 'Mali Müşavir Onayı Bekliyor' : 'Doğrulanmış Admin'}): ${cleanEmail}`,
       newUser.id,
       newUser.email
     );
 
     return newUser;
+  },
+
+  // Admin Tarafından Doğrudan Ön Onaylı Mükellef Ekleme
+  createPreApprovedUser(params: { name: string; email: string; phone?: string }): { success: boolean; error?: string; user?: PortalUser } {
+    const data = this.ensureStorage();
+    const cleanEmail = params.email.trim().toLowerCase();
+    const existing = data.users.find(u => u.email.toLowerCase() === cleanEmail);
+
+    if (existing) {
+      existing.status = 'approved';
+      existing.updatedAt = new Date().toISOString();
+      this.saveData(data);
+      return { success: true, user: existing };
+    }
+
+    const newUser: PortalUser = {
+      id: `usr_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      name: params.name || 'Mükellef',
+      email: cleanEmail,
+      image: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(params.name || 'M')}&backgroundColor=07173e&textColor=d4af37`,
+      role: 'user',
+      status: 'approved', // Admin tarafından doğrudan onaylı oluşturuldu!
+      kvkkConsentAt: new Date().toISOString(),
+      createdAt: new Date().toISOString()
+    };
+
+    data.users.push(newUser);
+    this.saveData(data);
+
+    this.addAuditLog(
+      'MÜKELLEF_ÖN_ONAY_TANIMLANDI',
+      `Mali Müşavir yeni onaylı mükellef tanımladı: ${cleanEmail} (${params.name})`,
+      newUser.id,
+      newUser.email
+    );
+
+    return { success: true, user: newUser };
+  },
+
+  // Geriye dönük uyumluluk için takma ad (alias)
+  upsertGoogleUser(profile: { name: string; email: string; image?: string | null }): PortalUser {
+    return this.registerOrLoginUser(profile);
   },
 
   // Kullanıcı Durumu Güncelle (Admin Onay / Red)

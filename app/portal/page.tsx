@@ -28,7 +28,11 @@ import {
   RotateCw,
   XCircle,
   Mail,
-  Sparkles
+  Camera,
+  UploadCloud,
+  User,
+  Phone,
+  ArrowRight
 } from 'lucide-react';
 import { PortalUser, TuzelKisi, FaturaBelge, BelgeTuru, HarcamaKategorisi, SirketTuru } from '@/lib/portal-types';
 import { validateVergiKimlik, validateUploadedFile } from '@/lib/security';
@@ -39,13 +43,14 @@ export default function PortalPage() {
   const [currentUser, setCurrentUser] = useState<PortalUser | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isRefreshingStatus, setIsRefreshingStatus] = useState(false);
-  const [hasGoogleConfig, setHasGoogleConfig] = useState(true);
   const [activeTab, setActiveTab] = useState<'documents' | 'companies'>('documents');
 
-  // Geliştirici / Test Girişi Durumları (Google anahtarları eksik olduğunda)
-  const [devEmail, setDevEmail] = useState('');
-  const [devName, setDevName] = useState('');
-  const [isDevSubmitting, setIsDevSubmitting] = useState(false);
+  // Giriş / Başvuru Formu State
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginName, setLoginName] = useState('');
+  const [loginPhone, setLoginPhone] = useState('');
+  const [isSubmittingLogin, setIsSubmittingLogin] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
   // KVKK Modal State
   const [isKvkkOpen, setIsKvkkOpen] = useState(false);
@@ -58,6 +63,7 @@ export default function PortalPage() {
 
   // Upload Form State
   const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [filePreviewUrl, setFilePreviewUrl] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string>('');
   const [belgeTuru, setBelgeTuru] = useState<BelgeTuru>('e-fatura');
   const [kategori, setKategori] = useState<HarcamaKategorisi>('genel_gider');
@@ -96,7 +102,6 @@ export default function PortalPage() {
       const res = await fetch('/api/portal/me');
       if (res.ok) {
         const data = await res.json();
-        setHasGoogleConfig(data.hasGoogleConfig);
         if (data.authenticated && data.user) {
           setCurrentUser(data.user);
           if (data.user.status === 'approved' || data.user.role === 'admin') {
@@ -145,30 +150,47 @@ export default function PortalPage() {
     }
   };
 
-  // Google OAuth ile Giriş Başlatma
-  const handleGoogleLogin = async () => {
+  // Mükellef Girişi / Kaydı Başlatma
+  const handleLoginSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
+
+    if (!loginEmail) {
+      setLoginError('Lütfen geçerli bir e-posta adresi giriniz.');
+      return;
+    }
+
     if (!kvkkAccepted) {
       setIsKvkkOpen(true);
       return;
     }
-    await signIn('google', { callbackUrl: '/portal' });
+
+    setIsSubmittingLogin(true);
+
+    try {
+      const res = await signIn('mukellef-auth', {
+        email: loginEmail.trim(),
+        name: loginName.trim() || loginEmail.split('@')[0],
+        phone: loginPhone.trim(),
+        redirect: false
+      });
+
+      if (res?.error) {
+        setLoginError('Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyiniz.');
+      } else {
+        await fetchPortalStatus();
+      }
+    } catch (err) {
+      setLoginError('Bağlantı hatası oluştu.');
+    } finally {
+      setIsSubmittingLogin(false);
+    }
   };
 
-  // Geliştirici Girişi (Google API anahtarları girilmediğinde test amaçlı)
-  const handleDevMockLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!devEmail) return;
-    if (!kvkkAccepted) {
-      setIsKvkkOpen(true);
-      return;
-    }
-    setIsDevSubmitting(true);
-    await signIn('google-dev-mock', {
-      email: devEmail,
-      name: devName || devEmail.split('@')[0],
-      callbackUrl: '/portal'
-    });
-    setIsDevSubmitting(false);
+  // Hızlı Test / Doldurma
+  const prefillUser = (email: string, name: string) => {
+    setLoginEmail(email);
+    setLoginName(name);
   };
 
   // Çıkış
@@ -236,7 +258,7 @@ export default function PortalPage() {
     }
   };
 
-  // Dosya Seçimi ve Güvenlik Taraması
+  // Fotoğraf / Dosya Seçimi ve Güvenlik Taraması
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setUploadError('');
     if (e.target.files && e.target.files[0]) {
@@ -245,17 +267,23 @@ export default function PortalPage() {
       if (!validation.isValid) {
         setUploadError(validation.error || 'Dosya güvenlik kontrolünden geçemedi.');
         setUploadFile(null);
+        setFilePreviewUrl(null);
       } else {
         setUploadFile(file);
+        if (file.type.startsWith('image/')) {
+          setFilePreviewUrl(URL.createObjectURL(file));
+        } else {
+          setFilePreviewUrl(null);
+        }
       }
     }
   };
 
-  // Fiş / Fatura Kaydet (API üzerinden)
+  // Fiş / Fatura / Fotoğraf Kaydet (API üzerinden)
   const handleUploadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentUser || !uploadFile) {
-      setUploadError('Lütfen geçerli bir belge seçiniz.');
+      setUploadError('Lütfen yüklenecek fotoğraf veya belgeyi seçiniz.');
       return;
     }
 
@@ -295,7 +323,7 @@ export default function PortalPage() {
 
       if (!res.ok) {
         const data = await res.json();
-        setUploadError(data.error || 'Belge yüklenemedi.');
+        setUploadError(data.error || 'Fotoğraf/belge yüklenemedi.');
         setIsUploading(false);
         return;
       }
@@ -303,6 +331,7 @@ export default function PortalPage() {
       setIsUploading(false);
       setUploadSuccess(true);
       setUploadFile(null);
+      setFilePreviewUrl(null);
       setFaturaNo('');
       setTutar(0);
       setNotlar('');
@@ -343,7 +372,7 @@ export default function PortalPage() {
   }
 
   // ==========================================================================
-  // DURUM 1: OTURUM AÇILMAMIŞ (LOGIN & GOOGLE AUTH & KVKK)
+  // DURUM 1: OTURUM AÇILMAMIŞ (MÜKELLEF GİRİŞ & BAŞVURU EKRANI)
   // ==========================================================================
   if (!currentUser) {
     return (
@@ -369,112 +398,155 @@ export default function PortalPage() {
             </Link>
 
             <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              Mükellef Kimlik Doğrulama
+              Mükellef Girişi &amp; Kayıt
             </h1>
             <p className="text-sm text-slate-400 mt-2">
-              Google hesabınızla kimliğinizi doğrulayarak kayıt oluşturabilir, mali müşavir onayından sonra portala erişebilirsiniz.
+              Sisteme kaydolarak mali müşavir onayından sonra fiş ve faturalarınızı doğrudan yükleyebilirsiniz.
             </p>
           </div>
 
           {/* Giriş Kartı */}
           <div className="p-6 sm:p-8 rounded-2xl bg-[#07173e]/90 border border-[#d4af37]/30 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
-            {/* KVKK Onay Kutusu */}
-            <div className="p-3.5 rounded-xl bg-[#040a1a]/70 border border-[#d4af37]/20 mb-6 flex items-start space-x-3">
-              <input
-                type="checkbox"
-                id="kvkk-check"
-                checked={kvkkAccepted}
-                onChange={(e) => setKvkkAccepted(e.target.checked)}
-                className="mt-1 h-4 w-4 rounded border-slate-700 bg-[#07173e] text-[#d4af37] focus:ring-[#d4af37] cursor-pointer"
-              />
-              <label htmlFor="kvkk-check" className="text-xs text-slate-300 cursor-pointer leading-relaxed">
-                <button
-                  type="button"
-                  onClick={() => setIsKvkkOpen(true)}
-                  className="text-[#faecc0] underline font-semibold hover:text-[#d4af37] inline"
-                >
-                  KVKK Aydınlatma Metni
-                </button>
-                &rsquo;ni okudum, ticari ve finansal verilerimin müşavirlik hizmeti gereğince işlenmesini onaylıyorum.
-              </label>
-            </div>
-
-            {/* Google ile Giriş Butonu */}
-            <button
-              onClick={handleGoogleLogin}
-              disabled={!kvkkAccepted}
-              className={`w-full flex items-center justify-center space-x-3 px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg ${
-                kvkkAccepted
-                  ? 'bg-white hover:bg-slate-100 text-[#040a1a] shadow-white/10 hover:shadow-white/20 active:scale-[0.99] cursor-pointer'
-                  : 'bg-white/40 text-slate-600 cursor-not-allowed'
-              }`}
-            >
-              <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
-                <path
-                  fill="#4285F4"
-                  d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
-                />
-              </svg>
-              <span>Google ile Giriş Yap</span>
-            </button>
-
-            {/* Google OAuth Anahtarları Henüz Girilmemişse Bilgilendirme ve Geliştirici Test Alanı */}
-            {!hasGoogleConfig && (
-              <div className="mt-6 pt-5 border-t border-amber-500/20 text-xs">
-                <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 mb-4">
-                  <div className="flex items-center space-x-1.5 font-bold mb-1 text-amber-300">
-                    <Info className="w-4 h-4 flex-shrink-0" />
-                    <span>Google OAuth Yapılandırması Bekleniyor</span>
-                  </div>
-                  <p className="text-[11px] text-slate-300 leading-relaxed">
-                    Canlı Google girişi için <code className="text-[#faecc0] bg-black/40 px-1 rounded">.env.local</code> içine <code className="text-[#faecc0]">GOOGLE_CLIENT_ID</code> ve <code className="text-[#faecc0]">GOOGLE_CLIENT_SECRET</code> ekleyiniz.
-                  </p>
-                </div>
-
-                <div className="bg-[#040a1a]/80 p-4 rounded-xl border border-white/10">
-                  <span className="block font-bold text-white mb-2 text-[11px] uppercase tracking-wider">
-                    Geliştirici Test Girişi (Pending / Onay Akışı):
-                  </span>
-                  <form onSubmit={handleDevMockLogin} className="space-y-2.5">
-                    <input
-                      type="email"
-                      required
-                      placeholder="Google E-postası (örn: mukellef@sirket.com)"
-                      value={devEmail}
-                      onChange={(e) => setDevEmail(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg bg-[#07173e] border border-white/10 text-white text-xs focus:border-[#d4af37] focus:outline-none"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Ad Soyad (örn: Mehmet Demir)"
-                      value={devName}
-                      onChange={(e) => setDevName(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg bg-[#07173e] border border-white/10 text-white text-xs focus:border-[#d4af37] focus:outline-none"
-                    />
-                    <button
-                      type="submit"
-                      disabled={isDevSubmitting || !kvkkAccepted || !devEmail}
-                      className="w-full py-2.5 rounded-lg bg-[#d4af37]/20 hover:bg-[#d4af37]/30 text-[#faecc0] border border-[#d4af37]/40 font-bold text-xs flex items-center justify-center space-x-1.5 transition-colors disabled:opacity-50"
-                    >
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>{isDevSubmitting ? 'Doğrulanıyor...' : 'Geliştirici Olarak Kaydol & Giriş Yap'}</span>
-                    </button>
-                  </form>
-                </div>
+            {loginError && (
+              <div className="p-3.5 mb-5 rounded-xl bg-red-500/20 border border-red-500/40 text-red-300 text-xs flex items-center space-x-2">
+                <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+                <span>{loginError}</span>
               </div>
             )}
+
+            <form onSubmit={handleLoginSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  E-Posta Adresiniz *
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <Mail className="w-4 h-4 text-[#d4af37]" />
+                  </div>
+                  <input
+                    type="email"
+                    required
+                    placeholder="ornek@sirket.com"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Adınız ve Soyadınız *
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <User className="w-4 h-4 text-[#d4af37]" />
+                  </div>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Adınız Soyadınız"
+                    value={loginName}
+                    onChange={(e) => setLoginName(e.target.value)}
+                    className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Telefon Numaranız <span className="text-slate-500 font-normal">(İsteğe Bağlı)</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <Phone className="w-4 h-4 text-[#d4af37]" />
+                  </div>
+                  <input
+                    type="tel"
+                    placeholder="05XX XXX XX XX"
+                    value={loginPhone}
+                    onChange={(e) => setLoginPhone(e.target.value)}
+                    className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
+                  />
+                </div>
+              </div>
+
+              {/* KVKK Onay Kutusu */}
+              <div className="p-3.5 rounded-xl bg-[#040a1a]/70 border border-[#d4af37]/20 my-4 flex items-start space-x-3">
+                <input
+                  type="checkbox"
+                  id="kvkk-check"
+                  checked={kvkkAccepted}
+                  onChange={(e) => setKvkkAccepted(e.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-slate-700 bg-[#07173e] text-[#d4af37] focus:ring-[#d4af37] cursor-pointer"
+                />
+                <label htmlFor="kvkk-check" className="text-xs text-slate-300 cursor-pointer leading-relaxed">
+                  <button
+                    type="button"
+                    onClick={() => setIsKvkkOpen(true)}
+                    className="text-[#faecc0] underline font-semibold hover:text-[#d4af37] inline"
+                  >
+                    KVKK Aydınlatma Metni
+                  </button>
+                  &rsquo;ni okudum, ticari ve finansal belgelerimin müşavirlik hizmeti gereğince işlenmesini onaylıyorum.
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmittingLogin || !kvkkAccepted}
+                className={`w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2 ${
+                  kvkkAccepted && !isSubmittingLogin
+                    ? 'bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] shadow-[0_0_20px_rgba(212,175,55,0.3)] cursor-pointer active:scale-[0.99]'
+                    : 'bg-white/20 text-slate-500 cursor-not-allowed'
+                }`}
+              >
+                {isSubmittingLogin ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-black border-t-transparent" />
+                    <span>Kontrol Ediliyor...</span>
+                  </>
+                ) : (
+                  <>
+                    <Lock className="w-4 h-4" />
+                    <span>Güvenli Giriş Yap / Başvur</span>
+                  </>
+                )}
+              </button>
+            </form>
+
+            {/* Test Kullanıcıları / Hızlı Seçim */}
+            <div className="mt-8 pt-5 border-t border-white/10 text-xs">
+              <span className="block text-[11px] font-semibold text-[#faecc0] uppercase tracking-wider mb-2.5 text-center">
+                Hızlı Test İçin Örnek Profiller:
+              </span>
+              <div className="grid grid-cols-1 gap-2">
+                <button
+                  type="button"
+                  onClick={() => prefillUser('suleyman@rotayd.com', 'Süleyman İlhan')}
+                  className="px-3 py-2 rounded-lg bg-[#d4af37]/15 hover:bg-[#d4af37]/25 text-[#faecc0] border border-[#d4af37]/30 flex items-center justify-between text-left cursor-pointer"
+                >
+                  <span className="font-semibold">Mali Müşavir (Admin)</span>
+                  <span className="text-[10px] bg-[#d4af37] text-black px-1.5 py-0.5 rounded font-bold">Admin</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => prefillUser('ahmet.yilmaz@anadolutech.com', 'Ahmet Yılmaz')}
+                  className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 flex items-center justify-between text-left cursor-pointer"
+                >
+                  <span>Onaylı Mükellef (Ahmet Yılmaz)</span>
+                  <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-bold">Onaylı</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => prefillUser('yeni.kayit@sirket.com', 'Yeni Başvuran Mükellef')}
+                  className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 flex items-center justify-between text-left cursor-pointer"
+                >
+                  <span>Yeni Kayıt (Onay Bekleyen)</span>
+                  <span className="text-[10px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded font-bold">Bekliyor</span>
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Güvenlik Rozetleri */}
@@ -509,13 +581,14 @@ export default function PortalPage() {
 
   // ==========================================================================
   // DURUM 2: KULLANICI GİRİŞ YAPTI AMA DURUMU "ONAY BEKLİYOR" (PENDING)
+  // SADECE ADMİN ONAYLADIĞINDA SİSTEME FOTOĞRAF / BELGE ATABİLİR!
   // ==========================================================================
   if (currentUser.status === 'pending') {
     return (
       <div className="min-h-screen bg-[#040a1a] text-white flex flex-col justify-between pt-24 pb-12 px-4 sm:px-6 relative">
         <div className="max-w-xl w-full mx-auto my-auto relative z-10">
           <div className="p-8 sm:p-10 rounded-3xl bg-[#07173e] border border-amber-500/40 shadow-[0_0_50px_rgba(245,158,11,0.15)] text-center">
-            {/* Kullanıcı Google Profil Resmi ve İkon */}
+            {/* Profil Resmi & Bekleme İkonu */}
             <div className="relative w-20 h-20 mx-auto mb-6">
               <img
                 src={currentUser.image}
@@ -538,12 +611,19 @@ export default function PortalPage() {
 
             <p className="text-sm text-slate-300 leading-relaxed mb-6">
               Sayın <strong className="text-white">{currentUser.name}</strong>,{' '}
-              <strong className="text-[#faecc0]">{currentUser.email}</strong> Google hesabınızla oluşturduğunuz mükellef kaydı, mükellef kimlik tespiti ve finansal veri gizliliği gereğince <strong>Mali Müşavir Süleyman İlhan</strong> onayına sunulmuştur.
+              <strong className="text-[#faecc0]">{currentUser.email}</strong> hesabınızla oluşturduğunuz mükellef kaydı, finansal veri gizliliği gereğince <strong>Mali Müşavir Süleyman İlhan</strong> onayına sunulmuştur.
             </p>
+
+            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs mb-6 text-left flex items-start space-x-3">
+              <AlertTriangle className="w-5 h-5 flex-shrink-0 text-amber-400 mt-0.5" />
+              <div className="leading-relaxed">
+                <strong>Fotoğraf &amp; Belge Yükleme Kısıtlaması:</strong> Yasal defter güvenliği gereğince yalnızca Mali Müşavir tarafından onaylanan mükellefler sisteme fotoğraf, fiş ve fatura yükleyebilir. Başvurunuz onaylandığı anda sistem otomatik olarak açılacaktır.
+              </div>
+            </div>
 
             <div className="p-4 rounded-xl bg-[#040a1a]/80 border border-white/10 text-left text-xs space-y-2 text-slate-400 mb-6">
               <div className="flex justify-between">
-                <span>Google Hesap E-postası:</span>
+                <span>Kayıtlı E-Posta:</span>
                 <span className="text-[#faecc0] font-medium font-mono">{currentUser.email}</span>
               </div>
               <div className="flex justify-between">
@@ -555,8 +635,8 @@ export default function PortalPage() {
                 <span className="text-emerald-400 font-medium">Doğrulandı &amp; Kaydedildi</span>
               </div>
               <div className="flex justify-between">
-                <span>Yetki Seviyesi:</span>
-                <span className="text-amber-400 font-medium">Onay Sonrası Tüzel Kişi ve Fatura Portalı Açılacaktır</span>
+                <span>Mevcut Durum:</span>
+                <span className="text-amber-400 font-medium">İnceleme Havuzunda</span>
               </div>
             </div>
 
@@ -564,7 +644,7 @@ export default function PortalPage() {
               <button
                 onClick={handleRefreshStatus}
                 disabled={isRefreshingStatus}
-                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] text-xs font-bold uppercase tracking-wider transition-all shadow-md active:scale-[0.98]"
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] text-xs font-bold uppercase tracking-wider transition-all shadow-md active:scale-[0.98] cursor-pointer"
               >
                 <RotateCw className={`w-4 h-4 ${isRefreshingStatus ? 'animate-spin' : ''}`} />
                 <span>{isRefreshingStatus ? 'Kontrol Ediliyor...' : 'Onay Durumunu Yenile'}</span>
@@ -572,7 +652,7 @@ export default function PortalPage() {
 
               <button
                 onClick={handleLogout}
-                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors"
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors cursor-pointer"
               >
                 <LogOut className="w-4 h-4" />
                 <span>Çıkış Yap / Farklı Hesap</span>
@@ -598,12 +678,12 @@ export default function PortalPage() {
 
             <h1 className="text-xl font-bold text-white mb-2">Başvuru Onaylanmadı</h1>
             <p className="text-xs text-slate-300 leading-relaxed mb-6">
-              Sayın <strong className="text-white">{currentUser.name}</strong>, ({currentUser.email}) Google hesabınızla yapılan mükellef başvurusu onaylanamamıştır. Detaylı bilgi ve kimlik doğrulaması için lütfen ofisimizle iletişime geçiniz.
+              Sayın <strong className="text-white">{currentUser.name}</strong>, ({currentUser.email}) mükellef başvurunuz onaylanamamıştır. Detaylı bilgi ve kimlik doğrulaması için lütfen müşavirliğimiz ile iletişime geçiniz.
             </p>
 
             <button
               onClick={handleLogout}
-              className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors"
+              className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors cursor-pointer"
             >
               Farklı Bir Hesapla Giriş Yap
             </button>
@@ -615,6 +695,7 @@ export default function PortalPage() {
 
   // ==========================================================================
   // DURUM 3: KULLANICI ONAYLI (APPROVED) - MÜKELLEF TAM PANELİ
+  // ARTIK FOTOĞRAF, FİŞ VE FATURA YÜKLEYEBİLİR!
   // ==========================================================================
   const activeCompany = companies.find((c) => c.id === selectedCompanyId);
 
@@ -646,7 +727,7 @@ export default function PortalPage() {
             <div>
               <div className="flex items-center space-x-2">
                 <h1 className="text-xl font-bold text-white">{currentUser.name}</h1>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-wider border border-emerald-500/30 flex items-center space-x-1">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-wider border border-emerald-500/30 flex items-center space-x-1">
                   <CheckCircle2 className="w-3 h-3 mr-1 inline" />
                   Onaylı Mükellef
                 </span>
@@ -673,7 +754,7 @@ export default function PortalPage() {
 
             <button
               onClick={() => setIsKvkkOpen(true)}
-              className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors border border-white/10"
+              className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors border border-white/10 cursor-pointer"
               title="KVKK Protokolü"
             >
               <Shield className="w-4 h-4 text-[#d4af37]" />
@@ -681,7 +762,7 @@ export default function PortalPage() {
 
             <button
               onClick={handleLogout}
-              className="p-2.5 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-300 hover:text-red-400 transition-colors border border-white/10"
+              className="p-2.5 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-300 hover:text-red-400 transition-colors border border-white/10 cursor-pointer"
               title="Çıkış Yap"
             >
               <LogOut className="w-4 h-4" />
@@ -693,19 +774,19 @@ export default function PortalPage() {
         <div className="flex items-center space-x-3 mt-6 border-b border-white/10 pb-3">
           <button
             onClick={() => setActiveTab('documents')}
-            className={`px-5 py-2.5 rounded-xl font-bold text-xs tracking-wider uppercase transition-all flex items-center space-x-2 ${
+            className={`px-5 py-2.5 rounded-xl font-bold text-xs tracking-wider uppercase transition-all flex items-center space-x-2 cursor-pointer ${
               activeTab === 'documents'
                 ? 'bg-gradient-to-r from-[#d4af37] to-[#b89025] text-[#040a1a] shadow-lg shadow-[#d4af37]/20'
                 : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
             }`}
           >
-            <FileUp className="w-4 h-4" />
-            <span>Fiş &amp; Fatura Portalı ({documents.length})</span>
+            <Camera className="w-4 h-4" />
+            <span>Fiş, Fotoğraf &amp; Fatura Portalı ({documents.length})</span>
           </button>
 
           <button
             onClick={() => setActiveTab('companies')}
-            className={`px-5 py-2.5 rounded-xl font-bold text-xs tracking-wider uppercase transition-all flex items-center space-x-2 ${
+            className={`px-5 py-2.5 rounded-xl font-bold text-xs tracking-wider uppercase transition-all flex items-center space-x-2 cursor-pointer ${
               activeTab === 'companies'
                 ? 'bg-gradient-to-r from-[#d4af37] to-[#b89025] text-[#040a1a] shadow-lg shadow-[#d4af37]/20'
                 : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
@@ -720,19 +801,19 @@ export default function PortalPage() {
       {/* İÇERİK BÖLÜMÜ */}
       <div className="max-w-7xl mx-auto">
         {/* ==================================================================
-            SEKME 1: FİŞ & FATURA YÜKLEME VE LİSTELEME
+            SEKME 1: FİŞ & FOTOĞRAF & FATURA YÜKLEME VE LİSTELEME
             ================================================================== */}
         {activeTab === 'documents' && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* SOL SÜTUN: Dosya Yükleme Formu */}
+            {/* SOL SÜTUN: Dosya & Fotoğraf Yükleme Formu */}
             <div className="lg:col-span-5 space-y-6">
               <div className="p-6 rounded-2xl bg-[#07173e] border border-[#d4af37]/30 shadow-xl">
                 <h2 className="text-base font-bold text-white mb-1 flex items-center">
-                  <FileUp className="w-5 h-5 mr-2 text-[#d4af37]" />
-                  Yeni Fiş / Fatura Yükle
+                  <Camera className="w-5 h-5 mr-2 text-[#d4af37]" />
+                  Yeni Fiş / Fotoğraf / Fatura Yükle
                 </h2>
                 <p className="text-xs text-slate-400 mb-5">
-                  Banka seviyesi şifreleme ile doğrudan mali müşavirinize iletilir.
+                  Çektiğiniz fiş fotoğrafını veya e-fatura dosyasını doğrudan mali müşavirinize iletin.
                 </p>
 
                 {/* Eğer şirket yoksa uyarı */}
@@ -747,7 +828,7 @@ export default function PortalPage() {
                     </p>
                     <button
                       onClick={() => setIsCompanyModalOpen(true)}
-                      className="px-4 py-2 rounded-lg bg-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider"
+                      className="px-4 py-2 rounded-lg bg-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider cursor-pointer"
                     >
                       + Şirket Kimliği Oluştur
                     </button>
@@ -772,34 +853,47 @@ export default function PortalPage() {
                       </select>
                     </div>
 
-                    {/* Sürükle Bırak / Dosya Seç */}
+                    {/* Sürükle Bırak / Fotoğraf Çek / Dosya Seç */}
                     <div>
                       <label className="block text-slate-300 font-semibold mb-1">
-                        Belge Dosyası (PDF, JPG, PNG, e-Fatura XML) *
+                        Fiş Fotoğrafı veya Belge Dosyası *
                       </label>
                       <div className="relative border-2 border-dashed border-[#d4af37]/40 hover:border-[#d4af37] rounded-xl p-5 text-center bg-[#040a1a]/50 transition-colors">
                         <input
                           type="file"
-                          accept=".pdf,.jpg,.jpeg,.png,.xml"
+                          accept="image/*,.pdf,.xml"
                           onChange={handleFileSelect}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         />
                         <div className="flex flex-col items-center">
-                          <FileText className="w-8 h-8 text-[#d4af37] mb-2" />
+                          {filePreviewUrl ? (
+                            <div className="relative mb-2">
+                              <img
+                                src={filePreviewUrl}
+                                alt="Fiş Önizleme"
+                                className="w-24 h-24 object-cover rounded-lg border border-[#d4af37]/50 shadow-md"
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] mb-2">
+                              <Camera className="w-6 h-6" />
+                            </div>
+                          )}
+
                           {uploadFile ? (
                             <div>
                               <span className="font-bold text-white block text-sm">{uploadFile.name}</span>
                               <span className="text-[11px] text-emerald-400">
-                                {(uploadFile.size / 1024).toFixed(1)} KB • Güvenlik Taramasından Geçti
+                                {(uploadFile.size / 1024).toFixed(1)} KB • Güvenlik Kontrolünden Geçti
                               </span>
                             </div>
                           ) : (
                             <div>
-                              <span className="text-slate-300 font-medium block">
-                                Dosyayı buraya sürükleyin veya tıklayın
+                              <span className="text-slate-200 font-semibold block text-sm">
+                                Fotoğraf Çekin veya Dosya Seçin
                               </span>
-                              <span className="text-[10px] text-slate-500 mt-1 block">
-                                Maksimum 15 MB (Magic Bytes doğrulamalı)
+                              <span className="text-[10px] text-slate-400 mt-1 block">
+                                Kamera Fotoğrafı, JPG, PNG, PDF (Maks. 15 MB)
                               </span>
                             </div>
                           )}
@@ -822,12 +916,12 @@ export default function PortalPage() {
                           onChange={(e) => setBelgeTuru(e.target.value as BelgeTuru)}
                           className="w-full px-3 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-white focus:border-[#d4af37] focus:outline-none"
                         >
+                          <option value="fis">Yazar Kasa Fişi / Fotoğraf</option>
                           <option value="e-fatura">e-Fatura</option>
                           <option value="e-arsiv">e-Arşiv Fatura</option>
-                          <option value="fis">Yazar Kasa Fişi</option>
                           <option value="smm">Serbest Meslek (SMM)</option>
                           <option value="gider_pusulasi">Gider Pusulası</option>
-                          <option value="diger">Diğer Belge</option>
+                          <option value="diger">Diğer Belge / Dekont</option>
                         </select>
                       </div>
 
@@ -838,9 +932,9 @@ export default function PortalPage() {
                           onChange={(e) => setKategori(e.target.value as HarcamaKategorisi)}
                           className="w-full px-3 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-white focus:border-[#d4af37] focus:outline-none"
                         >
-                          <option value="genel_gider">Genel Gider</option>
-                          <option value="akaryakit">Akaryakıt &amp; Taşıt</option>
                           <option value="yemek_temsil">Yemek &amp; Temsil</option>
+                          <option value="akaryakit">Akaryakıt &amp; Taşıt</option>
+                          <option value="genel_gider">Genel Gider</option>
                           <option value="kira">Kira &amp; Aidat</option>
                           <option value="danismanlik_hizmet">Hizmet &amp; Yazılım</option>
                           <option value="demirbas">Demirbaş Alımı</option>
@@ -854,10 +948,10 @@ export default function PortalPage() {
                     {/* Fatura No & Tarih */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-slate-300 font-semibold mb-1">Fatura / Fiş No</label>
+                        <label className="block text-slate-300 font-semibold mb-1">Fiş / Belge No</label>
                         <input
                           type="text"
-                          placeholder="Örn: GIB2026..."
+                          placeholder="Örn: 0012 veya GIB..."
                           value={faturaNo}
                           onChange={(e) => setFaturaNo(e.target.value)}
                           className="w-full px-3 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-white focus:border-[#d4af37] focus:outline-none"
@@ -921,7 +1015,7 @@ export default function PortalPage() {
                       <label className="block text-slate-300 font-semibold mb-1">Mali Müşavir İçin Not</label>
                       <textarea
                         rows={2}
-                        placeholder="Harcamanın gerekçesi veya projesi..."
+                        placeholder="Harcamanın gerekçesi..."
                         value={notlar}
                         onChange={(e) => setNotlar(e.target.value)}
                         className="w-full px-3 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-white focus:border-[#d4af37] focus:outline-none resize-none"
@@ -932,7 +1026,7 @@ export default function PortalPage() {
                     <button
                       type="submit"
                       disabled={isUploading || !uploadFile}
-                      className={`w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center space-x-2 ${
+                      className={`w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center space-x-2 ${
                         uploadFile && !isUploading
                           ? 'bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] shadow-[0_0_20px_rgba(212,175,55,0.3)] cursor-pointer'
                           : 'bg-white/10 text-slate-500 cursor-not-allowed'
@@ -946,7 +1040,7 @@ export default function PortalPage() {
                       ) : (
                         <>
                           <Lock className="w-4 h-4" />
-                          <span>Güvenli Olarak Arşive Gönder</span>
+                          <span>Güvenli Olarak Müşavir Havuzuna Gönder</span>
                         </>
                       )}
                     </button>
@@ -979,7 +1073,7 @@ export default function PortalPage() {
                       <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                       <input
                         type="text"
-                        placeholder="Belge veya fatura ara..."
+                        placeholder="Belge ara..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="pl-8 pr-3 py-1.5 rounded-xl bg-[#040a1a] border border-white/10 text-xs text-white focus:border-[#d4af37] focus:outline-none w-44"
@@ -992,8 +1086,8 @@ export default function PortalPage() {
                       className="px-2.5 py-1.5 rounded-xl bg-[#040a1a] border border-white/10 text-xs text-white focus:border-[#d4af37] focus:outline-none"
                     >
                       <option value="all">Tüm Kategoriler</option>
-                      <option value="akaryakit">Akaryakıt</option>
                       <option value="yemek_temsil">Yemek</option>
+                      <option value="akaryakit">Akaryakıt</option>
                       <option value="genel_gider">Genel Gider</option>
                       <option value="danismanlik_hizmet">Hizmet/Yazılım</option>
                       <option value="kira">Kira</option>
@@ -1006,7 +1100,7 @@ export default function PortalPage() {
                 {filteredDocuments.length === 0 ? (
                   <div className="text-center py-12 border border-dashed border-white/10 rounded-xl">
                     <FileText className="w-10 h-10 mx-auto text-slate-500 mb-2 opacity-60" />
-                    <p className="text-xs text-slate-400">Henüz bu kategoride kayıtlı fiş veya fatura bulunmuyor.</p>
+                    <p className="text-xs text-slate-400">Henüz bu kategoride kayıtlı fiş veya fotoğraf bulunmuyor.</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -1070,7 +1164,7 @@ export default function PortalPage() {
 
                           <button
                             onClick={() => handleDeleteDoc(doc.id)}
-                            className="p-1.5 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                            className="p-1.5 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
                             title="Belgeyi Sil"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -1100,7 +1194,7 @@ export default function PortalPage() {
 
               <button
                 onClick={() => setIsCompanyModalOpen(true)}
-                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider flex items-center space-x-2 self-start sm:self-auto shadow-lg"
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider flex items-center space-x-2 self-start sm:self-auto shadow-lg cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Yeni Tüzel Kişi Tanımla</span>
@@ -1116,7 +1210,7 @@ export default function PortalPage() {
                 </p>
                 <button
                   onClick={() => setIsCompanyModalOpen(true)}
-                  className="px-5 py-2.5 rounded-xl bg-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider"
+                  className="px-5 py-2.5 rounded-xl bg-[#d4af37] text-[#040a1a] font-bold text-xs uppercase tracking-wider cursor-pointer"
                 >
                   + Şirket Ekle
                 </button>
@@ -1205,7 +1299,7 @@ export default function PortalPage() {
               </div>
               <button
                 onClick={() => setIsCompanyModalOpen(false)}
-                className="text-slate-400 hover:text-white"
+                className="text-slate-400 hover:text-white cursor-pointer"
               >
                 ✕
               </button>
@@ -1351,7 +1445,7 @@ export default function PortalPage() {
                 <button
                   type="button"
                   onClick={() => setIsCompanyModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold"
+                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold cursor-pointer"
                 >
                   İptal
                 </button>
