@@ -443,13 +443,13 @@ html.light-mode #canvas-door-section .bg-\[\#07173e\]\/90 {
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Left Door Hover State - Rich Navy Blue */
+/* Left Door Hover State - 50% Transparent Black */
 .door-link-left:hover .door-wing-left,
 .door-wing-left.is-hovered {
-  fill: rgba(11, 29, 74, 0.72) !important;
-  stroke: #1d4ed8 !important;
-  stroke-width: 2.5px !important;
-  filter: drop-shadow(0 0 16px rgba(29, 78, 216, 0.65)) !important;
+  fill: rgba(0, 0, 0, 0.50) !important;
+  stroke: rgba(0, 0, 0, 0.80) !important;
+  stroke-width: 2px !important;
+  filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.75)) !important;
 }
 
 .door-link-left:hover .door-bar-left,
@@ -458,13 +458,13 @@ html.light-mode #canvas-door-section .bg-\[\#07173e\]\/90 {
   transform: translateY(0) !important;
 }
 
-/* Right Door Hover State - Rich Navy Blue */
+/* Right Door Hover State - 50% Transparent Black */
 .door-link-right:hover .door-wing-right,
 .door-wing-right.is-hovered {
-  fill: rgba(11, 29, 74, 0.72) !important;
-  stroke: #1d4ed8 !important;
-  stroke-width: 2.5px !important;
-  filter: drop-shadow(0 0 16px rgba(29, 78, 216, 0.65)) !important;
+  fill: rgba(0, 0, 0, 0.50) !important;
+  stroke: rgba(0, 0, 0, 0.80) !important;
+  stroke-width: 2px !important;
+  filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.75)) !important;
 }
 
 .door-link-right:hover .door-bar-right,
