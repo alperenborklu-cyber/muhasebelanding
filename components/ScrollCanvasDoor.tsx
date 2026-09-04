@@ -562,13 +562,10 @@ export default function ScrollCanvasDoor() {
                   <div className="w-11 h-11 rounded-2xl bg-[#0e214d] border border-[#d4af37]/40 flex items-center justify-center group-hover:bg-[#d4af37] group-hover:text-black transition-all">
                     <ShieldCheck className="w-5 h-5 text-[#d4af37] group-hover:text-black transition-colors" />
                   </div>
-                  <span className="text-[10px] font-mono tracking-widest text-[#d4af37] uppercase bg-[#d4af37]/10 px-2.5 py-0.5 rounded-full border border-[#d4af37]/20">
-                    Sol Kanat
-                  </span>
                 </div>
 
                 <div>
-                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white group-hover:text-[#faecc0] transition-colors">
+                  <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-white group-hover:text-[#faecc0] transition-colors">
                     MUHASEBECİLİK
                   </h3>
                   <p className="text-xs text-[#d4af37]/90 font-medium mt-1">
@@ -614,9 +611,6 @@ export default function ScrollCanvasDoor() {
                   <div className="w-11 h-11 rounded-2xl bg-[#0e214d] border border-[#d4af37]/40 flex items-center justify-center group-hover:bg-[#d4af37] group-hover:text-black transition-all">
                     <Briefcase className="w-5 h-5 text-[#d4af37] group-hover:text-black transition-colors" />
                   </div>
-                  <span className="text-[10px] font-mono tracking-widest text-[#d4af37] uppercase bg-[#d4af37]/10 px-2.5 py-0.5 rounded-full border border-[#d4af37]/20">
-                    Sağ Kanat
-                  </span>
                 </div>
 
                 <div>

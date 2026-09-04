@@ -95,7 +95,7 @@ export default function DanismanlikPage() {
               </button>
               <a
                 href="tel:05536221122"
-                className="px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2"
+                className="phone-nav-btn px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2"
               >
                 <Phone className="w-3.5 h-3.5 text-[#d4af37]" />
                 <span>0553 622 11 22</span>

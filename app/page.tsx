@@ -203,7 +203,7 @@ export default function Home() {
       </section>
 
       {/* 5. Split Portal Görsel Kartları */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#040a1a] via-[#071330] to-[#040a1a] border-t border-white/5 transition-colors duration-300">
+      <section id="split-portal-section" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#040a1a] via-[#071330] to-[#040a1a] border-t border-white/5 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14 space-y-2">
             <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">

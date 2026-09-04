@@ -256,11 +256,54 @@ html.light-mode header {
   box-shadow: 0 4px 20px -2px rgba(5, 17, 46, 0.06) !important;
 }
 
-html.light-mode header a,
+html.light-mode header a:not(.phone-nav-btn),
 html.light-mode header button {
   color: #05112e !important;
 }
 
+html.light-mode header img[src*="logobeyaz"] {
+  filter: brightness(0) !important;
+}
+
+/* Phone Number Button in Light Mode (Navy Background, White Text) */
+html.light-mode .phone-nav-btn,
+html.light-mode a[href="tel:05536221122"].rounded-full,
+html.light-mode a[href="tel:05536221122"].rounded-xl,
+html.light-mode a[href^="tel:"].rounded-full,
+html.light-mode a[href^="tel:"].rounded-xl {
+  background-color: #07173e !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  box-shadow: 0 2px 8px rgba(7, 23, 62, 0.15) !important;
+}
+
+html.light-mode .phone-nav-btn span,
+html.light-mode a[href="tel:05536221122"].rounded-full span,
+html.light-mode a[href="tel:05536221122"].rounded-xl span,
+html.light-mode a[href^="tel:"].rounded-full span,
+html.light-mode a[href^="tel:"].rounded-xl span {
+  color: #ffffff !important;
+}
+
+html.light-mode .phone-nav-btn svg,
+html.light-mode a[href="tel:05536221122"].rounded-full svg,
+html.light-mode a[href="tel:05536221122"].rounded-xl svg,
+html.light-mode a[href^="tel:"].rounded-full svg,
+html.light-mode a[href^="tel:"].rounded-xl svg {
+  color: #d4af37 !important;
+}
+
+html.light-mode .phone-nav-btn:hover,
+html.light-mode a[href="tel:05536221122"].rounded-full:hover,
+html.light-mode a[href="tel:05536221122"].rounded-xl:hover,
+html.light-mode a[href^="tel:"].rounded-full:hover,
+html.light-mode a[href^="tel:"].rounded-xl:hover {
+  background-color: #0d2861 !important;
+  border-color: #d4af37 !important;
+  color: #ffffff !important;
+}
+
+/* Footer in Light Mode */
 html.light-mode footer,
 html.light-mode footer#contact {
   background-color: #ffffff !important;
@@ -268,17 +311,76 @@ html.light-mode footer#contact {
   color: #0d2048 !important;
 }
 
+html.light-mode footer .footer-brand {
+  color: #05112e !important;
+}
+
+html.light-mode footer .footer-col-title,
+html.light-mode footer .footer-col-title span,
+html.light-mode footer h3,
+html.light-mode footer .border-b span {
+  color: #05112e !important;
+  font-weight: 700 !important;
+}
+
 html.light-mode footer a {
   color: #0d2048 !important;
 }
 
 html.light-mode footer a:hover {
-  color: #05112e !important;
+  color: #b89025 !important;
 }
 
-html.light-mode footer .footer-brand {
-  color: #05112e !important;
+html.light-mode footer p {
+  color: #334155 !important;
 }
+
+html.light-mode footer .border-white\/10 {
+  border-color: #e2e8f0 !important;
+}
+
+html.light-mode footer a[href="tel:05536221122"] {
+  color: #05112e !important;
+  font-weight: 600;
+}
+
+/* Split Portal Section in Light Mode: Must remain dark background with crisp white typography */
+html.light-mode #split-portal-section {
+  background: linear-gradient(to bottom, #040a1a, #071330, #040a1a) !important;
+}
+
+html.light-mode #split-portal-section h2,
+html.light-mode #split-portal-section h2 span:not(.gold-gradient-text) {
+  color: #ffffff !important;
+}
+
+html.light-mode #split-portal-section .gold-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #faecc0 40%, #d4af37 80%, #b89025 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html.light-mode #split-portal-section p {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+html.light-mode #split-portal-section h3 {
+  color: #ffffff !important;
+}
+
+html.light-mode #split-portal-section .glass-panel {
+  background: rgba(7, 17, 40, 0.85) !important;
+  border-color: rgba(212, 175, 55, 0.35) !important;
+}
+
+html.light-mode #split-portal-section .glass-panel span {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+html.light-mode #split-portal-section a[class*="from-[#d4af37]"] span {
+  color: #000000 !important;
+}
+
 
 /* ==========================================================================
    EXCEPTIONS FOR 3D CANVAS DOOR SECTION: MUST ALWAYS REMAIN DARK & PURE WHITE

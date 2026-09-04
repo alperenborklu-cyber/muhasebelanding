@@ -22,7 +22,7 @@ export default function Footer() {
 
           {/* Col 2 */}
           <div className="space-y-3">
-            <div className="flex items-center space-x-2 text-white font-semibold text-sm border-b border-white/10 pb-2">
+            <div className="flex items-center space-x-2 text-white font-semibold text-sm border-b border-white/10 pb-2 footer-col-title">
               <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
               <span>Muhasebecilik</span>
             </div>
@@ -52,7 +52,7 @@ export default function Footer() {
 
           {/* Col 3 */}
           <div className="space-y-3">
-            <div className="flex items-center space-x-2 text-white font-semibold text-sm border-b border-white/10 pb-2">
+            <div className="flex items-center space-x-2 text-white font-semibold text-sm border-b border-white/10 pb-2 footer-col-title">
               <Briefcase className="w-4 h-4 text-[#d4af37]" />
               <span>Yönetim Danışmanlığı</span>
             </div>
@@ -83,7 +83,7 @@ export default function Footer() {
 
           {/* Col 4 */}
           <div className="space-y-3">
-            <h3 className="text-white font-semibold text-sm border-b border-white/10 pb-2">
+            <h3 className="text-white font-semibold text-sm border-b border-white/10 pb-2 footer-col-title">
               İletişim & Randevu
             </h3>
             <div className="space-y-2.5 text-xs">
