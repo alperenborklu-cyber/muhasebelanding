@@ -79,8 +79,17 @@ export default function ScrollCanvasDoor() {
       loadedImgs.push(img);
     }
 
+    // Preloader timeout fallback to ensure page is never blocked
+    const fallbackTimer = setTimeout(() => {
+      if (!isCancelled) {
+        setImages(loadedImgs);
+        setIsLoaded(true);
+      }
+    }, 2000);
+
     return () => {
       isCancelled = true;
+      clearTimeout(fallbackTimer);
     };
   }, []);
 

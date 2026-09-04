@@ -18,18 +18,11 @@ import {
   Sparkles,
   BookOpen
 } from "lucide-react";
+import AppointmentForm from "@/components/AppointmentForm";
 import { useState, useEffect } from "react";
 import { BLOG_POSTS } from "@/lib/blogData";
 
 export default function Home() {
-  const [formSent, setFormSent] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    subject: "Genel Danışmanlık",
-  });
-
   const latestPosts = BLOG_POSTS.slice(0, 3);
 
   // Clean any #hash from URL and handle smooth scroll query
@@ -48,12 +41,6 @@ export default function Home() {
       }
     }
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSent(true);
-    setTimeout(() => setFormSent(false), 6000);
-  };
 
   return (
     <div className="bg-[#040a1a] text-white transition-colors duration-300 page-container">
@@ -372,76 +359,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. İletişim Formu */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#020612] border-t border-white/10 transition-colors duration-300">
-        <div className="max-w-3xl mx-auto glass-panel p-8 sm:p-12 rounded-3xl border border-[#d4af37]/30 shadow-2xl">
-          <div className="text-center space-y-2 mb-8">
-            <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
-              Hızlı <span className="gold-gradient-text font-serif italic">Ön Görüşme</span>
-            </h2>
-            <p className="text-xs text-white/60">
-              Formu iletin, uzman ekibimiz aynı gün içinde size ulaşsın.
-            </p>
-          </div>
-
-          {formSent ? (
-            <div className="p-5 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 text-center space-y-1">
-              <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-              <h3 className="text-sm font-bold text-white">Talebiniz Alındı</h3>
-              <p className="text-xs text-emerald-200">ROTAYD danışmanlarımız kısa sürede sizinle iletişime geçecektir.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Ad Soyad / Firma Ünvanı"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 text-xs focus:outline-none focus:border-[#d4af37]"
-                />
-                <input
-                  type="tel"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="Telefon (05XX XXX XX XX)"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 text-xs focus:outline-none focus:border-[#d4af37]"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="E-Posta Adresi"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 text-xs focus:outline-none focus:border-[#d4af37]"
-                />
-                <select
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#071330] border border-white/10 text-white text-xs focus:outline-none focus:border-[#d4af37]"
-                >
-                  <option value="Yönetim Muhasebesi">Yönetim Muhasebesi & Mali Müşavirlik</option>
-                  <option value="SGK Teşvik Danışmanlığı">SGK İstihdam Teşvikleri</option>
-                  <option value="Yatırım Teşvik Belgesi">Yatırım Teşvik Belgesi Destekleri</option>
-                  <option value="KOSGEB & Bakanlık Destekleri">KOSGEB & Bakanlık Destekleri</option>
-                </select>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] text-black font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-all shadow-lg"
-              >
-                Danışmanlık Talebini Gönder
-              </button>
-            </form>
-          )}
-        </div>
-      </section>
+      {/* 7. Stratejik Randevu Formu */}
+      <AppointmentForm />
     </div>
   );
 }

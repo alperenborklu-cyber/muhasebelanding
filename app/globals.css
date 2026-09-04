@@ -491,3 +491,123 @@ html.light-mode #canvas-door-section .bg-\[\#07173e\]\/90 {
   opacity: 0 !important;
 }
 
+/* ==========================================================================
+   APPOINTMENT FORM / RANDEVU FORMU LIGHT MODE STYLING
+   ========================================================================== */
+html.light-mode #consultation .glass-panel {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #05112e !important;
+  box-shadow: 0 10px 40px -5px rgba(5, 17, 46, 0.08) !important;
+}
+
+html.light-mode #consultation h2,
+html.light-mode #consultation h3 {
+  color: #05112e !important;
+}
+
+html.light-mode #consultation label {
+  color: #07173e !important;
+  font-weight: 600 !important;
+}
+
+html.light-mode #consultation select,
+html.light-mode #consultation input,
+html.light-mode #consultation textarea {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #05112e !important;
+}
+
+html.light-mode #consultation select:focus,
+html.light-mode #consultation input:focus,
+html.light-mode #consultation textarea:focus {
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15) !important;
+}
+
+html.light-mode #consultation select option {
+  background-color: #ffffff !important;
+  color: #05112e !important;
+}
+
+html.light-mode #consultation select optgroup {
+  background-color: #f1f5f9 !important;
+  color: #05112e !important;
+  font-weight: 700 !important;
+}
+
+/* Format Cards Unselected */
+html.light-mode #consultation button.border-white\/10 {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #05112e !important;
+}
+
+html.light-mode #consultation button.border-white\/10 span,
+html.light-mode #consultation button.border-white\/10 p {
+  color: #0d2048 !important;
+}
+
+html.light-mode #consultation button.border-white\/10 svg {
+  color: #05112e !important;
+}
+
+/* Format Cards Selected */
+html.light-mode #consultation .bg-\[\#0c224a\] {
+  background-color: #0c224a !important;
+  border-color: #38bdf8 !important;
+}
+
+html.light-mode #consultation .bg-\[\#0c224a\] span,
+html.light-mode #consultation .bg-\[\#0c224a\] p {
+  color: #ffffff !important;
+}
+
+html.light-mode #consultation .bg-\[\#1a1c2e\] {
+  background-color: #1a1c2e !important;
+  border-color: #d4af37 !important;
+}
+
+html.light-mode #consultation .bg-\[\#1a1c2e\] span,
+html.light-mode #consultation .bg-\[\#1a1c2e\] p {
+  color: #ffffff !important;
+}
+
+/* Time Slots */
+html.light-mode #consultation button:not([class*="from-[#d4af37]"]):not(.border-white\/10) {
+  color: #05112e !important;
+}
+
+html.light-mode #consultation .border-b {
+  border-color: #e2e8f0 !important;
+}
+
+/* Confirmation screen in Light Mode */
+html.light-mode #consultation .bg-white\/5 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+html.light-mode #consultation .text-white\/60 {
+  color: #64748b !important;
+}
+html.light-mode #consultation .text-white\/70 {
+  color: #475569 !important;
+}
+html.light-mode #consultation .text-\[\#faecc0\] {
+  color: #b45309 !important;
+}
+html.light-mode #consultation .text-\[\#d4af37\] {
+  color: #b45309 !important;
+}
+html.light-mode #consultation button.bg-white\/10 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #05112e !important;
+}
+html.light-mode #consultation button.bg-white\/10:hover {
+  background-color: #e2e8f0 !important;
+}
+
+
+
