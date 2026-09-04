@@ -90,15 +90,8 @@ const FAQ_ITEMS: FAQItem[] = [
   }
 ];
 
-const CATEGORIES = ["Tümü", "Mali Müşavirlik", "Yönetim Danışmanlığı", "Süreç & Gizlilik"] as const;
-
 export default function FAQSection() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("Tümü");
   const [openItem, setOpenItem] = useState<string | null>("faq-1");
-
-  const filteredItems = selectedCategory === "Tümü" 
-    ? FAQ_ITEMS 
-    : FAQ_ITEMS.filter((item) => item.category === selectedCategory);
 
   const toggleItem = (id: string) => {
     setOpenItem(openItem === id ? null : id);
@@ -132,7 +125,7 @@ export default function FAQSection() {
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+        <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-xs font-semibold tracking-wider uppercase">
             <HelpCircle className="w-3.5 h-3.5 text-[#d4af37]" />
             <span>Sıkça Sorulan Sorular</span>
@@ -148,30 +141,9 @@ export default function FAQSection() {
           </p>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center justify-center flex-wrap gap-2 mb-10">
-          {CATEGORIES.map((cat) => {
-            const isActive = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer ${
-                  isActive
-                    ? "bg-[#0b1b3d] text-white border border-[#d4af37] shadow-lg shadow-[#d4af37]/10"
-                    : "bg-white/5 text-white/70 border border-white/10 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
-
         {/* Accordion List */}
         <div className="space-y-4">
-          {filteredItems.map((item) => {
+          {FAQ_ITEMS.map((item) => {
             const isOpen = openItem === item.id;
             return (
               <div
@@ -192,9 +164,6 @@ export default function FAQSection() {
                     <div className="flex items-center space-x-2">
                       <span className="faq-tag px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#d4af37]/15 text-[#faecc0] border border-[#d4af37]/30">
                         {item.tag}
-                      </span>
-                      <span className="text-[11px] text-white/50 hidden sm:inline">
-                        • {item.category}
                       </span>
                     </div>
                     <h3 className={`text-sm sm:text-base font-semibold transition-colors leading-snug ${
