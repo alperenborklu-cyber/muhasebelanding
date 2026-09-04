@@ -443,16 +443,6 @@ export default function PortalPage() {
               </div>
             </div>
 
-            <div className="p-3 rounded-lg bg-[#d4af37]/10 border border-[#d4af37]/30 text-xs text-[#faecc0] mb-6">
-              💡 <strong>Test İpucu:</strong> Mali müşavir hesabına geçerek bu başvuruyu hemen onaylayabilirsiniz:
-              <Link
-                href="/portal/admin"
-                className="block mt-2 font-bold underline hover:text-white"
-              >
-                Mali Müşavir Admin Paneline Git &rarr;
-              </Link>
-            </div>
-
             <button
               onClick={handleLogout}
               className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors"
