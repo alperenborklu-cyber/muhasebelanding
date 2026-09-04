@@ -21,6 +21,7 @@ import {
   Clock
 } from "lucide-react";
 import AppointmentForm from "@/components/AppointmentForm";
+import FAQSection from "@/components/FAQSection";
 import { useState, useEffect } from "react";
 import { BLOG_POSTS } from "@/lib/blogData";
 
@@ -366,7 +367,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Stratejik Randevu Formu */}
+      {/* 7. Sıkça Sorulan Sorular (FAQ) */}
+      <FAQSection />
+
+      {/* 8. Stratejik Randevu Formu */}
       <AppointmentForm />
     </div>
   );

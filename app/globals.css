@@ -609,5 +609,31 @@ html.light-mode #consultation button.bg-white\/10:hover {
   background-color: #e2e8f0 !important;
 }
 
+/* FAQ Section in Light Mode */
+html.light-mode #faq {
+  background-color: #f8fafc !important;
+}
 
+html.light-mode #faq .faq-tag {
+  background-color: #fef9c3 !important;
+  border-color: #fde047 !important;
+  color: #854d0e !important;
+}
 
+html.light-mode #faq .faq-highlight {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f2757 !important;
+}
+
+html.light-mode #faq .faq-highlight svg {
+  color: #b89025 !important;
+}
+
+html.light-mode #faq .text-\[\#faecc0\] {
+  color: #05112e !important;
+}
+
+html.light-mode #faq p {
+  color: #334155 !important;
+}
