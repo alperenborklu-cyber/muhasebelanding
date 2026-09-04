@@ -17,42 +17,42 @@ export default function DanismanlikPage() {
   const programs = [
     {
       title: "Yatırım Teşvik Belgesi",
-      image: "/images/photo-12.webp",
+      image: "/images/yonetim-danismanligi-yatirim-tesvik-belgesi.webp",
       desc: "Makine alımlarında KDV istisnası, gümrük muafiyeti ve %90'a varan kurumlar vergisi indirimi.",
       badge: "Sanayi Bakanlığı",
       points: ["KDV & Gümrük İstisnası", "Vergi İndirimi", "Faiz / Kâr Payı Desteği"]
     },
     {
       title: "KOSGEB Hibe Programları",
-      image: "/images/photo-13.webp",
+      image: "/images/yonetim-danismanligi-kosgeb-destek-hibe-programlari.webp",
       desc: "AR-GE, ÜR-GE, KOBİGEL ve Yeşil Sanayi desteklerinde geri ödemesiz hibe proje yazımı.",
       badge: "KOBİ Destekleri",
       points: ["Yeşil Sanayi GES Hibesi", "KOBİGEL Dijitalleşme", "Geri Ödemesiz Kaynak"]
     },
     {
       title: "Ticaret Bakanlığı İhracat Destekleri",
-      image: "/images/photo-14.webp",
+      image: "/images/yonetim-danismanligi-ticaret-bakanligi-ihracat-destekleri.webp",
       desc: "Yurt dışı fuar katılımları, ofis/mağaza kira desteği ve marka tescilde %50-%70 devlet hibesi.",
       badge: "İhracat",
       points: ["Fuar Katılım Hibesi", "Yurt Dışı Ofis Kirası", "Pazara Giriş Belgeleri"]
     },
     {
       title: "Kurumsal Gelişim Danışmanlığı",
-      image: "/images/photo-15.webp",
+      image: "/images/yonetim-danismanligi-finansal-yonetim-nakit-akisi.webp",
       desc: "Organizasyonel yapılanma, süreç optimizasyonu ve 360° şirket projeksiyon raporlaması.",
       badge: "Strateji",
       points: ["Süreç İyileştirme", "İç Kontrol & Risk", "Stratejik Yönetim"]
     },
     {
       title: "Ar-Ge ve Tasarım Merkezi Kurulumu",
-      image: "/images/photo-16.webp",
+      image: "/images/yonetim-danismanligi-kurumsal-donusum-surec-iyilestirme.webp",
       desc: "Personel gelir vergisi stopaj terkini, damga vergisi muafiyeti ve %100 Ar-Ge vergi indirimi.",
       badge: "İnovasyon",
       points: ["Stopaj & SGK Muafiyeti", "TÜBİTAK TEYDEB", "Gümrük İstisnası"]
     },
     {
       title: "İnsan Kaynakları Danışmanlığı",
-      image: "/images/photo-17.webp",
+      image: "/images/yonetim-danismanligi-tubitak-arge-tasarim-tesvikleri.webp",
       desc: "Yetkin personel seçme-yerleştirme, performans sistemi ve İK süreçlerinin yeniden yapılandırılması.",
       badge: "Yetenek Yönetimi",
       points: ["Seçme & Yerleştirme", "Performans Kriterleri", "Görev Tanımları"]
@@ -129,7 +129,7 @@ export default function DanismanlikPage() {
                 <div className="relative h-44 w-full overflow-hidden">
                   <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={`ROTAYD Yönetim Danışmanlığı - ${item.title}`}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />

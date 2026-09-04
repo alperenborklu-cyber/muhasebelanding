@@ -21,7 +21,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Mali Müşavirlik",
     date: "15 Ocak 2026",
     readTime: "4 dk okuma",
-    image: "/images/photo-18.webp",
+    image: "/images/sgk-istihdam-tesvikleri-2026-mali-musavirlik-rehberi.webp",
     author: "ROTAYD Teşvik Departmanı",
     tags: ["SGK Teşvikleri", "İstihdam", "Personel Maliyeti", "6111 Teşviki"],
     content: [
@@ -38,7 +38,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Devlet Teşvikleri",
     date: "28 Ocak 2026",
     readTime: "5 dk okuma",
-    image: "/images/photo-19.webp",
+    image: "/images/yatirim-tesvik-belgesi-nasil-alinir-yonetim-danismanligi-rehberi.webp",
     author: "ROTAYD Yatırım Masası",
     tags: ["Yatırım Teşvik", "KDV İstisnası", "Gümrük Muafiyeti", "Vergi İndirimi"],
     content: [
@@ -55,7 +55,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Yönetim Muhasebesi",
     date: "04 Şubat 2026",
     readTime: "6 dk okuma",
-    image: "/images/photo-20.webp",
+    image: "/images/yonetim-muhasebesi-sirket-karliligi-mali-musavirlik.webp",
     author: "ROTAYD Mali Analiz Ekibi",
     tags: ["Yönetim Muhasebesi", "Finansal Analiz", "Kârlılık", "Bütçe Planlama"],
     content: [
@@ -72,7 +72,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "KOSGEB",
     date: "11 Şubat 2026",
     readTime: "4 dk okuma",
-    image: "/images/photo-21.webp",
+    image: "/images/kosgeb-destek-programlari-yonetim-danismanligi-basvuru.webp",
     author: "ROTAYD Hibe & Proje Departmanı",
     tags: ["KOSGEB", "Yeşil Sanayi", "KOBİGEL", "Geri Ödemesiz Hibe"],
     content: [
@@ -89,7 +89,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Vergi Mevzuatı",
     date: "18 Şubat 2026",
     readTime: "3 dk okuma",
-    image: "/images/photo-22.webp",
+    image: "/images/e-defter-e-fatura-vergi-mevzuati-mali-musavirlik.webp",
     author: "ROTAYD Mevzuat Masası",
     tags: ["E-Defter", "E-Fatura", "VUK", "Vergi Cezaları"],
     content: [
@@ -106,7 +106,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Mali Müşavirlik",
     date: "25 Şubat 2026",
     readTime: "5 dk okuma",
-    image: "/images/photo-23.webp",
+    image: "/images/limited-sirket-anonim-sirket-donusumu-mali-musavirlik.webp",
     author: "ROTAYD Şirketler Masası",
     tags: ["Nevi Değişikliği", "Anonim Şirket", "Vergi Muafiyeti", "Hisse Devri"],
     content: [
@@ -123,7 +123,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Devlet Teşvikleri",
     date: "01 Mart 2026",
     readTime: "4 dk okuma",
-    image: "/images/photo-24.webp",
+    image: "/images/ticaret-bakanligi-ihracat-destekleri-yonetim-danismanligi.webp",
     author: "ROTAYD İhracat Masası",
     tags: ["İhracat Teşvikleri", "Ticaret Bakanlığı", "Fuar Desteği", "Kira Hibesi"],
     content: [
@@ -140,7 +140,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Devlet Teşvikleri",
     date: "10 Mart 2026",
     readTime: "6 dk okuma",
-    image: "/images/photo-25.webp",
+    image: "/images/ar-ge-tasarim-merkezi-vergi-istisnalari-danismanlik.webp",
     author: "ROTAYD Teknoloji Masası",
     tags: ["Ar-Ge Merkezi", "Tasarım Merkezi", "Stopaj Teşviki", "TÜBİTAK"],
     content: [
@@ -157,7 +157,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Vergi Mevzuatı",
     date: "17 Mart 2026",
     readTime: "5 dk okuma",
-    image: "/images/photo-26.webp",
+    image: "/images/enflasyon-duzeltmesi-bilanco-mali-musavirlik-analizi.webp",
     author: "ROTAYD Denetim Grubu",
     tags: ["Enflasyon Düzeltmesi", "Bilanço", "VUK", "Vergi Matrahı"],
     content: [
@@ -174,7 +174,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Mali Müşavirlik",
     date: "24 Mart 2026",
     readTime: "4 dk okuma",
-    image: "/images/photo-27.webp",
+    image: "/images/bordrolama-bpo-personel-ozluk-mali-musavirlik.webp",
     author: "ROTAYD Bordrolama Masası",
     tags: ["Bordrolama", "BPO", "İnsan Kaynakları", "Gizlilik"],
     content: [

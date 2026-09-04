@@ -142,8 +142,8 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all">
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
-                  src="/images/photo-1.webp"
-                  alt="Kurumsal Hizmet Mimarisi"
+                  src="/images/rotayd-mali-musavirlik-guvenilirlik-bagimsiz-denetim.webp"
+                  alt="ROTAYD Mali Müşavirlik Güvenilirlik ve Bağımsız Denetim Standardı"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -162,8 +162,8 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all">
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
-                  src="/images/photo-2.webp"
-                  alt="Stratejik Çözüm Ortakları"
+                  src="/images/rotayd-yonetim-danismanligi-stratejik-analitik-yaklasim.webp"
+                  alt="ROTAYD Yönetim Danışmanlığı Stratejik ve Analitik Çözüm Ortaklığı"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -182,8 +182,8 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all">
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
-                  src="/images/photo-3.webp"
-                  alt="Kurumsal Sosyal Sorumluluk"
+                  src="/images/rotayd-kurumsal-yonetim-danismanligi-surdurulebilir-gelisim.webp"
+                  alt="ROTAYD Kurumsal Yönetim Danışmanlığı ve Sürdürülebilir Sosyal Sorumluluk"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -219,8 +219,8 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-[#d4af37]/30 hover:border-[#d4af37] transition-all duration-300 flex flex-col justify-between">
               <div className="relative h-56 w-full overflow-hidden">
                 <Image
-                  src="/images/photo-4.webp"
-                  alt="Mali Müşavirlik & Muhasebe"
+                  src="/images/rotayd-mali-musavirlik-finansal-yonetim-kapisi.webp"
+                  alt="ROTAYD Mali Müşavirlik ve Stratejik Yönetim Muhasebesi"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -263,8 +263,8 @@ export default function Home() {
             <div className="group glass-panel rounded-3xl overflow-hidden border border-[#d4af37]/30 hover:border-[#d4af37] transition-all duration-300 flex flex-col justify-between">
               <div className="relative h-56 w-full overflow-hidden">
                 <Image
-                  src="/images/photo-5.webp"
-                  alt="Yönetim Danışmanlığı & Teşvikler"
+                  src="/images/rotayd-yonetim-danismanligi-stratejik-buyume-yonetici.webp"
+                  alt="ROTAYD Yönetim Danışmanlığı & Stratejik Büyüme Uzmanı"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
