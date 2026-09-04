@@ -113,7 +113,8 @@ export default function Footer() {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 space-y-3 sm:space-y-0">
           <p>© 2026 ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı.</p>
-          <div className="flex space-x-5">
+          <div className="flex flex-wrap gap-4 sm:gap-5">
+            <Link href="/hakkimizda" className="hover:text-[#d4af37]">Hakkımızda</Link>
             <Link href="/muhasebecilik" className="hover:text-[#d4af37]">Mali Müşavirlik</Link>
             <Link href="/danismanlik" className="hover:text-[#d4af37]">Danışmanlık</Link>
             <Link href="/blog" className="hover:text-[#d4af37]">Blog</Link>

@@ -15,7 +15,8 @@ import {
   Sun,
   Moon,
   Building2,
-  MessageSquare
+  MessageSquare,
+  Users
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -104,6 +105,18 @@ export default function Navbar() {
             >
               <BookOpen className="w-3.5 h-3.5 text-[#d4af37]" />
               <span>Blog & Rehber</span>
+            </Link>
+
+            <Link
+              href="/hakkimizda"
+              className={`px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-medium transition-all flex items-center space-x-1.5 ${
+                pathname === "/hakkimizda"
+                  ? "text-white bg-[#0f214a] border border-[#d4af37]/40 shadow-sm shadow-[#d4af37]/10"
+                  : "text-white/70 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              <Users className="w-3.5 h-3.5 text-[#d4af37]" />
+              <span>Hakkımızda</span>
             </Link>
 
             <button
@@ -217,6 +230,17 @@ export default function Navbar() {
                 <span className="flex items-center space-x-2">
                   <BookOpen className="w-4 h-4 text-[#d4af37]" />
                   <span>Mali & Teşvik Rehberi (Blog)</span>
+                </span>
+                <ArrowRight className="w-4 h-4 text-white/40" />
+              </Link>
+              <Link
+                href="/hakkimizda"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
+              >
+                <span className="flex items-center space-x-2">
+                  <Users className="w-4 h-4 text-[#d4af37]" />
+                  <span>Hakkımızda (Süleyman İlhan)</span>
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </Link>
