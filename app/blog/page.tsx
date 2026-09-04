@@ -38,6 +38,10 @@ export default function BlogPage() {
   });
 
   const featuredPost = BLOG_POSTS[0];
+  const isFeaturedActive = selectedCategory === "Tümü" && !searchQuery;
+  const gridPosts = isFeaturedActive
+    ? filteredPosts.filter((post) => post.id !== featuredPost.id)
+    : filteredPosts;
 
   return (
     <div className="min-h-screen bg-[#040a1a] text-white pt-28 pb-24 page-container">
@@ -145,7 +149,7 @@ export default function BlogPage() {
 
         {/* Blog Post Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredPosts.map((post) => (
+          {gridPosts.map((post) => (
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
@@ -196,7 +200,7 @@ export default function BlogPage() {
           ))}
         </div>
 
-        {filteredPosts.length === 0 && (
+        {gridPosts.length === 0 && !isFeaturedActive && (
           <div className="text-center py-20">
             <p className="text-white/50 text-sm">Aradığınız kriterlere uygun yazı bulunamadı.</p>
           </div>
