@@ -106,7 +106,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Mali Müşavirlik",
     date: "25 Şubat 2026",
     readTime: "5 dk okuma",
-    image: "/images/limited-sirket-anonim-sirket-donusumu-mali-musavirlik.webp",
+    image: "/images/mali-musavirlik-sirket-kurulusu-nevi-degisikligi.webp",
     author: "ROTAYD Şirketler Masası",
     tags: ["Nevi Değişikliği", "Anonim Şirket", "Vergi Muafiyeti", "Hisse Devri"],
     content: [
@@ -140,7 +140,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Devlet Teşvikleri",
     date: "10 Mart 2026",
     readTime: "6 dk okuma",
-    image: "/images/ar-ge-tasarim-merkezi-vergi-istisnalari-danismanlik.webp",
+    image: "/images/yonetim-danismanligi-arge-tasarim-merkezi-kurulumu.webp",
     author: "ROTAYD Teknoloji Masası",
     tags: ["Ar-Ge Merkezi", "Tasarım Merkezi", "Stopaj Teşviki", "TÜBİTAK"],
     content: [

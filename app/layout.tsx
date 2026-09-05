@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Providers from "@/components/Providers";
+import ReceiptPreloader from "@/components/ReceiptPreloader";
+import CookieBanner from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rotayd.com'),
@@ -33,11 +35,13 @@ export default function RootLayout({
     <html lang="tr" className="scroll-smooth">
       <body className="bg-[#040a1a] text-white antialiased selection:bg-[#d4af37] selection:text-[#040a1a] transition-colors duration-300">
         <Providers>
+          <ReceiptPreloader />
           <Navbar />
           <main className="min-h-screen">
             {children}
           </main>
           <Footer />
+          <CookieBanner />
           <FloatingWhatsApp />
         </Providers>
       </body>

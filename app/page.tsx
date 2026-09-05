@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import AppointmentForm from "@/components/AppointmentForm";
 import FAQSection from "@/components/FAQSection";
+import PerformanceLeadModal from "@/components/PerformanceLeadModal";
 import { useState, useEffect } from "react";
 import { BLOG_POSTS } from "@/lib/blogData";
 
@@ -54,7 +55,8 @@ export default function Home() {
       <ReferencesMarquee />
 
       {/* 3. Animasyonlu Sayaçlar (Rakamlarla ROTAYD) */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 border-b border-[#d4af37]/20 bg-[#040a1a] transition-colors duration-300">
+      <section id="performans-gostergeleri" className="relative py-20 px-4 sm:px-6 lg:px-8 border-b border-[#d4af37]/20 bg-[#040a1a] transition-colors duration-300">
+        <PerformanceLeadModal targetSectionId="performans-gostergeleri" />
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
 

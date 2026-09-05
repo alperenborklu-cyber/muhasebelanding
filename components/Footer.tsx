@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Mail, MapPin, ArrowUpRight, ShieldCheck, Briefcase, BookOpen } from "lucide-react";
+import { Phone, Mail, MapPin, ShieldCheck, Briefcase } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -73,9 +73,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-white/60 hover:text-[#d4af37] transition-colors flex items-center space-x-1">
-                  <span>Blog</span>
-                  <ArrowUpRight className="w-3 h-3 text-[#d4af37]" />
+                <Link href="/danismanlik" className="text-white/60 hover:text-[#d4af37] transition-colors">
+                  Ar-Ge & Tasarım Merkezi Kurulumu
                 </Link>
               </li>
             </ul>
@@ -111,13 +110,36 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 space-y-3 sm:space-y-0">
-          <p>© 2026 ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı.</p>
+        {/* Legal & Policy Navigation Strip */}
+        <div className="py-6 border-b border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-white/60">
+          <span className="font-semibold text-white/80 flex items-center space-x-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
+            <span>Yasal & Hukuki Bilgilendirmeler</span>
+          </span>
+          <div className="flex flex-wrap gap-4 sm:gap-6 text-xs">
+            <Link href="/kvkk" className="hover:text-[#d4af37] transition-colors">
+              KVKK Aydınlatma Metni
+            </Link>
+            <Link href="/cerez-politikasi" className="hover:text-[#d4af37] transition-colors">
+              Çerez Politikası
+            </Link>
+            <Link href="/gizlilik-politikasi" className="hover:text-[#d4af37] transition-colors">
+              Gizlilik ve Veri Güvenliği
+            </Link>
+            <Link href="/yasal-uyari" className="hover:text-[#d4af37] transition-colors">
+              Yasal Uyarı & Şartlar
+            </Link>
+          </div>
+        </div>
+
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 space-y-3 sm:space-y-0">
+          <p>© 2026 ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı. Tüm hakları saklıdır.</p>
           <div className="flex flex-wrap gap-4 sm:gap-5">
-            <Link href="/hakkimizda" className="hover:text-[#d4af37]">Hakkımızda</Link>
-            <Link href="/muhasebecilik" className="hover:text-[#d4af37]">Mali Müşavirlik</Link>
-            <Link href="/danismanlik" className="hover:text-[#d4af37]">Danışmanlık</Link>
-            <Link href="/blog" className="hover:text-[#d4af37]">Blog</Link>
+            <Link href="/hakkimizda" className="hover:text-[#d4af37] transition-colors">Hakkımızda</Link>
+            <Link href="/muhasebecilik" className="hover:text-[#d4af37] transition-colors">Mali Müşavirlik</Link>
+            <Link href="/danismanlik" className="hover:text-[#d4af37] transition-colors">Danışmanlık</Link>
+            <Link href="/blog" className="hover:text-[#d4af37] transition-colors">Blog</Link>
+            <Link href="/portal" className="text-[#d4af37] hover:underline font-semibold">Müşteri Portalı</Link>
           </div>
         </div>
       </div>
