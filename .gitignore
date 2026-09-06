@@ -18,6 +18,7 @@
 .DS_Store
 *.pem
 referans resmi.png
+ChatGPT Image*.png
 
 # debug
 npm-debug.log*

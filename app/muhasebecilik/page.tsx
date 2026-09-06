@@ -112,101 +112,163 @@ export default function MuhasebecilikPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#040a1a] text-white pt-24 pb-20 transition-colors duration-300 page-container">
-      {/* 1. Grand Standalone Homepage Hero Section (16:9 Hero Image) */}
-      <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-6 pb-16">
-        {/* Breadcrumb Navigation */}
-        <div className="flex items-center space-x-2 text-xs text-white/50 mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-[#d4af37]">Mali Müşavirlik Portalı</span>
+    <div className="min-h-screen bg-[#040a1a] text-white pb-20 transition-colors duration-300 page-container">
+      {/* 1. Grand Standalone Homepage Hero Section with ChatGPT Background */}
+      <section className="relative w-full overflow-hidden pt-32 sm:pt-36 lg:pt-40 pb-20 lg:pb-28 min-h-[85vh] lg:min-h-[90vh] flex items-center">
+        {/* Background Image capturing whole top of screen */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero-muhasebecilik.png"
+            alt="ROTAYD Mali Müşavirlik ve Stratejik Finans Yönetimi"
+            fill
+            priority
+            className="object-cover object-center scale-105 transition-transform duration-1000"
+            sizes="100vw"
+            quality={95}
+          />
+          {/* Dark luxury gradient overlays for pristine readability and executive prestige */}
+          <div className="absolute inset-0 bg-[#040a1a]/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#040a1a] via-[#040a1a]/85 to-transparent lg:via-[#040a1a]/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#040a1a]/80 via-transparent to-[#040a1a]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.12),transparent_70%)] pointer-events-none" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Hero Left Content */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128] text-xs font-semibold text-[#d4af37]">
-              <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
-              <span>TÜRMOB & ASMMMO RUHSATLI MALİ MÜŞAVİRLİK</span>
-            </div>
-
-            <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
-              Mali Disiplin, Sıfır Risk ve <span className="gold-gradient-text font-serif italic">Stratejik Finans</span>
-            </h1>
-
-            <p className="text-sm sm:text-base text-white/75 font-light leading-relaxed max-w-xl">
-              Yalnızca geçmişi deftere işleyen değil; <strong>2.6 Milyon TL&apos;yi aşan SGK teşvik analizleri</strong>, proaktif vergi planlaması ve yönetim raporlamasıyla şirketinizin net kârlılığını artıran finansal mimarlık.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-3 pt-2">
-              <button
-                type="button"
-                onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
-                className="px-7 py-3.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#b89025] text-black font-bold text-xs hover:opacity-95 transition-all flex items-center space-x-2 shadow-xl shadow-[#d4af37]/20 cursor-pointer"
-              >
-                <span>Ücretsiz Mali Röntgen Başlat</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-              <a
-                href="tel:05536221122"
-                className="phone-nav-btn px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2"
-              >
-                <Phone className="w-4 h-4 text-[#d4af37]" />
-                <span>0553 622 11 22</span>
-              </a>
-            </div>
-
-            {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/60">
-              <div className="flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span>%100 Yasal Uyum</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span>Gizli Bordrolama</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span>Suit Tower Çankaya</span>
-              </div>
-            </div>
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Breadcrumb Navigation */}
+          <div className="flex items-center space-x-2 text-xs text-white/60 mb-6 sm:mb-8">
+            <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
+            <ChevronRight className="w-3 h-3 text-[#d4af37]" />
+            <span className="text-[#d4af37]">Mali Müşavirlik Portalı</span>
           </div>
 
-          {/* Hero Right: 16:9 Luxury Executive Boardroom Image Frame */}
-          <div className="lg:col-span-6">
-            <div className="relative rounded-3xl overflow-hidden border-2 border-[#d4af37]/40 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.2)] group">
-              <div className="relative aspect-[16/9] w-full">
-                <Image
-                  src="/images/rotayd-mali-musavirlik-finansal-yonetim-mimari-hero.webp"
-                  alt="ROTAYD Mali Müşavirlik ve Stratejik Finans Yönetimi"
-                  fill
-                  priority
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#040a1a] via-transparent to-transparent opacity-60" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            {/* Hero Left Content */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128]/90 backdrop-blur-md text-xs font-semibold text-[#d4af37] shadow-lg shadow-black/40">
+                <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
+                <span>TÜRMOB & ASMMMO RUHSATLI MALİ MÜŞAVİRLİK</span>
               </div>
 
-              {/* Floating Glass Metric 1 */}
-              <div className="absolute top-4 left-4 glass-panel p-3 rounded-2xl border border-[#d4af37]/40 backdrop-blur-md bg-[#040a1a]/80 flex items-center space-x-3 shadow-lg">
-                <div className="w-8 h-8 rounded-xl bg-[#0b1938] border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37]">
-                  <TrendingUp className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-[10px] text-white/50 font-mono">SGK Tasarrufu</div>
-                  <div className="text-xs font-bold text-white">2.600.000 TL+</div>
-                </div>
+              <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
+                Mali Disiplin, Sıfır Risk ve <span className="gold-gradient-text font-serif italic">Stratejik Finans</span>
+              </h1>
+
+              <p className="text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-xl">
+                Yalnızca geçmişi deftere işleyen değil; <strong>2.6 Milyon TL&apos;yi aşan SGK teşvik analizleri</strong>, proaktif vergi planlaması ve yönetim raporlamasıyla şirketinizin net kârlılığını artıran finansal mimarlık.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
+                  className="px-7 py-3.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#b89025] text-black font-bold text-xs hover:opacity-95 transition-all flex items-center space-x-2 shadow-xl shadow-[#d4af37]/20 cursor-pointer"
+                >
+                  <span>Ücretsiz Mali Röntgen Başlat</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <a
+                  href="tel:05536221122"
+                  className="phone-nav-btn px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2 backdrop-blur-sm"
+                >
+                  <Phone className="w-4 h-4 text-[#d4af37]" />
+                  <span>0553 622 11 22</span>
+                </a>
               </div>
 
-              {/* Floating Glass Metric 2 */}
-              <div className="absolute bottom-4 right-4 glass-panel p-3 rounded-2xl border border-[#d4af37]/40 backdrop-blur-md bg-[#040a1a]/80 flex items-center space-x-3 shadow-lg">
-                <div className="w-8 h-8 rounded-xl bg-[#0b1938] border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37]">
-                  <Award className="w-4 h-4" />
+              {/* Trust Badges */}
+              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70">
+                <div className="flex items-center space-x-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                  <span>%100 Yasal Uyum</span>
                 </div>
-                <div>
-                  <div className="text-[10px] text-white/50 font-mono">Vergi Denetimi</div>
-                  <div className="text-xs font-bold text-[#faecc0]">Sıfır Hata / Tam Uyum</div>
+                <div className="flex items-center space-x-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                  <span>Gizli Bordrolama</span>
+                </div>
+                <div className="flex items-center space-x-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                  <span>Suit Tower Çankaya</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Hero Right: Luxury Glassmorphism Executive Highlights Card */}
+            <div className="lg:col-span-5">
+              <div className="relative rounded-3xl p-6 sm:p-8 backdrop-blur-xl bg-[#040a1a]/60 border border-[#d4af37]/35 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.15)] space-y-5">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#0b1938] border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37] shadow-inner">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-white">ASMMMO & TÜRMOB</div>
+                      <div className="text-[11px] text-white/50 font-mono">Yetkili Mali Müşavirlik</div>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/15 text-[#d4af37] text-[10px] font-bold border border-[#d4af37]/30">
+                    Resmî Ruhsatlı
+                  </span>
+                </div>
+
+                {/* Metric Highlights */}
+                <div className="space-y-3.5">
+                  <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-9 h-9 rounded-lg bg-[#071128] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
+                        <TrendingUp className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-medium text-white">Kazanılan SGK Teşviki</div>
+                        <div className="text-[11px] text-white/50">İşletmeler adına net tasarruf</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-bold gold-gradient-text">2.600.000+ TL</div>
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-9 h-9 rounded-lg bg-[#071128] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
+                        <Award className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-medium text-white">Vergi Denetimi & Uzlaşma</div>
+                        <div className="text-[11px] text-white/50">Maliye nezdinde yasal vekillik</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-bold text-[#faecc0]">Sıfır Hata</div>
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-9 h-9 rounded-lg bg-[#071128] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
+                        <CheckCircle2 className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-medium text-white">E-Defter & E-Fatura</div>
+                        <div className="text-[11px] text-white/50">Zaman damgalı dijital arşiv</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-bold text-emerald-400">%100 Uyum</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Card Action */}
+                <div className="pt-1">
+                  <button
+                    type="button"
+                    onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#d4af37]/20 to-[#d4af37]/10 hover:from-[#d4af37]/30 hover:to-[#d4af37]/20 border border-[#d4af37]/50 text-white font-medium text-xs flex items-center justify-center space-x-2 transition-all cursor-pointer group"
+                  >
+                    <span>Şirketiniz İçin Ön İnceleme İsteyin</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#d4af37] group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               </div>
             </div>
