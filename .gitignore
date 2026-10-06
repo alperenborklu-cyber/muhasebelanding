@@ -19,6 +19,8 @@
 *.pem
 referans resmi.png
 ChatGPT Image*.png
+Doors_opening_to_black*.mp4
+yeni kapı.png
 
 # debug
 npm-debug.log*

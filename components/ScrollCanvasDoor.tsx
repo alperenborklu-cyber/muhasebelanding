@@ -244,7 +244,7 @@ export default function ScrollCanvasDoor() {
 
       const destination = door === "left" ? "/muhasebecilik" : "/danismanlik";
       const startProgress = smoothProgress.get();
-      const targetProgress = 0.58; // Frame ~70: doors swing wide open into hallway
+      const targetProgress = 0.65; // Frame ~78: doors wide open, traveling forward into dark portal
       const duration = 1200; // ms
       const startTime = performance.now();
 
@@ -356,7 +356,7 @@ export default function ScrollCanvasDoor() {
               }}
               className="pointer-events-none relative"
             >
-              {/* SOL KAPI LINK (MUHASEBECİLİK) */}
+              {/* SOL KAPI LINK (MALİ MÜŞAVİRLİK) */}
               <Link
                 href="/muhasebecilik"
                 onClick={(e) => handleDoorSelect("left", e)}
@@ -364,23 +364,27 @@ export default function ScrollCanvasDoor() {
                 onMouseLeave={() => !openingDoor && setHoveredDoor(null)}
                 style={{
                   position: "absolute",
-                  left: `${(522 / 1280) * 100}%`,
-                  top: `${(94 / 720) * 100}%`,
-                  width: `${(118 / 1280) * 100}%`,
-                  height: `${(476 / 720) * 100}%`,
+                  left: `${(596 / 1920) * 100}%`,
+                  top: `${(70 / 1080) * 100}%`,
+                  width: `${(362 / 1920) * 100}%`,
+                  height: `${(875 / 1080) * 100}%`,
                 }}
                 className={`door-link-left group pointer-events-auto cursor-pointer block focus:outline-none ${
                   openingDoor ? "pointer-events-none" : ""
                 }`}
-                aria-label="Muhasebecilik Kapısı"
+                aria-label="Mali Müşavirlik Kapısı"
               >
-                {/* SVG for Arched Door Shape */}
+                {/* SVG for Rectangular Door Shape */}
                 <svg
-                  viewBox="0 0 118 476"
+                  viewBox="0 0 362 875"
                   className="w-full h-full overflow-visible pointer-events-none"
                 >
-                  <path
-                    d="M 0 476 L 0 101 A 118 101 0 0 1 118 0 L 118 476 Z"
+                  <rect
+                    x="0"
+                    y="0"
+                    width="362"
+                    height="875"
+                    rx="4"
                     style={{
                       fill: hoveredDoor === "left" && !openingDoor ? "rgba(0, 0, 0, 0.50)" : "transparent",
                       stroke: hoveredDoor === "left" && !openingDoor ? "rgba(0, 0, 0, 0.80)" : "transparent",
@@ -392,7 +396,7 @@ export default function ScrollCanvasDoor() {
                   />
                 </svg>
 
-                {/* Sol Kapı Çubuğu (Muhasebecilik Bar) */}
+                {/* Sol Kapı Çubuğu (Mali Müşavirlik Bar) */}
                 <div
                   className={`door-bar-left absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-300 z-30 opacity-0 group-hover:opacity-100 ${
                     hoveredDoor === "left" && !openingDoor ? "is-hovered !opacity-100" : ""
@@ -401,13 +405,13 @@ export default function ScrollCanvasDoor() {
                   <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(0,0,0,0.9)] whitespace-nowrap">
                     <span className="w-2 h-2 rounded-full bg-[#d4af37] border border-[#d4af37]/60 animate-pulse" />
                     <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
-                      muhasebecilik
+                      MALİ MÜŞAVİRLİK
                     </span>
                   </div>
                 </div>
               </Link>
 
-              {/* SAĞ KAPI LINK (DANIŞMANLIK) */}
+              {/* SAĞ KAPI LINK (HİBE TEŞVİK DANIŞMANLIĞI) */}
               <Link
                 href="/danismanlik"
                 onClick={(e) => handleDoorSelect("right", e)}
@@ -415,23 +419,27 @@ export default function ScrollCanvasDoor() {
                 onMouseLeave={() => !openingDoor && setHoveredDoor(null)}
                 style={{
                   position: "absolute",
-                  left: `${(640 / 1280) * 100}%`,
-                  top: `${(94 / 720) * 100}%`,
-                  width: `${(118 / 1280) * 100}%`,
-                  height: `${(476 / 720) * 100}%`,
+                  left: `${(962 / 1920) * 100}%`,
+                  top: `${(70 / 1080) * 100}%`,
+                  width: `${(362 / 1920) * 100}%`,
+                  height: `${(875 / 1080) * 100}%`,
                 }}
                 className={`door-link-right group pointer-events-auto cursor-pointer block focus:outline-none ${
                   openingDoor ? "pointer-events-none" : ""
                 }`}
-                aria-label="Danışmanlık Kapısı"
+                aria-label="Hibe Teşvik Danışmanlığı Kapısı"
               >
-                {/* SVG for Arched Door Shape */}
+                {/* SVG for Rectangular Door Shape */}
                 <svg
-                  viewBox="0 0 118 476"
+                  viewBox="0 0 362 875"
                   className="w-full h-full overflow-visible pointer-events-none"
                 >
-                  <path
-                    d="M 0 476 L 0 0 A 118 101 0 0 1 118 101 L 118 476 Z"
+                  <rect
+                    x="0"
+                    y="0"
+                    width="362"
+                    height="875"
+                    rx="4"
                     style={{
                       fill: hoveredDoor === "right" && !openingDoor ? "rgba(0, 0, 0, 0.50)" : "transparent",
                       stroke: hoveredDoor === "right" && !openingDoor ? "rgba(0, 0, 0, 0.80)" : "transparent",
@@ -443,7 +451,7 @@ export default function ScrollCanvasDoor() {
                   />
                 </svg>
 
-                {/* Sağ Kapı Çubuğu (Danışmanlık Bar) */}
+                {/* Sağ Kapı Çubuğu (Hibe Teşvik Danışmanlığı Bar) */}
                 <div
                   className={`door-bar-right absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-300 z-30 opacity-0 group-hover:opacity-100 ${
                     hoveredDoor === "right" && !openingDoor ? "is-hovered !opacity-100" : ""
@@ -452,7 +460,7 @@ export default function ScrollCanvasDoor() {
                   <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(0,0,0,0.9)] whitespace-nowrap">
                     <span className="w-2 h-2 rounded-full bg-[#d4af37] border border-[#d4af37]/60 animate-pulse" />
                     <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
-                      danışmanlık
+                      HİBE TEŞVİK DANIŞMANLIĞI
                     </span>
                   </div>
                 </div>
@@ -473,7 +481,7 @@ export default function ScrollCanvasDoor() {
           </h1>
         </motion.div>
 
-        {/* BEAT B: 25 - 45% (Left Aligned - Muhasebe Beat) */}
+        {/* BEAT B: 25 - 45% (Left Aligned - Mali Müşavirlik Beat) */}
         <motion.div
           style={{ opacity: beatBOpacity, y: beatBY }}
           className="absolute left-6 sm:left-12 lg:left-24 top-1/2 -translate-y-1/2 max-w-md z-20 pointer-events-none"
@@ -486,7 +494,7 @@ export default function ScrollCanvasDoor() {
 
             <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight leading-snug">
               Stratejik <br />
-              <span className="gold-gradient-text font-serif italic">Yönetim Muhasebesi</span>
+              <span className="gold-gradient-text font-serif italic">Mali Müşavirlik</span>
             </h2>
 
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
@@ -500,7 +508,7 @@ export default function ScrollCanvasDoor() {
           </div>
         </motion.div>
 
-        {/* BEAT C: 50 - 70% (Right Aligned - Danışmanlık Beat) */}
+        {/* BEAT C: 50 - 70% (Right Aligned - Hibe Teşvik Beat) */}
         <motion.div
           style={{ opacity: beatCOpacity, y: beatCY }}
           className="absolute right-6 sm:right-12 lg:right-24 top-1/2 -translate-y-1/2 max-w-md z-20 pointer-events-none text-right"
@@ -508,11 +516,11 @@ export default function ScrollCanvasDoor() {
           <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-[#d4af37]/30 shadow-2xl space-y-3 inline-block text-left">
             <div className="inline-flex items-center space-x-2 text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
               <Briefcase className="w-4 h-4" />
-              <span>Kurumsal Büyüme</span>
+              <span>Devlet Destekleri</span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight leading-snug">
-              Devlet Teşvikleri & <br />
+              Hibe Teşvik &amp; <br />
               <span className="gold-gradient-text font-serif italic">Yönetim Danışmanlığı</span>
             </h2>
 
@@ -545,7 +553,7 @@ export default function ScrollCanvasDoor() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl w-full">
-            {/* SOL KAPI: MUHASEBECİLİK */}
+            {/* SOL KAPI: MALİ MÜŞAVİRLİK */}
             <Link
               href="/muhasebecilik"
               onMouseEnter={() => setHoveredPortal("left")}
@@ -567,10 +575,10 @@ export default function ScrollCanvasDoor() {
 
                 <div>
                   <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-white group-hover:text-[#faecc0] transition-colors">
-                    MUHASEBECİLİK
+                    MALİ MÜŞAVİRLİK
                   </h3>
                   <p className="text-xs text-[#d4af37]/90 font-medium mt-1">
-                    Mali Müşavirlik, Vergi & Mali Denetim
+                    Stratejik Yönetim Muhasebesi, Vergi &amp; Mali Denetim
                   </p>
                 </div>
 
@@ -587,14 +595,14 @@ export default function ScrollCanvasDoor() {
 
                 <div className="pt-2">
                   <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-[#faecc0] transition-colors">
-                    <span>Muhasebecilik Sayfasını Aç</span>
+                    <span>Mali Müşavirlik Sayfasını Aç</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1.5 text-[#d4af37]" />
                   </div>
                 </div>
               </div>
             </Link>
 
-            {/* SAĞ KAPI: DANIŞMANLIK */}
+            {/* SAĞ KAPI: HİBE TEŞVİK DANIŞMANLIĞI */}
             <Link
               href="/danismanlik"
               onMouseEnter={() => setHoveredPortal("right")}
@@ -616,10 +624,10 @@ export default function ScrollCanvasDoor() {
 
                 <div>
                   <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white group-hover:text-[#faecc0] transition-colors">
-                    DANIŞMANLIK
+                    HİBE TEŞVİK DANIŞMANLIĞI
                   </h3>
                   <p className="text-xs text-[#d4af37]/90 font-medium mt-1">
-                    Yönetim Danışmanlığı & Teşvik Destekleri
+                    Devlet Destekleri, Yatırım Teşvikleri &amp; Hibe Programları
                   </p>
                 </div>
 
@@ -636,7 +644,7 @@ export default function ScrollCanvasDoor() {
 
                 <div className="pt-2">
                   <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-[#faecc0] transition-colors">
-                    <span>Danışmanlık Sayfasını Aç</span>
+                    <span>Hibe Teşvik Danışmanlığı Sayfasını Aç</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1.5 text-[#d4af37]" />
                   </div>
                 </div>
@@ -659,7 +667,7 @@ export default function ScrollCanvasDoor() {
                 <div className="absolute inset-0 rounded-full border-2 border-[#d4af37] border-t-transparent animate-spin" />
               </div>
               <p className="text-sm font-medium tracking-widest text-[#faecc0] uppercase">
-                {openingDoor === "left" ? "Muhasebecilik Kapısı Açılıyor..." : "Danışmanlık Kapısı Açılıyor..."}
+                {openingDoor === "left" ? "Mali Müşavirlik Kapısı Açılıyor..." : "Hibe Teşvik Danışmanlığı Kapısı Açılıyor..."}
               </p>
             </div>
           </motion.div>
