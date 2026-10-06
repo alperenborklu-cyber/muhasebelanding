@@ -402,8 +402,8 @@ export default function ScrollCanvasDoor() {
                     hoveredDoor === "left" && !openingDoor ? "is-hovered !opacity-100" : ""
                   }`}
                 >
-                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(0,0,0,0.9)] whitespace-nowrap">
-                    <span className="w-2 h-2 rounded-full bg-[#d4af37] border border-[#d4af37]/60 animate-pulse" />
+                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-white/30 shadow-[0_0_25px_rgba(0,0,0,0.9)] whitespace-nowrap">
+                    <span className="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] animate-pulse" />
                     <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
                       MALİ MÜŞAVİRLİK
                     </span>
@@ -457,8 +457,8 @@ export default function ScrollCanvasDoor() {
                     hoveredDoor === "right" && !openingDoor ? "is-hovered !opacity-100" : ""
                   }`}
                 >
-                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(0,0,0,0.9)] whitespace-nowrap">
-                    <span className="w-2 h-2 rounded-full bg-[#d4af37] border border-[#d4af37]/60 animate-pulse" />
+                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-white/30 shadow-[0_0_25px_rgba(0,0,0,0.9)] whitespace-nowrap">
+                    <span className="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] animate-pulse" />
                     <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
                       HİBE TEŞVİK DANIŞMANLIĞI
                     </span>
@@ -472,11 +472,22 @@ export default function ScrollCanvasDoor() {
         {/* BEAT A: 0 - 20% (Pure White Typography in Bottom-Left corner, Exactly Like Reference Image) */}
         <motion.div
           style={{ opacity: beatAOpacity, y: beatAY }}
-          className="absolute bottom-8 sm:bottom-12 md:bottom-14 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
+          className="absolute bottom-8 sm:bottom-12 md:bottom-14 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20 flex flex-col items-start gap-3"
         >
-          <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-white filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] flex flex-wrap items-baseline gap-x-2 gap-y-1 uppercase">
+          {/* ROTAYD White Brand Logo */}
+          <div className="relative h-8 w-32 sm:h-10 sm:w-40 filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] opacity-95">
+            <Image
+              src="/logobeyaz.webp"
+              alt="ROTAYD Logo"
+              fill
+              className="object-contain object-left"
+              priority
+            />
+          </div>
+
+          <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-white filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] flex flex-wrap items-baseline gap-x-2.5 gap-y-1 uppercase">
             <span className="font-extrabold text-white tracking-wide">DOĞRU ROTA</span>
-            <span className="font-serif italic font-light text-[#faecc0] tracking-wide">GÜÇLÜ İŞLETME</span>
+            <span className="font-light text-white/90 tracking-wide">GÜÇLÜ İŞLETME</span>
           </h1>
         </motion.div>
 
@@ -485,24 +496,24 @@ export default function ScrollCanvasDoor() {
           style={{ opacity: beatBOpacity, y: beatBY }}
           className="absolute left-6 sm:left-12 lg:left-24 top-1/2 -translate-y-1/2 max-w-md z-20 pointer-events-none"
         >
-          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-[#d4af37]/30 shadow-2xl space-y-3">
-            <div className="inline-flex items-center space-x-2 text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4" />
+          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/20 shadow-2xl space-y-3">
+            <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white/90 uppercase tracking-wider">
+              <ShieldCheck className="w-4 h-4 text-white" />
               <span>Mali Disiplin</span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight leading-snug">
               Stratejik <br />
-              <span className="gold-gradient-text font-serif italic">Mali Müşavirlik</span>
+              <span className="font-bold text-white tracking-wide">Mali Müşavirlik</span>
             </h2>
 
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
               Kusursuz vergi optimizasyonu, 360° mali analiz ve kârlılık denetimi.
             </p>
 
-            <div className="pt-1 flex items-center space-x-3 text-xs text-[#faecc0]">
-              <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20">2.6M+ TL SGK Teşviki</span>
-              <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20">%99 Başarı</span>
+            <div className="pt-1 flex items-center space-x-3 text-xs text-white/80">
+              <span className="px-2.5 py-1 rounded-full bg-white/10 border border-white/20">2.6M+ TL SGK Teşviki</span>
+              <span className="px-2.5 py-1 rounded-full bg-white/10 border border-white/20">%99 Başarı</span>
             </div>
           </div>
         </motion.div>
@@ -512,24 +523,24 @@ export default function ScrollCanvasDoor() {
           style={{ opacity: beatCOpacity, y: beatCY }}
           className="absolute right-6 sm:right-12 lg:right-24 top-1/2 -translate-y-1/2 max-w-md z-20 pointer-events-none text-right"
         >
-          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-[#d4af37]/30 shadow-2xl space-y-3 inline-block text-left">
-            <div className="inline-flex items-center space-x-2 text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
-              <Briefcase className="w-4 h-4" />
+          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/20 shadow-2xl space-y-3 inline-block text-left">
+            <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white/90 uppercase tracking-wider">
+              <Briefcase className="w-4 h-4 text-white" />
               <span>Devlet Destekleri</span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight leading-snug">
               Hibe Teşvik &amp; <br />
-              <span className="gold-gradient-text font-serif italic">Yönetim Danışmanlığı</span>
+              <span className="font-bold text-white tracking-wide">Yönetim Danışmanlığı</span>
             </h2>
 
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
               Yatırım teşvik belgeleri, KOSGEB hibeleri ve bakanlık destekleri rehberliği.
             </p>
 
-            <div className="pt-1 flex items-center space-x-3 text-xs text-[#faecc0]">
-              <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20">1.162+ Proje</span>
-              <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20">Bakanlık Hibeleri</span>
+            <div className="pt-1 flex items-center space-x-3 text-xs text-white/80">
+              <span className="px-2.5 py-1 rounded-full bg-white/10 border border-white/20">1.162+ Proje</span>
+              <span className="px-2.5 py-1 rounded-full bg-white/10 border border-white/20">Bakanlık Hibeleri</span>
             </div>
           </div>
         </motion.div>
@@ -547,7 +558,7 @@ export default function ScrollCanvasDoor() {
         >
           <div className="text-center mb-6 sm:mb-8 max-w-2xl">
             <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
-              Hangi Kanatta <span className="gold-gradient-text font-serif italic">Rehberlik</span> Almak İstersiniz?
+              Hangi Kanatta <span className="font-bold text-white tracking-wide">Rehberlik</span> Almak İstersiniz?
             </h2>
           </div>
 
@@ -559,24 +570,24 @@ export default function ScrollCanvasDoor() {
               onMouseLeave={() => setHoveredPortal(null)}
               className={`group pointer-events-auto relative rounded-3xl p-7 transition-all duration-500 overflow-hidden border ${
                 hoveredPortal === "left"
-                  ? "border-[#d4af37] bg-[#07173e]/90 shadow-[0_0_40px_rgba(212,175,55,0.3)] -translate-y-2 scale-[1.02]"
-                  : "border-[#d4af37]/30 bg-[#040f2a]/75 backdrop-blur-xl hover:border-[#d4af37]/70"
+                  ? "border-white/60 bg-[#07173e]/90 shadow-[0_0_40px_rgba(255,255,255,0.15)] -translate-y-2 scale-[1.02]"
+                  : "border-white/20 bg-[#040f2a]/75 backdrop-blur-xl hover:border-white/50"
               }`}
             >
-              <div className="absolute -top-24 -left-24 w-60 h-60 bg-[#1d3b7d]/40 rounded-full blur-3xl pointer-events-none group-hover:bg-[#d4af37]/20 transition-colors" />
+              <div className="absolute -top-24 -left-24 w-60 h-60 bg-[#1d3b7d]/40 rounded-full blur-3xl pointer-events-none group-hover:bg-white/10 transition-colors" />
 
               <div className="relative z-10 space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-11 h-11 rounded-2xl bg-[#0e214d] border border-[#d4af37]/40 flex items-center justify-center group-hover:bg-[#d4af37] group-hover:text-black transition-all">
-                    <ShieldCheck className="w-5 h-5 text-[#d4af37] group-hover:text-black transition-colors" />
+                  <div className="w-11 h-11 rounded-2xl bg-[#0e214d] border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                    <ShieldCheck className="w-5 h-5 text-white group-hover:text-black transition-colors" />
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-white group-hover:text-[#faecc0] transition-colors">
+                  <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-white group-hover:text-white transition-colors">
                     MALİ MÜŞAVİRLİK
                   </h3>
-                  <p className="text-xs text-[#d4af37]/90 font-medium mt-1">
+                  <p className="text-xs text-white/70 font-medium mt-1">
                     Stratejik Yönetim Muhasebesi, Vergi &amp; Mali Denetim
                   </p>
                 </div>
@@ -593,9 +604,9 @@ export default function ScrollCanvasDoor() {
                 </div>
 
                 <div className="pt-2">
-                  <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-[#faecc0] transition-colors">
+                  <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-white transition-colors">
                     <span>Mali Müşavirlik Sayfasını Aç</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1.5 text-[#d4af37]" />
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1.5 text-white" />
                   </div>
                 </div>
               </div>
@@ -608,24 +619,24 @@ export default function ScrollCanvasDoor() {
               onMouseLeave={() => setHoveredPortal(null)}
               className={`group pointer-events-auto relative rounded-3xl p-7 transition-all duration-500 overflow-hidden border ${
                 hoveredPortal === "right"
-                  ? "border-[#d4af37] bg-[#07173e]/90 shadow-[0_0_40px_rgba(212,175,55,0.3)] -translate-y-2 scale-[1.02]"
-                  : "border-[#d4af37]/30 bg-[#040f2a]/75 backdrop-blur-xl hover:border-[#d4af37]/70"
+                  ? "border-white/60 bg-[#07173e]/90 shadow-[0_0_40px_rgba(255,255,255,0.15)] -translate-y-2 scale-[1.02]"
+                  : "border-white/20 bg-[#040f2a]/75 backdrop-blur-xl hover:border-white/50"
               }`}
             >
-              <div className="absolute -top-24 -right-24 w-60 h-60 bg-[#1d3b7d]/40 rounded-full blur-3xl pointer-events-none group-hover:bg-[#d4af37]/20 transition-colors" />
+              <div className="absolute -top-24 -right-24 w-60 h-60 bg-[#1d3b7d]/40 rounded-full blur-3xl pointer-events-none group-hover:bg-white/10 transition-colors" />
 
               <div className="relative z-10 space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-11 h-11 rounded-2xl bg-[#0e214d] border border-[#d4af37]/40 flex items-center justify-center group-hover:bg-[#d4af37] group-hover:text-black transition-all">
-                    <Briefcase className="w-5 h-5 text-[#d4af37] group-hover:text-black transition-colors" />
+                  <div className="w-11 h-11 rounded-2xl bg-[#0e214d] border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                    <Briefcase className="w-5 h-5 text-white group-hover:text-black transition-colors" />
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white group-hover:text-[#faecc0] transition-colors">
+                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white group-hover:text-white transition-colors">
                     HİBE TEŞVİK DANIŞMANLIĞI
                   </h3>
-                  <p className="text-xs text-[#d4af37]/90 font-medium mt-1">
+                  <p className="text-xs text-white/70 font-medium mt-1">
                     Devlet Destekleri, Yatırım Teşvikleri &amp; Hibe Programları
                   </p>
                 </div>
@@ -642,9 +653,9 @@ export default function ScrollCanvasDoor() {
                 </div>
 
                 <div className="pt-2">
-                  <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-[#faecc0] transition-colors">
+                  <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-white transition-colors">
                     <span>Hibe Teşvik Danışmanlığı Sayfasını Aç</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1.5 text-[#d4af37]" />
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1.5 text-white" />
                   </div>
                 </div>
               </div>
@@ -662,10 +673,10 @@ export default function ScrollCanvasDoor() {
           >
             <div className="flex flex-col items-center space-y-4">
               <div className="relative w-12 h-12">
-                <div className="absolute inset-0 rounded-full border-2 border-[#d4af37]/20" />
-                <div className="absolute inset-0 rounded-full border-2 border-[#d4af37] border-t-transparent animate-spin" />
+                <div className="absolute inset-0 rounded-full border-2 border-white/20" />
+                <div className="absolute inset-0 rounded-full border-2 border-white border-t-transparent animate-spin" />
               </div>
-              <p className="text-sm font-medium tracking-widest text-[#faecc0] uppercase">
+              <p className="text-sm font-medium tracking-widest text-white/90 uppercase">
                 {openingDoor === "left" ? "Mali Müşavirlik Kapısı Açılıyor..." : "Hibe Teşvik Danışmanlığı Kapısı Açılıyor..."}
               </p>
             </div>
