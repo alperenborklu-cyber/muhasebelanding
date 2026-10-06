@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import JSZip from 'jszip';
 import {
   Shield,
   ShieldCheck,
@@ -32,11 +33,45 @@ import {
   UploadCloud,
   User,
   Phone,
-  ArrowRight
+  ArrowRight,
+  Crop,
+  Sparkles,
+  KeyRound,
+  FileArchive
 } from 'lucide-react';
 import { PortalUser, TuzelKisi, FaturaBelge, BelgeTuru, HarcamaKategorisi, SirketTuru } from '@/lib/portal-types';
 import { validateVergiKimlik, validateUploadedFile } from '@/lib/security';
 import KvkkModal from '@/components/portal/KvkkModal';
+import ImageCropperModal from '@/components/portal/ImageCropperModal';
+
+// 1 ay geriden gelen varsayılan muhasebe dönemi tarihi
+function getOneMonthPriorDate(): string {
+  const d = new Date();
+  d.setMonth(d.getMonth() - 1);
+  return d.toISOString().split('T')[0];
+}
+
+// Otomatik Fiş & Slip Numarası Formatı: UNVAN-ROTAYD-GG-AA-YY-SIRA
+function formatDocCode(unvan: string, dateStr: string, seqNum: number): string {
+  const cleanUnvan = (unvan || 'UNVAN')
+    .toUpperCase()
+    .replace(/Ğ/g, 'G')
+    .replace(/Ü/g, 'U')
+    .replace(/Ş/g, 'S')
+    .replace(/İ/g, 'I')
+    .replace(/Ö/g, 'O')
+    .replace(/Ç/g, 'C')
+    .replace(/[^A-Z0-9]/g, '')
+    .slice(0, 10) || 'UNVAN';
+
+  const dateObj = new Date(dateStr || getOneMonthPriorDate());
+  const dd = String(dateObj.getDate()).padStart(2, '0');
+  const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const yy = String(dateObj.getFullYear()).slice(-2);
+  const seq = String(seqNum).padStart(2, '0');
+
+  return `${cleanUnvan}-ROTAYD-${dd}-${mm}-${yy}-${seq}`;
+}
 
 export default function PortalPage() {
   const { data: session, status: sessionStatus } = useSession();
@@ -45,7 +80,11 @@ export default function PortalPage() {
   const [isRefreshingStatus, setIsRefreshingStatus] = useState(false);
   const [activeTab, setActiveTab] = useState<'documents' | 'companies'>('documents');
 
-  // Giriş / Başvuru Formu State
+  // Giriş Formu State (VKN vs. E-Posta)
+  const [loginMode, setLoginMode] = useState<'vkn' | 'email'>('vkn');
+  const [loginVkn, setLoginVkn] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [loginUnvan, setLoginUnvan] = useState('');
   const [loginEmail, setLoginEmail] = useState('');
   const [loginName, setLoginName] = useState('');
   const [loginPhone, setLoginPhone] = useState('');
@@ -64,16 +103,24 @@ export default function PortalPage() {
   // Upload Form State
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [filePreviewUrl, setFilePreviewUrl] = useState<string | null>(null);
+  const [fileDataUrl, setFileDataUrl] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string>('');
-  const [belgeTuru, setBelgeTuru] = useState<BelgeTuru>('e-fatura');
+  const [belgeTuru, setBelgeTuru] = useState<BelgeTuru>('fis');
   const [kategori, setKategori] = useState<HarcamaKategorisi>('genel_gider');
   const [faturaNo, setFaturaNo] = useState('');
-  const [faturaTarihi, setFaturaTarihi] = useState(new Date().toISOString().split('T')[0]);
+  const [faturaTarihi, setFaturaTarihi] = useState(getOneMonthPriorDate()); // 1 ay geriden!
   const [tutar, setTutar] = useState<number>(0);
   const [kdvOrani, setKdvOrani] = useState<number>(20);
   const [notlar, setNotlar] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+
+  // Kırpma (Image Cropper) State
+  const [isCropperOpen, setIsCropperOpen] = useState(false);
+  const [rawImageForCrop, setRawImageForCrop] = useState<string | null>(null);
+
+  // Zip İndirme State
+  const [isZipping, setIsZipping] = useState(false);
 
   // New Company Modal State
   const [isCompanyModalOpen, setIsCompanyModalOpen] = useState(false);
@@ -95,6 +142,18 @@ export default function PortalPage() {
   // Search & Filter
   const [docFilterCategory, setDocFilterCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Aktif şirketi ve otomatik atanacak belge numarasını hesapla
+  const activeCompany = companies.find((c) => c.id === selectedCompanyId) || companies[0];
+  const nextSeq = (documents.filter(d => !selectedCompanyId || d.companyId === selectedCompanyId).length) + 1;
+  const currentAutoCode = formatDocCode(activeCompany?.unvan || 'ROTAYD', faturaTarihi, nextSeq);
+
+  // Otomatik fatura numarasını başlangıçta ata
+  useEffect(() => {
+    if (!faturaNo || faturaNo.includes('-ROTAYD-')) {
+      setFaturaNo(currentAutoCode);
+    }
+  }, [currentAutoCode]);
 
   // Sunucu üzerinden kullanıcı ve onay durumunu çek
   const fetchPortalStatus = async () => {
@@ -150,15 +209,10 @@ export default function PortalPage() {
     }
   };
 
-  // Mükellef Girişi / Kaydı Başlatma
+  // Mükellef Girişi (VKN veya E-Posta)
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
-
-    if (!loginEmail) {
-      setLoginError('Lütfen geçerli bir e-posta adresi giriniz.');
-      return;
-    }
 
     if (!kvkkAccepted) {
       setIsKvkkOpen(true);
@@ -168,17 +222,45 @@ export default function PortalPage() {
     setIsSubmittingLogin(true);
 
     try {
-      const res = await signIn('mukellef-auth', {
-        email: loginEmail.trim(),
-        name: loginName.trim() || loginEmail.split('@')[0],
-        phone: loginPhone.trim(),
-        redirect: false
-      });
+      if (loginMode === 'vkn') {
+        const cleanV = loginVkn.trim();
+        if (!cleanV || cleanV.length < 10) {
+          setLoginError('Lütfen geçerli 10 haneli VKN veya 11 haneli TCKN giriniz.');
+          setIsSubmittingLogin(false);
+          return;
+        }
 
-      if (res?.error) {
-        setLoginError('Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyiniz.');
+        const res = await signIn('mukellef-auth', {
+          vkn: cleanV,
+          password: loginPassword.trim() || cleanV, // Şifre de vergi numarası!
+          unvan: loginUnvan.trim() || `Mükellef ${cleanV}`,
+          redirect: false
+        });
+
+        if (res?.error) {
+          setLoginError(res.error || 'Giriş yapılamadı. Şifrenizin VKN ile aynı olduğundan emin olunuz.');
+        } else {
+          await fetchPortalStatus();
+        }
       } else {
-        await fetchPortalStatus();
+        if (!loginEmail) {
+          setLoginError('Lütfen geçerli bir e-posta adresi giriniz.');
+          setIsSubmittingLogin(false);
+          return;
+        }
+
+        const res = await signIn('mukellef-auth', {
+          email: loginEmail.trim(),
+          name: loginName.trim() || loginEmail.split('@')[0],
+          phone: loginPhone.trim(),
+          redirect: false
+        });
+
+        if (res?.error) {
+          setLoginError('Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyiniz.');
+        } else {
+          await fetchPortalStatus();
+        }
       }
     } catch (err) {
       setLoginError('Bağlantı hatası oluştu.');
@@ -187,8 +269,17 @@ export default function PortalPage() {
     }
   };
 
-  // Hızlı Test / Doldurma
+  // Hızlı VKN Doldurma
+  const prefillVknUser = (vkn: string, unvan: string) => {
+    setLoginMode('vkn');
+    setLoginVkn(vkn);
+    setLoginPassword(vkn);
+    setLoginUnvan(unvan);
+  };
+
+  // Hızlı Test / E-Posta Doldurma
   const prefillUser = (email: string, name: string) => {
+    setLoginMode('email');
     setLoginEmail(email);
     setLoginName(name);
   };
@@ -258,7 +349,7 @@ export default function PortalPage() {
     }
   };
 
-  // Fotoğraf / Dosya Seçimi ve Güvenlik Taraması
+  // Fotoğraf / Dosya Seçimi (Kırpma Modalı Otomatik Açılır)
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setUploadError('');
     if (e.target.files && e.target.files[0]) {
@@ -268,22 +359,36 @@ export default function PortalPage() {
         setUploadError(validation.error || 'Dosya güvenlik kontrolünden geçemedi.');
         setUploadFile(null);
         setFilePreviewUrl(null);
+        return;
+      }
+
+      if (file.type.startsWith('image/')) {
+        const objectUrl = URL.createObjectURL(file);
+        setRawImageForCrop(objectUrl);
+        setIsCropperOpen(true);
       } else {
+        // PDF veya diğer belge
         setUploadFile(file);
-        if (file.type.startsWith('image/')) {
-          setFilePreviewUrl(URL.createObjectURL(file));
-        } else {
-          setFilePreviewUrl(null);
-        }
+        setFilePreviewUrl(null);
       }
     }
+  };
+
+  // Kırpma Onaylandığında
+  const handleCropComplete = (croppedBlob: Blob, croppedDataUrl: string) => {
+    const formattedFileName = `${currentAutoCode}.jpg`;
+    const croppedFile = new File([croppedBlob], formattedFileName, { type: 'image/jpeg' });
+    setUploadFile(croppedFile);
+    setFilePreviewUrl(croppedDataUrl);
+    setFileDataUrl(croppedDataUrl);
+    setFaturaNo(currentAutoCode);
   };
 
   // Fiş / Fatura / Fotoğraf Kaydet (API üzerinden)
   const handleUploadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentUser || !uploadFile) {
-      setUploadError('Lütfen yüklenecek fotoğraf veya belgeyi seçiniz.');
+      setUploadError('Lütfen yüklenecek fotoğraf veya fişi seçiniz.');
       return;
     }
 
@@ -294,9 +399,10 @@ export default function PortalPage() {
 
     setIsUploading(true);
 
-    const activeCompany = companies.find((c) => c.id === selectedCompanyId);
+    const activeComp = companies.find((c) => c.id === selectedCompanyId);
     const kdvTutari = (tutar * kdvOrani) / 100;
     const toplamTutar = tutar + kdvTutari;
+    const finalDocNo = faturaNo.trim() || currentAutoCode;
 
     try {
       const res = await fetch('/api/portal/documents', {
@@ -304,14 +410,15 @@ export default function PortalPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           companyId: selectedCompanyId,
-          companyUnvan: activeCompany?.unvan || 'Tanımsız Şirket',
+          companyUnvan: activeComp?.unvan || 'Tanımsız Şirket',
           fileName: uploadFile.name,
           fileSize: uploadFile.size,
           fileType: uploadFile.type,
+          fileDataUrl: fileDataUrl || undefined,
           belgeTuru,
           kategori,
           faturaTarihi,
-          faturaNo: faturaNo || `BELGE-${Date.now().toString().slice(-6)}`,
+          faturaNo: finalDocNo,
           tutar,
           kdvOrani,
           kdvTutari,
@@ -332,7 +439,7 @@ export default function PortalPage() {
       setUploadSuccess(true);
       setUploadFile(null);
       setFilePreviewUrl(null);
-      setFaturaNo('');
+      setFileDataUrl(null);
       setTutar(0);
       setNotlar('');
       loadUserData(currentUser.id);
@@ -341,6 +448,60 @@ export default function PortalPage() {
     } catch (err) {
       setIsUploading(false);
       setUploadError('Belge yüklenirken bağlantı hatası oluştu.');
+    }
+  };
+
+  // TEK TIKLA TÜM FİŞLERİ ZIP OLARAK İNDİR (RAR/ZIP DESTEĞİ)
+  const handleDownloadAllZip = async () => {
+    if (documents.length === 0) {
+      alert('İndirilecek kayıtlı fiş veya slip bulunamadı.');
+      return;
+    }
+
+    setIsZipping(true);
+    try {
+      const zip = new JSZip();
+      const folderName = `ROTAYD_Fisler_${activeCompany?.unvan ? activeCompany.unvan.slice(0, 15) : 'Mukellef'}_${faturaTarihi}`;
+      const folder = zip.folder(folderName) || zip;
+
+      // Özet döküm metni
+      let summary = `ROTAYD MALİ MÜŞAVİRLİK - MÜKELLEF FİŞ & SLİP ARŞİVİ\n`;
+      summary += `Firma: ${activeCompany?.unvan || 'Genel'}\n`;
+      summary += `Dönem: ${faturaTarihi} (1 Ay Geriden Muhasebe Dönemi)\n`;
+      summary += `İndirme Tarihi: ${new Date().toLocaleString('tr-TR')}\n`;
+      summary += `Toplam Belge: ${documents.length} Adet\n\n`;
+      summary += `SIRA | BELGE NO | TARİH | KATEGORİ | TUTAR (TL) | KDV | TOPLAM (TL)\n`;
+      summary += `--------------------------------------------------------------------------------\n`;
+
+      for (let i = 0; i < documents.length; i++) {
+        const doc = documents[i];
+        const docName = `${doc.faturaNo || `BELGE_${i + 1}`}.jpg`;
+        summary += `${i + 1} | ${doc.faturaNo} | ${doc.faturaTarihi} | ${doc.kategori} | ${doc.tutar} TL | %${doc.kdvOrani} | ${doc.toplamTutar} TL\n`;
+
+        if (doc.fileDataUrl) {
+          const base64Data = doc.fileDataUrl.split(',')[1] || doc.fileDataUrl;
+          folder.file(docName, base64Data, { base64: true });
+        } else {
+          folder.file(`${doc.faturaNo}_kayit.txt`, `Fatura No: ${doc.faturaNo}\nTarih: ${doc.faturaTarihi}\nTutar: ${doc.toplamTutar} TL\nNot: ${doc.notlar || '-'}`);
+        }
+      }
+
+      folder.file('00_FIS_VE_SLIP_LISTESI.txt', summary);
+
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const downloadUrl = URL.createObjectURL(zipBlob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `${folderName}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(downloadUrl);
+    } catch (err) {
+      console.error('Zip oluşturma hatası:', err);
+      alert('Arşiv indirilirken bir hata oluştu.');
+    } finally {
+      setIsZipping(false);
     }
   };
 
@@ -362,51 +523,70 @@ export default function PortalPage() {
     fetchPortalStatus();
   };
 
-  if (!isLoaded || sessionStatus === 'loading') {
+  // Yükleme Bekleme Ekranı
+  if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-[#040a1a] flex flex-col items-center justify-center text-white space-y-4">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#d4af37]" />
-        <span className="text-xs text-slate-400 font-mono tracking-wider">Güvenli Oturum Doğrulanıyor...</span>
+      <div className="min-h-screen bg-[#040a1a] flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-12 h-12 rounded-full border-2 border-[#d4af37] border-t-transparent animate-spin" />
+          <p className="text-sm text-[#faecc0] tracking-wider uppercase font-semibold">
+            Mükellef Portalı Yükleniyor...
+          </p>
+        </div>
       </div>
     );
   }
 
   // ==========================================================================
-  // DURUM 1: OTURUM AÇILMAMIŞ (MÜKELLEF GİRİŞ & BAŞVURU EKRANI)
+  // DURUM 1: KULLANICI GİRİŞ YAPMAMIŞ (VKN VEYA E-POSTA İLE GİRİŞ)
   // ==========================================================================
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-[#040a1a] text-slate-100 flex flex-col justify-between pt-24 pb-12 px-4 sm:px-6 relative overflow-hidden">
-        {/* Arka Plan Işık Efektleri */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#1d4ed8]/10 via-[#d4af37]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
-
+      <div className="min-h-screen bg-[#040a1a] text-white flex flex-col justify-between pt-28 pb-12 px-4 sm:px-6 relative page-container">
         <div className="max-w-md w-full mx-auto my-auto relative z-10">
           {/* Logo & Başlık */}
           <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-4 group">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#07173e] to-[#040a1a] border border-[#d4af37]/40 flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.25)] group-hover:border-[#d4af37] transition-all">
-                <ShieldCheck className="w-6 h-6 text-[#d4af37]" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#d4af37] to-[#8a701e] p-0.5 shadow-xl shadow-[#d4af37]/20 mb-4">
+              <div className="w-full h-full bg-[#040a1a] rounded-2xl flex items-center justify-center">
+                <ShieldCheck className="w-8 h-8 text-[#d4af37]" />
               </div>
-              <div className="text-left">
-                <span className="block text-xl font-bold tracking-wider text-white">
-                  ROTAYD
-                </span>
-                <span className="block text-[10px] uppercase tracking-widest text-[#d4af37]">
-                  Mükellef Portalı
-                </span>
-              </div>
-            </Link>
-
+            </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              Mükellef Girişi &amp; Kayıt
+              Mükellef Girişi
             </h1>
-            <p className="text-sm text-slate-400 mt-2">
-              Sisteme kaydolarak mali müşavir onayından sonra fiş ve faturalarınızı doğrudan yükleyebilirsiniz.
+            <p className="text-xs sm:text-sm text-slate-400 mt-2">
+              Vergi Numaranız (VKN/TCKN) ve şifreniz ile güvenli giriş yapabilirsiniz.
             </p>
           </div>
 
           {/* Giriş Kartı */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#07173e]/90 border border-[#d4af37]/30 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#07173e]/90 border border-[#d4af37]/35 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+            {/* Sekmeler: VKN ile Giriş vs E-Posta */}
+            <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-[#040a1a] border border-white/10 mb-6 text-xs font-semibold">
+              <button
+                type="button"
+                onClick={() => setLoginMode('vkn')}
+                className={`py-2 rounded-lg transition-all ${
+                  loginMode === 'vkn'
+                    ? 'bg-[#d4af37] text-black font-bold shadow'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                Vergi No (VKN / TCKN)
+              </button>
+              <button
+                type="button"
+                onClick={() => setLoginMode('email')}
+                className={`py-2 rounded-lg transition-all ${
+                  loginMode === 'email'
+                    ? 'bg-[#d4af37] text-black font-bold shadow'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                E-Posta ile Giriş
+              </button>
+            </div>
+
             {loginError && (
               <div className="p-3.5 mb-5 rounded-xl bg-red-500/20 border border-red-500/40 text-red-300 text-xs flex items-center space-x-2">
                 <AlertTriangle className="w-4 h-4 flex-shrink-0" />
@@ -415,61 +595,131 @@ export default function PortalPage() {
             )}
 
             <form onSubmit={handleLoginSubmit} className="space-y-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                  E-Posta Adresiniz *
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                    <Mail className="w-4 h-4 text-[#d4af37]" />
+              {loginMode === 'vkn' ? (
+                <>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                      Vergi Kimlik No (VKN) veya TCKN *
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <Building2 className="w-4 h-4 text-[#d4af37]" />
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        maxLength={11}
+                        placeholder="10 Haneli VKN veya 11 Haneli TCKN"
+                        value={loginVkn}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, '');
+                          setLoginVkn(val);
+                          // Şifre de vergi numarası olacak şekilde otomatik eşle
+                          setLoginPassword(val);
+                        }}
+                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm font-mono transition-colors"
+                      />
+                    </div>
                   </div>
-                  <input
-                    type="email"
-                    required
-                    placeholder="ornek@sirket.com"
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                    className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
-                  />
-                </div>
-              </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                  Adınız ve Soyadınız *
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                    <User className="w-4 h-4 text-[#d4af37]" />
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-slate-300">
+                        Şifreniz * <span className="text-[#d4af37] font-normal">(Vergi Numaranız ile Aynıdır)</span>
+                      </label>
+                    </div>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <KeyRound className="w-4 h-4 text-[#d4af37]" />
+                      </div>
+                      <input
+                        type="password"
+                        required
+                        placeholder="Vergi Numaranız"
+                        value={loginPassword}
+                        onChange={(e) => setLoginPassword(e.target.value)}
+                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm font-mono transition-colors"
+                      />
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Adınız Soyadınız"
-                    value={loginName}
-                    onChange={(e) => setLoginName(e.target.value)}
-                    className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
-                  />
-                </div>
-              </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                  Telefon Numaranız <span className="text-slate-500 font-normal">(İsteğe Bağlı)</span>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                    <Phone className="w-4 h-4 text-[#d4af37]" />
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                      Firma Unvanı / Ad Soyad <span className="text-slate-500 font-normal">(İsteğe Bağlı)</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <User className="w-4 h-4 text-[#d4af37]" />
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Örn: Anadolu Teknoloji A.Ş."
+                        value={loginUnvan}
+                        onChange={(e) => setLoginUnvan(e.target.value)}
+                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
+                      />
+                    </div>
                   </div>
-                  <input
-                    type="tel"
-                    placeholder="05XX XXX XX XX"
-                    value={loginPhone}
-                    onChange={(e) => setLoginPhone(e.target.value)}
-                    className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
-                  />
-                </div>
-              </div>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                      E-Posta Adresiniz *
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <Mail className="w-4 h-4 text-[#d4af37]" />
+                      </div>
+                      <input
+                        type="email"
+                        required
+                        placeholder="ornek@sirket.com"
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
+                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                      Adınız ve Soyadınız *
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <User className="w-4 h-4 text-[#d4af37]" />
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Adınız Soyadınız"
+                        value={loginName}
+                        onChange={(e) => setLoginName(e.target.value)}
+                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                      Telefon Numaranız <span className="text-slate-500 font-normal">(İsteğe Bağlı)</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <Phone className="w-4 h-4 text-[#d4af37]" />
+                      </div>
+                      <input
+                        type="tel"
+                        placeholder="05XX XXX XX XX"
+                        value={loginPhone}
+                        onChange={(e) => setLoginPhone(e.target.value)}
+                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
 
               {/* KVKK Onay Kutusu */}
               <div className="p-3.5 rounded-xl bg-[#040a1a]/70 border border-[#d4af37]/20 my-4 flex items-start space-x-3">
@@ -509,7 +759,7 @@ export default function PortalPage() {
                 ) : (
                   <>
                     <Lock className="w-4 h-4" />
-                    <span>Güvenli Giriş Yap / Başvur</span>
+                    <span>Portala Giriş Yap</span>
                   </>
                 )}
               </button>
@@ -518,9 +768,17 @@ export default function PortalPage() {
             {/* Test Kullanıcıları / Hızlı Seçim */}
             <div className="mt-8 pt-5 border-t border-white/10 text-xs">
               <span className="block text-[11px] font-semibold text-[#faecc0] uppercase tracking-wider mb-2.5 text-center">
-                Hızlı Test İçin Örnek Profiller:
+                Hızlı Giriş Örnekleri:
               </span>
               <div className="grid grid-cols-1 gap-2">
+                <button
+                  type="button"
+                  onClick={() => prefillVknUser('1234567891', 'Anadolu Teknoloji A.Ş.')}
+                  className="px-3 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 flex items-center justify-between text-left cursor-pointer"
+                >
+                  <span className="font-semibold font-mono">VKN: 1234567891 (Anadolu Teknoloji A.Ş.)</span>
+                  <span className="text-[10px] bg-emerald-500 text-black px-1.5 py-0.5 rounded font-bold">Mükellef</span>
+                </button>
                 <button
                   type="button"
                   onClick={() => prefillUser('suleyman@rotayd.com', 'Süleyman İlhan')}
@@ -528,22 +786,6 @@ export default function PortalPage() {
                 >
                   <span className="font-semibold">Mali Müşavir (Admin)</span>
                   <span className="text-[10px] bg-[#d4af37] text-black px-1.5 py-0.5 rounded font-bold">Admin</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => prefillUser('ahmet.yilmaz@anadolutech.com', 'Ahmet Yılmaz')}
-                  className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 flex items-center justify-between text-left cursor-pointer"
-                >
-                  <span>Onaylı Mükellef (Ahmet Yılmaz)</span>
-                  <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-bold">Onaylı</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => prefillUser('yeni.kayit@sirket.com', 'Yeni Başvuran Mükellef')}
-                  className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 flex items-center justify-between text-left cursor-pointer"
-                >
-                  <span>Yeni Kayıt (Onay Bekleyen)</span>
-                  <span className="text-[10px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded font-bold">Bekliyor</span>
                 </button>
               </div>
             </div>
@@ -581,14 +823,12 @@ export default function PortalPage() {
 
   // ==========================================================================
   // DURUM 2: KULLANICI GİRİŞ YAPTI AMA DURUMU "ONAY BEKLİYOR" (PENDING)
-  // SADECE ADMİN ONAYLADIĞINDA SİSTEME FOTOĞRAF / BELGE ATABİLİR!
   // ==========================================================================
   if (currentUser.status === 'pending') {
     return (
       <div className="min-h-screen bg-[#040a1a] text-white flex flex-col justify-between pt-24 pb-12 px-4 sm:px-6 relative">
         <div className="max-w-xl w-full mx-auto my-auto relative z-10">
           <div className="p-8 sm:p-10 rounded-3xl bg-[#07173e] border border-amber-500/40 shadow-[0_0_50px_rgba(245,158,11,0.15)] text-center">
-            {/* Profil Resmi & Bekleme İkonu */}
             <div className="relative w-20 h-20 mx-auto mb-6">
               <img
                 src={currentUser.image}
@@ -617,26 +857,7 @@ export default function PortalPage() {
             <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs mb-6 text-left flex items-start space-x-3">
               <AlertTriangle className="w-5 h-5 flex-shrink-0 text-amber-400 mt-0.5" />
               <div className="leading-relaxed">
-                <strong>Fotoğraf &amp; Belge Yükleme Kısıtlaması:</strong> Yasal defter güvenliği gereğince yalnızca Mali Müşavir tarafından onaylanan mükellefler sisteme fotoğraf, fiş ve fatura yükleyebilir. Başvurunuz onaylandığı anda sistem otomatik olarak açılacaktır.
-              </div>
-            </div>
-
-            <div className="p-4 rounded-xl bg-[#040a1a]/80 border border-white/10 text-left text-xs space-y-2 text-slate-400 mb-6">
-              <div className="flex justify-between">
-                <span>Kayıtlı E-Posta:</span>
-                <span className="text-[#faecc0] font-medium font-mono">{currentUser.email}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Başvuru Tarihi:</span>
-                <span className="text-white font-medium">{new Date(currentUser.createdAt).toLocaleDateString('tr-TR')}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>KVKK Onay Damgası:</span>
-                <span className="text-emerald-400 font-medium">Doğrulandı &amp; Kaydedildi</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Mevcut Durum:</span>
-                <span className="text-amber-400 font-medium">İnceleme Havuzunda</span>
+                <strong>Fotoğraf &amp; Belge Yükleme Kısıtlaması:</strong> Yasal defter güvenliği gereğince yalnızca Mali Müşavir tarafından onaylanan mükellefler sisteme fotoğraf, fiş ve fatura yükleyebilir.
               </div>
             </div>
 
@@ -652,10 +873,9 @@ export default function PortalPage() {
 
               <button
                 onClick={handleLogout}
-                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors cursor-pointer"
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-slate-300 cursor-pointer"
               >
-                <LogOut className="w-4 h-4" />
-                <span>Çıkış Yap / Farklı Hesap</span>
+                Farklı Hesapla Giriş Yap
               </button>
             </div>
           </div>
@@ -665,41 +885,8 @@ export default function PortalPage() {
   }
 
   // ==========================================================================
-  // DURUM 2.5: KULLANICI DURUMU "REDDEDİLDİ" (REJECTED)
+  // DURUM 3: ONAYLI MÜKELLEF VEYA ADMİN GİRİŞ YAPMIŞ
   // ==========================================================================
-  if (currentUser.status === 'rejected') {
-    return (
-      <div className="min-h-screen bg-[#040a1a] text-white flex flex-col justify-between pt-24 pb-12 px-4 sm:px-6 relative">
-        <div className="max-w-md w-full mx-auto my-auto relative z-10">
-          <div className="p-8 rounded-3xl bg-[#07173e] border border-red-500/40 shadow-xl text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400">
-              <XCircle className="w-8 h-8" />
-            </div>
-
-            <h1 className="text-xl font-bold text-white mb-2">Başvuru Onaylanmadı</h1>
-            <p className="text-xs text-slate-300 leading-relaxed mb-6">
-              Sayın <strong className="text-white">{currentUser.name}</strong>, ({currentUser.email}) mükellef başvurunuz onaylanamamıştır. Detaylı bilgi ve kimlik doğrulaması için lütfen müşavirliğimiz ile iletişime geçiniz.
-            </p>
-
-            <button
-              onClick={handleLogout}
-              className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors cursor-pointer"
-            >
-              Farklı Bir Hesapla Giriş Yap
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ==========================================================================
-  // DURUM 3: KULLANICI ONAYLI (APPROVED) - MÜKELLEF TAM PANELİ
-  // ARTIK FOTOĞRAF, FİŞ VE FATURA YÜKLEYEBİLİR!
-  // ==========================================================================
-  const activeCompany = companies.find((c) => c.id === selectedCompanyId);
-
-  // Filtrelenmiş belgeler
   const filteredDocuments = documents.filter((doc) => {
     const matchesCategory = docFilterCategory === 'all' || doc.kategori === docFilterCategory;
     const matchesCompany = !selectedCompanyId || doc.companyId === selectedCompanyId;
@@ -810,11 +997,37 @@ export default function PortalPage() {
               <div className="p-6 rounded-2xl bg-[#07173e] border border-[#d4af37]/30 shadow-xl">
                 <h2 className="text-base font-bold text-white mb-1 flex items-center">
                   <Camera className="w-5 h-5 mr-2 text-[#d4af37]" />
-                  Yeni Fiş / Fotoğraf / Fatura Yükle
+                  Fişleri Yükleyiniz (Kredi Kartı Slipleri)
                 </h2>
-                <p className="text-xs text-slate-400 mb-5">
-                  Çektiğiniz fiş fotoğrafını veya e-fatura dosyasını doğrudan mali müşavirinize iletin.
+                <p className="text-xs text-slate-400 mb-4">
+                  Sistem göndermeden önce fişinize otomatik numara atar ve kırpma imkanı sunar.
                 </p>
+
+                {/* 1 AY GERİDEN GELME VE OTOMATİK NUMARA BİLGİ KUTUSU */}
+                <div className="p-4 mb-5 rounded-2xl bg-[#040a1a] border border-[#d4af37]/40 space-y-2.5 shadow-inner">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-[#faecc0] font-semibold flex items-center space-x-1">
+                      <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
+                      <span>Otomatik Belge Numarası:</span>
+                    </span>
+                    <span className="px-2 py-0.5 rounded bg-[#d4af37]/20 text-[#faecc0] font-mono text-[11px] font-bold border border-[#d4af37]/40">
+                      Sıra No #{String(nextSeq).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-black/60 border border-[#d4af37]/30 text-center">
+                    <span className="font-mono text-sm sm:text-base font-bold text-[#faecc0] tracking-wider block selection:bg-[#d4af37] selection:text-black">
+                      {currentAutoCode}
+                    </span>
+                  </div>
+
+                  <div className="text-[11px] text-slate-400 flex items-center space-x-1.5 pt-1">
+                    <Clock className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                    <span>
+                      <strong>1 Ay Geriden Muhasebe Dönemi:</strong> Fiş ve slipler mevzuat uyarınca bir önceki aya ait işlenmektedir.
+                    </span>
+                  </div>
+                </div>
 
                 {/* Eğer şirket yoksa uyarı */}
                 {companies.length === 0 ? (
@@ -824,7 +1037,7 @@ export default function PortalPage() {
                       Kayıtlı Tüzel Kişi Bulunamadı
                     </p>
                     <p className="mb-3 text-slate-300">
-                      Fiş ve fatura yükleyebilmek için lütfen önce şirketinizi (tüzel kişi kimliğinizi) sisteme tanımlayınız.
+                      Fiş ve fatura yükleyebilmek için lütfen önce şirketinizi sisteme tanımlayınız.
                     </p>
                     <button
                       onClick={() => setIsCompanyModalOpen(true)}
@@ -855,24 +1068,40 @@ export default function PortalPage() {
 
                     {/* Sürükle Bırak / Fotoğraf Çek / Dosya Seç */}
                     <div>
-                      <label className="block text-slate-300 font-semibold mb-1">
-                        Fiş Fotoğrafı veya Belge Dosyası *
-                      </label>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-slate-300 font-semibold">
+                          Fiş / Kredi Kartı Slipi Fotoğrafı *
+                        </label>
+                        {filePreviewUrl && (
+                          <button
+                            type="button"
+                            onClick={() => setIsCropperOpen(true)}
+                            className="text-[#d4af37] hover:underline flex items-center space-x-1 text-[11px]"
+                          >
+                            <Crop className="w-3 h-3" />
+                            <span>Kırpma Aracını Aç</span>
+                          </button>
+                        )}
+                      </div>
+
                       <div className="relative border-2 border-dashed border-[#d4af37]/40 hover:border-[#d4af37] rounded-xl p-5 text-center bg-[#040a1a]/50 transition-colors">
                         <input
                           type="file"
-                          accept="image/*,.pdf,.xml"
+                          accept="image/*,.pdf"
                           onChange={handleFileSelect}
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         />
                         <div className="flex flex-col items-center">
                           {filePreviewUrl ? (
-                            <div className="relative mb-2">
+                            <div className="relative mb-2 group">
                               <img
                                 src={filePreviewUrl}
                                 alt="Fiş Önizleme"
-                                className="w-24 h-24 object-cover rounded-lg border border-[#d4af37]/50 shadow-md"
+                                className="w-28 h-28 object-contain rounded-lg border border-[#d4af37]/50 shadow-md bg-black"
                               />
+                              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-lg transition-opacity text-white text-[10px]">
+                                Yeniden Kırp
+                              </div>
                             </div>
                           ) : (
                             <div className="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] mb-2">
@@ -882,23 +1111,24 @@ export default function PortalPage() {
 
                           {uploadFile ? (
                             <div>
-                              <span className="font-bold text-white block text-sm">{uploadFile.name}</span>
+                              <span className="font-bold text-white block text-sm font-mono">{uploadFile.name}</span>
                               <span className="text-[11px] text-emerald-400">
-                                {(uploadFile.size / 1024).toFixed(1)} KB • Güvenlik Kontrolünden Geçti
+                                {(uploadFile.size / 1024).toFixed(1)} KB • Kırpıldı &amp; Hazır
                               </span>
                             </div>
                           ) : (
                             <div>
                               <span className="text-slate-200 font-semibold block text-sm">
-                                Fotoğraf Çekin veya Dosya Seçin
+                                Fişi / Slipi Fotoğraflayın veya Seçin
                               </span>
                               <span className="text-[10px] text-slate-400 mt-1 block">
-                                Kamera Fotoğrafı, JPG, PNG, PDF (Maks. 15 MB)
+                                Otomatik kırpma penceresi açılacaktır (Maks. 15 MB)
                               </span>
                             </div>
                           )}
                         </div>
                       </div>
+
                       {uploadError && (
                         <p className="text-red-400 text-[11px] mt-1.5 flex items-center">
                           <AlertTriangle className="w-3.5 h-3.5 mr-1" />
@@ -916,7 +1146,7 @@ export default function PortalPage() {
                           onChange={(e) => setBelgeTuru(e.target.value as BelgeTuru)}
                           className="w-full px-3 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-white focus:border-[#d4af37] focus:outline-none"
                         >
-                          <option value="fis">Yazar Kasa Fişi / Fotoğraf</option>
+                          <option value="fis">Kredi Kartı Slipi / Yazar Kasa Fişi</option>
                           <option value="e-fatura">e-Fatura</option>
                           <option value="e-arsiv">e-Arşiv Fatura</option>
                           <option value="smm">Serbest Meslek (SMM)</option>
@@ -932,9 +1162,9 @@ export default function PortalPage() {
                           onChange={(e) => setKategori(e.target.value as HarcamaKategorisi)}
                           className="w-full px-3 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-white focus:border-[#d4af37] focus:outline-none"
                         >
+                          <option value="genel_gider">Genel Gider</option>
                           <option value="yemek_temsil">Yemek &amp; Temsil</option>
                           <option value="akaryakit">Akaryakıt &amp; Taşıt</option>
-                          <option value="genel_gider">Genel Gider</option>
                           <option value="kira">Kira &amp; Aidat</option>
                           <option value="danismanlik_hizmet">Hizmet &amp; Yazılım</option>
                           <option value="demirbas">Demirbaş Alımı</option>
@@ -948,17 +1178,21 @@ export default function PortalPage() {
                     {/* Fatura No & Tarih */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-slate-300 font-semibold mb-1">Fiş / Belge No</label>
+                        <label className="block text-slate-300 font-semibold mb-1">
+                          Formatlanan Belge No *
+                        </label>
                         <input
                           type="text"
-                          placeholder="Örn: 0012 veya GIB..."
+                          required
                           value={faturaNo}
                           onChange={(e) => setFaturaNo(e.target.value)}
-                          className="w-full px-3 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-white focus:border-[#d4af37] focus:outline-none"
+                          className="w-full px-3 py-2 rounded-xl bg-[#040a1a] border border-[#d4af37]/40 text-[#faecc0] font-mono text-xs focus:border-[#d4af37] focus:outline-none font-bold"
                         />
                       </div>
                       <div>
-                        <label className="block text-slate-300 font-semibold mb-1">Belge Tarihi</label>
+                        <label className="block text-slate-300 font-semibold mb-1">
+                          Fiş Tarihi <span className="text-[#d4af37]">(1 Ay Geriden)</span>
+                        </label>
                         <input
                           type="date"
                           value={faturaTarihi}
@@ -971,7 +1205,7 @@ export default function PortalPage() {
                     {/* Tutar & KDV */}
                     <div className="grid grid-cols-3 gap-3">
                       <div className="col-span-2">
-                        <label className="block text-slate-300 font-semibold mb-1">Matrah Tutarı (₺)</label>
+                        <label className="block text-slate-300 font-semibold mb-1">Tutar (₺)</label>
                         <input
                           type="number"
                           step="0.01"
@@ -1012,10 +1246,10 @@ export default function PortalPage() {
 
                     {/* Notlar */}
                     <div>
-                      <label className="block text-slate-300 font-semibold mb-1">Mali Müşavir İçin Not</label>
+                      <label className="block text-slate-300 font-semibold mb-1">Açıklama / Not</label>
                       <textarea
                         rows={2}
-                        placeholder="Harcamanın gerekçesi..."
+                        placeholder="Fiş harcama detayı..."
                         value={notlar}
                         onChange={(e) => setNotlar(e.target.value)}
                         className="w-full px-3 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-white focus:border-[#d4af37] focus:outline-none resize-none"
@@ -1035,12 +1269,12 @@ export default function PortalPage() {
                       {isUploading ? (
                         <>
                           <div className="animate-spin rounded-full h-4 w-4 border-2 border-black border-t-transparent" />
-                          <span>Şifreleniyor &amp; Yükleniyor...</span>
+                          <span>Şifreleniyor &amp; Gönderiliyor...</span>
                         </>
                       ) : (
                         <>
                           <Lock className="w-4 h-4" />
-                          <span>Güvenli Olarak Müşavir Havuzuna Gönder</span>
+                          <span>Fişi Müşavir Havuzuna Gönder</span>
                         </>
                       )}
                     </button>
@@ -1048,7 +1282,7 @@ export default function PortalPage() {
                     {uploadSuccess && (
                       <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs flex items-center space-x-2">
                         <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
-                        <span>Belge başarıyla yüklendi ve mali müşavir inceleme havuzuna eklendi!</span>
+                        <span>Fiş başarıyla kaydedildi: {faturaNo}</span>
                       </div>
                     )}
                   </form>
@@ -1056,10 +1290,10 @@ export default function PortalPage() {
               </div>
             </div>
 
-            {/* SAĞ SÜTUN: Yüklenen Belgeler Tablosu */}
+            {/* SAĞ SÜTUN: Yüklenen Belgeler Tablosu & ZIP İndir Butonu */}
             <div className="lg:col-span-7 space-y-6">
               <div className="p-6 rounded-2xl bg-[#07173e] border border-[#d4af37]/30 shadow-xl">
-                {/* Arama & Filtreleme Başlığı */}
+                {/* Arama, Filtreleme ve ZIP İndirme Butonu */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
                   <div>
                     <h2 className="text-base font-bold text-white">Yüklenen Belgelerim</h2>
@@ -1068,7 +1302,19 @@ export default function PortalPage() {
                     </p>
                   </div>
 
-                  <div className="flex items-center space-x-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {/* RAR/ZIP TEK TIKLA İNDİR BUTONU */}
+                    <button
+                      type="button"
+                      onClick={handleDownloadAllZip}
+                      disabled={isZipping || documents.length === 0}
+                      className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs flex items-center space-x-1.5 shadow-md transition-all cursor-pointer whitespace-nowrap active:scale-[0.98]"
+                      title="Tüm fiş ve slipleri tek tıkla ZIP/RAR arşivi olarak indir"
+                    >
+                      <Download className={`w-3.5 h-3.5 ${isZipping ? 'animate-bounce' : ''}`} />
+                      <span>{isZipping ? 'Paketleniyor...' : 'Tümünü İndir (.ZIP)'}</span>
+                    </button>
+
                     <div className="relative">
                       <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                       <input
@@ -1076,22 +1322,20 @@ export default function PortalPage() {
                         placeholder="Belge ara..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-8 pr-3 py-1.5 rounded-xl bg-[#040a1a] border border-white/10 text-xs text-white focus:border-[#d4af37] focus:outline-none w-44"
+                        className="pl-8 pr-3 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-xs text-white focus:border-[#d4af37] focus:outline-none w-36 sm:w-44"
                       />
                     </div>
 
                     <select
                       value={docFilterCategory}
                       onChange={(e) => setDocFilterCategory(e.target.value)}
-                      className="px-2.5 py-1.5 rounded-xl bg-[#040a1a] border border-white/10 text-xs text-white focus:border-[#d4af37] focus:outline-none"
+                      className="px-2.5 py-2 rounded-xl bg-[#040a1a] border border-white/10 text-xs text-white focus:border-[#d4af37] focus:outline-none"
                     >
-                      <option value="all">Tüm Kategoriler</option>
+                      <option value="all">Tümü</option>
+                      <option value="genel_gider">Genel Gider</option>
                       <option value="yemek_temsil">Yemek</option>
                       <option value="akaryakit">Akaryakıt</option>
-                      <option value="genel_gider">Genel Gider</option>
-                      <option value="danismanlik_hizmet">Hizmet/Yazılım</option>
                       <option value="kira">Kira</option>
-                      <option value="demirbas">Demirbaş</option>
                     </select>
                   </div>
                 </div>
@@ -1100,7 +1344,7 @@ export default function PortalPage() {
                 {filteredDocuments.length === 0 ? (
                   <div className="text-center py-12 border border-dashed border-white/10 rounded-xl">
                     <FileText className="w-10 h-10 mx-auto text-slate-500 mb-2 opacity-60" />
-                    <p className="text-xs text-slate-400">Henüz bu kategoride kayıtlı fiş veya fotoğraf bulunmuyor.</p>
+                    <p className="text-xs text-slate-400">Henüz kayıtlı fiş veya slip bulunmuyor.</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -1115,14 +1359,12 @@ export default function PortalPage() {
                           </div>
                           <div>
                             <div className="flex items-center space-x-2">
-                              <span className="font-bold text-white text-xs">{doc.fileName}</span>
+                              <span className="font-bold text-white text-xs font-mono">{doc.faturaNo}</span>
                               <span className="px-1.5 py-0.5 rounded bg-white/10 text-[10px] uppercase font-semibold text-slate-300">
                                 {doc.belgeTuru}
                               </span>
                             </div>
                             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-400 mt-1">
-                              <span>No: {doc.faturaNo}</span>
-                              <span>•</span>
                               <span>Tarih: {doc.faturaTarihi}</span>
                               <span>•</span>
                               <span className="text-[#faecc0] font-mono font-semibold">
@@ -1277,7 +1519,18 @@ export default function PortalPage() {
       </div>
 
       {/* ==================================================================
-          YENİ TÜZEL KİŞİ (ŞİRKET) OLUŞTURMA MODALI (VKN DOĞRULAMALI)
+          FİŞ / SLİP KIRPMA MODALI (IMAGE CROPPER)
+          ================================================================== */}
+      <ImageCropperModal
+        isOpen={isCropperOpen}
+        imageUrl={rawImageForCrop}
+        onClose={() => setIsCropperOpen(false)}
+        onCropComplete={handleCropComplete}
+        suggestedCode={currentAutoCode}
+      />
+
+      {/* ==================================================================
+          YENİ TÜZEL KİŞİ (ŞİRKET) OLUŞTURMA MODALI
           ================================================================== */}
       {isCompanyModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -1327,7 +1580,6 @@ export default function PortalPage() {
                 />
               </div>
 
-              {/* VKN / TCKN Doğrulama Alanı */}
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <label className="block text-slate-300 font-semibold">
@@ -1359,9 +1611,6 @@ export default function PortalPage() {
                       : 'border-white/10 focus:border-[#d4af37]'
                   }`}
                 />
-                <p className="text-[10px] text-slate-500 mt-1">
-                  Gelir İdaresi Başkanlığı (GİB) modüler sağlama algoritması anlık olarak denetlenmektedir.
-                </p>
               </div>
 
               <div className="grid grid-cols-2 gap-3">

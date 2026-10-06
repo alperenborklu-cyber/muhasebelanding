@@ -474,10 +474,9 @@ export default function ScrollCanvasDoor() {
           style={{ opacity: beatAOpacity, y: beatAY }}
           className="absolute bottom-8 sm:bottom-12 md:bottom-14 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
         >
-          <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-white filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <span className="font-extrabold text-white">Geleceğin</span>
-            <span className="font-serif italic font-normal text-white">Finans &amp; Yönetim</span>
-            <span className="font-extrabold text-white">Kapısı</span>
+          <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-white filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] flex flex-wrap items-baseline gap-x-2 gap-y-1 uppercase">
+            <span className="font-extrabold text-white tracking-wide">DOĞRU ROTA</span>
+            <span className="font-serif italic font-light text-[#faecc0] tracking-wide">GÜÇLÜ İŞLETME</span>
           </h1>
         </motion.div>
 

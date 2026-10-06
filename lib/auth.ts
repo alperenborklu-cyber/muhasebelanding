@@ -9,18 +9,43 @@ export const authOptions: NextAuthOptions = {
       id: 'mukellef-auth',
       name: 'Mükellef Girişi',
       credentials: {
+        vkn: { label: 'Vergi Numarası (VKN / TCKN)', type: 'text' },
+        password: { label: 'Şifre', type: 'password' },
+        unvan: { label: 'Unvan / İsim', type: 'text' },
         email: { label: 'E-Posta Adresi', type: 'email' },
         name: { label: 'Ad Soyad', type: 'text' },
         phone: { label: 'Telefon Numarası', type: 'text' }
       },
       async authorize(credentials) {
+        // 1. VKN / TCKN ile Giriş
+        if (credentials?.vkn) {
+          const res = ServerDb.loginWithVkn({
+            vkn: credentials.vkn,
+            password: credentials.password,
+            unvan: credentials.unvan
+          });
+
+          if (!res.success || !res.user) {
+            throw new Error(res.error || 'Geçersiz Vergi Numarası veya Şifre.');
+          }
+
+          return {
+            id: res.user.id,
+            name: res.user.name,
+            email: res.user.email,
+            image: res.user.image,
+            role: res.user.role,
+            status: res.user.status
+          };
+        }
+
+        // 2. Klasik E-posta ile Giriş
         if (!credentials?.email) return null;
 
         const email = credentials.email.trim().toLowerCase();
         const name = credentials.name?.trim() || email.split('@')[0];
         const phone = credentials.phone?.trim();
 
-        // Kullanıcıyı veritabanında ara veya yeni başvuru olarak 'pending' statüsüyle kaydet
         const user = ServerDb.registerOrLoginUser({
           email,
           name,

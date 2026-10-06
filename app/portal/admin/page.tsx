@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import JSZip from 'jszip';
 import {
   ShieldCheck,
   UserCheck,
@@ -46,6 +47,7 @@ export default function AdminPortalPage() {
   const [passwordError, setPasswordError] = useState('');
   const [activeTab, setActiveTab] = useState<'pending' | 'companies' | 'documents' | 'logs'>('pending');
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isZipping, setIsZipping] = useState(false);
 
   // Doğrudan Onaylı Mükellef Ekleme Modalı State
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
@@ -231,6 +233,57 @@ export default function AdminPortalPage() {
       }
     } catch (err) {
       console.error('Belge durumu güncelleme hatası:', err);
+    }
+  };
+
+  // TEK TIKLA TÜM FİŞ & BELGELERİ ZIP İNDİRME
+  const handleDownloadAdminZip = async () => {
+    if (documents.length === 0) {
+      alert('İndirilecek evrak bulunamadı.');
+      return;
+    }
+
+    setIsZipping(true);
+    try {
+      const zip = new JSZip();
+      const folderName = `ROTAYD_Admin_Fis_Arsivi_${new Date().toISOString().split('T')[0]}`;
+      const folder = zip.folder(folderName) || zip;
+
+      let summary = `ROTAYD MALİ MÜŞAVİRLİK - GENEL EVRAK VE SLİP DÖKÜMÜ\n`;
+      summary += `Rapor Tarihi: ${new Date().toLocaleString('tr-TR')}\n`;
+      summary += `Toplam Evrak Sayısı: ${filteredDocs.length} Adet\n\n`;
+      summary += `SIRA | ŞİRKET | BELGE NO | TARİH | KATEGORİ | TUTAR (TL) | KDV | TOPLAM (TL) | DURUM\n`;
+      summary += `----------------------------------------------------------------------------------------------------\n`;
+
+      for (let i = 0; i < filteredDocs.length; i++) {
+        const doc = filteredDocs[i];
+        const fileName = `${doc.faturaNo || `BELGE_${i + 1}`}.jpg`;
+        summary += `${i + 1} | ${doc.companyUnvan || '-'} | ${doc.faturaNo} | ${doc.faturaTarihi} | ${doc.kategori} | ${doc.tutar} TL | %${doc.kdvOrani} | ${doc.toplamTutar} TL | ${doc.durum}\n`;
+
+        if (doc.fileDataUrl) {
+          const base64Data = doc.fileDataUrl.split(',')[1] || doc.fileDataUrl;
+          folder.file(fileName, base64Data, { base64: true });
+        } else {
+          folder.file(`${doc.faturaNo}_kayit.txt`, `Şirket: ${doc.companyUnvan}\nFatura No: ${doc.faturaNo}\nTarih: ${doc.faturaTarihi}\nTutar: ${doc.toplamTutar} TL\nNot: ${doc.notlar || '-'}`);
+        }
+      }
+
+      folder.file('00_MUKELLEF_FIS_LISTESI.txt', summary);
+
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const downloadUrl = URL.createObjectURL(zipBlob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `${folderName}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(downloadUrl);
+    } catch (err) {
+      console.error('Admin zip oluşturma hatası:', err);
+      alert('Arşiv indirilirken bir hata oluştu.');
+    } finally {
+      setIsZipping(false);
     }
   };
 
@@ -604,8 +657,19 @@ export default function AdminPortalPage() {
                 </p>
               </div>
 
-              {/* Filtreler */}
+              {/* Filtreler ve ZIP İndirme */}
               <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleDownloadAdminZip}
+                  disabled={isZipping || filteredDocs.length === 0}
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs flex items-center space-x-1.5 shadow-md transition-all cursor-pointer whitespace-nowrap active:scale-[0.98]"
+                  title="Filtrelenen tüm fiş ve slipleri tek tıkla ZIP olarak indir"
+                >
+                  <Download className={`w-3.5 h-3.5 ${isZipping ? 'animate-bounce' : ''}`} />
+                  <span>{isZipping ? 'Paketleniyor...' : 'Tüm Fişleri İndir (.ZIP)'}</span>
+                </button>
+
                 <div className="relative">
                   <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input

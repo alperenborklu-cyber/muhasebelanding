@@ -254,7 +254,71 @@ export const ServerDb = {
     return { success: true, user: newUser };
   },
 
-  // Geriye dönük uyumluluk için takma ad (alias)
+  // VKN & TCKN ile Mükellef Girişi (Şifre = VKN)
+  loginWithVkn(params: { vkn: string; password?: string; unvan?: string }): { success: boolean; error?: string; user?: PortalUser } {
+    const data = this.ensureStorage();
+    const cleanVkn = params.vkn.trim();
+    const password = params.password?.trim();
+
+    if (!cleanVkn || cleanVkn.length < 10) {
+      return { success: false, error: 'Lütfen geçerli 10 haneli VKN veya 11 haneli TCKN giriniz.' };
+    }
+
+    if (password && password !== cleanVkn) {
+      return { success: false, error: 'Şifreniz Vergi Numaranız (VKN/TCKN) ile aynı olmalıdır.' };
+    }
+
+    // Bu VKN'ye sahip kayıtlı bir şirket var mı kontrol et
+    const matchedCompany = data.companies.find(c => c.vkn === cleanVkn);
+    const vknEmail = `vkn_${cleanVkn}@mukellef.rotayd.com`;
+
+    let user: PortalUser | null = null;
+    if (matchedCompany) {
+      user = data.users.find(u => u.id === matchedCompany.userId) || null;
+    }
+
+    if (!user) {
+      user = data.users.find(u => u.email.toLowerCase() === vknEmail.toLowerCase()) || null;
+    }
+
+    if (!user) {
+      // Yeni kullanıcı oluştur
+      const unvan = params.unvan?.trim() || (cleanVkn.length === 11 ? 'Mükellef ' + cleanVkn : 'Firma ' + cleanVkn);
+      user = {
+        id: `usr_vkn_${cleanVkn}`,
+        name: unvan,
+        email: vknEmail,
+        role: 'user',
+        status: 'approved', // VKN ile doğrudan erişim
+        image: `https://api.dicebear.com/7.x/initials/svg?seed=${cleanVkn}&backgroundColor=07173e&textColor=d4af37`,
+        kvkkConsentAt: new Date().toISOString(),
+        createdAt: new Date().toISOString()
+      };
+      data.users.push(user);
+
+      // Şirket kaydı da ekle
+      if (!matchedCompany) {
+        const newComp: TuzelKisi = {
+          id: `comp_${cleanVkn}`,
+          userId: user.id,
+          unvan: unvan,
+          vkn: cleanVkn,
+          vergiDairesi: 'Çankaya Vergi Dairesi',
+          sirketTuru: cleanVkn.length === 11 ? 'Şahıs Şirketi' : 'Limited Şirket',
+          adres: 'Ankara',
+          telefon: '0553 622 11 22',
+          yetkiliKisi: unvan,
+          createdAt: new Date().toISOString()
+        };
+        data.companies.push(newComp);
+      }
+      this.saveData(data);
+    }
+
+    this.addAuditLog('VKN_GİRİŞİ', `Mükellef VKN ile giriş yaptı: ${cleanVkn}`, user.id, user.email);
+    return { success: true, user };
+  },
+
   upsertGoogleUser(profile: { name: string; email: string; image?: string | null }): PortalUser {
     return this.registerOrLoginUser(profile);
   },

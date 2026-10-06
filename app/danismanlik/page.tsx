@@ -17,13 +17,67 @@ import {
   Building2,
   Factory,
   Globe2,
-  Cpu
+  Cpu,
+  Users,
+  Rocket,
+  HeartHandshake,
+  Lightbulb,
+  Building,
+  ShieldCheck,
+  FileCheck
 } from "lucide-react";
 import AppointmentForm from "@/components/AppointmentForm";
 
 export default function DanismanlikPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  // 1. Hero Altı Stratejik Destek ve Teşvik Odakları
+  const strategicPillars = [
+    {
+      title: "Kadın Girişimci Destekleri",
+      badge: "Pozitif Ayrımcılık",
+      icon: HeartHandshake,
+      desc: "KOSGEB Girişimcilik Destek Programı kapsamında kadın kuruculara sağlanan +%20 ek hibe puanı, faizsiz finansman ve kadın kooperatifleri hibe projeleri.",
+      points: ["+%20 Ek Hibe Puanı", "Faizsiz Kredi Desteği", "KOSGEB İleri Girişimci", "Kooperatif Hibeleri"]
+    },
+    {
+      title: "Genç Girişimci Teşvikleri",
+      badge: "29 Yaş Altı Teşvikler",
+      icon: Rocket,
+      desc: "29 yaşını doldurmamış girişimcilere 3 vergilendirme dönemi boyunca yıllık 230.000 TL kazanç istisnası, 1 tam yıl Bağ-Kur prim muafiyeti ve KOSGEB başlangıç sermayesi.",
+      points: ["1 Yıl Bağ-Kur Hibesi", "3 Yıl Gelir Vergisi Muafiyeti", "KOSGEB Kuruluş Desteği", "Sıfır Faizli Finansman"]
+    },
+    {
+      title: "Fabrika Yatırımları & Teşvikleri",
+      badge: "Sanayi & OSB",
+      icon: Factory,
+      desc: "Sıfırdan fabrika ve üretim tesisi kurulumunda OSB arsa tahsisi, bina inşaat harcamalarında KDV muafiyeti ve bölgesel yatırım teşvik belgesi avantajları.",
+      points: ["OSB Bedelsiz Arsa Tahsisi", "İnşaat KDV İstisnası", "Bölgesel Vergi İndirimi", "Altyapı Destekleri"]
+    },
+    {
+      title: "İmalat Sanayi Destekleri",
+      badge: "Üretim Mimarisi",
+      icon: Building2,
+      desc: "İmalat sektörüne yönelik CNC, tezgah ve üretim hatlarında sıfır gümrük vergisi, KDV istisnası, faiz/kâr payı desteği ve %90'a varan kurumlar vergisi indirimi.",
+      points: ["Makine KDV İstisnası", "Gümrük Vergisi Muafiyeti", "Faiz / Kâr Payı Desteği", "Yüksek Vergi İndirimi"]
+    },
+    {
+      title: "İhracat Destekleri",
+      badge: "Küresel Pazarlar",
+      icon: Globe2,
+      desc: "Ticaret Bakanlığı onaylı yurt dışı ofis/mağaza/depo kiralarında %50-%70 nakit hibesi, uluslararası yetkili fuar katılımı ve küresel marka tescil geri ödemeleri.",
+      points: ["Yurt Dışı Kira Hibesi", "Yetkili Fuar Katılımı", "Pazara Giriş Belgeleri", "E-İhracat Konsorsiyumu"]
+    },
+    {
+      title: "Ar-Ge & Teknokent Teşvikleri",
+      badge: "Yüksek Teknoloji",
+      icon: Cpu,
+      desc: "5746 Sayılı Kanun Ar-Ge Merkezi kurulumu ve Teknoloji Geliştirme Bölgeleri (TGB) kapsamında %100 kurumlar vergisi muafiyeti ile personel gelir vergisi ve damga istisnası.",
+      points: ["Kurumlar Vergisi %100 Muaf", "Personel Stopaj Terkini", "%50 SGK İşveren Desteği", "TÜBİTAK TEYDEB Hibesi"]
+    }
+  ];
+
+  // 2. İşletmenizi Büyütecek Teşvik Programları (İnsan Kaynakları çıkartıldı)
   const programs = [
     {
       title: "Yatırım Teşvik Belgesi",
@@ -59,13 +113,6 @@ export default function DanismanlikPage() {
       desc: "5746 Sayılı Kanun kapsamında personel gelir vergisi stopaj terkini, damga vergisi muafiyeti ve %100 Ar-Ge kurumlar vergisi indirimi.",
       badge: "Yüksek Teknoloji",
       points: ["Stopaj & Damga Muafiyeti", "%50 SGK İşveren Desteği", "TÜBİTAK TEYDEB", "Anahtar Teslim Merkez"]
-    },
-    {
-      title: "İnsan Kaynakları & Yetenek Yönetimi",
-      image: "/images/yonetim-danismanligi-insan-kaynaklari-performans-yonetimi.webp",
-      desc: "Üst düzey yönetici seçme-yerleştirme, KPI bazlı prim ve performans sistemi ile insan kaynakları süreçlerinin kurumsallaştırılması.",
-      badge: "Yetenek Mimarisi",
-      points: ["Seçme & Yerleştirme", "KPI Performans Sistemi", "Görev Tanımları", "Organizasyonel Gelişim"]
     }
   ];
 
@@ -92,51 +139,28 @@ export default function DanismanlikPage() {
     }
   ];
 
-  const sectors = [
-    {
-      title: "İmalat & Sanayi",
-      desc: "Yatırım teşvik belgesiyle gümrüksüz ve KDV'siz makine alımı, SGK prim ve faiz indirimleri.",
-      icon: Factory
-    },
-    {
-      title: "Teknoloji & Yazılım",
-      desc: "Ar-Ge Merkezi stopaj muafiyeti, TÜBİTAK proje hibeleri ve bilişim ihracatı teşvikleri.",
-      icon: Cpu
-    },
-    {
-      title: "E-İhracat & Ticaret",
-      desc: "Yurt dışı depo kirası, küresel pazaryeri komisyon desteği ve fuar katılım teşvikleri.",
-      icon: Globe2
-    },
-    {
-      title: "Turizm & Hizmet",
-      desc: "Bölgesel teşvik yatırımları, istihdam prim destekleri ve sağlık turizmi devlet hibeleri.",
-      icon: Building2
-    }
-  ];
-
   const faqs = [
     {
       q: "Yatırım Teşvik Belgesi almak için asgari yatırım tutarı nedir?",
-      a: "Asgari sabit yatırım tutarı yatırımın yapılacağı ile (1-6. bölgeler) ve yatırım türüne göre değişiklik gösterir. Genellikle 1. ve 2. bölgelerde 3 Milyon TL, 3, 4, 5 ve 6. bölgelerde ise 1.5 Milyon TL asgari yatırım şartı bulunmaktadır."
+      a: "Asgari sabit yatırım tutarı yatırımın yapılacağı il ve yatırım türüne göre değişiklik gösterir. 1. ve 2. bölgelerde 3 Milyon TL, 3., 4., 5. ve 6. bölgelerde ise 1.5 Milyon TL asgari yatırım şartı bulunmaktadır."
+    },
+    {
+      q: "Kadın ve genç girişimciler için sağlanan özel KOSGEB destekleri nelerdir?",
+      a: "Kadın girişimcilere KOSGEB Girişimcilik Destek Programı kapsamında hibe üst limitlerinde +%20 pozitif ayrımcılık sağlanır. 29 yaş altı genç girişimciler ise 3 yıl gelir vergisi muafiyeti ve 1 yıl boyunca tüm Bağ-Kur primlerinin devlet tarafından ödenmesi avantajından faydalanır."
     },
     {
       q: "KOSGEB Yeşil Sanayi Destek Programı kimleri kapsar?",
-      a: "KOBİ ölçeğindeki sanayi işletmelerinin çatı ve arazi güneş enerjisi (GES) yatırımları ile enerji verimliliği sağlayan modern makine yenilemeleri için 14 Milyon TL'ye kadar faizsiz geri ödemeli ve geri ödemesiz destekler sunulmaktadır."
+      a: "KOBİ ölçeğindeki sanayi işletmelerinin çatı ve arazi güneş enerjisi (GES) yatırımları ile enerji verimliliği sağlayan modern makine yenilemeleri için faizsiz geri ödemeli ve geri ödemesiz hibeler sunulmaktadır."
     },
     {
-      q: "Ticaret Bakanlığı fuar destekleri geriye dönük talep edilebilir mi?",
-      a: "Bakanlık desteklerinde fuar öncesi ve sonrası mevzuatla belirlenen kesin başvuru takvimleri (çoğunlukla fuar bitiminden itibaren 3 ay) bulunmaktadır. Zaman aşımına uğramamak için fuar katılımı öncesinde bizimle iletişime geçilmesi kritik önem taşır."
-    },
-    {
-      q: "Danışmanlık sürecinde başarı garantisi nasıl işler?",
-      a: "Projeyi hazırlamadan önce kapsamlı bir ön uygunluk analizi yaparız. Onay alma ihtimali yüksek olmayan hiçbir dosyayı işleme almayız; %99 kabul oranımız bu titiz eleme prensibimize dayanmaktadır."
+      q: "Ticaret Bakanlığı fuar ve kira destekleri süreci nasıl yürütülür?",
+      a: "Yurt dışı fuar katılımı ve mağaza/ofis kiralamalarında mevzuatla belirlenen resmî takvim çerçevesinde başvuru dosyası hazırlanır, onaylanan harcamaların %50 ila %70'i doğrudan şirket banka hesabına nakit hibe olarak aktarılır."
     }
   ];
 
   return (
     <div className="min-h-screen bg-[#040a1a] text-white pb-20 transition-colors duration-300 page-container">
-      {/* 1. Grand Standalone Homepage Hero Section with ChatGPT Background */}
+      {/* 1. Grand Standalone Homepage Hero Section */}
       <section className="relative w-full overflow-hidden pt-32 sm:pt-36 lg:pt-40 pb-20 lg:pb-28 min-h-[85vh] lg:min-h-[90vh] flex items-center">
         {/* Background Image capturing whole top of screen */}
         <div className="absolute inset-0 z-0">
@@ -149,8 +173,7 @@ export default function DanismanlikPage() {
             sizes="100vw"
             quality={95}
           />
-          {/* Dark luxury gradient overlays for pristine readability and executive prestige */}
-          <div className="absolute inset-0 bg-[#040a1a]/70" />
+          <div className="absolute inset-0 bg-[#040a1a]/75" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#040a1a] via-[#040a1a]/85 to-transparent lg:via-[#040a1a]/75" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#040a1a]/80 via-transparent to-[#040a1a]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.12),transparent_70%)] pointer-events-none" />
@@ -161,7 +184,7 @@ export default function DanismanlikPage() {
           <div className="flex items-center space-x-2 text-xs text-white/60 mb-6 sm:mb-8">
             <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
             <ChevronRight className="w-3 h-3 text-[#d4af37]" />
-            <span className="text-[#d4af37]">Yönetim Danışmanlığı Portalı</span>
+            <span className="text-[#d4af37]">Yönetim Danışmanlığı &amp; Teşvikler</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
@@ -173,11 +196,11 @@ export default function DanismanlikPage() {
               </div>
 
               <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
-                Devlet Teşvikleri & <span className="gold-gradient-text font-serif italic">Büyüme Mimarisi</span>
+                Devlet Teşvikleri &amp; <span className="gold-gradient-text font-serif italic">Büyüme Mimarisi</span>
               </h1>
 
               <p className="text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-xl">
-                Yatırım Teşvik Belgesi, KOSGEB hibeleri, ihracat destekleri ve kurumsal süreç optimizasyonuyla firmanızı geleceğin küresel pazarlarına hazırlayan stratejik büyüme ortaklığı.
+                Yatırım Teşvik Belgesi, KOSGEB hibeleri, fabrika yatırımları, imalat ve ihracat destekleriyle firmanızı geleceğin küresel pazarlarına hazırlayan stratejik büyüme ortaklığı.
               </p>
 
               {/* CTAs */}
@@ -203,7 +226,7 @@ export default function DanismanlikPage() {
               <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70">
                 <div className="flex items-center space-x-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                  <span>%99 Dosya Kabulü</span>
+                  <span>Bakanlık Akredite</span>
                 </div>
                 <div className="flex items-center space-x-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
@@ -216,7 +239,7 @@ export default function DanismanlikPage() {
               </div>
             </div>
 
-            {/* Hero Right: Luxury Glassmorphism Executive Highlights Card */}
+            {/* Hero Right: Luxury Glassmorphism Highlights Card */}
             <div className="lg:col-span-5">
               <div className="relative rounded-3xl p-6 sm:p-8 backdrop-blur-xl bg-[#040a1a]/60 border border-[#d4af37]/35 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.15)] space-y-5">
                 <div className="flex items-center justify-between border-b border-white/10 pb-4">
@@ -225,16 +248,16 @@ export default function DanismanlikPage() {
                       <Briefcase className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs font-semibold text-white">Bakanlıklar & KOSGEB</div>
+                      <div className="text-xs font-semibold text-white">Bakanlıklar &amp; KOSGEB</div>
                       <div className="text-[11px] text-white/50 font-mono">Akredite Danışmanlık</div>
                     </div>
                   </div>
                   <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/15 text-[#d4af37] text-[10px] font-bold border border-[#d4af37]/30">
-                    Yüksek Başarı
+                    Stratejik Rehberlik
                   </span>
                 </div>
 
-                {/* Metric Highlights */}
+                {/* Qualitative Highlights (Rakamlar Bildirilecek) */}
                 <div className="space-y-3.5">
                   <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
                     <div className="flex items-center space-x-3">
@@ -242,12 +265,12 @@ export default function DanismanlikPage() {
                         <Target className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-medium text-white">Dosya Kabul Oranı</div>
-                        <div className="text-[11px] text-white/50">Resmî kurul onayları</div>
+                        <div className="text-xs font-medium text-white">Dosya Kabul Güvencesi</div>
+                        <div className="text-[11px] text-white/50">Ön uygunluk filtreleme sistemi</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm font-bold gold-gradient-text">%99 Başarı</div>
+                      <div className="text-sm font-bold text-emerald-400">Yüksek Başarı</div>
                     </div>
                   </div>
 
@@ -257,12 +280,12 @@ export default function DanismanlikPage() {
                         <Award className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-medium text-white">Onaylanan Proje</div>
+                        <div className="text-xs font-medium text-white">Devlet Teşvik Projeleri</div>
                         <div className="text-[11px] text-white/50">Kurumsal şirket portföyü</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm font-bold text-[#faecc0]">1.162+ Şirket</div>
+                      <div className="text-xs font-semibold text-[#faecc0]">Rakamlar bildirilecek</div>
                     </div>
                   </div>
 
@@ -272,12 +295,12 @@ export default function DanismanlikPage() {
                         <TrendingUp className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-medium text-white">Teşvik Hacmi Yönetimi</div>
-                        <div className="text-[11px] text-white/50">Yatırım indirimleri & fonlar</div>
+                        <div className="text-xs font-medium text-white">Yatırım Teşvik Hacmi</div>
+                        <div className="text-[11px] text-white/50">Sanayi ve KOBİ yatırımları</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm font-bold text-emerald-400">500M+ TL</div>
+                      <div className="text-xs font-semibold text-[#faecc0]">Rakamlar bildirilecek</div>
                     </div>
                   </div>
                 </div>
@@ -299,37 +322,151 @@ export default function DanismanlikPage() {
         </div>
       </section>
 
-      {/* 2. Key Metric Indicators Bar */}
-      <section className="border-y border-[#d4af37]/20 bg-[#020612]/70 py-10 px-4 sm:px-6 lg:px-8 mb-16">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-          <div className="p-4 border-r border-white/10 last:border-r-0">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white mb-1">
-              <span className="gold-gradient-text">1.162+</span>
+      {/* 2. BİZ KİMİZ & HAKKIMIZDA (YÖNETİM DANIŞMANLIĞI YAKLAŞIMIMIZ) */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-y border-[#d4af37]/20 bg-[#020612]/70">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 relative">
+              <div className="relative h-96 sm:h-[440px] w-full rounded-3xl overflow-hidden border border-[#d4af37]/30 shadow-2xl">
+                <Image
+                  src="/images/rotayd-yonetim-danismanligi-stratejik-analitik-yaklasim.webp"
+                  alt="ROTAYD Yönetim Danışmanlığı ve Kurumsal Strateji"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/30 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-[#040a1a]/85 backdrop-blur-md border border-[#d4af37]/30">
+                  <div className="text-base font-bold text-white">ROTAYD Danışmanlık Masası</div>
+                  <div className="text-xs text-[#d4af37]">Sanayi, Ticaret Bakanlığı ve KOSGEB Akredite Ekibi</div>
+                  <div className="text-[11px] text-white/50 mt-1">Suit Tower Çankaya / Ankara</div>
+                </div>
+              </div>
             </div>
-            <div className="text-xs text-white/60">Onaylanan Devlet Teşvik Projesi</div>
-          </div>
-          <div className="p-4 border-r border-white/10 last:border-r-0">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white mb-1">
-              <span className="gold-gradient-text">%99</span>
+
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
+                <Users className="w-3.5 h-3.5" />
+                <span>BİZ KİMİZ?</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
+                Devlet Teşviklerinde Stratejik Akıl ve <span className="gold-gradient-text font-serif italic">Uçtan Uca Proje Yönetimi</span>
+              </h2>
+
+              <p className="text-sm sm:text-base text-white/80 leading-relaxed font-light">
+                ROTAYD Danışmanlık; sanayi tesislerinden yüksek teknoloji girişimlerine, kadın ve genç girişimcilerden ihracatçı KOBİ&apos;lere kadar işletmelerin devlet teşviklerinden en üst düzeyde faydalanmasını sağlayan kurumsal bir yönetim danışmanlığı merkezidir.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
+                  <div className="flex items-center space-x-2 text-[#d4af37] font-semibold text-xs">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>Ön Eleme &amp; Sıfır Hata Prensibi</span>
+                  </div>
+                  <p className="text-xs text-white/60 leading-relaxed">
+                    Bakanlık onay şartlarını sağlamayan hiçbir dosyayı sürece dahil etmeyiz; hazırladığımız projelerde en yüksek kabul standartlarını koruruz.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
+                  <div className="flex items-center space-x-2 text-[#d4af37] font-semibold text-xs">
+                    <Building className="w-4 h-4" />
+                    <span>Fizibiliteden Kapanışa Tam Destek</span>
+                  </div>
+                  <p className="text-xs text-white/60 leading-relaxed">
+                    Sadece belge almakla kalmaz; yatırım revizyonları, hak ediş ödemeleri ve tamamlama vizesi alınıncaya kadar tüm takvim boyunca yanınızdayız.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-2 flex flex-wrap items-center gap-4 text-xs text-white/70">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#d4af37]" />
+                  <span>Sanayi &amp; Teknoloji Bakanlığı E-TUYS Uzmanlığı</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#d4af37]" />
+                  <span>KOSGEB &amp; TÜBİTAK Proje Yazım Altyapısı</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#d4af37]" />
+                  <span>Ticaret Bakanlığı Kolay İhracat Portalı</span>
+                </div>
+              </div>
             </div>
-            <div className="text-xs text-white/60">Bakanlık & Hibe Başarı Oranı</div>
-          </div>
-          <div className="p-4 border-r border-white/10 last:border-r-0">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white mb-1">
-              <span className="gold-gradient-text">500M+</span> <span className="text-lg text-[#d4af37]">TL</span>
-            </div>
-            <div className="text-xs text-white/60">Yatırım Teşvik Hacmi Yönetimi</div>
-          </div>
-          <div className="p-4">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white mb-1">
-              <span className="gold-gradient-text">360°</span>
-            </div>
-            <div className="text-xs text-white/60">Kurumsal Dönüşüm ve Optimizasyon</div>
           </div>
         </div>
       </section>
 
-      {/* 3. Programs Grid (Text-Free WebP Images) */}
+      {/* 3. HERO'NUN HEMEN ALTINDA: KADIN GİRİŞİMCİ, GENÇ GİRİŞİMCİ, FABRİKA, İMALAT, İHRACAT, AR-GE TEKNOKENT */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-[#d4af37]/40 bg-[#071128] text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>ÖZEL TEŞVİK VE BÜYÜME ALANLARIMIZ</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
+            Girişimcilikten Sanayiye: <br className="hidden sm:inline" />
+            <span className="gold-gradient-text font-serif italic">6 Temel Stratejik Destek Alanı</span>
+          </h2>
+          <p className="text-xs sm:text-sm text-white/60 leading-relaxed max-w-2xl mx-auto">
+            İşletmenizin ölçeğine ve hedefine özel; kadın ve genç girişimci avantajlarından fabrika kurulumuna, imalattan Ar-Ge ve ihracat fonlarına uzanan rehberlik programlarımız.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {strategicPillars.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={idx}
+                className="group glass-panel rounded-3xl p-7 border border-white/10 hover:border-[#d4af37]/60 transition-all duration-300 flex flex-col justify-between shadow-xl hover:shadow-[#d4af37]/10 relative overflow-hidden"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 rounded-2xl bg-[#0b1938] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] group-hover:scale-110 transition-transform">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-[#d4af37]/15 border border-[#d4af37]/30 text-[#d4af37] text-[10px] font-bold uppercase tracking-wider">
+                      {item.badge}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-bold text-white group-hover:text-[#faecc0] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-white/65 mt-2 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-white/10 mt-6 space-y-4">
+                  <div className="flex flex-wrap gap-1.5">
+                    {item.points.map((pt, i) => (
+                      <span key={i} className="text-[10px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-white/80">
+                        {pt}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
+                    className="w-full py-2.5 rounded-xl bg-white/5 hover:bg-[#d4af37] hover:text-black text-xs font-semibold text-[#d4af37] border border-[#d4af37]/30 flex items-center justify-center space-x-1.5 transition-all"
+                  >
+                    <span>Bu Destekten Yararlanın</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 4. İŞLETMENİZİ BÜYÜTECEK TEŞVİK PROGRAMLARI (BU BUNUN ALTINDA KALSIN) */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-20">
         <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
           <span className="text-[11px] font-mono tracking-widest text-[#d4af37] uppercase">STRATEJİK HİBE VE DESTEKLER</span>
@@ -337,7 +474,7 @@ export default function DanismanlikPage() {
             İşletmenizi Büyütecek <span className="gold-gradient-text font-serif italic">Teşvik Programları</span>
           </h2>
           <p className="text-xs sm:text-sm text-white/60 leading-relaxed">
-            Sanayi ve Teknoloji Bakanlığı, Ticaret Bakanlığı ve KOSGEB nezdinde firmanız için en yüksek devlet hibesini temin eden 6 ana danışmanlık alanı.
+            Sanayi ve Teknoloji Bakanlığı, Ticaret Bakanlığı ve KOSGEB nezdinde firmanız için en yüksek devlet hibesini temin eden 5 ana danışmanlık alanı.
           </p>
         </div>
 
@@ -384,33 +521,6 @@ export default function DanismanlikPage() {
         </div>
       </section>
 
-      {/* 4. Sektörel Destekler Matrisi */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-20">
-        <div className="glass-panel p-8 sm:p-10 rounded-3xl border border-[#d4af37]/30 shadow-2xl">
-          <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
-            <span className="text-[11px] font-mono tracking-widest text-[#d4af37] uppercase">SEKTÖREL TEŞVİK HARİTASI</span>
-            <h2 className="text-2xl sm:text-3xl font-light text-white">
-              Sektörünüze Özel <span className="gold-gradient-text font-serif italic">Devlet Destekleri</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {sectors.map((sec, i) => {
-              const Icon = sec.icon;
-              return (
-                <div key={i} className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-[#d4af37]/40 transition-all space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#0b1938] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-sm font-bold text-white">{sec.title}</h3>
-                  <p className="text-xs text-white/65 leading-relaxed">{sec.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* 5. 4 Aşamalı Büyüme Metodolojisi */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12 border-t border-white/10 mb-16">
         <div className="text-center max-w-xl mx-auto mb-14 space-y-2">
@@ -419,7 +529,7 @@ export default function DanismanlikPage() {
             4 Aşamalı <span className="gold-gradient-text font-serif italic">Teşvik Süreci</span>
           </h2>
           <p className="text-xs text-white/60">
-            Fizibiliteden belge kapanışına kadar uçtan uca dosya yönetimi.
+            Fizibiliteden tamamlama vizesine kadar uçtan uca dosya yönetimi.
           </p>
         </div>
 
@@ -444,7 +554,7 @@ export default function DanismanlikPage() {
             <span>Merak Edilenler</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-light text-white">
-            Teşvik & Danışmanlık <span className="gold-gradient-text font-serif italic">Sıkça Sorulan Sorular</span>
+            Teşvik &amp; Danışmanlık <span className="gold-gradient-text font-serif italic">Sıkça Sorulan Sorular</span>
           </h2>
         </div>
 
@@ -473,6 +583,15 @@ export default function DanismanlikPage() {
 
       {/* 7. Stratejik Danışmanlık Randevu Formu */}
       <section id="consultation">
+        <div className="max-w-4xl mx-auto px-4 mb-8 text-center space-y-2">
+          <span className="text-xs font-mono text-[#d4af37] uppercase tracking-widest">AKREDİTE DEVLET TEŞVİK REHBERLİĞİ</span>
+          <h3 className="text-2xl sm:text-3xl font-light text-white">
+            Şirketiniz İçin <span className="gold-gradient-text font-serif italic">Teşvik Uygunluk Analizi Başlatın</span>
+          </h3>
+          <p className="text-xs sm:text-sm text-white/60">
+            Formu iletin; Sanayi, Ticaret Bakanlığı ve KOSGEB hibe veri tabanlarını tarayarak şirketinize özel teşvik raporu hazırlayalım.
+          </p>
+        </div>
         <AppointmentForm />
       </section>
     </div>

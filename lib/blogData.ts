@@ -1,6 +1,7 @@
 export interface BlogPost {
   id: string;
   slug: string;
+  instagramCode: string;
   title: string;
   excerpt: string;
   category: "Mali Müşavirlik" | "Devlet Teşvikleri" | "Yönetim Muhasebesi" | "KOSGEB" | "Vergi Mevzuatı";
@@ -16,6 +17,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "1",
     slug: "2026-sgk-istihdam-tesvikleri-rehberi",
+    instagramCode: "IG-01",
     title: "2026 Yılında Şirketlerin Yararlanabileceği SGK İstihdam Teşvikleri",
     excerpt: "Personel maliyetlerinizi %20 ila %35 oranında düşüren güncel SGK prim teşvikleri, geriye dönük hak kazanımları ve başvuru adımları.",
     category: "Mali Müşavirlik",
@@ -33,6 +35,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "2",
     slug: "yatirim-tesvik-belgesi-ile-kdv-ve-gumruk-muafiyeti",
+    instagramCode: "IG-02",
     title: "Yatırım Teşvik Belgesi ile Sıfır KDV ve Gümrük Muafiyeti Rehberi",
     excerpt: "Makine ve teçhizat alımlarında %20 KDV istisnası, gümrük vergisi muafiyeti ve %90'a varan kurumlar vergisi indirimi kazanma stratejisi.",
     category: "Devlet Teşvikleri",
@@ -50,6 +53,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "3",
     slug: "yonetim-muhasebesi-ile-sirket-karliligini-artirma",
+    instagramCode: "IG-03",
     title: "Yönetim Muhasebesi ile Şirket Kârlılığını Artırmanın 5 Stratejisi",
     excerpt: "Geleneksel vergi muhasebesinin ötesine geçerek maliyet analizi, nakit akış simülasyonu ve aylık yönetim raporlamasıyla kârlılığı maksimize edin.",
     category: "Yönetim Muhasebesi",
@@ -67,6 +71,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "4",
     slug: "kosgeb-yesil-sanayi-ve-kobigel-destekleri-2026",
+    instagramCode: "IG-04",
     title: "KOSGEB Yeşil Sanayi ve KOBİGEL Destekleri Başvuru Kriterleri",
     excerpt: "Güneş enerjisi (GES), enerji verimliliği ve dijitalleşme yatırımlarında KOBİ'lere sunulan milyonlarca liralık geri ödemesiz hibe programları.",
     category: "KOSGEB",
@@ -84,6 +89,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "5",
     slug: "2026-e-defter-ve-e-fatura-donusumunde-yasal-zorunluluklar",
+    instagramCode: "IG-05",
     title: "2026 E-Defter ve E-Fatura Dönüşümünde Dikkat Edilmesi Gerekenler",
     excerpt: "Ciro limitlerinin güncellenmesiyle e-uygulamalara dahil olması gereken sektörler, saklama zorunlulukları ve vergi cezalarından korunma yolları.",
     category: "Vergi Mevzuatı",
@@ -101,6 +107,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "6",
     slug: "limited-sirketten-anonim-sirkete-gecisin-vergisel-avantajlari",
+    instagramCode: "IG-06",
     title: "Limited Şirketten Anonim Şirkete Geçişin Vergisel Avantajları",
     excerpt: "2 yıl elde tutulan A.Ş. pay senetlerinin satışında %0 gelir vergisi istisnası, ortakların kamu borçlarından korunması ve kurumsal itibar.",
     category: "Mali Müşavirlik",
@@ -118,6 +125,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "7",
     slug: "ticaret-bakanligi-ihracat-destekleri-fuar-ve-kira-hibeleri",
+    instagramCode: "IG-07",
     title: "Ticaret Bakanlığı İhracat Destekleri: Fuar ve Ofis Kira Hibeleri",
     excerpt: "Yurt dışı pazar araştırması, küresel fuar katılımları ve mağaza kira harcamalarınızın %50 ila %70'ini devlet hibesiyle geri alın.",
     category: "Devlet Teşvikleri",
@@ -135,6 +143,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "8",
     slug: "ar-ge-ve-tasarim-merkezi-kurulumu-vergi-muafiyetleri",
+    instagramCode: "IG-08",
     title: "Ar-Ge ve Tasarım Merkezi Kurmanın Sağladığı Vergi Muafiyetleri",
     excerpt: "Personel stopaj teşviki, %50 SGK işveren prim desteği, Ar-Ge indirimi ve gümrük vergisi istisnası ile kurumunuzu inovasyon üssüne dönüştürün.",
     category: "Devlet Teşvikleri",
@@ -152,6 +161,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "9",
     slug: "enflasyon-duzeltmesi-ve-sirket-bilancolarina-etkileri",
+    instagramCode: "IG-09",
     title: "Enflasyon Düzeltmesi ve Şirket Bilançolarına Etkileri",
     excerpt: "Parasal olmayan kıymetlerin güncellenmesi, sermaye yapısı ve vergi matrahına yansımaları karşısında şirket yönetiminin alması gereken önlemler.",
     category: "Vergi Mevzuatı",
@@ -169,6 +179,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: "10",
     slug: "bordrolama-sureclerinde-dis-kaynak-kullaniminin-faydalari",
+    instagramCode: "IG-10",
     title: "Bordrolama Süreçlerinde Dış Kaynak (BPO) Kullanımının 6 Faydası",
     excerpt: "Maaş gizliliğinin korunması, yasal ceza risklerinin sıfırlanması ve İK departmanının ana hedeflere odaklanmasını sağlayan modern yöntem.",
     category: "Mali Müşavirlik",
