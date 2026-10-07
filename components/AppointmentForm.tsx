@@ -133,7 +133,7 @@ export default function AppointmentForm() {
                 </div>
                 <div className="flex items-center justify-between pb-2 border-b border-white/10">
                   <span className="text-white/60">Görüşme Formatı:</span>
-                  <span className="font-semibold text-[#faecc0] flex items-center space-x-1">
+                  <span className="font-semibold text-[#c59b27] flex items-center space-x-1">
                     {format === "online" ? (
                       <>
                         <Video className="w-3.5 h-3.5 text-[#38bdf8]" />
@@ -209,7 +209,7 @@ export default function AppointmentForm() {
                       className="w-full px-4 py-3.5 rounded-2xl bg-[#071330] border border-white/15 text-white text-xs sm:text-sm focus:outline-none focus:border-[#d4af37] transition-all cursor-pointer font-medium appearance-none"
                     >
                       {serviceOptions.map((grp) => (
-                        <optgroup key={grp.category} label={grp.category} className="bg-[#040a1a] text-[#faecc0] font-semibold">
+                        <optgroup key={grp.category} label={grp.category} className="bg-[#040a1a] text-[#c59b27] font-semibold">
                           {grp.items.map((item) => (
                             <option key={item} value={item} className="bg-[#071330] text-white font-normal py-1">
                               {item}
@@ -424,7 +424,7 @@ export default function AppointmentForm() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#d4af37] via-[#faecc0] to-[#b89025] text-black font-extrabold text-sm uppercase tracking-wider hover:opacity-95 transition-all shadow-[0_0_30px_rgba(212,175,55,0.3)] flex items-center justify-center space-x-2 cursor-pointer group"
+                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#b89025] text-black font-extrabold text-sm uppercase tracking-wider hover:opacity-95 transition-all shadow-[0_0_30px_rgba(212,175,55,0.3)] flex items-center justify-center space-x-2 cursor-pointer group"
                 >
                   <span>{isSubmitting ? "Talebiniz Oluşturuluyor..." : "Randevu Talebini Oluştur ve Gönder"}</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-black" />

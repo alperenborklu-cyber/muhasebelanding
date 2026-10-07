@@ -249,7 +249,7 @@ export default function Home() {
                         <span>{post.readTime}</span>
                       </span>
                     </div>
-                    <h3 className="text-sm font-bold text-white group-hover:text-[#faecc0] transition-colors line-clamp-2">
+                    <h3 className="text-sm font-bold text-white group-hover:text-[#c59b27] transition-colors line-clamp-2">
                       {post.title}
                     </h3>
                     <p className="text-xs text-white/60 line-clamp-2">

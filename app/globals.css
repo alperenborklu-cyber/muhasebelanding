@@ -69,7 +69,7 @@ body {
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, #faecc0 40%, #d4af37 80%, #b89025 100%);
+  background: linear-gradient(135deg, #f3d47c 0%, #d4af37 35%, #c59b27 70%, #9e751e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

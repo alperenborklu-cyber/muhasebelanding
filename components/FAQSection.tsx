@@ -162,7 +162,7 @@ export default function FAQSection() {
                 >
                   <div className="pr-2">
                     <h3 className={`text-sm sm:text-base font-semibold transition-colors leading-snug ${
-                      isOpen ? "text-[#faecc0]" : "text-white group-hover:text-[#faecc0]"
+                      isOpen ? "text-[#c59b27]" : "text-white group-hover:text-[#c59b27]"
                     }`}>
                       {item.question}
                     </h3>
@@ -196,7 +196,7 @@ export default function FAQSection() {
                             {item.highlights.map((hl, i) => (
                               <div
                                 key={i}
-                                className="faq-highlight inline-flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-[#040a1a]/80 border border-[#d4af37]/20 text-[11px] text-[#faecc0]"
+                                className="faq-highlight inline-flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-[#040a1a]/80 border border-[#d4af37]/20 text-[11px] text-[#c59b27]"
                               >
                                 <CheckCircle2 className="w-3 h-3 text-[#d4af37]" />
                                 <span>{hl}</span>
@@ -227,7 +227,7 @@ export default function FAQSection() {
 
           <a
             href="#consultation"
-            className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#b89025] via-[#d4af37] to-[#faecc0] text-black text-xs sm:text-sm font-bold shadow-lg shadow-[#d4af37]/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
+            className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#b89025] via-[#d4af37] to-[#e5c158] text-black text-xs sm:text-sm font-bold shadow-lg shadow-[#d4af37]/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
           >
             <Calendar className="w-4 h-4 text-black" />
             <span>Randevu Formuna İn</span>

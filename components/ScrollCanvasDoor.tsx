@@ -371,7 +371,7 @@ export default function ScrollCanvasDoor() {
                   width: `${(364 / 1920) * 100}%`,
                   height: `${(875 / 1080) * 100}%`,
                 }}
-                className={`door-link-left group pointer-events-auto cursor-pointer block focus:outline-none ${
+                className={`door-link-left group pointer-events-auto cursor-pointer block focus:outline-none no-underline border-0 ${
                   openingDoor ? "pointer-events-none" : ""
                 }`}
                 aria-label="Hibe Teşvik Danışmanlığı Kapısı"
@@ -388,29 +388,15 @@ export default function ScrollCanvasDoor() {
                     height="875"
                     rx="4"
                     style={{
-                      fill: hoveredDoor === "left" && !openingDoor ? "rgba(4, 10, 26, 0.40)" : "transparent",
-                      stroke: hoveredDoor === "left" && !openingDoor ? "rgba(212, 175, 55, 0.70)" : "transparent",
-                      strokeWidth: hoveredDoor === "left" && !openingDoor ? 2 : 0,
+                      fill: hoveredDoor === "left" && !openingDoor ? "rgba(4, 10, 26, 0.35)" : "transparent",
+                      stroke: "transparent",
+                      strokeWidth: 0,
                     }}
-                    className={`door-wing-left transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(4,10,26,0.40)] group-hover:!stroke-[rgba(212,175,55,0.70)] group-hover:!stroke-[2px] [filter:drop-shadow(0_0_16px_rgba(212,175,55,0.4))] ${
-                      hoveredDoor === "left" && !openingDoor ? "is-hovered !fill-[rgba(4,10,26,0.40)] !stroke-[rgba(212,175,55,0.70)] !stroke-[2px]" : ""
+                    className={`door-wing-left transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(4,10,26,0.35)] ${
+                      hoveredDoor === "left" && !openingDoor ? "is-hovered !fill-[rgba(4,10,26,0.35)]" : ""
                     }`}
                   />
                 </svg>
-
-                {/* Sol Kapı Çubuğu (Hibe Teşvik Danışmanlığı Bar) */}
-                <div
-                  className={`door-bar-left absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-300 z-30 opacity-0 group-hover:opacity-100 ${
-                    hoveredDoor === "left" && !openingDoor ? "is-hovered !opacity-100" : ""
-                  }`}
-                >
-                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(212,175,55,0.4)] whitespace-nowrap">
-                    <span className="w-2 h-2 rounded-full bg-[#d4af37] border border-[#d4af37]/60 animate-pulse" />
-                    <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
-                      HİBE TEŞVİK DANIŞMANLIĞI
-                    </span>
-                  </div>
-                </div>
               </Link>
 
               {/* SAĞ KAPI LINK (MALİ MÜŞAVİRLİK) */}
@@ -426,7 +412,7 @@ export default function ScrollCanvasDoor() {
                   width: `${(364 / 1920) * 100}%`,
                   height: `${(875 / 1080) * 100}%`,
                 }}
-                className={`door-link-right group pointer-events-auto cursor-pointer block focus:outline-none ${
+                className={`door-link-right group pointer-events-auto cursor-pointer block focus:outline-none no-underline border-0 ${
                   openingDoor ? "pointer-events-none" : ""
                 }`}
                 aria-label="Mali Müşavirlik Kapısı"
@@ -443,29 +429,15 @@ export default function ScrollCanvasDoor() {
                     height="875"
                     rx="4"
                     style={{
-                      fill: hoveredDoor === "right" && !openingDoor ? "rgba(4, 10, 26, 0.40)" : "transparent",
-                      stroke: hoveredDoor === "right" && !openingDoor ? "rgba(212, 175, 55, 0.70)" : "transparent",
-                      strokeWidth: hoveredDoor === "right" && !openingDoor ? 2 : 0,
+                      fill: hoveredDoor === "right" && !openingDoor ? "rgba(4, 10, 26, 0.35)" : "transparent",
+                      stroke: "transparent",
+                      strokeWidth: 0,
                     }}
-                    className={`door-wing-right transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(4,10,26,0.40)] group-hover:!stroke-[rgba(212,175,55,0.70)] group-hover:!stroke-[2px] [filter:drop-shadow(0_0_16px_rgba(212,175,55,0.4))] ${
-                      hoveredDoor === "right" && !openingDoor ? "is-hovered !fill-[rgba(4,10,26,0.40)] !stroke-[rgba(212,175,55,0.70)] !stroke-[2px]" : ""
+                    className={`door-wing-right transition-all duration-300 ease-out fill-transparent stroke-transparent group-hover:!fill-[rgba(4,10,26,0.35)] ${
+                      hoveredDoor === "right" && !openingDoor ? "is-hovered !fill-[rgba(4,10,26,0.35)]" : ""
                     }`}
                   />
                 </svg>
-
-                {/* Sağ Kapı Çubuğu (Mali Müşavirlik Bar) */}
-                <div
-                  className={`door-bar-right absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-300 z-30 opacity-0 group-hover:opacity-100 ${
-                    hoveredDoor === "right" && !openingDoor ? "is-hovered !opacity-100" : ""
-                  }`}
-                >
-                  <div className="flex items-center space-x-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#040a1a]/95 backdrop-blur-md border border-[#d4af37] shadow-[0_0_25px_rgba(212,175,55,0.4)] whitespace-nowrap">
-                    <span className="w-2 h-2 rounded-full bg-[#d4af37] border border-[#d4af37]/60 animate-pulse" />
-                    <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none">
-                      MALİ MÜŞAVİRLİK
-                    </span>
-                  </div>
-                </div>
               </Link>
 
               {/* ORTADA BOŞLUKLU & ARKAPLANLA BİRLEŞİK LOGOMUZ + GOLDEN OKLAR */}
@@ -481,43 +453,40 @@ export default function ScrollCanvasDoor() {
                 onMouseLeave={() => {
                   setCenterHovered(false);
                   setCenterActiveSide(null);
-                  setHoveredDoor(null);
                 }}
               >
                 <div className="relative group/hub">
                   {/* Dış altın ışıltı aurası */}
-                  <div className="absolute -inset-2 bg-gradient-to-r from-[#d4af37]/0 via-[#d4af37]/25 to-[#d4af37]/0 rounded-full blur-md opacity-70 group-hover/hub:opacity-100 transition-opacity" />
+                  <div className="absolute -inset-2 bg-gradient-to-r from-[#c59b27]/0 via-[#c59b27]/25 to-[#c59b27]/0 rounded-full blur-md opacity-70 group-hover/hub:opacity-100 transition-opacity" />
 
                   {/* Arka planla birleşik, nefes alan cam kapsül */}
-                  <div className="relative flex items-center bg-[#040a1a]/85 hover:bg-[#040a1a]/95 backdrop-blur-xl border border-[#d4af37]/40 hover:border-[#d4af37] rounded-full px-3 sm:px-5 py-2 sm:py-2.5 shadow-[0_0_35px_rgba(4,10,26,0.95)] hover:shadow-[0_0_30px_rgba(212,175,55,0.35)] transition-all duration-300">
+                  <div className="relative flex items-center bg-[#040a1a]/85 hover:bg-[#040a1a]/95 backdrop-blur-xl border border-[#c59b27]/40 hover:border-[#c59b27] rounded-full px-3 sm:px-5 py-2 sm:py-2.5 shadow-[0_0_35px_rgba(4,10,26,0.95)] hover:shadow-[0_0_30px_rgba(197,155,39,0.35)] transition-all duration-300">
                     {/* SOL TARAFA GOLDEN OK (TEŞVİK) */}
                     <Link
                       href="/danismanlik"
                       onClick={(e) => handleDoorSelect("left", e)}
                       onMouseEnter={() => {
                         setCenterActiveSide("left");
-                        setHoveredDoor("left");
                       }}
                       onMouseLeave={() => {
                         setCenterActiveSide(null);
-                        setHoveredDoor(null);
                       }}
-                      className={`flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
                         centerActiveSide === "left"
-                          ? "bg-[#d4af37]/25 text-white"
-                          : "hover:bg-[#d4af37]/15 text-[#faecc0]"
+                          ? "bg-[#c59b27]/25 text-white"
+                          : "hover:bg-[#c59b27]/15 text-[#c59b27]"
                       }`}
                       aria-label="Hibe Teşvik Danışmanlığına Git"
                     >
-                      <ArrowLeft className="w-4 h-4 text-[#d4af37] group-hover/hub:animate-pulse transition-transform hover:-translate-x-1" />
-                      <span className="text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#faecc0]">
+                      <ArrowLeft className="w-4 h-4 text-[#c59b27] group-hover/hub:animate-pulse transition-transform hover:-translate-x-1" />
+                      <span className="no-underline hover:no-underline border-0 outline-none text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#c59b27]">
                         TEŞVİK
                       </span>
                     </Link>
 
                     {/* ORTADA BOŞLUK & ARKAPLANLA BİRLEŞİK LOGOMUZ */}
                     <div className="flex items-center px-2 sm:px-3">
-                      <span className="h-4 w-px bg-[#d4af37]/30 mr-2 sm:mr-3" />
+                      <span className="h-4 w-px bg-[#c59b27]/30 mr-2 sm:mr-3" />
                       <div className="relative h-6 w-20 sm:h-7 sm:w-24 opacity-95 transition-transform duration-300 hover:scale-105">
                         <Image
                           src="/logobeyaz.webp"
@@ -527,7 +496,7 @@ export default function ScrollCanvasDoor() {
                           priority
                         />
                       </div>
-                      <span className="h-4 w-px bg-[#d4af37]/30 ml-2 sm:ml-3" />
+                      <span className="h-4 w-px bg-[#c59b27]/30 ml-2 sm:ml-3" />
                     </div>
 
                     {/* SAĞ TARAFA GOLDEN OK (MALİ) */}
@@ -536,23 +505,21 @@ export default function ScrollCanvasDoor() {
                       onClick={(e) => handleDoorSelect("right", e)}
                       onMouseEnter={() => {
                         setCenterActiveSide("right");
-                        setHoveredDoor("right");
                       }}
                       onMouseLeave={() => {
                         setCenterActiveSide(null);
-                        setHoveredDoor(null);
                       }}
-                      className={`flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
                         centerActiveSide === "right"
-                          ? "bg-[#d4af37]/25 text-white"
-                          : "hover:bg-[#d4af37]/15 text-[#faecc0]"
+                          ? "bg-[#c59b27]/25 text-white"
+                          : "hover:bg-[#c59b27]/15 text-[#c59b27]"
                       }`}
                       aria-label="Mali Müşavirliğe Git"
                     >
-                      <span className="text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#faecc0]">
+                      <span className="no-underline hover:no-underline border-0 outline-none text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#c59b27]">
                         MALİ
                       </span>
-                      <ArrowRight className="w-4 h-4 text-[#d4af37] group-hover/hub:animate-pulse transition-transform hover:translate-x-1" />
+                      <ArrowRight className="w-4 h-4 text-[#c59b27] group-hover/hub:animate-pulse transition-transform hover:translate-x-1" />
                     </Link>
                   </div>
                 </div>
@@ -561,14 +528,14 @@ export default function ScrollCanvasDoor() {
           </motion.div>
         )}
 
-        {/* BEAT A: 0 - 20% (DOĞRU ROTA in White, GÜÇLÜ İŞLETME in Golden Color) */}
+        {/* BEAT A: 0 - 20% (DOĞRU ROTA in White, GÜÇLÜ İŞLETME in Rich Dark Gold) */}
         <motion.div
           style={{ opacity: beatAOpacity, y: beatAY }}
           className="absolute bottom-8 sm:bottom-12 md:bottom-14 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
         >
           <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-white filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] flex flex-wrap items-baseline gap-x-2.5 gap-y-1 uppercase">
             <span className="font-extrabold text-white tracking-wide">DOĞRU ROTA</span>
-            <span className="font-bold text-[#faecc0] tracking-wide">GÜÇLÜ İŞLETME</span>
+            <span className="font-bold text-[#c59b27] tracking-wide">GÜÇLÜ İŞLETME</span>
           </h1>
         </motion.div>
 
@@ -592,9 +559,9 @@ export default function ScrollCanvasDoor() {
               Kusursuz vergi optimizasyonu, 360° mali analiz ve kârlılık denetimi.
             </p>
 
-            <div className="pt-1 flex items-center space-x-3 text-xs text-[#faecc0]">
-              <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20">2.6M+ TL SGK Teşviki</span>
-              <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20">%99 Başarı</span>
+            <div className="pt-1 flex items-center space-x-3 text-xs text-[#c59b27]">
+              <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">2.6M+ TL SGK Teşviki</span>
+              <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">%99 Başarı</span>
             </div>
           </div>
         </motion.div>
@@ -619,9 +586,9 @@ export default function ScrollCanvasDoor() {
               Yatırım teşvik belgeleri, KOSGEB hibeleri ve bakanlık destekleri rehberliği.
             </p>
 
-            <div className="pt-1 flex items-center space-x-3 text-xs text-[#faecc0]">
-              <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20">1.162+ Proje</span>
-              <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20">Bakanlık Hibeleri</span>
+            <div className="pt-1 flex items-center space-x-3 text-xs text-[#c59b27]">
+              <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">1.162+ Proje</span>
+              <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">Bakanlık Hibeleri</span>
             </div>
           </div>
         </motion.div>
@@ -665,7 +632,7 @@ export default function ScrollCanvasDoor() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white group-hover:text-[#faecc0] transition-colors">
+                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white group-hover:text-[#c59b27] transition-colors">
                     HİBE TEŞVİK DANIŞMANLIĞI
                   </h3>
                   <p className="text-xs text-[#d4af37]/90 font-medium mt-1">
@@ -685,7 +652,7 @@ export default function ScrollCanvasDoor() {
                 </div>
 
                 <div className="pt-2">
-                  <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-[#faecc0] transition-colors">
+                  <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-[#c59b27] transition-colors">
                     <span>Hibe Teşvik Danışmanlığı Sayfasını Aç</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1.5 text-[#d4af37]" />
                   </div>
@@ -714,7 +681,7 @@ export default function ScrollCanvasDoor() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-white group-hover:text-[#faecc0] transition-colors">
+                  <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-white group-hover:text-[#c59b27] transition-colors">
                     MALİ MÜŞAVİRLİK
                   </h3>
                   <p className="text-xs text-[#d4af37]/90 font-medium mt-1">
@@ -734,7 +701,7 @@ export default function ScrollCanvasDoor() {
                 </div>
 
                 <div className="pt-2">
-                  <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-[#faecc0] transition-colors">
+                  <div className="inline-flex items-center space-x-2 text-xs font-semibold text-white group-hover:text-[#c59b27] transition-colors">
                     <span>Mali Müşavirlik Sayfasını Aç</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1.5 text-[#d4af37]" />
                   </div>
@@ -757,7 +724,7 @@ export default function ScrollCanvasDoor() {
                 <div className="absolute inset-0 rounded-full border-2 border-[#d4af37]/20" />
                 <div className="absolute inset-0 rounded-full border-2 border-[#d4af37] border-t-transparent animate-spin" />
               </div>
-              <p className="text-sm font-medium tracking-widest text-[#faecc0] uppercase">
+              <p className="text-sm font-medium tracking-widest text-[#c59b27] uppercase">
                 {openingDoor === "left" ? "Hibe Teşvik Danışmanlığı Kapısı Açılıyor..." : "Mali Müşavirlik Kapısı Açılıyor..."}
               </p>
             </div>

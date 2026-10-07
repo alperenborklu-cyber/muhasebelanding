@@ -145,11 +145,11 @@ export default function Navbar() {
               href="/portal"
               className={`whitespace-nowrap flex-shrink-0 px-4 py-1.5 rounded-full text-xs xl:text-sm font-semibold transition-all flex items-center space-x-1.5 ${
                 pathname.startsWith("/portal")
-                  ? "text-black bg-gradient-to-r from-[#faecc0] to-[#d4af37] shadow-md shadow-[#d4af37]/30"
-                  : "text-[#faecc0] hover:text-white bg-[#d4af37]/15 hover:bg-[#d4af37]/25 border border-[#d4af37]/40"
+                  ? "text-black bg-gradient-to-r from-[#e5c158] to-[#c59b27] shadow-md shadow-[#c59b27]/30"
+                  : "text-[#c59b27] hover:text-white bg-[#c59b27]/15 hover:bg-[#c59b27]/25 border border-[#c59b27]/40"
               }`}
             >
-              <ShieldCheck className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[#c59b27] flex-shrink-0" />
               <span className="whitespace-nowrap">Mükellef Portalı</span>
             </Link>
           </nav>
@@ -184,7 +184,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="relative group overflow-hidden rounded-full p-px text-xs xl:text-sm font-semibold whitespace-nowrap flex-shrink-0"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-[#d4af37] via-[#faecc0] to-[#b89025] transition-all duration-300 group-hover:opacity-90" />
+              <span className="absolute inset-0 bg-gradient-to-r from-[#d4af37] via-[#c59b27] to-[#b89025] transition-all duration-300 group-hover:opacity-90" />
               <span className="relative flex items-center space-x-1.5 rounded-full bg-[#040a1a] px-3.5 py-1.5 text-white transition-all duration-300 group-hover:bg-opacity-80 whitespace-nowrap">
                 <span className="whitespace-nowrap">Hızlı İletişim</span>
                 <ArrowRight className="w-3 h-3 text-[#d4af37] transition-transform group-hover:translate-x-0.5 flex-shrink-0" />
@@ -286,7 +286,7 @@ export default function Navbar() {
               <Link
                 href="/portal"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold py-2.5 px-3 rounded-lg text-[#faecc0] bg-[#d4af37]/15 border border-[#d4af37]/30 hover:bg-[#d4af37]/25 flex items-center justify-between transition-colors"
+                className="text-sm font-semibold py-2.5 px-3 rounded-lg text-[#c59b27] bg-[#c59b27]/15 border border-[#c59b27]/30 hover:bg-[#c59b27]/25 flex items-center justify-between transition-colors"
               >
                 <span className="flex items-center space-x-2">
                   <ShieldCheck className="w-4 h-4 text-[#d4af37]" />

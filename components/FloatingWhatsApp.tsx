@@ -39,7 +39,7 @@ export default function FloatingWhatsApp() {
           </span>
           <div className="flex flex-col text-left">
             <span className="text-[10px] text-white/70 font-medium leading-none">WhatsApp İletişim</span>
-            <span className="text-xs font-bold text-[#faecc0] tracking-wide mt-0.5">{displayPhone}</span>
+            <span className="text-xs font-bold text-[#c59b27] tracking-wide mt-0.5">{displayPhone}</span>
           </div>
         </div>
 
@@ -53,7 +53,7 @@ export default function FloatingWhatsApp() {
         <div
           className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center transition-all duration-300 transform group-hover:scale-108 group-hover:-translate-y-0.5 group-active:scale-95 cursor-pointer"
           style={{
-            background: "linear-gradient(135deg, #faecc0 0%, #dfb84b 35%, #c89525 70%, #9e6f12 100%)",
+            background: "linear-gradient(135deg, #f3d47c 0%, #dfb84b 35%, #c89525 70%, #9e6f12 100%)",
             border: "1.5px solid rgba(255, 255, 255, 0.45)",
             boxShadow: "0 8px 24px rgba(212, 175, 55, 0.45), 0 3px 8px rgba(0, 0, 0, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.7)",
           }}
