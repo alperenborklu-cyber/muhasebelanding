@@ -244,7 +244,7 @@ export default function ScrollCanvasDoor() {
 
       const destination = door === "left" ? "/muhasebecilik" : "/danismanlik";
       const startProgress = smoothProgress.get();
-      const targetProgress = 0.65; // Frame ~78: doors wide open, traveling forward into dark portal
+      const targetProgress = 0.58; // Frame ~70: doors swing wide open into hallway
       const duration = 1200; // ms
       const startTime = performance.now();
 
@@ -364,27 +364,23 @@ export default function ScrollCanvasDoor() {
                 onMouseLeave={() => !openingDoor && setHoveredDoor(null)}
                 style={{
                   position: "absolute",
-                  left: `${(596 / 1920) * 100}%`,
-                  top: `${(70 / 1080) * 100}%`,
-                  width: `${(362 / 1920) * 100}%`,
-                  height: `${(875 / 1080) * 100}%`,
+                  left: `${(522 / 1280) * 100}%`,
+                  top: `${(94 / 720) * 100}%`,
+                  width: `${(118 / 1280) * 100}%`,
+                  height: `${(476 / 720) * 100}%`,
                 }}
                 className={`door-link-left group pointer-events-auto cursor-pointer block focus:outline-none ${
                   openingDoor ? "pointer-events-none" : ""
                 }`}
                 aria-label="Mali Müşavirlik Kapısı"
               >
-                {/* SVG for Rectangular Door Shape */}
+                {/* SVG for Arched Door Shape */}
                 <svg
-                  viewBox="0 0 362 875"
+                  viewBox="0 0 118 476"
                   className="w-full h-full overflow-visible pointer-events-none"
                 >
-                  <rect
-                    x="0"
-                    y="0"
-                    width="362"
-                    height="875"
-                    rx="4"
+                  <path
+                    d="M 0 476 L 0 101 A 118 101 0 0 1 118 0 L 118 476 Z"
                     style={{
                       fill: hoveredDoor === "left" && !openingDoor ? "rgba(0, 0, 0, 0.50)" : "transparent",
                       stroke: hoveredDoor === "left" && !openingDoor ? "rgba(0, 0, 0, 0.80)" : "transparent",
@@ -419,27 +415,23 @@ export default function ScrollCanvasDoor() {
                 onMouseLeave={() => !openingDoor && setHoveredDoor(null)}
                 style={{
                   position: "absolute",
-                  left: `${(962 / 1920) * 100}%`,
-                  top: `${(70 / 1080) * 100}%`,
-                  width: `${(362 / 1920) * 100}%`,
-                  height: `${(875 / 1080) * 100}%`,
+                  left: `${(640 / 1280) * 100}%`,
+                  top: `${(94 / 720) * 100}%`,
+                  width: `${(118 / 1280) * 100}%`,
+                  height: `${(476 / 720) * 100}%`,
                 }}
                 className={`door-link-right group pointer-events-auto cursor-pointer block focus:outline-none ${
                   openingDoor ? "pointer-events-none" : ""
                 }`}
                 aria-label="Hibe Teşvik Danışmanlığı Kapısı"
               >
-                {/* SVG for Rectangular Door Shape */}
+                {/* SVG for Arched Door Shape */}
                 <svg
-                  viewBox="0 0 362 875"
+                  viewBox="0 0 118 476"
                   className="w-full h-full overflow-visible pointer-events-none"
                 >
-                  <rect
-                    x="0"
-                    y="0"
-                    width="362"
-                    height="875"
-                    rx="4"
+                  <path
+                    d="M 0 476 L 0 0 A 118 101 0 0 1 118 101 L 118 476 Z"
                     style={{
                       fill: hoveredDoor === "right" && !openingDoor ? "rgba(0, 0, 0, 0.50)" : "transparent",
                       stroke: hoveredDoor === "right" && !openingDoor ? "rgba(0, 0, 0, 0.80)" : "transparent",
