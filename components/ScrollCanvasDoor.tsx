@@ -315,8 +315,6 @@ export default function ScrollCanvasDoor() {
 
   // Interactive Door Hover Opacity (active during Beat A, fades as door opens)
   const doorHoverOpacity = useTransform(smoothProgress, [0, 0.02, 0.16, 0.22], [1, 1, 0.9, 0]);
-  const heroBottomWhiteOpacity = useTransform(smoothProgress, [0, 0.02, 0.16, 0.22], [1, 1, 0.9, 0]);
-  const heroBottomDarkOpacity = useTransform(smoothProgress, [0.16, 0.24], [0, 0.8]);
   const beatDPointerEvents = useTransform(smoothProgress, (v) => (v > 0.73 ? "auto" : "none"));
   const isDoorInteractive = isLoaded && scrollProgressVal < 0.20;
 
@@ -336,20 +334,9 @@ export default function ScrollCanvasDoor() {
           style={{ opacity: isLoaded ? 1 : 0.8 }}
         />
 
-        {/* Ambient Top Vignette */}
+        {/* Ambient Top & Bottom Vignette Overlays */}
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#040a1a] via-[#040a1a]/70 to-transparent pointer-events-none" />
-
-        {/* Hero Bottom Full-Width White Degrade */}
-        <motion.div
-          style={{ opacity: heroBottomWhiteOpacity }}
-          className="absolute inset-x-0 bottom-0 h-44 sm:h-52 md:h-64 bg-gradient-to-t from-white via-white/85 via-35% to-transparent pointer-events-none z-10"
-        />
-
-        {/* Ambient Bottom Vignette for inner beats (fades in as door opens to dark interior) */}
-        <motion.div
-          style={{ opacity: heroBottomDarkOpacity }}
-          className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/80 to-transparent pointer-events-none"
-        />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/80 to-transparent pointer-events-none" />
 
         {/* Interactive Door Wings Overlay (Beat A: Mouse Hover Effect) */}
         {doorLayout && isLoaded && (
@@ -541,14 +528,14 @@ export default function ScrollCanvasDoor() {
           </motion.div>
         )}
 
-        {/* BEAT A: 0 - 20% (DOĞRU ROTA in White, GÜÇLÜ İŞLETME in Koyu Navy Blue Underneath) */}
+        {/* BEAT A: 0 - 20% (DOĞRU ROTA in White with Dark Degrade, GÜÇLÜ İŞLETME in Lacivert with White Degrade) */}
         <motion.div
           style={{ opacity: beatAOpacity, y: beatAY }}
-          className="absolute bottom-6 sm:bottom-8 md:bottom-10 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
+          className="absolute bottom-8 sm:bottom-12 md:bottom-14 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
         >
           <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight flex flex-col items-start gap-y-0.5 sm:gap-y-1 uppercase">
-            <span className="font-extrabold text-white tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">DOĞRU ROTA</span>
-            <span className="font-black text-[#07173e] tracking-wide">GÜÇLÜ İŞLETME</span>
+            <span className="font-extrabold text-white tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">DOĞRU ROTA</span>
+            <span className="font-black text-[#0f2e6e] tracking-wide filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)]">GÜÇLÜ İŞLETME</span>
           </h1>
         </motion.div>
 
