@@ -472,19 +472,8 @@ export default function ScrollCanvasDoor() {
         {/* BEAT A: 0 - 20% (Pure White Typography in Bottom-Left corner, Exactly Like Reference Image) */}
         <motion.div
           style={{ opacity: beatAOpacity, y: beatAY }}
-          className="absolute bottom-8 sm:bottom-12 md:bottom-14 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20 flex flex-col items-start gap-3"
+          className="absolute bottom-8 sm:bottom-12 md:bottom-14 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
         >
-          {/* ROTAYD White Brand Logo */}
-          <div className="relative h-8 w-32 sm:h-10 sm:w-40 filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] opacity-95">
-            <Image
-              src="/logobeyaz.webp"
-              alt="ROTAYD Logo"
-              fill
-              className="object-contain object-left"
-              priority
-            />
-          </div>
-
           <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-white filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] flex flex-wrap items-baseline gap-x-2.5 gap-y-1 uppercase">
             <span className="font-extrabold text-white tracking-wide">DOĞRU ROTA</span>
             <span className="font-light text-white/90 tracking-wide">GÜÇLÜ İŞLETME</span>
