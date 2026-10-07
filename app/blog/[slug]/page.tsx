@@ -12,10 +12,11 @@ import {
   Share2, 
   Tag, 
   ShieldCheck, 
-  Sparkles,
-  Phone,
-  CheckCircle2
+  Sparkles, 
+  Phone, 
+  CheckCircle2 
 } from "lucide-react";
+import LinkedInShareButton from "@/components/LinkedInShareButton";
 
 export default function BlogPostDetail({ params }: { params: { slug: string } }) {
   const post = BLOG_POSTS.find((p) => p.slug === params.slug);
@@ -66,8 +67,11 @@ export default function BlogPostDetail({ params }: { params: { slug: string } })
             {post.excerpt}
           </p>
 
-          <div className="pt-2 text-xs text-white/50">
-            Yazar: <span className="text-white font-medium">{post.author}</span>
+          <div className="pt-3 flex flex-wrap items-center justify-between gap-3 border-t border-white/10">
+            <div className="text-xs text-white/50">
+              Yazar: <span className="text-white font-medium">{post.author}</span>
+            </div>
+            <LinkedInShareButton variant="primary" />
           </div>
         </div>
 
@@ -108,16 +112,22 @@ export default function BlogPostDetail({ params }: { params: { slug: string } })
             </ul>
           </div>
 
-          {/* Tags */}
-          <div className="pt-6 border-t border-white/10 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60"
-              >
-                #{tag}
-              </span>
-            ))}
+          {/* Tags & LinkedIn Share */}
+          <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/60"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+            <div className="flex items-center space-x-2 shrink-0">
+              <span className="text-xs text-white/50 font-medium">Rehberi Paylaş:</span>
+              <LinkedInShareButton variant="compact" />
+            </div>
           </div>
         </div>
 

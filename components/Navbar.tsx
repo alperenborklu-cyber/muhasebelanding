@@ -84,7 +84,7 @@ export default function Navbar() {
               }`}
             >
               <ShieldCheck className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
-              <span className="whitespace-nowrap">Muhasebecilik</span>
+              <span className="whitespace-nowrap">Mali Müşavirlik</span>
             </Link>
 
             <Link
@@ -97,18 +97,6 @@ export default function Navbar() {
             >
               <Briefcase className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
               <span className="whitespace-nowrap">Danışmanlık</span>
-            </Link>
-
-            <Link
-              href="/blog"
-              className={`whitespace-nowrap flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs xl:text-sm font-medium transition-all flex items-center space-x-1.5 ${
-                pathname.startsWith("/blog")
-                  ? "text-white bg-[#0f214a] border border-[#d4af37]/40 shadow-sm shadow-[#d4af37]/10"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              <BookOpen className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
-              <span className="whitespace-nowrap">Blog</span>
             </Link>
 
             <Link
@@ -223,7 +211,7 @@ export default function Navbar() {
               >
                 <span className="flex items-center space-x-2">
                   <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
-                  <span>Muhasebecilik & Mali Müşavirlik</span>
+                  <span>Mali Müşavirlik</span>
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </Link>
@@ -235,17 +223,6 @@ export default function Navbar() {
                 <span className="flex items-center space-x-2">
                   <Briefcase className="w-4 h-4 text-[#d4af37]" />
                   <span>Yönetim Danışmanlığı & Teşvikler</span>
-                </span>
-                <ArrowRight className="w-4 h-4 text-white/40" />
-              </Link>
-              <Link
-                href="/blog"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
-              >
-                <span className="flex items-center space-x-2">
-                  <BookOpen className="w-4 h-4 text-[#d4af37]" />
-                  <span>Blog</span>
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </Link>

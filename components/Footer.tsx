@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="space-y-3">
             <div className="flex items-center space-x-2 text-white font-semibold text-sm border-b border-white/10 pb-2 footer-col-title">
               <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
-              <span>Muhasebecilik</span>
+              <span>Mali Müşavirlik</span>
             </div>
             <ul className="space-y-2 text-xs">
               <li>

@@ -24,12 +24,21 @@ import {
   Lightbulb,
   Building,
   ShieldCheck,
-  FileCheck
+  FileCheck,
+  BookOpen,
+  Calendar,
+  Clock
 } from "lucide-react";
 import AppointmentForm from "@/components/AppointmentForm";
+import { BLOG_POSTS } from "@/lib/blogData";
+import LinkedInShareButton from "@/components/LinkedInShareButton";
 
 export default function DanismanlikPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const tesvikBlogPosts = BLOG_POSTS.filter(
+    (p) => p.category === "Devlet Teşvikleri" || p.category === "KOSGEB"
+  );
 
   // 1. Hero Altı Stratejik Destek ve Teşvik Odakları
   const strategicPillars = [
@@ -581,7 +590,91 @@ export default function DanismanlikPage() {
         </div>
       </section>
 
-      {/* 7. Stratejik Danışmanlık Randevu Formu */}
+      {/* 7. Hibe & Teşvik Danışmanlığı Blogu (Randevu Formunun Hemen Üstünde) */}
+      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-20 border-t border-white/10 pt-16">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-6 border-b border-white/10">
+          <div className="space-y-2">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-xs font-semibold text-[#d4af37] tracking-wider uppercase">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Hibe &amp; Teşvik Danışmanlığı Blogu</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
+              Devlet Destekleri <span className="gold-gradient-text font-serif italic">Uzman Makaleleri</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-white/60 max-w-2xl">
+              Yatırım teşvik belgeleri, KOSGEB hibeleri, Ticaret Bakanlığı destekleri ve Ar-Ge teşvikleri rehberleri.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {tesvikBlogPosts.map((post) => (
+            <div
+              key={post.id}
+              className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-[#d4af37]/50 transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <Link href={`/blog/${post.slug}`} className="relative h-44 w-full overflow-hidden block">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#040a1a] via-transparent to-transparent" />
+                  <div className="absolute top-3 left-3">
+                    <span className="px-2.5 py-1 rounded-full bg-[#071330]/90 backdrop-blur-md border border-[#d4af37]/30 text-[#d4af37] text-[10px] font-semibold tracking-wide">
+                      {post.category}
+                    </span>
+                  </div>
+                </Link>
+
+                <div className="p-5 space-y-2.5">
+                  <div className="flex items-center space-x-3 text-[10px] text-white/50">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-3 h-3 text-[#d4af37]" />
+                      <span>{post.date}</span>
+                    </div>
+                    <span>•</span>
+                    <div className="flex items-center space-x-1">
+                      <Clock className="w-3 h-3 text-[#d4af37]" />
+                      <span>{post.readTime}</span>
+                    </div>
+                  </div>
+
+                  <Link href={`/blog/${post.slug}`}>
+                    <h3 className="text-sm font-bold text-white hover:text-[#dfa929] transition-colors line-clamp-2 leading-snug">
+                      {post.title}
+                    </h3>
+                  </Link>
+
+                  <p className="text-xs text-white/60 line-clamp-2 leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                </div>
+              </div>
+
+              <div className="px-5 pb-5 pt-3 flex items-center justify-between border-t border-white/5 text-xs text-[#d4af37] font-medium">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="flex items-center space-x-1 hover:text-white transition-colors"
+                >
+                  <span>Rehberi İncele</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                </Link>
+
+                <LinkedInShareButton 
+                  url={`/blog/${post.slug}`}
+                  title={post.title}
+                  variant="pill"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 8. Stratejik Danışmanlık Randevu Formu */}
       <section id="consultation">
         <div className="max-w-4xl mx-auto px-4 mb-8 text-center space-y-2">
           <span className="text-xs font-mono text-[#d4af37] uppercase tracking-widest">AKREDİTE DEVLET TEŞVİK REHBERLİĞİ</span>

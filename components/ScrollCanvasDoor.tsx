@@ -473,20 +473,20 @@ export default function ScrollCanvasDoor() {
                       }}
                       className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
                         centerActiveSide === "left"
-                          ? "bg-[#c59b27]/25 text-white"
-                          : "hover:bg-[#c59b27]/15 text-[#c59b27]"
+                          ? "bg-[#dfa929]/25 text-white"
+                          : "hover:bg-[#dfa929]/15 text-[#dfa929]"
                       }`}
                       aria-label="Hibe Teşvik Danışmanlığına Git"
                     >
-                      <ArrowLeft className="w-4 h-4 text-[#c59b27] group-hover/hub:animate-pulse transition-transform hover:-translate-x-1" />
-                      <span className="no-underline hover:no-underline border-0 outline-none text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#c59b27]">
+                      <ArrowLeft className="w-4 h-4 text-[#dfa929] group-hover/hub:animate-pulse transition-transform hover:-translate-x-1" />
+                      <span className="no-underline hover:no-underline border-0 outline-none text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#dfa929]">
                         TEŞVİK
                       </span>
                     </Link>
 
                     {/* ORTADA BOŞLUK & ARKAPLANLA BİRLEŞİK LOGOMUZ */}
                     <div className="flex items-center px-2 sm:px-3">
-                      <span className="h-4 w-px bg-[#c59b27]/30 mr-2 sm:mr-3" />
+                      <span className="h-4 w-px bg-[#dfa929]/30 mr-2 sm:mr-3" />
                       <div className="relative h-6 w-20 sm:h-7 sm:w-24 opacity-95 transition-transform duration-300 hover:scale-105">
                         <Image
                           src="/logobeyaz.webp"
@@ -496,7 +496,7 @@ export default function ScrollCanvasDoor() {
                           priority
                         />
                       </div>
-                      <span className="h-4 w-px bg-[#c59b27]/30 ml-2 sm:ml-3" />
+                      <span className="h-4 w-px bg-[#dfa929]/30 ml-2 sm:ml-3" />
                     </div>
 
                     {/* SAĞ TARAFA GOLDEN OK (MALİ) */}
@@ -511,15 +511,15 @@ export default function ScrollCanvasDoor() {
                       }}
                       className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
                         centerActiveSide === "right"
-                          ? "bg-[#c59b27]/25 text-white"
-                          : "hover:bg-[#c59b27]/15 text-[#c59b27]"
+                          ? "bg-[#dfa929]/25 text-white"
+                          : "hover:bg-[#dfa929]/15 text-[#dfa929]"
                       }`}
                       aria-label="Mali Müşavirliğe Git"
                     >
-                      <span className="no-underline hover:no-underline border-0 outline-none text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#c59b27]">
+                      <span className="no-underline hover:no-underline border-0 outline-none text-[11px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#dfa929]">
                         MALİ
                       </span>
-                      <ArrowRight className="w-4 h-4 text-[#c59b27] group-hover/hub:animate-pulse transition-transform hover:translate-x-1" />
+                      <ArrowRight className="w-4 h-4 text-[#dfa929] group-hover/hub:animate-pulse transition-transform hover:translate-x-1" />
                     </Link>
                   </div>
                 </div>
@@ -528,14 +528,14 @@ export default function ScrollCanvasDoor() {
           </motion.div>
         )}
 
-        {/* BEAT A: 0 - 20% (DOĞRU ROTA in White, GÜÇLÜ İŞLETME in Rich Dark Gold) */}
+        {/* BEAT A: 0 - 20% (DOĞRU ROTA in White, GÜÇLÜ İŞLETME in Vibrant Rich Gold) */}
         <motion.div
           style={{ opacity: beatAOpacity, y: beatAY }}
           className="absolute bottom-8 sm:bottom-12 md:bottom-14 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
         >
           <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-white filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] flex flex-wrap items-baseline gap-x-2.5 gap-y-1 uppercase">
             <span className="font-extrabold text-white tracking-wide">DOĞRU ROTA</span>
-            <span className="font-bold text-[#c59b27] tracking-wide">GÜÇLÜ İŞLETME</span>
+            <span className="font-bold text-[#dfa929] tracking-wide filter drop-shadow-[0_0_14px_rgba(223,169,41,0.35)]">GÜÇLÜ İŞLETME</span>
           </h1>
         </motion.div>
 
