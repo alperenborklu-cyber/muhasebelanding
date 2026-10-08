@@ -591,7 +591,6 @@ export default function DanismanlikPage() {
       {/* 8. Stratejik Danışmanlık Randevu Formu */}
       <section id="consultation">
         <div className="max-w-4xl mx-auto px-4 mb-8 text-center space-y-2">
-          <span className="text-xs font-mono text-[#d4af37] uppercase tracking-widest">AKREDİTE DEVLET TEŞVİK REHBERLİĞİ</span>
           <h3 className="text-2xl sm:text-3xl font-light text-white">
             Şirketiniz İçin <span className="gold-gradient-text font-serif italic">Teşvik Uygunluk Analizi Başlatın</span>
           </h3>

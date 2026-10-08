@@ -641,7 +641,6 @@ export default function MuhasebecilikPage() {
       {/* 8. Özel Mali Müşavirlik CTA & Randevu Formu */}
       <section id="consultation" className="relative pt-6">
         <div className="max-w-4xl mx-auto px-4 mb-8 text-center space-y-2">
-          <span className="text-xs font-mono text-[#d4af37] uppercase tracking-widest">RESMÎ MALİ DANIŞMANLIK</span>
           <h3 className="text-2xl sm:text-3xl font-light text-white">
             Şirketiniz İçin <span className="gold-gradient-text font-serif italic">Mali Müşavirlik Teklifi Alın</span>
           </h3>
