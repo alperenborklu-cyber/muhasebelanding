@@ -9,11 +9,7 @@ import {
   ArrowRight, 
   Phone, 
   ChevronRight,
-  TrendingUp,
-  FileCheck,
-  Building2,
   Users,
-  Award,
   Sparkles,
   HelpCircle,
   Clock,
@@ -220,135 +216,52 @@ export default function MuhasebecilikPage() {
             <span className="text-[#d4af37]">Mali Müşavirlik</span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Hero Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128]/90 backdrop-blur-md text-xs font-semibold text-[#d4af37] shadow-lg shadow-black/40">
-                <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
-                <span>TÜRMOB &amp; ASMMMO RUHSATLI MALİ MÜŞAVİRLİK</span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
-                Mali Disiplin, Sıfır Risk ve <span className="gold-gradient-text font-serif italic">Stratejik Finans</span>
-              </h1>
-
-              <p className="text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-xl">
-                Yalnızca geçmişi deftere işleyen değil; proaktif vergi planlaması, şirket kuruluş mimarisi, gizli bordrolama ve yönetim raporlamasıyla şirketinizin net kârlılığını güvence altına alan mali müşavirlik ortaklığı.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
-                  className="px-7 py-3.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#b89025] text-black font-bold text-xs hover:opacity-95 transition-all flex items-center space-x-2 shadow-xl shadow-[#d4af37]/20 cursor-pointer"
-                >
-                  <span>Mali Müşavirlik Teklifi Al</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <a
-                  href="tel:05536221122"
-                  className="phone-nav-btn px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2 backdrop-blur-sm"
-                >
-                  <Phone className="w-4 h-4 text-[#d4af37]" />
-                  <span>0553 622 11 22</span>
-                </a>
-              </div>
-
-              {/* Trust Badges */}
-              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70">
-                <div className="flex items-center space-x-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                  <span>%100 Yasal Uyum</span>
-                </div>
-                <div className="flex items-center space-x-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                  <span>Gizli Bordrolama</span>
-                </div>
-                <div className="flex items-center space-x-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                  <span>Suit Tower Çankaya</span>
-                </div>
-              </div>
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128]/90 backdrop-blur-md text-xs font-semibold text-[#d4af37] shadow-lg shadow-black/40">
+              <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
+              <span>TÜRMOB &amp; ASMMMO RUHSATLI MALİ MÜŞAVİRLİK</span>
             </div>
 
-            {/* Hero Right: Luxury Glassmorphism Executive Highlights Card */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-3xl p-6 sm:p-8 backdrop-blur-xl bg-[#040a1a]/60 border border-[#d4af37]/35 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.15)] space-y-5">
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#0b1938] border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37] shadow-inner">
-                      <ShieldCheck className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-white">ASMMMO &amp; TÜRMOB</div>
-                      <div className="text-[11px] text-white/50 font-mono">Yetkili Mali Müşavirlik</div>
-                    </div>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/15 text-[#d4af37] text-[10px] font-bold border border-[#d4af37]/30">
-                    Resmî Ruhsatlı
-                  </span>
-                </div>
+            <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
+              Mali Disiplin, Sıfır Risk ve <span className="gold-gradient-text font-serif italic">Stratejik Finans</span>
+            </h1>
 
-                {/* Metric Highlights */}
-                <div className="space-y-3.5">
-                  <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#071128] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
-                        <Building2 className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-medium text-white">Şirket Kuruluşu &amp; Tescil</div>
-                        <div className="text-[11px] text-white/50">LTD, A.Ş. ve Şahıs Firmaları</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm font-bold gold-gradient-text">Hızlı Tescil</div>
-                    </div>
-                  </div>
+            <p className="text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-2xl">
+              Yalnızca geçmişi deftere işleyen değil; proaktif vergi planlaması, şirket kuruluş mimarisi, gizli bordrolama ve yönetim raporlamasıyla şirketinizin net kârlılığını güvence altına alan mali müşavirlik ortaklığı.
+            </p>
 
-                  <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#071128] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
-                        <Award className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-medium text-white">Vergi Denetimi &amp; Uzlaşma</div>
-                        <div className="text-[11px] text-white/50">Maliye nezdinde yasal vekillik</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm font-bold text-[#faecc0]">Sıfır Hata</div>
-                    </div>
-                  </div>
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
+                className="px-7 py-3.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#b89025] text-black font-bold text-xs hover:opacity-95 transition-all flex items-center space-x-2 shadow-xl shadow-[#d4af37]/20 cursor-pointer"
+              >
+                <span>Mali Müşavirlik Teklifi Al</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <a
+                href="tel:05536221122"
+                className="phone-nav-btn px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2 backdrop-blur-sm"
+              >
+                <Phone className="w-4 h-4 text-[#d4af37]" />
+                <span>0553 622 11 22</span>
+              </a>
+            </div>
 
-                  <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#071128] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
-                        <FileCheck className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-medium text-white">E-Defter &amp; E-Fatura</div>
-                        <div className="text-[11px] text-white/50">Zaman damgalı dijital arşiv</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm font-bold text-emerald-400">%100 Uyum</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Quick Card Action */}
-                <div className="pt-1">
-                  <button
-                    type="button"
-                    onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#d4af37]/20 to-[#d4af37]/10 hover:from-[#d4af37]/30 hover:to-[#d4af37]/20 border border-[#d4af37]/50 text-white font-medium text-xs flex items-center justify-center space-x-2 transition-all cursor-pointer group"
-                  >
-                    <span>Şirketiniz İçin Ön İnceleme İsteyin</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#d4af37] group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
+            {/* Trust Badges */}
+            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70 max-w-lg">
+              <div className="flex items-center space-x-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                <span>%100 Yasal Uyum</span>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                <span>Gizli Bordrolama</span>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                <span>Suit Tower Çankaya</span>
               </div>
             </div>
           </div>

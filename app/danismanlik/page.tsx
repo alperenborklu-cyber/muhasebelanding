@@ -9,9 +9,6 @@ import {
   ArrowRight, 
   Phone, 
   ChevronRight,
-  Target,
-  Award,
-  TrendingUp,
   Sparkles,
   HelpCircle,
   Building2,
@@ -196,135 +193,52 @@ export default function DanismanlikPage() {
             <span className="text-[#d4af37]">Yönetim Danışmanlığı &amp; Teşvikler</span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Hero Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128]/90 backdrop-blur-md text-xs font-semibold text-[#d4af37] shadow-lg shadow-black/40">
-                <Briefcase className="w-4 h-4 text-[#d4af37]" />
-                <span>SANAYİ, TİCARET BAKANLIĞI VE KOSGEB REHBERLİĞİ</span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
-                Devlet Teşvikleri &amp; <span className="gold-gradient-text font-serif italic">Büyüme Mimarisi</span>
-              </h1>
-
-              <p className="text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-xl">
-                Yatırım Teşvik Belgesi, KOSGEB hibeleri, fabrika yatırımları, imalat ve ihracat destekleriyle firmanızı geleceğin küresel pazarlarına hazırlayan stratejik büyüme ortaklığı.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
-                  className="px-7 py-3.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#b89025] text-black font-bold text-xs hover:opacity-95 transition-all flex items-center space-x-2 shadow-xl shadow-[#d4af37]/20 cursor-pointer"
-                >
-                  <span>Teşvik Uygunluk Analizi Başlat</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <a
-                  href="tel:05536221122"
-                  className="phone-nav-btn px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2 backdrop-blur-sm"
-                >
-                  <Phone className="w-4 h-4 text-[#d4af37]" />
-                  <span>0553 622 11 22</span>
-                </a>
-              </div>
-
-              {/* Trust Badges */}
-              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70">
-                <div className="flex items-center space-x-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                  <span>Bakanlık Akredite</span>
-                </div>
-                <div className="flex items-center space-x-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                  <span>Geri Ödemesiz Hibe</span>
-                </div>
-                <div className="flex items-center space-x-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                  <span>Uçtan Uca Takip</span>
-                </div>
-              </div>
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128]/90 backdrop-blur-md text-xs font-semibold text-[#d4af37] shadow-lg shadow-black/40">
+              <Briefcase className="w-4 h-4 text-[#d4af37]" />
+              <span>SANAYİ, TİCARET BAKANLIĞI VE KOSGEB REHBERLİĞİ</span>
             </div>
 
-            {/* Hero Right: Luxury Glassmorphism Highlights Card */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-3xl p-6 sm:p-8 backdrop-blur-xl bg-[#040a1a]/60 border border-[#d4af37]/35 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(212,175,55,0.15)] space-y-5">
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#0b1938] border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37] shadow-inner">
-                      <Briefcase className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-white">Bakanlıklar &amp; KOSGEB</div>
-                      <div className="text-[11px] text-white/50 font-mono">Akredite Danışmanlık</div>
-                    </div>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-full bg-[#d4af37]/15 text-[#d4af37] text-[10px] font-bold border border-[#d4af37]/30">
-                    Stratejik Rehberlik
-                  </span>
-                </div>
+            <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
+              Devlet Teşvikleri &amp; <span className="gold-gradient-text font-serif italic">Büyüme Mimarisi</span>
+            </h1>
 
-                {/* Qualitative Highlights (Rakamlar Bildirilecek) */}
-                <div className="space-y-3.5">
-                  <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#071128] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
-                        <Target className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-medium text-white">Dosya Kabul Güvencesi</div>
-                        <div className="text-[11px] text-white/50">Ön uygunluk filtreleme sistemi</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm font-bold text-emerald-400">Yüksek Başarı</div>
-                    </div>
-                  </div>
+            <p className="text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-2xl">
+              Yatırım Teşvik Belgesi, KOSGEB hibeleri, fabrika yatırımları, imalat ve ihracat destekleriyle firmanızı geleceğin küresel pazarlarına hazırlayan stratejik büyüme ortaklığı.
+            </p>
 
-                  <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#071128] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
-                        <Award className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-medium text-white">Devlet Teşvik Projeleri</div>
-                        <div className="text-[11px] text-white/50">Kurumsal şirket portföyü</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xs font-semibold text-[#faecc0]">Rakamlar bildirilecek</div>
-                    </div>
-                  </div>
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
+                className="px-7 py-3.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#b89025] text-black font-bold text-xs hover:opacity-95 transition-all flex items-center space-x-2 shadow-xl shadow-[#d4af37]/20 cursor-pointer"
+              >
+                <span>Teşvik Uygunluk Analizi Başlat</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <a
+                href="tel:05536221122"
+                className="phone-nav-btn px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2 backdrop-blur-sm"
+              >
+                <Phone className="w-4 h-4 text-[#d4af37]" />
+                <span>0553 622 11 22</span>
+              </a>
+            </div>
 
-                  <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between hover:border-[#d4af37]/40 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#071128] border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37]">
-                        <TrendingUp className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-medium text-white">Yatırım Teşvik Hacmi</div>
-                        <div className="text-[11px] text-white/50">Sanayi ve KOBİ yatırımları</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xs font-semibold text-[#faecc0]">Rakamlar bildirilecek</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Quick Card Action */}
-                <div className="pt-1">
-                  <button
-                    type="button"
-                    onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#d4af37]/20 to-[#d4af37]/10 hover:from-[#d4af37]/30 hover:to-[#d4af37]/20 border border-[#d4af37]/50 text-white font-medium text-xs flex items-center justify-center space-x-2 transition-all cursor-pointer group"
-                  >
-                    <span>Teşvik Uygunluk Raporu İsteyin</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#d4af37] group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
+            {/* Trust Badges */}
+            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70 max-w-lg">
+              <div className="flex items-center space-x-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                <span>Bakanlık Akredite</span>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                <span>Geri Ödemesiz Hibe</span>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
+                <span>Uçtan Uca Takip</span>
               </div>
             </div>
           </div>
