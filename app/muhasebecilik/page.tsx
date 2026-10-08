@@ -223,7 +223,7 @@ export default function MuhasebecilikPage() {
             </div>
 
             <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
-              Mali Disiplin, Sıfır Risk ve <span className="gold-gradient-text font-serif italic">Stratejik Finans</span>
+              Mali Disiplin, Sıfır Risk &amp; <span className="gold-gradient-text font-serif italic">Stratejik Finans</span>
             </h1>
 
             <p className="text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-2xl">

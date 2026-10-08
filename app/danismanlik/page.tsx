@@ -200,7 +200,8 @@ export default function DanismanlikPage() {
             </div>
 
             <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
-              Devlet Teşvikleri &amp; <span className="gold-gradient-text font-serif italic">Büyüme Mimarisi</span>
+              Devlet Teşvikleri &amp; <br />
+              <span className="gold-gradient-text font-serif italic">Büyüme Mimarisi</span>
             </h1>
 
             <p className="text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-2xl">
