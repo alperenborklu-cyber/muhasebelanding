@@ -29,7 +29,7 @@ export default function ScrollCanvasDoor() {
   const [hoveredDoor, setHoveredDoor] = useState<"left" | "right" | null>(null);
   const [centerHovered, setCenterHovered] = useState(false);
   const [centerActiveSide, setCenterActiveSide] = useState<"left" | "right" | null>(null);
-  const [openingDoor, setOpeningDoor] = useState<"left" | "right" | null>(null);
+  const [openingDoor, setOpeningDoor] = useState<"left" | "right" | "center" | null>(null);
   const isOpeningAnimRef = useRef(false);
   const [scrollProgressVal, setScrollProgressVal] = useState(0);
   const [doorLayout, setDoorLayout] = useState<{
@@ -237,14 +237,19 @@ export default function ScrollCanvasDoor() {
 
   // Handle interactive door selection & cinematic door opening animation
   const handleDoorSelect = useCallback(
-    (door: "left" | "right", e: React.MouseEvent) => {
+    (door: "left" | "right" | "center", e: React.MouseEvent) => {
       e.preventDefault();
       if (isOpeningAnimRef.current) return;
       isOpeningAnimRef.current = true;
       setOpeningDoor(door);
       setHoveredDoor(null);
 
-      const destination = door === "left" ? "/danismanlik" : "/muhasebecilik";
+      const destination =
+        door === "left"
+          ? "/danismanlik"
+          : door === "right"
+          ? "/muhasebecilik"
+          : "/hakkimizda";
       const startProgress = smoothProgress.get();
       const targetProgress = 0.65; // Frame ~78: doors wide open, traveling forward into dark portal
       const duration = 1200; // ms
@@ -489,7 +494,10 @@ export default function ScrollCanvasDoor() {
                       <span className="h-4 w-px bg-[#dfa929]/30 mr-2 sm:mr-3" />
                       <Link
                         href="/hakkimizda"
-                        className="relative h-6 w-20 sm:h-7 sm:w-24 opacity-95 transition-transform duration-300 hover:scale-105 cursor-pointer block"
+                        onClick={(e) => handleDoorSelect("center", e)}
+                        className={`relative h-6 w-20 sm:h-7 sm:w-24 opacity-95 transition-transform duration-300 hover:scale-105 cursor-pointer block ${
+                          openingDoor ? "pointer-events-none" : ""
+                        }`}
                         aria-label="ROTAYD Hakkımızda Sayfasına Git"
                       >
                         <Image
@@ -729,7 +737,11 @@ export default function ScrollCanvasDoor() {
                 <div className="absolute inset-0 rounded-full border-2 border-[#d4af37] border-t-transparent animate-spin" />
               </div>
               <p className="text-sm font-medium tracking-widest text-[#c59b27] uppercase">
-                {openingDoor === "left" ? "Hibe Teşvik Danışmanlığı Kapısı Açılıyor..." : "Mali Müşavirlik Kapısı Açılıyor..."}
+                {openingDoor === "left"
+                  ? "Hibe Teşvik Danışmanlığı Kapısı Açılıyor..."
+                  : openingDoor === "right"
+                  ? "Mali Müşavirlik Kapısı Açılıyor..."
+                  : "Kurumsal Vizyon & Hakkımızda Kapısı Açılıyor..."}
               </p>
             </div>
           </motion.div>
