@@ -392,13 +392,26 @@ html.light-mode #canvas-door-section {
 html.light-mode #canvas-door-section h1,
 html.light-mode #canvas-door-section h2,
 html.light-mode #canvas-door-section h3,
-html.light-mode #canvas-door-section h1 span,
-html.light-mode #canvas-door-section h2 span,
-html.light-mode #canvas-door-section h3 span,
+html.light-mode #canvas-door-section h1 span:not(.hero-gold-gradient):not(.gold-gradient-text),
+html.light-mode #canvas-door-section h2 span:not(.hero-gold-gradient):not(.gold-gradient-text),
+html.light-mode #canvas-door-section h3 span:not(.hero-gold-gradient):not(.gold-gradient-text),
 html.light-mode #canvas-door-section p,
-html.light-mode #canvas-door-section span,
+html.light-mode #canvas-door-section span:not(.hero-gold-gradient):not(.gold-gradient-text),
 html.light-mode #canvas-door-section a {
   color: #ffffff !important;
+}
+
+/* Awwwards Luxury Hero Gold Gradient: Koyu Gold'dan Luminous Medium Açık Gold'a (125deg Diagonal Sweep) */
+.hero-gold-gradient,
+html.light-mode #canvas-door-section .hero-gold-gradient,
+html.light-mode #canvas-hero-title .hero-gold-gradient {
+  background: linear-gradient(125deg, #8a6014 0%, #b28320 28%, #dcae36 62%, #fae498 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+  display: inline-block;
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(212, 175, 55, 0.22));
 }
 
 html.light-mode #canvas-door-section .gold-gradient-text {

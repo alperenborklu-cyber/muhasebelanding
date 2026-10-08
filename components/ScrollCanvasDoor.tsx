@@ -535,7 +535,7 @@ export default function ScrollCanvasDoor() {
         >
           <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight flex flex-col items-start gap-y-0.5 sm:gap-y-1 uppercase">
             <span className="font-extrabold text-white tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">DOĞRU ROTA</span>
-            <span className="font-bold text-white tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">GÜÇLÜ İŞLETME</span>
+            <span className="font-extrabold tracking-wide hero-gold-gradient">GÜÇLÜ İŞLETME</span>
           </h1>
         </motion.div>
 
