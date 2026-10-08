@@ -405,7 +405,7 @@ html.light-mode #canvas-door-section a {
 .hero-gold-gradient,
 html.light-mode #canvas-door-section .hero-gold-gradient,
 html.light-mode #canvas-hero-title .hero-gold-gradient {
-  background: linear-gradient(125deg, #8a6014 0%, #b28320 28%, #dcae36 62%, #fae498 100%) !important;
+  background: linear-gradient(125deg, #bf932d 0%, #d4a836 30%, #eabf4d 66%, #fae498 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
