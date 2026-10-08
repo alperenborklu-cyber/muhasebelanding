@@ -487,7 +487,11 @@ export default function ScrollCanvasDoor() {
                     {/* ORTADA BOŞLUK & ARKAPLANLA BİRLEŞİK LOGOMUZ */}
                     <div className="flex items-center px-2 sm:px-3">
                       <span className="h-4 w-px bg-[#dfa929]/30 mr-2 sm:mr-3" />
-                      <div className="relative h-6 w-20 sm:h-7 sm:w-24 opacity-95 transition-transform duration-300 hover:scale-105">
+                      <Link
+                        href="/hakkimizda"
+                        className="relative h-6 w-20 sm:h-7 sm:w-24 opacity-95 transition-transform duration-300 hover:scale-105 cursor-pointer block"
+                        aria-label="ROTAYD Hakkımızda Sayfasına Git"
+                      >
                         <Image
                           src="/logobeyaz.webp"
                           alt="ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı"
@@ -495,7 +499,7 @@ export default function ScrollCanvasDoor() {
                           className="object-contain"
                           priority
                         />
-                      </div>
+                      </Link>
                       <span className="h-4 w-px bg-[#dfa929]/30 ml-2 sm:ml-3" />
                     </div>
 
