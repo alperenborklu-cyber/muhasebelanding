@@ -67,7 +67,7 @@ export default function MuhasebecilikPage() {
     },
     {
       title: "E-Dönüşüm & Dijital Defter Yönetimi",
-      image: "/images/mali-musavirlik-guvenilirlik-bagimsiz-denetim.webp",
+      image: "/images/e-defter-e-fatura-vergi-mevzuati-mali-musavirlik.webp",
       desc: "E-Fatura, E-Arşiv, E-Defter ve zaman damgalı bulut yedekleme altyapısıyla hata payı sıfıra indirilmiş dijital muhasebe mimarisi.",
       badge: "Dijital Entegrasyon",
       points: ["E-Fatura Entegrasyonu", "E-Defter Berat Gönderimi", "Dijital Arşiv Güvencesi", "ERP Muhasebe Uyumu"]
@@ -194,13 +194,13 @@ export default function MuhasebecilikPage() {
         {/* Background Image capturing whole top of screen */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-muhasebecilik.png"
-            alt="ROTAYD Mali Müşavirlik ve Stratejik Finans Yönetimi"
+            src="/images/hero-muhasebecilik.webp"
+            alt="ROTAYD Mali Müşavirlik, Vergi Denetimi ve Muhasebecilik Hizmetleri Ankara Çankaya"
             fill
             priority
             className="object-cover object-center scale-105 transition-transform duration-1000"
             sizes="100vw"
-            quality={95}
+            quality={90}
           />
           <div className="absolute inset-0 bg-[#040a1a]/75" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#040a1a] via-[#040a1a]/85 to-transparent lg:via-[#040a1a]/75" />
@@ -275,8 +275,8 @@ export default function MuhasebecilikPage() {
             <div className="lg:col-span-5 relative">
               <div className="relative h-96 sm:h-[460px] w-full rounded-3xl overflow-hidden border border-[#d4af37]/30 shadow-2xl">
                 <Image
-                  src="/images/suleyman-ilhan-rotayd-mali-musavirlik-kurucu.webp"
-                  alt="SMMM Süleyman İlhan - ROTAYD Mali Müşavirlik"
+                  src="/images/suleyman-ilhan-mali-musavir-yonetim-danismani.webp"
+                  alt="SMMM Süleyman İlhan - ROTAYD Yetkili Mali Müşavir ve Kıdemli Yönetim Danışmanı Ankara"
                   fill
                   className="object-cover object-top"
                 />
@@ -461,7 +461,7 @@ export default function MuhasebecilikPage() {
                 <div className="relative h-48 w-full overflow-hidden">
                   <Image
                     src={srv.image}
-                    alt={`ROTAYD Mali Müşavirlik - ${srv.title}`}
+                    alt={`ROTAYD Mali Müşavirlik ve Muhasebecilik Hizmetleri - ${srv.title}`}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -581,7 +581,7 @@ export default function MuhasebecilikPage() {
                 <Link href={`/blog/${post.slug}`} className="relative h-44 w-full overflow-hidden block">
                   <Image
                     src={post.image}
-                    alt={post.title}
+                    alt={`${post.title} - ROTAYD Mali Müşavirlik ve Vergi Mevzuatı Rehberi`}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />

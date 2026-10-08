@@ -65,7 +65,7 @@ export default function Navbar() {
             <div className="relative h-9 w-[106px] sm:h-10 sm:w-[118px] transition-transform duration-300 group-hover:scale-[1.02]">
               <Image
                 src={theme === "light" ? "/logo.webp" : "/logobeyaz.webp"}
-                alt="ROTAYD"
+                alt="ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı"
                 fill
                 className="object-contain object-left"
                 priority

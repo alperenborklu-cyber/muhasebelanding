@@ -142,7 +142,7 @@ export default function HakkimizdaPage() {
                     <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border-2 border-[#d4af37]/60 shadow-2xl bg-[#0b1938]">
                       <Image
                         src="/images/suleyman-ilhan-mali-musavir-yonetim-danismani.webp"
-                        alt="Süleyman İlhan - SMMM & Kıdemli Yönetim Danışmanı"
+                        alt="SMMM Süleyman İlhan - ROTAYD Yetkili Mali Müşavir ve Kıdemli Yönetim Danışmanı Ankara"
                         fill
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                         priority
@@ -262,7 +262,7 @@ export default function HakkimizdaPage() {
                     <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border-2 border-[#d4af37]/60 shadow-2xl bg-[#0b1938]">
                       <Image
                         src="/images/canan-ilhan-yonetim-danismani.webp"
-                        alt="Canan İlhan - Kurucu Ortak & Yönetim Danışmanı"
+                        alt="Canan İlhan - ROTAYD Kurucu Ortak, Yönetim Danışmanı ve Devlet Teşvikleri Müşaviri"
                         fill
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       />

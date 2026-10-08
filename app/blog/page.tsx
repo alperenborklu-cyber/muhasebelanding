@@ -108,7 +108,7 @@ export default function BlogPage() {
               <Link href={`/blog/${featuredPost.slug}`} className="lg:col-span-7 relative h-72 sm:h-96 w-full overflow-hidden block">
                 <Image
                   src={featuredPost.image}
-                  alt={featuredPost.title}
+                  alt={`${featuredPost.title} - ROTAYD Mali Müşavirlik ve Danışmanlık Rehberi`}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
@@ -171,7 +171,7 @@ export default function BlogPage() {
                 <Link href={`/blog/${post.slug}`} className="relative h-52 w-full overflow-hidden block">
                   <Image
                     src={post.image}
-                    alt={post.title}
+                    alt={`${post.title} - ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı`}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />

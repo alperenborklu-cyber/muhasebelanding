@@ -490,7 +490,7 @@ export default function ScrollCanvasDoor() {
                       <div className="relative h-6 w-20 sm:h-7 sm:w-24 opacity-95 transition-transform duration-300 hover:scale-105">
                         <Image
                           src="/logobeyaz.webp"
-                          alt="ROTAYD"
+                          alt="ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı"
                           fill
                           className="object-contain"
                           priority

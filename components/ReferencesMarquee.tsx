@@ -54,7 +54,7 @@ export default function ReferencesMarquee() {
               <div className="relative h-9 sm:h-10 md:h-11 w-full max-w-[135px] sm:max-w-[155px] flex items-center justify-center">
                 <Image
                   src={`/references/${item.file}`}
-                  alt={item.name}
+                  alt={`${item.name} - ROTAYD Danışmanlık ve Mali Müşavirlik Referansı`}
                   fill
                   className="object-contain filter brightness-0 invert opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
                   sizes="(max-width: 768px) 130px, 155px"

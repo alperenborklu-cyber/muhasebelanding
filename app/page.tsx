@@ -135,7 +135,7 @@ export default function Home() {
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
                   src="/images/rotayd-mali-musavirlik-guvenilirlik-bagimsiz-denetim.webp"
-                  alt="ROTAYD Mali Müşavirlik Güvenilirlik ve Bağımsız Denetim Standardı"
+                  alt="ROTAYD Mali Müşavirlik, Bağımsız Denetim ve Muhasebecilik Hizmetleri"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -155,7 +155,7 @@ export default function Home() {
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
                   src="/images/rotayd-yonetim-danismanligi-stratejik-analitik-yaklasim.webp"
-                  alt="ROTAYD Yönetim Danışmanlığı Stratejik ve Analitik Çözüm Ortaklığı"
+                  alt="ROTAYD Yönetim Danışmanlığı, Mali Müşavirlik ve Stratejik Çözüm Ortaklığı"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -175,7 +175,7 @@ export default function Home() {
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
                   src="/images/rotayd-kurumsal-yonetim-danismanligi-surdurulebilir-gelisim.webp"
-                  alt="ROTAYD Kurumsal Yönetim Danışmanlığı ve Sürdürülebilir Sosyal Sorumluluk"
+                  alt="ROTAYD Kurumsal Yönetim Danışmanlığı, Mali Müşavirlik ve Sürdürülebilir Büyüme"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -229,7 +229,7 @@ export default function Home() {
                   <div className="relative h-44 w-full overflow-hidden">
                     <Image
                       src={post.image}
-                      alt={post.title}
+                      alt={`${post.title} - ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı`}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />

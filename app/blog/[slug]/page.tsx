@@ -79,7 +79,7 @@ export default function BlogPostDetail({ params }: { params: { slug: string } })
         <div className="relative h-80 sm:h-[450px] w-full rounded-3xl overflow-hidden mb-12 border border-white/10 shadow-2xl">
           <Image
             src={post.image}
-            alt={post.title}
+            alt={`${post.title} - ROTAYD Mali Müşavirlik, Muhasebecilik ve Yönetim Danışmanlığı`}
             fill
             className="object-cover"
             priority

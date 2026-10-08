@@ -171,13 +171,13 @@ export default function DanismanlikPage() {
         {/* Background Image capturing whole top of screen */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-danismanlik.png"
-            alt="ROTAYD Yönetim Danışmanlığı ve Stratejik Büyüme Liderliği"
+            src="/images/hero-danismanlik.webp"
+            alt="ROTAYD Yönetim Danışmanlığı, Devlet Teşvikleri ve Büyüme Müşavirliği Ankara"
             fill
             priority
             className="object-cover object-center scale-105 transition-transform duration-1000"
             sizes="100vw"
-            quality={95}
+            quality={90}
           />
           <div className="absolute inset-0 bg-[#040a1a]/75" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#040a1a] via-[#040a1a]/85 to-transparent lg:via-[#040a1a]/75" />
@@ -253,7 +253,7 @@ export default function DanismanlikPage() {
               <div className="relative h-96 sm:h-[440px] w-full rounded-3xl overflow-hidden border border-[#d4af37]/30 shadow-2xl">
                 <Image
                   src="/images/rotayd-yonetim-danismanligi-stratejik-analitik-yaklasim.webp"
-                  alt="ROTAYD Yönetim Danışmanlığı ve Kurumsal Strateji"
+                  alt="ROTAYD Yönetim Danışmanlığı, KOSGEB ve Devlet Teşvik Müşavirliği Ekibi"
                   fill
                   className="object-cover"
                 />
@@ -411,7 +411,7 @@ export default function DanismanlikPage() {
                 <div className="relative h-48 w-full overflow-hidden">
                   <Image
                     src={item.image}
-                    alt={`ROTAYD Yönetim Danışmanlığı - ${item.title}`}
+                    alt={`ROTAYD Yönetim Danışmanlığı ve Teşvik Müşavirliği - ${item.title}`}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -531,7 +531,7 @@ export default function DanismanlikPage() {
                 <Link href={`/blog/${post.slug}`} className="relative h-44 w-full overflow-hidden block">
                   <Image
                     src={post.image}
-                    alt={post.title}
+                    alt={`${post.title} - ROTAYD Yönetim Danışmanlığı ve Teşvik Rehberi`}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
