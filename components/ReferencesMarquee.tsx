@@ -2,26 +2,28 @@
 
 import Image from "next/image";
 
-// 18 Verified Real Turkish Corporate & Client Brands with Authentic White Logos
+// 20 Verified Real Client Brands with Authentic Monochrome Logos
 const REFERENCES = [
-  { name: "TÜRK HAVA YOLLARI", file: "thy.webp", desc: "Havacılık & Global Taşımacılık" },
-  { name: "TRENDYOL", file: "trendyol.webp", desc: "E-Ticaret Lideri" },
-  { name: "GETİR", file: "getir.webp", desc: "Teknoloji & Lojistik" },
-  { name: "PARİBU", file: "paribu.webp", desc: "Kripto Varlık Platformu" },
-  { name: "TÜRKİYE İŞ BANKASI", file: "isbank.webp", desc: "Bankacılık & Finans" },
-  { name: "AKBANK", file: "akbank.webp", desc: "Özel Bankacılık & Finans" },
-  { name: "VESTEL", file: "vestel.webp", desc: "Tüketici Elektroniği & Üretim" },
-  { name: "BEKO", file: "beko.webp", desc: "Dayanıklı Tüketim & İhracat" },
-  { name: "PEGASUS HAVA YOLLARI", file: "pegasus.webp", desc: "Havacılık Taşımacılığı" },
-  { name: "T.C. TİCARET BAKANLIĞI", file: "ticaret.webp", desc: "İhracat Destekleri" },
-  { name: "TRT", file: "trt.webp", desc: "Yayıncılık & Medya" },
-  { name: "LİVA PASTANELERİ", file: "liva.webp", desc: "Gıda & Mağazacılık" },
-  { name: "140JOURNOS", file: "140journos.webp", desc: "Dijital Yayıncılık" },
-  { name: "FOODCOIN", file: "foodcoin.webp", desc: "Finansal Teknoloji" },
-  { name: "GOETHE INSTITUT", file: "goethe.webp", desc: "Kültür & Eğitim Kurumu" },
-  { name: "EUREKO SİGORTA", file: "eureko.webp", desc: "Kurumsal Sigortacılık" },
-  { name: "HEPİYİ SİGORTA", file: "hepiyi.webp", desc: "Dijital Sigorta" },
-  { name: "NEOVA KATILIM", file: "neova.webp", desc: "Katılım Sigortacılığı" }
+  { name: "ÖZGÜR LEBLEBİ", file: "ozgurleblebi.webp", desc: "Gıda & Kuruyemiş İmalatı" },
+  { name: "ROKO DONDURMA & KAHVE", file: "roko.webp", desc: "Gurme Dondurma & Kahve Zinciri" },
+  { name: "ANAKAMP KÜÇÜK KAŞİFLER", file: "anakamp.webp", desc: "Okul Öncesi & Erken Çocukluk Eğitimi" },
+  { name: "TODO CROISSANT & COFFEE", file: "todocroissant.webp", desc: "Artizan Fırıncılık & Kahve" },
+  { name: "TODO CREATIVE", file: "todocreative.webp", desc: "Dijital Medya & Reklam Ajansı" },
+  { name: "LOFTEN BİLİŞİM", file: "loften.webp", desc: "Kurumsal Bilişim & Yazılım Teknolojileri" },
+  { name: "PINAR DEMİRBAŞ BÜTÜNSEL SAĞLIK", file: "pinardemirbas.webp", desc: "Fonksiyonel Wellbeing & Bütünsel Sağlık" },
+  { name: "UNIVERSAL KAUÇUK", file: "universalkaucuk.webp", desc: "Endüstriyel Kauçuk & İş Makinaları Yedek Parça" },
+  { name: "UMG PARTS", file: "umgparts.webp", desc: "Global Maden & Tünel Makinaları Yedek Parça" },
+  { name: "NANNEBEE", file: "nannebee.webp", desc: "Doğal Ahşap Çocuk & Bebek Ürünleri" },
+  { name: "BEBEK HOUSE", file: "bebekhouse.webp", desc: "Anne & Bebek E-Ticaret ve Mağazacılık" },
+  { name: "MISILLA HOME", file: "misillahome.webp", desc: "Premium Ev Tekstili & Tasarım" },
+  { name: "NAM PROMOSYON", file: "nampromosyon.webp", desc: "Kurumsal Promosyon & İmalat Grubu" },
+  { name: "YENİ NESİL PROMOSYON", file: "yeninesil.webp", desc: "Baskı Teknolojileri & Promosyon Ürünleri" },
+  { name: "MELEK PROMOSYON", file: "melekpromosyon.webp", desc: "Kurumsal Hediye & Matbaa Çözümleri" },
+  { name: "ACCOFIRE", file: "accofire.webp", desc: "Yangın Güvenlik Sistemleri & Ekipmanları" },
+  { name: "METAFORM TASARIM", file: "metaform.webp", desc: "Endüstriyel & Mimari Tasarım Çözümleri" },
+  { name: "PROKON", file: "prokon.webp", desc: "Mühendislik, Müşavirlik & İnşaat" },
+  { name: "EKONAS", file: "ekonas.webp", desc: "Madencilik & Mühendislik Hizmetleri" },
+  { name: "DENTİZMİT", file: "dentizmit.webp", desc: "Ağız ve Diş Sağlığı Polikliniği" }
 ];
 
 export default function ReferencesMarquee() {
@@ -49,7 +51,7 @@ export default function ReferencesMarquee() {
             <div
               key={`${item.name}-${idx}`}
               className="group relative flex items-center justify-center px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4af37]/50 backdrop-blur-sm transition-all duration-300 shrink-0 w-44 sm:w-48 md:w-52 h-20 shadow-sm"
-              title={item.name}
+              title={`${item.name} | ${item.desc}`}
             >
               <div className="relative h-9 sm:h-10 md:h-11 w-full max-w-[135px] sm:max-w-[155px] flex items-center justify-center">
                 <Image
