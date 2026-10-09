@@ -23,7 +23,8 @@ const REFERENCES = [
   { name: "METAFORM TASARIM", file: "metaform.webp", desc: "Endüstriyel & Mimari Tasarım Çözümleri" },
   { name: "PROKON", file: "prokon.webp", desc: "Mühendislik, Müşavirlik & İnşaat" },
   { name: "EKONAS", file: "ekonas.webp", desc: "Madencilik & Mühendislik Hizmetleri" },
-  { name: "DENTİZMİT", file: "dentizmit.webp", desc: "Ağız ve Diş Sağlığı Polikliniği" }
+  { name: "DENTİZMİT", file: "dentizmit.webp", desc: "Ağız ve Diş Sağlığı Polikliniği" },
+  { name: "HYDRA SONDAJ MAKİNE", file: "hydra.webp", desc: "Sondaj Makineleri & Ekipmanları Sanayi" }
 ];
 
 export default function ReferencesMarquee() {
