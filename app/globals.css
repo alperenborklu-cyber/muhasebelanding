@@ -72,6 +72,21 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+/* Awwwards Luxury Hero Gold Gradient: Koyu Gold'dan Luminous Medium Açık Gold'a (125deg Diagonal Sweep) */
+.hero-gold-gradient {
+  background: linear-gradient(125deg, #bf932d 0%, #d4a836 30%, #eabf4d 66%, #fae498 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  padding-top: 0.25em;
+  padding-bottom: 0.22em;
+  margin-top: -0.25em;
+  margin-bottom: -0.22em;
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(212, 175, 55, 0.22));
+}
+
 .gold-gradient-border {
   border-image: linear-gradient(to right, #d4af37, rgba(212, 175, 55, 0.2), #d4af37) 1;
 }
