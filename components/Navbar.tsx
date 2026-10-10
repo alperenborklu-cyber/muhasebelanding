@@ -79,8 +79,8 @@ export default function Navbar() {
               href="/muhasebecilik"
               className={`whitespace-nowrap flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs xl:text-sm font-medium transition-all flex items-center space-x-1.5 ${
                 pathname.startsWith("/muhasebe")
-                  ? "text-white bg-[#0f214a] border border-[#d4af37]/40 shadow-sm shadow-[#d4af37]/10"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
+                  ? "nav-link-active text-white bg-[#0f214a] border border-[#d4af37]/40 shadow-sm shadow-[#d4af37]/10"
+                  : "nav-link-inactive text-white/70 hover:text-white hover:bg-white/5"
               }`}
             >
               <ShieldCheck className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
@@ -91,8 +91,8 @@ export default function Navbar() {
               href="/danismanlik"
               className={`whitespace-nowrap flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs xl:text-sm font-medium transition-all flex items-center space-x-1.5 ${
                 pathname === "/danismanlik"
-                  ? "text-white bg-[#0f214a] border border-[#d4af37]/40 shadow-sm shadow-[#d4af37]/10"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
+                  ? "nav-link-active text-white bg-[#0f214a] border border-[#d4af37]/40 shadow-sm shadow-[#d4af37]/10"
+                  : "nav-link-inactive text-white/70 hover:text-white hover:bg-white/5"
               }`}
             >
               <Briefcase className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
@@ -103,8 +103,8 @@ export default function Navbar() {
               href="/hakkimizda"
               className={`whitespace-nowrap flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs xl:text-sm font-medium transition-all flex items-center space-x-1.5 ${
                 pathname === "/hakkimizda"
-                  ? "text-white bg-[#0f214a] border border-[#d4af37]/40 shadow-sm shadow-[#d4af37]/10"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
+                  ? "nav-link-active text-white bg-[#0f214a] border border-[#d4af37]/40 shadow-sm shadow-[#d4af37]/10"
+                  : "nav-link-inactive text-white/70 hover:text-white hover:bg-white/5"
               }`}
             >
               <Users className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
@@ -114,7 +114,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => scrollToSection("referanslar")}
-              className="whitespace-nowrap flex-shrink-0 px-3 py-1.5 rounded-full text-xs xl:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center space-x-1 cursor-pointer"
+              className="nav-link-inactive whitespace-nowrap flex-shrink-0 px-3 py-1.5 rounded-full text-xs xl:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center space-x-1 cursor-pointer"
             >
               <Building2 className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
               <span className="whitespace-nowrap">Referanslar</span>
@@ -123,7 +123,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => scrollToSection("contact")}
-              className="whitespace-nowrap flex-shrink-0 px-3 py-1.5 rounded-full text-xs xl:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center space-x-1 cursor-pointer"
+              className="nav-link-inactive whitespace-nowrap flex-shrink-0 px-3 py-1.5 rounded-full text-xs xl:text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center space-x-1 cursor-pointer"
             >
               <MessageSquare className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
               <span className="whitespace-nowrap">İletişim</span>
@@ -131,9 +131,9 @@ export default function Navbar() {
 
             <Link
               href="/portal"
-              className={`whitespace-nowrap flex-shrink-0 px-4 py-1.5 rounded-full text-xs xl:text-sm font-semibold transition-all flex items-center space-x-1.5 ${
+              className={`portal-nav-btn whitespace-nowrap flex-shrink-0 px-4 py-1.5 rounded-full text-xs xl:text-sm font-semibold transition-all flex items-center space-x-1.5 ${
                 pathname.startsWith("/portal")
-                  ? "text-black bg-gradient-to-r from-[#e5c158] to-[#c59b27] shadow-md shadow-[#c59b27]/30"
+                  ? "is-active text-black bg-gradient-to-r from-[#e5c158] to-[#c59b27] shadow-md shadow-[#c59b27]/30"
                   : "text-[#c59b27] hover:text-white bg-[#c59b27]/15 hover:bg-[#c59b27]/25 border border-[#c59b27]/40"
               }`}
             >
@@ -173,8 +173,8 @@ export default function Navbar() {
               className="relative group overflow-hidden rounded-full p-px text-xs xl:text-sm font-semibold whitespace-nowrap flex-shrink-0"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-[#d4af37] via-[#c59b27] to-[#b89025] transition-all duration-300 group-hover:opacity-90" />
-              <span className="relative flex items-center space-x-1.5 rounded-full bg-[#040a1a] px-3.5 py-1.5 text-white transition-all duration-300 group-hover:bg-opacity-80 whitespace-nowrap">
-                <span className="whitespace-nowrap">Hızlı İletişim</span>
+              <span className="quick-contact-btn relative flex items-center space-x-1.5 rounded-full bg-[#040a1a] px-3.5 py-1.5 text-white transition-all duration-300 group-hover:bg-opacity-80 whitespace-nowrap">
+                <span className="whitespace-nowrap font-semibold">Hızlı İletişim</span>
                 <ArrowRight className="w-3 h-3 text-[#d4af37] transition-transform group-hover:translate-x-0.5 flex-shrink-0" />
               </span>
             </a>
@@ -202,12 +202,14 @@ export default function Navbar() {
 
         {/* Mobile menu drawer */}
         {mobileMenuOpen && (
-          <div className="xl:hidden mt-3 rounded-2xl bg-[#06112c]/95 border border-[#d4af37]/20 p-5 shadow-2xl backdrop-blur-2xl">
+          <div className="mobile-menu-drawer xl:hidden mt-3 rounded-2xl bg-[#06112c]/95 border border-[#d4af37]/20 p-5 shadow-2xl backdrop-blur-2xl">
             <div className="flex flex-col space-y-2.5">
               <Link
                 href="/muhasebecilik"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
+                className={`text-sm font-medium py-2 px-3 rounded-lg flex items-center justify-between ${
+                  pathname.startsWith("/muhasebe") ? "nav-link-active bg-[#0f214a] text-white" : "nav-link-inactive text-white/90 hover:bg-white/5"
+                }`}
               >
                 <span className="flex items-center space-x-2">
                   <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
@@ -218,18 +220,22 @@ export default function Navbar() {
               <Link
                 href="/danismanlik"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
+                className={`text-sm font-medium py-2 px-3 rounded-lg flex items-center justify-between ${
+                  pathname === "/danismanlik" ? "nav-link-active bg-[#0f214a] text-white" : "nav-link-inactive text-white/90 hover:bg-white/5"
+                }`}
               >
                 <span className="flex items-center space-x-2">
                   <Briefcase className="w-4 h-4 text-[#d4af37]" />
-                  <span>Yönetim Danışmanlığı & Teşvikler</span>
+                  <span>Yönetim Danışmanlığı &amp; Teşvikler</span>
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </Link>
               <Link
                 href="/hakkimizda"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
+                className={`text-sm font-medium py-2 px-3 rounded-lg flex items-center justify-between ${
+                  pathname === "/hakkimizda" ? "nav-link-active bg-[#0f214a] text-white" : "nav-link-inactive text-white/90 hover:bg-white/5"
+                }`}
               >
                 <span className="flex items-center space-x-2">
                   <Users className="w-4 h-4 text-[#d4af37]" />
@@ -240,7 +246,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => scrollToSection("referanslar")}
-                className="w-full text-left text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
+                className="nav-link-inactive w-full text-left text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
               >
                 <span className="flex items-center space-x-2">
                   <Building2 className="w-4 h-4 text-[#d4af37]" />
@@ -251,11 +257,11 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => scrollToSection("contact")}
-                className="w-full text-left text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
+                className="nav-link-inactive w-full text-left text-sm font-medium py-2 px-3 rounded-lg text-white/90 hover:bg-white/5 flex items-center justify-between"
               >
                 <span className="flex items-center space-x-2">
                   <MessageSquare className="w-4 h-4 text-[#d4af37]" />
-                  <span>İletişim & Lokasyon</span>
+                  <span>İletişim &amp; Lokasyon</span>
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </button>
@@ -263,7 +269,7 @@ export default function Navbar() {
               <Link
                 href="/portal"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold py-2.5 px-3 rounded-lg text-[#c59b27] bg-[#c59b27]/15 border border-[#c59b27]/30 hover:bg-[#c59b27]/25 flex items-center justify-between transition-colors"
+                className="portal-nav-btn text-sm font-semibold py-2.5 px-3 rounded-lg text-[#c59b27] bg-[#c59b27]/15 border border-[#c59b27]/30 hover:bg-[#c59b27]/25 flex items-center justify-between transition-colors"
               >
                 <span className="flex items-center space-x-2">
                   <ShieldCheck className="w-4 h-4 text-[#d4af37]" />

@@ -205,13 +205,13 @@ html.light-mode .page-container .text-white\/50 {
 
 /* Gold Gradient in Light Mode: Luxurious Rich Metallic Amber-Gold */
 html.light-mode .gold-gradient-text {
-  background: linear-gradient(135deg, #855d10 0%, #b89025 45%, #92600b 100%) !important;
+  background: linear-gradient(135deg, #a16207 0%, #d4af37 35%, #ca8a04 70%, #92400e 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
   color: transparent !important;
   font-weight: 700;
-  filter: drop-shadow(0 1px 1px rgba(133, 93, 16, 0.12));
+  filter: drop-shadow(0 1px 2px rgba(161, 98, 7, 0.20));
 }
 
 /* Gold Buttons: Keep black text on gold background */
@@ -253,32 +253,125 @@ html.light-mode #referanslar img {
   opacity: 0.85 !important;
 }
 
-/* 8. Header & Footer in Light Mode */
+/* 8. Header & Navbar in Light Mode */
 html.light-mode header {
-  background-color: rgba(255, 255, 255, 0.96) !important;
+  background-color: rgba(255, 255, 255, 0.98) !important;
   border-bottom: 1px solid #cbd5e1 !important;
   box-shadow: 0 4px 20px -2px rgba(5, 17, 46, 0.06) !important;
 }
 
-html.light-mode header a:not(.phone-nav-btn),
-html.light-mode header button {
-  color: #05112e !important;
+/* Inactive nav links: crisp slate text with subtle hover */
+html.light-mode header .nav-link-inactive {
+  color: #1e293b !important;
+  background-color: transparent !important;
 }
 
-html.light-mode header img[src*="logobeyaz"] {
-  filter: brightness(0) !important;
+html.light-mode header .nav-link-inactive:hover {
+  color: #07173e !important;
+  background-color: #f1f5f9 !important;
 }
 
-/* Phone Number Button in Light Mode (Navy Background, White Text) */
+html.light-mode header .nav-link-inactive svg {
+  color: #b89025 !important;
+}
+
+/* Active nav link: crisp executive dark navy pill with white text & subtle gold border */
+html.light-mode header .nav-link-active {
+  background-color: #07173e !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  box-shadow: 0 2px 10px rgba(7, 23, 62, 0.2) !important;
+}
+
+html.light-mode header .nav-link-active span {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+html.light-mode header .nav-link-active svg {
+  color: #d4af37 !important;
+}
+
+/* Mükellef Portalı button in header */
+html.light-mode header .portal-nav-btn {
+  background-color: rgba(212, 175, 55, 0.14) !important;
+  color: #855d10 !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.5) !important;
+}
+
+html.light-mode header .portal-nav-btn span {
+  color: #855d10 !important;
+  font-weight: 700 !important;
+}
+
+html.light-mode header .portal-nav-btn svg {
+  color: #b89025 !important;
+}
+
+html.light-mode header .portal-nav-btn:hover {
+  background-color: rgba(212, 175, 55, 0.25) !important;
+  color: #634305 !important;
+}
+
+/* Active Mükellef Portalı pill */
+html.light-mode header .portal-nav-btn.is-active,
+html.light-mode header .portal-nav-btn[class*="from-[#e5c158]"] {
+  background: linear-gradient(to right, #e5c158, #c59b27) !important;
+  color: #000000 !important;
+  border-color: #c59b27 !important;
+  box-shadow: 0 4px 14px rgba(197, 155, 39, 0.35) !important;
+}
+
+html.light-mode header .portal-nav-btn.is-active span,
+html.light-mode header .portal-nav-btn[class*="from-[#e5c158]"] span {
+  color: #000000 !important;
+}
+
+html.light-mode header .portal-nav-btn.is-active svg,
+html.light-mode header .portal-nav-btn[class*="from-[#e5c158]"] svg {
+  color: #000000 !important;
+}
+
+/* Quick contact button (Hızlı İletişim WhatsApp) */
+html.light-mode header .quick-contact-btn {
+  background-color: #07173e !important;
+  color: #ffffff !important;
+}
+
+html.light-mode header .quick-contact-btn span {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+html.light-mode header .quick-contact-btn svg {
+  color: #d4af37 !important;
+}
+
+/* Theme toggle button & Mobile menu trigger in header */
+html.light-mode header button:not(.nav-link-inactive) {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #07173e !important;
+}
+
+html.light-mode header button:not(.nav-link-inactive):hover {
+  background-color: #e2e8f0 !important;
+}
+
+html.light-mode header button:not(.nav-link-inactive) svg {
+  color: #07173e !important;
+}
+
+/* Phone Number Button in Light Mode (Crisp White Pill with Navy Text & Gold Icon) */
 html.light-mode .phone-nav-btn,
 html.light-mode a[href="tel:05536221122"].rounded-full,
 html.light-mode a[href="tel:05536221122"].rounded-xl,
 html.light-mode a[href^="tel:"].rounded-full,
 html.light-mode a[href^="tel:"].rounded-xl {
-  background-color: #07173e !important;
-  color: #ffffff !important;
-  border: 1px solid rgba(212, 175, 55, 0.45) !important;
-  box-shadow: 0 2px 8px rgba(7, 23, 62, 0.15) !important;
+  background-color: #ffffff !important;
+  color: #07173e !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 2px 8px rgba(5, 17, 46, 0.05) !important;
 }
 
 html.light-mode .phone-nav-btn span,
@@ -286,7 +379,8 @@ html.light-mode a[href="tel:05536221122"].rounded-full span,
 html.light-mode a[href="tel:05536221122"].rounded-xl span,
 html.light-mode a[href^="tel:"].rounded-full span,
 html.light-mode a[href^="tel:"].rounded-xl span {
-  color: #ffffff !important;
+  color: #07173e !important;
+  font-weight: 700 !important;
 }
 
 html.light-mode .phone-nav-btn svg,
@@ -294,7 +388,7 @@ html.light-mode a[href="tel:05536221122"].rounded-full svg,
 html.light-mode a[href="tel:05536221122"].rounded-xl svg,
 html.light-mode a[href^="tel:"].rounded-full svg,
 html.light-mode a[href^="tel:"].rounded-xl svg {
-  color: #d4af37 !important;
+  color: #b89025 !important;
 }
 
 html.light-mode .phone-nav-btn:hover,
@@ -302,9 +396,37 @@ html.light-mode a[href="tel:05536221122"].rounded-full:hover,
 html.light-mode a[href="tel:05536221122"].rounded-xl:hover,
 html.light-mode a[href^="tel:"].rounded-full:hover,
 html.light-mode a[href^="tel:"].rounded-xl:hover {
-  background-color: #0d2861 !important;
-  border-color: #d4af37 !important;
+  background-color: #f8fafc !important;
+  border-color: #b89025 !important;
+  color: #07173e !important;
+}
+
+/* Mobile drawer in Light Mode */
+html.light-mode header .mobile-menu-drawer {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 20px 40px rgba(5, 17, 46, 0.12) !important;
+}
+
+html.light-mode header .mobile-menu-drawer .nav-link-inactive {
+  color: #0f214a !important;
+}
+
+html.light-mode header .mobile-menu-drawer .nav-link-inactive:hover {
+  background-color: #f1f5f9 !important;
+}
+
+html.light-mode header .mobile-menu-drawer .nav-link-active {
+  background-color: #07173e !important;
   color: #ffffff !important;
+}
+
+html.light-mode header .mobile-menu-drawer .nav-link-active span {
+  color: #ffffff !important;
+}
+
+html.light-mode header .mobile-menu-drawer .border-white\/10 {
+  border-color: #e2e8f0 !important;
 }
 
 /* Footer in Light Mode */
@@ -356,23 +478,34 @@ html.light-mode .subpage-hero {
   color: #05112e !important;
 }
 
+/* Remove blur and heavy milky fog: let the architectural photography shine crisply */
 html.light-mode .subpage-hero .hero-overlay-base {
-  background-color: rgba(248, 250, 252, 0.84) !important;
-  backdrop-filter: blur(2px) !important;
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  backdrop-filter: none !important;
 }
 
+/* High-contrast directional gradient: opaque light background on left for text legibility, fading away to right for photo clarity */
 html.light-mode .subpage-hero .hero-overlay-horiz {
-  background: linear-gradient(to right, rgba(248, 250, 252, 0.98) 0%, rgba(248, 250, 252, 0.90) 45%, rgba(248, 250, 252, 0.40) 100%) !important;
+  background: linear-gradient(to right, rgba(248, 250, 252, 0.96) 0%, rgba(248, 250, 252, 0.92) 36%, rgba(248, 250, 252, 0.50) 65%, rgba(248, 250, 252, 0.05) 100%) !important;
 }
 
+@media (max-width: 768px) {
+  html.light-mode .subpage-hero .hero-overlay-horiz {
+    background: linear-gradient(to bottom, rgba(248, 250, 252, 0.96) 0%, rgba(248, 250, 252, 0.88) 60%, rgba(248, 250, 252, 0.40) 100%) !important;
+  }
+}
+
+/* Vertical gradient: clean transition from top navbar and into bottom sections */
 html.light-mode .subpage-hero .hero-overlay-vert {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, transparent 40%, #f1f5f9 100%) !important;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.70) 0%, transparent 25%, transparent 75%, #f8fafc 100%) !important;
 }
 
+/* Warm luxury golden light accent */
 html.light-mode .subpage-hero .hero-overlay-radial {
-  background: radial-gradient(ellipse at top right, rgba(212, 175, 55, 0.16), transparent 70%) !important;
+  background: radial-gradient(ellipse at top right, rgba(212, 175, 55, 0.20), transparent 60%) !important;
 }
 
+/* Subpage hero badge: crisp white pill with gold border and dark amber text */
 html.light-mode .subpage-hero .subpage-hero-badge {
   background-color: #ffffff !important;
   border: 1.5px solid rgba(184, 144, 37, 0.45) !important;
@@ -380,7 +513,7 @@ html.light-mode .subpage-hero .subpage-hero-badge {
 }
 
 html.light-mode .subpage-hero .subpage-hero-badge span {
-  color: #05112e !important;
+  color: #855d10 !important;
   font-weight: 700 !important;
 }
 
@@ -388,24 +521,28 @@ html.light-mode .subpage-hero .subpage-hero-badge svg {
   color: #b89025 !important;
 }
 
+/* Hero Typography: deep navy contrast */
 html.light-mode .subpage-hero .subpage-hero-title,
 html.light-mode .subpage-hero h1 {
   color: #05112e !important;
+  font-weight: 600 !important;
 }
 
 html.light-mode .subpage-hero .subpage-hero-desc,
 html.light-mode .subpage-hero p {
   color: #334155 !important;
   font-weight: 400 !important;
+  line-height: 1.7 !important;
 }
 
+/* Trust Badges in Hero */
 html.light-mode .subpage-hero .subpage-hero-trust {
   border-top-color: #cbd5e1 !important;
   color: #1e293b !important;
 }
 
 html.light-mode .subpage-hero .subpage-hero-trust span {
-  color: #1e293b !important;
+  color: #0f172a !important;
   font-weight: 600 !important;
 }
 
@@ -418,10 +555,11 @@ html.light-mode .subpage-hero .subpage-hero-trust svg {
    ========================================================================== */
 html.light-mode .hakkimizda-hero {
   background-color: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0 !important;
 }
 
 html.light-mode .hakkimizda-hero .hakkimizda-glow {
-  background: radial-gradient(circle, rgba(250, 236, 192, 0.45) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%) !important;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, rgba(241, 245, 249, 0.05) 60%, transparent 80%) !important;
 }
 
 html.light-mode .hakkimizda-hero .hakkimizda-badge,
@@ -444,6 +582,7 @@ html.light-mode .blog-hero-badge svg {
 
 html.light-mode .hakkimizda-hero h1 {
   color: #05112e !important;
+  font-weight: 600 !important;
 }
 
 html.light-mode .hakkimizda-hero p {
@@ -464,9 +603,14 @@ html.light-mode #canvas-door-section h1 span:not(.hero-gold-gradient):not(.gold-
 html.light-mode #canvas-door-section h2 span:not(.hero-gold-gradient):not(.gold-gradient-text),
 html.light-mode #canvas-door-section h3 span:not(.hero-gold-gradient):not(.gold-gradient-text),
 html.light-mode #canvas-door-section p,
-html.light-mode #canvas-door-section span:not(.hero-gold-gradient):not(.gold-gradient-text),
+html.light-mode #canvas-door-section span:not(.hero-gold-gradient):not(.gold-gradient-text):not([class*="text-[#dfa929]"]):not([class*="text-[#d4af37]"]),
 html.light-mode #canvas-door-section a:not([class*="from-[#d4af37]"]) {
   color: #ffffff !important;
+}
+
+html.light-mode #canvas-door-section .group\/hub span.text-\[\#dfa929\],
+html.light-mode #canvas-door-section .group\/hub a span {
+  color: #dfa929 !important;
 }
 
 /* Awwwards Luxury Hero Gold Gradient: Koyu Gold'dan Luminous Medium Açık Gold'a (125deg Diagonal Sweep) */
