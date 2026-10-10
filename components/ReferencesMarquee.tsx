@@ -5,7 +5,6 @@ import Image from "next/image";
 // 20 Verified Real Client Brands with Authentic Monochrome Logos
 const REFERENCES = [
   { name: "ÖZGÜR LEBLEBİ", file: "ozgurleblebi.webp", desc: "Gıda & Kuruyemiş İmalatı" },
-  { name: "ROKO DONDURMA & KAHVE", file: "roko.webp", desc: "Gurme Dondurma & Kahve Zinciri" },
   { name: "ANAKAMP KÜÇÜK KAŞİFLER", file: "anakamp.webp", desc: "Okul Öncesi & Erken Çocukluk Eğitimi" },
   { name: "TODO CROISSANT & COFFEE", file: "todocroissant.webp", desc: "Artizan Fırıncılık & Kahve" },
   { name: "TODO CREATIVE", file: "todocreative.webp", desc: "Dijital Medya & Reklam Ajansı" },

@@ -16,7 +16,6 @@ import {
   Scale,
   FileText,
   Sparkles,
-  ChevronRight,
   Phone,
   MessageSquare
 } from "lucide-react";
@@ -80,15 +79,6 @@ export default function HakkimizdaPage() {
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#1d3b7d]/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="flex items-center space-x-2 text-xs text-white/50 mb-6">
-            <Link href="/" className="hover:text-[#d4af37] transition-colors">
-              Ana Sayfa
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-[#faecc0] font-medium">Hakkımızda</span>
-          </nav>
-
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-xs font-semibold uppercase tracking-wider mb-6">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Kurumsal Profil & Yönetim</span>

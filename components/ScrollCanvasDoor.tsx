@@ -616,10 +616,13 @@ export default function ScrollCanvasDoor() {
           }}
           className="absolute inset-0 z-30 flex flex-col items-center justify-center px-4 sm:px-8 py-12 pointer-events-none"
         >
-          <div className="text-center mb-6 sm:mb-8 max-w-2xl">
+          <div className="text-center mb-6 sm:mb-8 max-w-2xl space-y-2">
             <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
-              Hangi Kanatta <span className="gold-gradient-text font-bold tracking-wide">Rehberlik</span> Almak İstersiniz?
+              İki Ana Uzmanlık <span className="gold-gradient-text font-serif italic">Kanalımız</span>
             </h2>
+            <p className="text-xs sm:text-sm text-white/70 max-w-lg mx-auto font-light">
+              İhtiyacınıza uygun kapıyı seçerek detayları inceleyin.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl w-full">
