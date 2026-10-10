@@ -27,6 +27,7 @@ import {
   Clock
 } from "lucide-react";
 import AppointmentForm from "@/components/AppointmentForm";
+import ReferencesMarquee from "@/components/ReferencesMarquee";
 import { BLOG_POSTS } from "@/lib/blogData";
 import LinkedInShareButton from "@/components/LinkedInShareButton";
 
@@ -166,9 +167,9 @@ export default function DanismanlikPage() {
 
   return (
     <div className="min-h-screen bg-[#040a1a] text-white pb-20 transition-colors duration-300 page-container">
-      {/* 1. Grand Standalone Homepage Hero Section */}
-      <section className="relative w-full overflow-hidden pt-32 sm:pt-36 lg:pt-40 pb-20 lg:pb-28 min-h-[85vh] lg:min-h-[90vh] flex items-center">
-        {/* Background Image capturing whole top of screen */}
+      {/* 1. Grand Standalone Homepage Hero Section (16:9 Full Screen Viewport Cover) */}
+      <section className="relative w-full overflow-hidden min-h-screen lg:min-h-[100dvh] flex items-center justify-center pt-24 pb-16 lg:py-0">
+        {/* Background Image capturing whole top of screen in 16:9 */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero-danismanlik.webp"
@@ -186,13 +187,6 @@ export default function DanismanlikPage() {
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb Navigation */}
-          <div className="flex items-center space-x-2 text-xs text-white/60 mb-6 sm:mb-8">
-            <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
-            <ChevronRight className="w-3 h-3 text-[#d4af37]" />
-            <span className="text-[#d4af37]">Yönetim Danışmanlığı &amp; Teşvikler</span>
-          </div>
-
           <div className="max-w-3xl space-y-6">
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128]/90 backdrop-blur-md text-xs font-semibold text-[#d4af37] shadow-lg shadow-black/40">
               <Briefcase className="w-4 h-4 text-[#d4af37]" />
@@ -245,6 +239,9 @@ export default function DanismanlikPage() {
           </div>
         </div>
       </section>
+
+      {/* 2. Kesintisiz Dönen Türk Firmaları Referanslar Silsilesi */}
+      <ReferencesMarquee />
 
       {/* 2. BİZ KİMİZ & HAKKIMIZDA (YÖNETİM DANIŞMANLIĞI YAKLAŞIMIMIZ) */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 border-y border-[#d4af37]/20 bg-[#020612]/70">

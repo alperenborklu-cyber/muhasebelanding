@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import ReferencesMarquee from "@/components/ReferencesMarquee";
 import {
   ShieldCheck,
   Briefcase,
@@ -452,7 +453,10 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* 6. Mesleki Üyelikler & Akreditasyonlar */}
+      {/* 6. Kurumsal Referanslarımız */}
+      <ReferencesMarquee />
+
+      {/* 7. Mesleki Üyelikler & Akreditasyonlar */}
       <section className="px-4 sm:px-6 lg:px-8 py-10">
         <div className="max-w-6xl mx-auto">
           <div className="glass-panel p-8 rounded-3xl border border-white/10 space-y-6">
