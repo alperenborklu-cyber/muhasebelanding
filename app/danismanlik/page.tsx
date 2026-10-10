@@ -32,7 +32,7 @@ import { BLOG_POSTS } from "@/lib/blogData";
 import LinkedInShareButton from "@/components/LinkedInShareButton";
 
 export default function DanismanlikPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const tesvikBlogPosts = BLOG_POSTS.filter(
     (p) => p.category === "Devlet Teşvikleri" || p.category === "KOSGEB"
@@ -84,7 +84,7 @@ export default function DanismanlikPage() {
     }
   ];
 
-  // 2. İşletmenizi Büyütecek Teşvik Programları (İnsan Kaynakları çıkartıldı)
+  // 2. İşletmenizi Büyütecek Teşvik Programları
   const programs = [
     {
       title: "Yatırım Teşvik Belgesi",

@@ -9,20 +9,17 @@ import {
   ArrowRight, 
   Phone, 
   ChevronRight,
-  Users,
-  Sparkles,
-  HelpCircle,
-  Clock,
-  BookOpen,
-  FileText,
-  Scale,
-  BadgeCheck,
-  CreditCard,
-  Building,
-  Calculator,
-  Mail,
-  MapPin,
-  Calendar
+  Sparkles, 
+  HelpCircle, 
+  Clock, 
+  BookOpen, 
+  FileText, 
+  BadgeCheck, 
+  CreditCard, 
+  Calculator, 
+  Mail, 
+  MapPin, 
+  Calendar 
 } from "lucide-react";
 import AppointmentForm from "@/components/AppointmentForm";
 import ReferencesMarquee from "@/components/ReferencesMarquee";
@@ -30,8 +27,8 @@ import { BLOG_POSTS } from "@/lib/blogData";
 import LinkedInShareButton from "@/components/LinkedInShareButton";
 
 export default function MuhasebecilikPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [openGuideIndex, setOpenGuideIndex] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openGuideIndex, setOpenGuideIndex] = useState<number | null>(null);
 
   const maliBlogPosts = BLOG_POSTS.filter(
     (p) => p.category === "Mali Müşavirlik" || p.category === "Vergi Mevzuatı" || p.category === "Yönetim Muhasebesi"
@@ -264,82 +261,6 @@ export default function MuhasebecilikPage() {
 
       {/* 2. Kesintisiz Dönen Türk Firmaları Referanslar Silsilesi */}
       <ReferencesMarquee />
-
-      {/* 2. Biz Kimiz & Mali Müşavirlik Yaklaşımımız (Hakkımızda) */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-y border-[#d4af37]/20 bg-[#020612]/70">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5 relative">
-              <div className="relative h-96 sm:h-[460px] w-full rounded-3xl overflow-hidden border border-[#d4af37]/30 shadow-2xl">
-                <Image
-                  src="/images/suleyman-ilhan-mali-musavir-yonetim-danismani.webp"
-                  alt="SMMM Süleyman İlhan - ROTAYD Yetkili Mali Müşavir ve Kıdemli Yönetim Danışmanı Ankara"
-                  fill
-                  className="object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/30 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-[#040a1a]/85 backdrop-blur-md border border-[#d4af37]/30">
-                  <div className="text-base font-bold text-white">Süleyman İlhan</div>
-                  <div className="text-xs text-[#d4af37]">Serbest Muhasebeci Mali Müşavir (SMMM)</div>
-                  <div className="text-[11px] text-white/50 mt-1">TÜRMOB &amp; ASMMMO Yetkili Üyesi</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
-                <Users className="w-3.5 h-3.5" />
-                <span>BİZ KİMİZ?</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
-                Ruhsatlı Yetki, Dijital Altyapı ve <span className="gold-gradient-text font-serif italic">Güven Odaklı Yaklaşım</span>
-              </h2>
-
-              <p className="text-sm sm:text-base text-white/80 leading-relaxed font-light">
-                ROTAYD Mali Müşavirlik, Ankara Çankaya Suit Tower merkezli olarak; Türkiye&apos;nin önde gelen sanayi, teknoloji ve hizmet şirketlerine butik mali müşavirlik ve vergi yönetimi hizmeti sunmaktadır.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
-                  <div className="flex items-center space-x-2 text-[#d4af37] font-semibold text-xs">
-                    <Scale className="w-4 h-4" />
-                    <span>Yasal Mevzuat ve Etik İlkeler</span>
-                  </div>
-                  <p className="text-xs text-white/60 leading-relaxed">
-                    Vergi Usul Kanunu, Türk Ticaret Kanunu ve İş Kanunu çerçevesinde şirketinizin haklarını kuruşu kuruşuna savunan şeffaf temsil.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
-                  <div className="flex items-center space-x-2 text-[#d4af37] font-semibold text-xs">
-                    <Building className="w-4 h-4" />
-                    <span>Suit Tower Çankaya Ofisi</span>
-                  </div>
-                  <p className="text-xs text-white/60 leading-relaxed">
-                    Başkentin prestijli iş merkezinde yüz yüze ve dijital toplantılarla kesintisiz yönetici iletişimi.
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-2 flex flex-wrap items-center gap-4 text-xs text-white/70">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#d4af37]" />
-                  <span>350+ Denetlenen Şirket Defteri</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#d4af37]" />
-                  <span>15+ Yıllık Kıdemli SMMM Deneyimi</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#d4af37]" />
-                  <span>Zaman Damgalı Mükellef Portalı</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 3. 10 BAŞLIK: İLK DEFA BİR ŞİRKET KURUYORUM: NELERE DİKKAT ETMELİYİM? ŞAHIS MI LİMİTED Mİ? */}
       <section id="sirket-kurulus-rehberi" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
