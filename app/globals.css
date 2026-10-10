@@ -413,6 +413,10 @@ html.light-mode #canvas-hero-title .hero-gold-gradient {
   background-clip: text !important;
   color: transparent !important;
   display: inline-block;
+  padding-top: 0.25em;
+  padding-bottom: 0.22em;
+  margin-top: -0.25em;
+  margin-bottom: -0.22em;
   filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(212, 175, 55, 0.22));
 }
 
