@@ -287,6 +287,79 @@ export default function AdminPortalPage() {
     }
   };
 
+  // TEK TIKLA BELİRLİ BİR MÜKELLEFİN TÜM FİŞ VE FOTOĞRAFLARINI ZIP/RAR İNDİRME
+  const handleDownloadCompanyZip = async (company: TuzelKisi) => {
+    const compDocs = documents.filter((d) => d.companyId === company.id);
+    if (compDocs.length === 0) {
+      alert(`${company.unvan} mükellefine ait henüz kayıtlı fiş veya slip bulunmuyor.`);
+      return;
+    }
+
+    setIsZipping(true);
+    try {
+      const zip = new JSZip();
+      const cleanName = (company.unvan || 'Mukellef')
+        .replace(/[^a-zA-Z0-9çÇğĞıİöÖşŞüÜ]/g, '_')
+        .slice(0, 30);
+      const todayStr = new Date().toISOString().split('T')[0];
+      const folderName = `${cleanName}_ROTAYD_Fis_Arsivi_${todayStr}`;
+      const folder = zip.folder(folderName) || zip;
+
+      let summary = `ROTAYD MALİ MÜŞAVİRLİK - MÜKELLEF FİŞ & SLİP DÖKÜMÜ\n`;
+      summary += `Firma / Mükellef: ${company.unvan}\n`;
+      summary += `Vergi Kimlik No (VKN / TCKN): ${company.vkn}\n`;
+      summary += `Vergi Dairesi: ${company.vergiDairesi}\n`;
+      summary += `Yetkili Kişi: ${company.yetkiliKisi} (${company.telefon})\n`;
+      summary += `Rapor Tarihi: ${new Date().toLocaleString('tr-TR')}\n`;
+      summary += `Toplam Evrak Adedi: ${compDocs.length} Adet\n\n`;
+      summary += `SIRA | BELGE NO | TARİH | KATEGORİ | TUTAR (TL) | KDV | TOPLAM (TL) | DURUM\n`;
+      summary += `----------------------------------------------------------------------------------------------------\n`;
+
+      let totalMatrah = 0;
+      let totalKdv = 0;
+      let grandTotal = 0;
+
+      for (let i = 0; i < compDocs.length; i++) {
+        const doc = compDocs[i];
+        totalMatrah += doc.tutar || 0;
+        totalKdv += doc.kdvTutari || 0;
+        grandTotal += doc.toplamTutar || 0;
+
+        const fileName = `${doc.faturaNo || `BELGE_${i + 1}`}.jpg`;
+        summary += `${i + 1} | ${doc.faturaNo} | ${doc.faturaTarihi} | ${doc.kategori} | ₺${(doc.tutar || 0).toFixed(2)} | %${doc.kdvOrani} | ₺${(doc.toplamTutar || 0).toFixed(2)} | ${doc.durum}\n`;
+
+        if (doc.fileDataUrl) {
+          const base64Data = doc.fileDataUrl.split(',')[1] || doc.fileDataUrl;
+          folder.file(fileName, base64Data, { base64: true });
+        } else {
+          folder.file(`${doc.faturaNo}_kayit.txt`, `Şirket: ${doc.companyUnvan}\nFatura No: ${doc.faturaNo}\nTarih: ${doc.faturaTarihi}\nTutar: ₺${doc.toplamTutar}\nNot: ${doc.notlar || '-'}`);
+        }
+      }
+
+      summary += `----------------------------------------------------------------------------------------------------\n`;
+      summary += `GENEL TOPLAM MATRAH: ₺${totalMatrah.toFixed(2)}\n`;
+      summary += `TOPLAM KDV: ₺${totalKdv.toFixed(2)}\n`;
+      summary += `GENEL KDV DAHİL TOPLAM: ₺${grandTotal.toFixed(2)}\n`;
+
+      folder.file('00_MUKELLEF_FIS_VE_SLIP_LISTESI.txt', summary);
+
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const downloadUrl = URL.createObjectURL(zipBlob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `${folderName}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(downloadUrl);
+    } catch (err) {
+      console.error('Mükellef arşivi indirme hatası:', err);
+      alert('Mükellef arşivi indirilirken bir hata oluştu.');
+    } finally {
+      setIsZipping(false);
+    }
+  };
+
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-[#040a1a] flex items-center justify-center text-white">
@@ -664,11 +737,27 @@ export default function AdminPortalPage() {
                   onClick={handleDownloadAdminZip}
                   disabled={isZipping || filteredDocs.length === 0}
                   className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs flex items-center space-x-1.5 shadow-md transition-all cursor-pointer whitespace-nowrap active:scale-[0.98]"
-                  title="Filtrelenen tüm fiş ve slipleri tek tıkla ZIP olarak indir"
+                  title="Filtrelenen tüm fiş ve slipleri tek tıkla RAR / ZIP olarak indir"
                 >
                   <Download className={`w-3.5 h-3.5 ${isZipping ? 'animate-bounce' : ''}`} />
-                  <span>{isZipping ? 'Paketleniyor...' : 'Tüm Fişleri İndir (.ZIP)'}</span>
+                  <span>{isZipping ? 'Paketleniyor...' : 'Tüm Fişleri İndir (RAR / ZIP)'}</span>
                 </button>
+
+                {selectedCompanyFilter !== 'all' && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const comp = companies.find(c => c.id === selectedCompanyFilter);
+                      if (comp) handleDownloadCompanyZip(comp);
+                    }}
+                    disabled={isZipping}
+                    className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center space-x-1.5 shadow-md transition-all cursor-pointer whitespace-nowrap active:scale-[0.98]"
+                    title="Seçili mükellefin tüm fişlerini tek tıkla RAR / ZIP olarak indir"
+                  >
+                    <Download className={`w-3.5 h-3.5 ${isZipping ? 'animate-bounce' : ''}`} />
+                    <span>Seçili Mükellefi İndir (RAR / ZIP)</span>
+                  </button>
+                )}
 
                 <div className="relative">
                   <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -755,8 +844,19 @@ export default function AdminPortalPage() {
                       </div>
                     </div>
 
-                    {/* Durum Değiştirici */}
-                    <div className="flex items-center space-x-3 self-end lg:self-center">
+                    {/* Hızlı İndirme ve Durum Değiştirici */}
+                    <div className="flex flex-wrap items-center gap-2 self-end lg:self-center">
+                      {doc.fileDataUrl && (
+                        <a
+                          href={doc.fileDataUrl}
+                          download={`${doc.faturaNo || 'belge'}.jpg`}
+                          className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-[#d4af37]/20 text-[#faecc0] border border-white/10 text-xs font-semibold flex items-center space-x-1 transition-colors"
+                          title="Fiş / Slip Fotoğrafını İndir"
+                        >
+                          <Download className="w-3.5 h-3.5 text-[#d4af37]" />
+                          <span>Fotoğraf</span>
+                        </a>
+                      )}
                       <label className="text-[11px] text-slate-400 font-medium">Durum:</label>
                       <select
                         value={doc.durum}
@@ -823,6 +923,24 @@ export default function AdminPortalPage() {
                         <span className="text-slate-400">Yetkili / Telefon:</span>
                         <span className="text-white">{comp.yetkiliKisi} ({comp.telefon})</span>
                       </div>
+                    </div>
+
+                    {/* TEK TIKLA MÜKELLEF ARŞİVİ İNDİR (RAR / ZIP) */}
+                    <div className="pt-2 border-t border-white/5">
+                      <button
+                        type="button"
+                        onClick={() => handleDownloadCompanyZip(comp)}
+                        disabled={isZipping || compDocs.length === 0}
+                        className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 transition-all shadow-md ${
+                          compDocs.length > 0 && !isZipping
+                            ? 'bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] cursor-pointer active:scale-[0.98]'
+                            : 'bg-white/5 text-slate-500 cursor-not-allowed border border-white/5'
+                        }`}
+                        title={`${comp.unvan} mükellefine ait tüm fiş ve fotoğrafları tek tıkla RAR / ZIP indir`}
+                      >
+                        <Download className={`w-3.5 h-3.5 ${isZipping ? 'animate-bounce' : ''}`} />
+                        <span>Tek Tıkla İndir (RAR / ZIP) ({compDocs.length} Evrak)</span>
+                      </button>
                     </div>
                   </div>
                 );

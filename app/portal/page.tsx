@@ -51,7 +51,27 @@ function getOneMonthPriorDate(): string {
   return d.toISOString().split('T')[0];
 }
 
-// Otomatik Fiş & Slip Numarası Formatı: UNVAN-ROTAYD-GG-AA-YY-SIRA
+// Tarih parçalarını ayrıştır (GG, AA, YY)
+function parseDateParts(dateStr: string): { dd: string; mm: string; yy: string } {
+  if (dateStr && dateStr.includes('-')) {
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      return {
+        yy: parts[0].slice(-2),
+        mm: parts[1].padStart(2, '0'),
+        dd: parts[2].padStart(2, '0')
+      };
+    }
+  }
+  const d = new Date();
+  return {
+    dd: String(d.getDate()).padStart(2, '0'),
+    mm: String(d.getMonth() + 1).padStart(2, '0'),
+    yy: String(d.getFullYear()).slice(-2)
+  };
+}
+
+// Otomatik Fiş & Slip Numarası Formatı: UNVAN-ROTAYD-GG-AA-YY-SIRA (Örn: UNVAN-ROTAYD-05-10-26-01)
 function formatDocCode(unvan: string, dateStr: string, seqNum: number): string {
   const cleanUnvan = (unvan || 'UNVAN')
     .toUpperCase()
@@ -64,10 +84,7 @@ function formatDocCode(unvan: string, dateStr: string, seqNum: number): string {
     .replace(/[^A-Z0-9]/g, '')
     .slice(0, 10) || 'UNVAN';
 
-  const dateObj = new Date(dateStr || getOneMonthPriorDate());
-  const dd = String(dateObj.getDate()).padStart(2, '0');
-  const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-  const yy = String(dateObj.getFullYear()).slice(-2);
+  const { dd, mm, yy } = parseDateParts(dateStr || getOneMonthPriorDate());
   const seq = String(seqNum).padStart(2, '0');
 
   return `${cleanUnvan}-ROTAYD-${dd}-${mm}-${yy}-${seq}`;
@@ -145,10 +162,26 @@ export default function PortalPage() {
 
   // Aktif şirketi ve otomatik atanacak belge numarasını hesapla
   const activeCompany = companies.find((c) => c.id === selectedCompanyId) || companies[0];
-  const nextSeq = (documents.filter(d => !selectedCompanyId || d.companyId === selectedCompanyId).length) + 1;
+
+  // Seçili şirketin ve tarihin mevcut evraklarını tarayarak bir sonraki sıra numarasını belirle
+  const { dd: curDd, mm: curMm, yy: curYy } = parseDateParts(faturaTarihi);
+  const dateMarker = `-${curDd}-${curMm}-${curYy}-`;
+  const compDocs = documents.filter(d => !selectedCompanyId || d.companyId === selectedCompanyId);
+  const existingSeqs = compDocs
+    .map(d => {
+      if (d.faturaNo && d.faturaNo.includes(dateMarker)) {
+        const parts = d.faturaNo.split(dateMarker);
+        const parsed = parseInt(parts[1], 10);
+        return isNaN(parsed) ? 0 : parsed;
+      }
+      return 0;
+    })
+    .filter(n => n > 0);
+
+  const nextSeq = existingSeqs.length > 0 ? Math.max(...existingSeqs) + 1 : 1;
   const currentAutoCode = formatDocCode(activeCompany?.unvan || 'ROTAYD', faturaTarihi, nextSeq);
 
-  // Otomatik fatura numarasını başlangıçta ata
+  // Otomatik fatura numarasını başlangıçta veya parametreler değiştikçe ata
   useEffect(() => {
     if (!faturaNo || faturaNo.includes('-ROTAYD-')) {
       setFaturaNo(currentAutoCode);
@@ -363,13 +396,26 @@ export default function PortalPage() {
       }
 
       if (file.type.startsWith('image/')) {
-        const objectUrl = URL.createObjectURL(file);
-        setRawImageForCrop(objectUrl);
-        setIsCropperOpen(true);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const dataUrl = event.target?.result as string;
+          setRawImageForCrop(dataUrl);
+          // Orijinal dosyayı da otomatik kod adıyla hazırla
+          const initialFile = new File([file], `${currentAutoCode}.jpg`, { type: file.type });
+          setUploadFile(initialFile);
+          setFilePreviewUrl(dataUrl);
+          setFileDataUrl(dataUrl);
+          setFaturaNo(currentAutoCode);
+          setIsCropperOpen(true);
+        };
+        reader.readAsDataURL(file);
       } else {
         // PDF veya diğer belge
-        setUploadFile(file);
+        const formattedPdf = new File([file], `${currentAutoCode}.pdf`, { type: file.type });
+        setUploadFile(formattedPdf);
         setFilePreviewUrl(null);
+        setFileDataUrl(null);
+        setFaturaNo(currentAutoCode);
       }
     }
   };
@@ -382,6 +428,7 @@ export default function PortalPage() {
     setFilePreviewUrl(croppedDataUrl);
     setFileDataUrl(croppedDataUrl);
     setFaturaNo(currentAutoCode);
+    setIsCropperOpen(false);
   };
 
   // Fiş / Fatura / Fotoğraf Kaydet (API üzerinden)
@@ -622,10 +669,18 @@ export default function PortalPage() {
                     </div>
                   </div>
 
+                  {/* Şifre Bilgilendirme Kutusu */}
+                  <div className="p-3 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#faecc0] text-xs flex items-center space-x-2.5">
+                    <Lock className="w-4 h-4 text-[#d4af37] shrink-0" />
+                    <div className="text-[11px] leading-relaxed">
+                      <strong>Otomatik Şifre:</strong> Şifreniz Vergi Numaranız (VKN/TCKN) ile aynıdır. Ekstra şifre oluşturmanıza gerek yoktur.
+                    </div>
+                  </div>
+
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
                       <label className="text-xs font-semibold text-slate-300">
-                        Şifreniz * <span className="text-[#d4af37] font-normal">(Vergi Numaranız ile Aynıdır)</span>
+                        Şifreniz * <span className="text-[#d4af37] font-normal">(Vergi Numaranız ile Otomatik Eşleşir)</span>
                       </label>
                     </div>
                     <div className="relative">
@@ -1256,6 +1311,27 @@ export default function PortalPage() {
                       />
                     </div>
 
+                    {/* Göndermeden Önce Otomatik Numara Önizleme Kartı */}
+                    <div className="p-3.5 rounded-xl bg-gradient-to-r from-[#d4af37]/20 via-[#d4af37]/10 to-transparent border border-[#d4af37]/50 flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] text-[#faecc0] uppercase font-bold tracking-wider flex items-center space-x-1">
+                          <Sparkles className="w-3 h-3 text-[#d4af37]" />
+                          <span>Otomatik Atanan Belge Kodu:</span>
+                        </span>
+                        <span className="font-mono text-sm sm:text-base font-bold text-white tracking-wider block mt-0.5">
+                          {faturaNo || currentAutoCode}
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <span className="px-2.5 py-1 rounded-lg bg-[#d4af37] text-black font-mono text-xs font-bold shadow block">
+                          Sıra #{String(nextSeq).padStart(2, '0')}
+                        </span>
+                        <span className="text-[10px] text-slate-300 block mt-0.5">
+                          {curDd}/{curMm}/20{curYy}
+                        </span>
+                      </div>
+                    </div>
+
                     {/* Gönder Butonu */}
                     <button
                       type="submit"
@@ -1274,7 +1350,7 @@ export default function PortalPage() {
                       ) : (
                         <>
                           <Lock className="w-4 h-4" />
-                          <span>Fişi Müşavir Havuzuna Gönder</span>
+                          <span>Fişi Müşavir Havuzuna Gönder ({faturaNo || currentAutoCode})</span>
                         </>
                       )}
                     </button>
@@ -1282,7 +1358,7 @@ export default function PortalPage() {
                     {uploadSuccess && (
                       <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs flex items-center space-x-2">
                         <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
-                        <span>Fiş başarıyla kaydedildi: {faturaNo}</span>
+                        <span>Fiş başarıyla kaydedildi: {faturaNo || currentAutoCode}</span>
                       </div>
                     )}
                   </form>
@@ -1309,10 +1385,10 @@ export default function PortalPage() {
                       onClick={handleDownloadAllZip}
                       disabled={isZipping || documents.length === 0}
                       className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b89025] hover:from-[#faecc0] hover:to-[#d4af37] text-[#040a1a] font-bold text-xs flex items-center space-x-1.5 shadow-md transition-all cursor-pointer whitespace-nowrap active:scale-[0.98]"
-                      title="Tüm fiş ve slipleri tek tıkla ZIP/RAR arşivi olarak indir"
+                      title="Tüm fiş ve slipleri tek tıkla RAR / ZIP arşivi olarak indir"
                     >
                       <Download className={`w-3.5 h-3.5 ${isZipping ? 'animate-bounce' : ''}`} />
-                      <span>{isZipping ? 'Paketleniyor...' : 'Tümünü İndir (.ZIP)'}</span>
+                      <span>{isZipping ? 'Paketleniyor...' : 'Tüm Fişleri İndir (RAR / ZIP)'}</span>
                     </button>
 
                     <div className="relative">
@@ -1719,6 +1795,15 @@ export default function PortalPage() {
       <KvkkModal
         isOpen={isKvkkOpen}
         onClose={() => setIsKvkkOpen(false)}
+      />
+
+      {/* Fiş & Kredi Kartı Slipi Kırpma Modalı */}
+      <ImageCropperModal
+        isOpen={isCropperOpen}
+        imageUrl={rawImageForCrop}
+        onClose={() => setIsCropperOpen(false)}
+        onCropComplete={handleCropComplete}
+        suggestedCode={currentAutoCode}
       />
     </div>
   );

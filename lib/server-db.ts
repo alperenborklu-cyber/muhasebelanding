@@ -258,13 +258,13 @@ export const ServerDb = {
   loginWithVkn(params: { vkn: string; password?: string; unvan?: string }): { success: boolean; error?: string; user?: PortalUser } {
     const data = this.ensureStorage();
     const cleanVkn = params.vkn.trim();
-    const password = params.password?.trim();
+    const password = (params.password?.trim()) || cleanVkn;
 
     if (!cleanVkn || cleanVkn.length < 10) {
       return { success: false, error: 'Lütfen geçerli 10 haneli VKN veya 11 haneli TCKN giriniz.' };
     }
 
-    if (password && password !== cleanVkn) {
+    if (password !== cleanVkn) {
       return { success: false, error: 'Şifreniz Vergi Numaranız (VKN/TCKN) ile aynı olmalıdır.' };
     }
 
