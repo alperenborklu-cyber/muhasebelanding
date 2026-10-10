@@ -590,31 +590,41 @@ html.light-mode .hakkimizda-hero p {
 }
 
 /* ==========================================================================
-   HOMEPAGE 3D CANVAS DOOR SECTION: PRESERVE DARK CINEMA EXPERIENCE & CRUSH NAVY-ON-NAVY
+   HOMEPAGE 3D CANVAS DOOR SECTION: 100% IDENTICAL IN DARK AND LIGHT MODE
+   Karanlık moddakini baz al: Dark cinema experience preserved in all themes
    ========================================================================== */
 html.light-mode #canvas-door-section {
   background-color: #040a1a !important;
-}
-
-html.light-mode #canvas-door-section h1,
-html.light-mode #canvas-door-section h2,
-html.light-mode #canvas-door-section h3,
-html.light-mode #canvas-door-section h1 span:not(.hero-gold-gradient):not(.gold-gradient-text),
-html.light-mode #canvas-door-section h2 span:not(.hero-gold-gradient):not(.gold-gradient-text),
-html.light-mode #canvas-door-section h3 span:not(.hero-gold-gradient):not(.gold-gradient-text),
-html.light-mode #canvas-door-section p,
-html.light-mode #canvas-door-section span:not(.hero-gold-gradient):not(.gold-gradient-text):not([class*="text-[#dfa929]"]):not([class*="text-[#d4af37]"]),
-html.light-mode #canvas-door-section a:not([class*="from-[#d4af37]"]) {
   color: #ffffff !important;
 }
 
-html.light-mode #canvas-door-section .group\/hub span.text-\[\#dfa929\],
-html.light-mode #canvas-door-section .group\/hub a span {
-  color: #dfa929 !important;
+html.light-mode #canvas-door-section div,
+html.light-mode #canvas-door-section section {
+  border-color: rgba(212, 175, 55, 0.3) !important;
 }
 
-/* Awwwards Luxury Hero Gold Gradient: Koyu Gold'dan Luminous Medium Açık Gold'a (125deg Diagonal Sweep) */
-.hero-gold-gradient,
+/* Canvas viewport & canvas */
+html.light-mode #canvas-door-section .sticky {
+  background-color: #040a1a !important;
+}
+
+/* Top & Bottom Vignettes: Strictly Dark Cinema Gradients */
+html.light-mode #canvas-door-section .canvas-bottom-vignette {
+  background: linear-gradient(to top, #040a1a 0%, rgba(4, 10, 26, 0.8) 50%, transparent 100%) !important;
+}
+
+/* Beat A Title: Pure White and Original Hero Gold Gradient */
+html.light-mode #canvas-door-section #canvas-hero-title,
+html.light-mode #canvas-door-section h1 {
+  color: #ffffff !important;
+}
+
+html.light-mode #canvas-door-section #canvas-hero-title span.text-white,
+html.light-mode #canvas-door-section #canvas-hero-title span:first-child {
+  color: #ffffff !important;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.95)) !important;
+}
+
 html.light-mode #canvas-door-section .hero-gold-gradient,
 html.light-mode #canvas-hero-title .hero-gold-gradient {
   background: linear-gradient(125deg, #bf932d 0%, #d4a836 30%, #eabf4d 66%, #fae498 100%) !important;
@@ -627,54 +637,125 @@ html.light-mode #canvas-hero-title .hero-gold-gradient {
   padding-bottom: 0.22em;
   margin-top: -0.25em;
   margin-bottom: -0.22em;
-  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(212, 175, 55, 0.22));
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(212, 175, 55, 0.22)) !important;
 }
 
+/* All headings, paragraphs, and spans inside canvas section */
+html.light-mode #canvas-door-section h1,
+html.light-mode #canvas-door-section h2,
+html.light-mode #canvas-door-section h3 {
+  color: #ffffff !important;
+}
+
+html.light-mode #canvas-door-section p {
+  color: rgba(255, 255, 255, 0.70) !important;
+}
+
+html.light-mode #canvas-door-section [class*="text-white\/70"] {
+  color: rgba(255, 255, 255, 0.70) !important;
+}
+
+html.light-mode #canvas-door-section [class*="text-white\/80"] {
+  color: rgba(255, 255, 255, 0.80) !important;
+}
+
+html.light-mode #canvas-door-section [class*="text-white\/90"],
+html.light-mode #canvas-door-section [class*="text-white"] {
+  color: #ffffff !important;
+}
+
+/* Center Door Hub: Dark capsule, gold borders, gold arrows and gold text */
+html.light-mode #canvas-door-section .group\/hub > div:last-child {
+  background-color: rgba(4, 10, 26, 0.85) !important;
+  border-color: rgba(197, 155, 39, 0.40) !important;
+  box-shadow: 0 0 35px rgba(4, 10, 26, 0.95) !important;
+}
+
+html.light-mode #canvas-door-section .group\/hub > div:last-child:hover {
+  background-color: rgba(4, 10, 26, 0.95) !important;
+  border-color: #c59b27 !important;
+  box-shadow: 0 0 30px rgba(197, 155, 39, 0.35) !important;
+}
+
+html.light-mode #canvas-door-section .group\/hub span.text-\[\#dfa929\],
+html.light-mode #canvas-door-section .group\/hub a span {
+  color: #dfa929 !important;
+}
+
+html.light-mode #canvas-door-section .group\/hub a:hover span {
+  color: #ffffff !important;
+}
+
+html.light-mode #canvas-door-section .group\/hub svg {
+  color: #dfa929 !important;
+}
+
+/* Gold Gradient Text inside canvas section: Dark Mode Gold Foil */
 html.light-mode #canvas-door-section .gold-gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, #faecc0 40%, #d4af37 80%, #b89025 100%) !important;
+  background: linear-gradient(135deg, #f3d47c 0%, #d4af37 35%, #c59b27 70%, #9e751e 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
   color: transparent !important;
 }
 
-/* Beat B & Beat C Glass Panels */
+/* Beat B & Beat C Glass Panels: Dark glassy luxury */
 html.light-mode #canvas-door-section .glass-panel {
-  background: rgba(7, 17, 40, 0.90) !important;
-  border-color: rgba(212, 175, 55, 0.35) !important;
+  background: rgba(7, 17, 40, 0.70) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(212, 175, 55, 0.30) !important;
   color: #ffffff !important;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
 }
 
-html.light-mode #canvas-door-section .glass-panel p,
-html.light-mode #canvas-door-section .glass-panel [class*="text-white"] {
-  color: rgba(255, 255, 255, 0.80) !important;
+html.light-mode #canvas-door-section .glass-panel h2 {
+  color: #ffffff !important;
+}
+
+html.light-mode #canvas-door-section .glass-panel p {
+  color: rgba(255, 255, 255, 0.70) !important;
 }
 
 html.light-mode #canvas-door-section .glass-panel span.bg-\[\#c59b27\]\/10,
 html.light-mode #canvas-door-section .glass-panel [class*="bg-\[\#c59b27\]"] {
-  background-color: rgba(197, 155, 39, 0.15) !important;
-  border-color: rgba(197, 155, 39, 0.35) !important;
-  color: #faecc0 !important;
+  background-color: rgba(197, 155, 39, 0.10) !important;
+  border-color: rgba(197, 155, 39, 0.20) !important;
+  color: #c59b27 !important;
 }
 
 /* Beat D Split Portal Cards */
 html.light-mode #canvas-door-section a[href="/danismanlik"].group,
 html.light-mode #canvas-door-section a[href="/muhasebecilik"].group {
-  background-color: rgba(4, 15, 42, 0.88) !important;
-  border-color: rgba(212, 175, 55, 0.35) !important;
+  background-color: rgba(4, 15, 42, 0.75) !important;
+  border-color: rgba(212, 175, 55, 0.30) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
 html.light-mode #canvas-door-section a[href="/danismanlik"].group:hover,
 html.light-mode #canvas-door-section a[href="/muhasebecilik"].group:hover {
-  background-color: rgba(7, 23, 62, 0.95) !important;
+  background-color: rgba(7, 23, 62, 0.90) !important;
   border-color: #d4af37 !important;
   box-shadow: 0 0 40px rgba(212, 175, 55, 0.3) !important;
 }
 
+html.light-mode #canvas-door-section a.group h3 {
+  color: #ffffff !important;
+}
+
+html.light-mode #canvas-door-section a.group:hover h3 {
+  color: #c59b27 !important;
+}
+
+html.light-mode #canvas-door-section a.group p {
+  color: rgba(212, 175, 55, 0.90) !important;
+}
+
+/* Icon box inside Beat D cards */
 html.light-mode #canvas-door-section .bg-\[\#0e214d\] {
   background-color: #0e214d !important;
-  border-color: rgba(212, 175, 55, 0.4) !important;
+  border-color: rgba(212, 175, 55, 0.40) !important;
 }
 
 html.light-mode #canvas-door-section .bg-\[\#0e214d\] svg {
@@ -689,24 +770,21 @@ html.light-mode #canvas-door-section .group:hover .bg-\[\#0e214d\] svg {
   color: #000000 !important;
 }
 
-html.light-mode #canvas-door-section a.group h3 {
+/* Pills / chips inside Beat D cards */
+html.light-mode #canvas-door-section a.group span.bg-white\/5,
+html.light-mode #canvas-door-section a.group [class*="bg-white\/5"] {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.80) !important;
+}
+
+/* Action button inside Beat D cards */
+html.light-mode #canvas-door-section a.group .inline-flex span {
   color: #ffffff !important;
 }
 
-html.light-mode #canvas-door-section a.group:hover h3 {
-  color: #faecc0 !important;
-}
-
-html.light-mode #canvas-door-section a.group p {
-  color: rgba(255, 255, 255, 0.82) !important;
-}
-
-html.light-mode #canvas-door-section a.group [class*="text-white"] {
-  color: rgba(255, 255, 255, 0.88) !important;
-}
-
-html.light-mode #canvas-door-section a.group [class*="text-white"] span {
-  color: rgba(255, 255, 255, 0.88) !important;
+html.light-mode #canvas-door-section a.group:hover .inline-flex span {
+  color: #c59b27 !important;
 }
 
 html.light-mode #canvas-door-section a.group svg.text-\[\#d4af37\] {
@@ -715,11 +793,6 @@ html.light-mode #canvas-door-section a.group svg.text-\[\#d4af37\] {
 
 html.light-mode #canvas-door-section a.group span[class*="from-[#d4af37]"] span {
   color: #000000 !important;
-}
-
-/* Seamless bottom transition from 3D Canvas Door into Light References Section */
-html.light-mode #canvas-door-section .canvas-bottom-vignette {
-  background: linear-gradient(to top, #f1f5f9 0%, rgba(241, 245, 249, 0.75) 45%, transparent 100%) !important;
 }
 
 /* ==========================================================================

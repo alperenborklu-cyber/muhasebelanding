@@ -24,15 +24,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-[#040a1a] text-white transition-colors duration-300 page-container">
-      {/* 1. Creative Scrollytelling Golden Door Canvas */}
+    <div className="bg-[#040a1a] text-white transition-colors duration-300">
+      {/* 1. Creative Scrollytelling Golden Door Canvas (100% Dark in both Light & Dark Mode) */}
       <ScrollCanvasDoor />
 
-      {/* 2. Sürekli Dönen Türk Firmaları Referanslar Silsilesi */}
-      <ReferencesMarquee />
+      <div className="page-container">
+        {/* 2. Sürekli Dönen Türk Firmaları Referanslar Silsilesi */}
+        <ReferencesMarquee />
 
-      {/* 3. Stratejik Randevu Formu */}
-      <AppointmentForm />
+        {/* 3. Stratejik Randevu Formu */}
+        <AppointmentForm />
+      </div>
     </div>
   );
 }
