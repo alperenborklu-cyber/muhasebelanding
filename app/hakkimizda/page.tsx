@@ -73,8 +73,8 @@ export default function HakkimizdaPage() {
   ];
 
   return (
-    <div className="bg-[#040a1a] text-white transition-colors duration-300 page-container min-h-screen pt-24 pb-20">
-      {/* 1. Hero & Breadcrumbs */}
+    <div className="bg-[#040a1a] text-white transition-colors duration-300 min-h-screen pt-24 pb-20">
+      {/* 1. Hero & Breadcrumbs (Always Dark Mode) */}
       <section className="hakkimizda-hero relative px-4 sm:px-6 lg:px-8 pt-10 pb-16 overflow-hidden transition-colors duration-500">
         <div className="hakkimizda-glow absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#1d3b7d]/15 rounded-full blur-3xl pointer-events-none transition-all duration-500" />
 
@@ -99,8 +99,9 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* 2. Kurumsal Liderlik & Kurucu Ortaklar (Süleyman İlhan & Canan İlhan) */}
-      <section className="px-4 sm:px-6 lg:px-8 py-12">
+      <div className="page-container">
+        {/* 2. Kurumsal Liderlik & Kurucu Ortaklar (Süleyman İlhan & Canan İlhan) */}
+        <section className="px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Section Header */}
           <div className="text-center space-y-3">
@@ -512,6 +513,7 @@ export default function HakkimizdaPage() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

@@ -50,12 +50,19 @@ export default function Navbar() {
     return null;
   }
 
+  const isDarkTop =
+    pathname === "/muhasebecilik" ||
+    pathname === "/danismanlik" ||
+    pathname === "/hakkimizda" ||
+    pathname?.startsWith("/portal");
+  const isHeaderScrolled = scrolled || (!isDarkTop && theme === "light");
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-[#040a1a]/90 backdrop-blur-xl border-b border-[#d4af37]/20 py-3 shadow-2xl shadow-black/60"
-          : "bg-transparent py-5"
+        isHeaderScrolled
+          ? "header-scrolled bg-[#040a1a]/90 backdrop-blur-xl border-b border-[#d4af37]/20 py-3 shadow-2xl shadow-black/60"
+          : "header-top bg-transparent py-5"
       }`}
     >
       <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
@@ -64,7 +71,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center group flex-shrink-0">
             <div className="relative h-9 w-[106px] sm:h-10 sm:w-[118px] transition-transform duration-300 group-hover:scale-[1.02]">
               <Image
-                src={theme === "light" ? "/logo.webp" : "/logobeyaz.webp"}
+                src={theme === "light" && isHeaderScrolled ? "/logo.webp" : "/logobeyaz.webp"}
                 alt="ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı"
                 fill
                 className="object-contain object-left"

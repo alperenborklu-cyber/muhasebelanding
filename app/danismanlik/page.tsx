@@ -166,8 +166,8 @@ export default function DanismanlikPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#040a1a] text-white pb-20 transition-colors duration-300 page-container">
-      {/* 1. Grand Standalone Homepage Hero Section (16:9 Full Screen Viewport Cover) */}
+    <div className="min-h-screen bg-[#040a1a] text-white pb-20 transition-colors duration-300">
+      {/* 1. Grand Standalone Homepage Hero Section (Always Dark Mode) */}
       <section className="subpage-hero relative w-full overflow-hidden min-h-screen lg:min-h-[100dvh] flex items-center justify-center pt-24 pb-16 lg:py-0">
         {/* Background Image capturing whole top of screen in 16:9 */}
         <div className="absolute inset-0 z-0">
@@ -240,8 +240,9 @@ export default function DanismanlikPage() {
         </div>
       </section>
 
-      {/* 2. Kesintisiz Dönen Türk Firmaları Referanslar Silsilesi */}
-      <ReferencesMarquee />
+      <div className="page-container">
+        {/* 2. Kesintisiz Dönen Türk Firmaları Referanslar Silsilesi */}
+        <ReferencesMarquee />
 
       {/* 2. BİZ KİMİZ & HAKKIMIZDA (YÖNETİM DANIŞMANLIĞI YAKLAŞIMIMIZ) */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 border-y border-[#d4af37]/20 bg-[#020612]/70">
@@ -598,6 +599,7 @@ export default function DanismanlikPage() {
         </div>
         <AppointmentForm />
       </section>
+      </div>
     </div>
   );
 }
