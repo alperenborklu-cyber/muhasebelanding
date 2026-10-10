@@ -75,13 +75,13 @@ export default function HakkimizdaPage() {
   return (
     <div className="bg-[#040a1a] text-white transition-colors duration-300 page-container min-h-screen pt-24 pb-20">
       {/* 1. Hero & Breadcrumbs */}
-      <section className="relative px-4 sm:px-6 lg:px-8 pt-10 pb-16 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#1d3b7d]/15 rounded-full blur-3xl pointer-events-none" />
+      <section className="hakkimizda-hero relative px-4 sm:px-6 lg:px-8 pt-10 pb-16 overflow-hidden transition-colors duration-500">
+        <div className="hakkimizda-glow absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#1d3b7d]/15 rounded-full blur-3xl pointer-events-none transition-all duration-500" />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-xs font-semibold uppercase tracking-wider mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Kurumsal Profil & Yönetim</span>
+          <div className="hakkimizda-badge inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-xs font-semibold uppercase tracking-wider mb-6 transition-all duration-300">
+            <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
+            <span>Kurumsal Profil &amp; Yönetim</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light text-white tracking-tight leading-tight max-w-4xl">

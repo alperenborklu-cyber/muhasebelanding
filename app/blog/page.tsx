@@ -55,8 +55,8 @@ export default function BlogPage() {
         </div>
 
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-[#d4af37]/30 bg-[#071128] text-xs font-semibold text-[#d4af37] tracking-wider uppercase">
-            <BookOpen className="w-3.5 h-3.5" />
+          <div className="blog-hero-badge inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-[#d4af37]/30 bg-[#071128] text-xs font-semibold text-[#d4af37] tracking-wider uppercase transition-all duration-300">
+            <BookOpen className="w-3.5 h-3.5 text-[#d4af37]" />
             <span>Bilgi &amp; Mevzuat Merkezi</span>
           </div>
 

@@ -203,13 +203,15 @@ html.light-mode .page-container .text-white\/50 {
   color: #2b4c8f !important;
 }
 
-/* Gold Gradient in Light Mode (Deep Navy to Rich Gold) */
+/* Gold Gradient in Light Mode: Luxurious Rich Metallic Amber-Gold */
 html.light-mode .gold-gradient-text {
-  background: linear-gradient(135deg, #05112e 0%, #0d2861 55%, #855d10 100%) !important;
+  background: linear-gradient(135deg, #855d10 0%, #b89025 45%, #92600b 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  color: #05112e !important;
+  background-clip: text !important;
+  color: transparent !important;
   font-weight: 700;
+  filter: drop-shadow(0 1px 1px rgba(133, 93, 16, 0.12));
 }
 
 /* Gold Buttons: Keep black text on gold background */
@@ -346,46 +348,110 @@ html.light-mode footer a[href="tel:05536221122"] {
   font-weight: 600;
 }
 
-/* Split Portal Section in Light Mode: Must remain dark background with crisp white typography */
-html.light-mode #split-portal-section {
-  background: linear-gradient(to bottom, #040a1a, #071330, #040a1a) !important;
+/* ==========================================================================
+   SUBPAGE 16:9 HERO SECTIONS (MUHASEBECİLİK & DANIŞMANLIK) IN LIGHT MODE
+   ========================================================================== */
+html.light-mode .subpage-hero {
+  background-color: #f8fafc !important;
+  color: #05112e !important;
 }
 
-html.light-mode #split-portal-section h2,
-html.light-mode #split-portal-section h2 span:not(.gold-gradient-text) {
-  color: #ffffff !important;
+html.light-mode .subpage-hero .hero-overlay-base {
+  background-color: rgba(248, 250, 252, 0.84) !important;
+  backdrop-filter: blur(2px) !important;
 }
 
-html.light-mode #split-portal-section .gold-gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, #faecc0 40%, #d4af37 80%, #b89025 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
+html.light-mode .subpage-hero .hero-overlay-horiz {
+  background: linear-gradient(to right, rgba(248, 250, 252, 0.98) 0%, rgba(248, 250, 252, 0.90) 45%, rgba(248, 250, 252, 0.40) 100%) !important;
 }
 
-html.light-mode #split-portal-section p {
-  color: rgba(255, 255, 255, 0.8) !important;
+html.light-mode .subpage-hero .hero-overlay-vert {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, transparent 40%, #f1f5f9 100%) !important;
 }
 
-html.light-mode #split-portal-section h3 {
-  color: #ffffff !important;
+html.light-mode .subpage-hero .hero-overlay-radial {
+  background: radial-gradient(ellipse at top right, rgba(212, 175, 55, 0.16), transparent 70%) !important;
 }
 
-html.light-mode #split-portal-section .glass-panel {
-  background: rgba(7, 17, 40, 0.85) !important;
-  border-color: rgba(212, 175, 55, 0.35) !important;
+html.light-mode .subpage-hero .subpage-hero-badge {
+  background-color: #ffffff !important;
+  border: 1.5px solid rgba(184, 144, 37, 0.45) !important;
+  box-shadow: 0 4px 15px rgba(5, 17, 46, 0.06) !important;
 }
 
-html.light-mode #split-portal-section .glass-panel span {
-  color: rgba(255, 255, 255, 0.85) !important;
+html.light-mode .subpage-hero .subpage-hero-badge span {
+  color: #05112e !important;
+  font-weight: 700 !important;
 }
 
-html.light-mode #split-portal-section a[class*="from-[#d4af37]"] span {
-  color: #000000 !important;
+html.light-mode .subpage-hero .subpage-hero-badge svg {
+  color: #b89025 !important;
 }
 
+html.light-mode .subpage-hero .subpage-hero-title,
+html.light-mode .subpage-hero h1 {
+  color: #05112e !important;
+}
+
+html.light-mode .subpage-hero .subpage-hero-desc,
+html.light-mode .subpage-hero p {
+  color: #334155 !important;
+  font-weight: 400 !important;
+}
+
+html.light-mode .subpage-hero .subpage-hero-trust {
+  border-top-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+html.light-mode .subpage-hero .subpage-hero-trust span {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+}
+
+html.light-mode .subpage-hero .subpage-hero-trust svg {
+  color: #b89025 !important;
+}
 
 /* ==========================================================================
-   EXCEPTIONS FOR 3D CANVAS DOOR SECTION: MUST ALWAYS REMAIN DARK & PURE WHITE
+   HAKKIMIZDA & BLOG HERO SECTIONS IN LIGHT MODE
+   ========================================================================== */
+html.light-mode .hakkimizda-hero {
+  background-color: #f8fafc !important;
+}
+
+html.light-mode .hakkimizda-hero .hakkimizda-glow {
+  background: radial-gradient(circle, rgba(250, 236, 192, 0.45) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%) !important;
+}
+
+html.light-mode .hakkimizda-hero .hakkimizda-badge,
+html.light-mode .blog-hero-badge {
+  background-color: #ffffff !important;
+  border: 1.5px solid rgba(184, 144, 37, 0.45) !important;
+  box-shadow: 0 4px 15px rgba(5, 17, 46, 0.05) !important;
+}
+
+html.light-mode .hakkimizda-hero .hakkimizda-badge span,
+html.light-mode .blog-hero-badge span {
+  color: #855d10 !important;
+  font-weight: 700 !important;
+}
+
+html.light-mode .hakkimizda-hero .hakkimizda-badge svg,
+html.light-mode .blog-hero-badge svg {
+  color: #b89025 !important;
+}
+
+html.light-mode .hakkimizda-hero h1 {
+  color: #05112e !important;
+}
+
+html.light-mode .hakkimizda-hero p {
+  color: #334155 !important;
+}
+
+/* ==========================================================================
+   HOMEPAGE 3D CANVAS DOOR SECTION: PRESERVE DARK CINEMA EXPERIENCE & CRUSH NAVY-ON-NAVY
    ========================================================================== */
 html.light-mode #canvas-door-section {
   background-color: #040a1a !important;
@@ -399,7 +465,7 @@ html.light-mode #canvas-door-section h2 span:not(.hero-gold-gradient):not(.gold-
 html.light-mode #canvas-door-section h3 span:not(.hero-gold-gradient):not(.gold-gradient-text),
 html.light-mode #canvas-door-section p,
 html.light-mode #canvas-door-section span:not(.hero-gold-gradient):not(.gold-gradient-text),
-html.light-mode #canvas-door-section a {
+html.light-mode #canvas-door-section a:not([class*="from-[#d4af37]"]) {
   color: #ffffff !important;
 }
 
@@ -424,21 +490,92 @@ html.light-mode #canvas-door-section .gold-gradient-text {
   background: linear-gradient(135deg, #ffffff 0%, #faecc0 40%, #d4af37 80%, #b89025 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
 }
 
+/* Beat B & Beat C Glass Panels */
 html.light-mode #canvas-door-section .glass-panel {
-  background: rgba(7, 17, 40, 0.85) !important;
+  background: rgba(7, 17, 40, 0.90) !important;
+  border-color: rgba(212, 175, 55, 0.35) !important;
+  color: #ffffff !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+}
+
+html.light-mode #canvas-door-section .glass-panel p,
+html.light-mode #canvas-door-section .glass-panel [class*="text-white"] {
+  color: rgba(255, 255, 255, 0.80) !important;
+}
+
+html.light-mode #canvas-door-section .glass-panel span.bg-\[\#c59b27\]\/10,
+html.light-mode #canvas-door-section .glass-panel [class*="bg-\[\#c59b27\]"] {
+  background-color: rgba(197, 155, 39, 0.15) !important;
+  border-color: rgba(197, 155, 39, 0.35) !important;
+  color: #faecc0 !important;
+}
+
+/* Beat D Split Portal Cards */
+html.light-mode #canvas-door-section a[href="/danismanlik"].group,
+html.light-mode #canvas-door-section a[href="/muhasebecilik"].group {
+  background-color: rgba(4, 15, 42, 0.88) !important;
   border-color: rgba(212, 175, 55, 0.35) !important;
 }
 
-html.light-mode #canvas-door-section .bg-\[\#040f2a\]\/75 {
-  background-color: rgba(4, 15, 42, 0.8) !important;
-  border-color: rgba(212, 175, 55, 0.35) !important;
-}
-
-html.light-mode #canvas-door-section .bg-\[\#07173e\]\/90 {
-  background-color: rgba(7, 23, 62, 0.9) !important;
+html.light-mode #canvas-door-section a[href="/danismanlik"].group:hover,
+html.light-mode #canvas-door-section a[href="/muhasebecilik"].group:hover {
+  background-color: rgba(7, 23, 62, 0.95) !important;
   border-color: #d4af37 !important;
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.3) !important;
+}
+
+html.light-mode #canvas-door-section .bg-\[\#0e214d\] {
+  background-color: #0e214d !important;
+  border-color: rgba(212, 175, 55, 0.4) !important;
+}
+
+html.light-mode #canvas-door-section .bg-\[\#0e214d\] svg {
+  color: #d4af37 !important;
+}
+
+html.light-mode #canvas-door-section .group:hover .bg-\[\#0e214d\] {
+  background-color: #d4af37 !important;
+}
+
+html.light-mode #canvas-door-section .group:hover .bg-\[\#0e214d\] svg {
+  color: #000000 !important;
+}
+
+html.light-mode #canvas-door-section a.group h3 {
+  color: #ffffff !important;
+}
+
+html.light-mode #canvas-door-section a.group:hover h3 {
+  color: #faecc0 !important;
+}
+
+html.light-mode #canvas-door-section a.group p {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+html.light-mode #canvas-door-section a.group [class*="text-white"] {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+html.light-mode #canvas-door-section a.group [class*="text-white"] span {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+html.light-mode #canvas-door-section a.group svg.text-\[\#d4af37\] {
+  color: #d4af37 !important;
+}
+
+html.light-mode #canvas-door-section a.group span[class*="from-[#d4af37]"] span {
+  color: #000000 !important;
+}
+
+/* Seamless bottom transition from 3D Canvas Door into Light References Section */
+html.light-mode #canvas-door-section .canvas-bottom-vignette {
+  background: linear-gradient(to top, #f1f5f9 0%, rgba(241, 245, 249, 0.75) 45%, transparent 100%) !important;
 }
 
 /* ==========================================================================

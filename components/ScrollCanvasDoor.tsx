@@ -341,7 +341,7 @@ export default function ScrollCanvasDoor() {
 
         {/* Ambient Top & Bottom Vignette Overlays */}
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#040a1a] via-[#040a1a]/70 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/80 to-transparent pointer-events-none" />
+        <div className="canvas-bottom-vignette absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/80 to-transparent pointer-events-none transition-colors duration-500" />
 
         {/* Interactive Door Wings Overlay (Beat A: Mouse Hover Effect) */}
         {doorLayout && isLoaded && (

@@ -168,7 +168,7 @@ export default function DanismanlikPage() {
   return (
     <div className="min-h-screen bg-[#040a1a] text-white pb-20 transition-colors duration-300 page-container">
       {/* 1. Grand Standalone Homepage Hero Section (16:9 Full Screen Viewport Cover) */}
-      <section className="relative w-full overflow-hidden min-h-screen lg:min-h-[100dvh] flex items-center justify-center pt-24 pb-16 lg:py-0">
+      <section className="subpage-hero relative w-full overflow-hidden min-h-screen lg:min-h-[100dvh] flex items-center justify-center pt-24 pb-16 lg:py-0">
         {/* Background Image capturing whole top of screen in 16:9 */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -180,25 +180,25 @@ export default function DanismanlikPage() {
             sizes="100vw"
             quality={90}
           />
-          <div className="absolute inset-0 bg-[#040a1a]/75" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#040a1a] via-[#040a1a]/85 to-transparent lg:via-[#040a1a]/75" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#040a1a]/80 via-transparent to-[#040a1a]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.12),transparent_70%)] pointer-events-none" />
+          <div className="hero-overlay-base absolute inset-0 bg-[#040a1a]/75 transition-colors duration-500" />
+          <div className="hero-overlay-horiz absolute inset-0 bg-gradient-to-r from-[#040a1a] via-[#040a1a]/85 to-transparent lg:via-[#040a1a]/75 transition-colors duration-500" />
+          <div className="hero-overlay-vert absolute inset-0 bg-gradient-to-b from-[#040a1a]/80 via-transparent to-[#040a1a] transition-colors duration-500" />
+          <div className="hero-overlay-radial absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.12),transparent_70%)] pointer-events-none transition-colors duration-500" />
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128]/90 backdrop-blur-md text-xs font-semibold text-[#d4af37] shadow-lg shadow-black/40">
+            <div className="subpage-hero-badge inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128]/90 backdrop-blur-md text-xs font-semibold text-[#d4af37] shadow-lg shadow-black/40">
               <Briefcase className="w-4 h-4 text-[#d4af37]" />
               <span>SANAYİ, TİCARET BAKANLIĞI VE KOSGEB REHBERLİĞİ</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
+            <h1 className="subpage-hero-title text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
               Devlet Teşvikleri &amp; <br />
               <span className="gold-gradient-text font-serif italic">Büyüme Mimarisi</span>
             </h1>
 
-            <p className="text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-2xl">
+            <p className="subpage-hero-desc text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-2xl">
               Yatırım Teşvik Belgesi, KOSGEB hibeleri, fabrika yatırımları, imalat ve ihracat destekleriyle firmanızı geleceğin küresel pazarlarına hazırlayan stratejik büyüme ortaklığı.
             </p>
 
@@ -222,7 +222,7 @@ export default function DanismanlikPage() {
             </div>
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70 max-w-lg">
+            <div className="subpage-hero-trust grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70 max-w-lg">
               <div className="flex items-center space-x-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
                 <span>Bakanlık Akredite</span>
