@@ -12,13 +12,10 @@ import {
   ShieldCheck, 
   Briefcase, 
   BookOpen,
-  Sun,
-  Moon,
   Building2,
   MessageSquare,
   Users
 } from "lucide-react";
-import { useTheme } from "@/context/ThemeContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -36,7 +33,6 @@ export default function Navbar() {
     }
   };
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,19 +46,12 @@ export default function Navbar() {
     return null;
   }
 
-  const isDarkTop =
-    pathname === "/muhasebecilik" ||
-    pathname === "/danismanlik" ||
-    pathname === "/hakkimizda" ||
-    pathname?.startsWith("/portal");
-  const isHeaderScrolled = scrolled || (!isDarkTop && theme === "light");
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isHeaderScrolled
-          ? "header-scrolled bg-[#040a1a]/90 backdrop-blur-xl border-b border-[#d4af37]/20 py-3 shadow-2xl shadow-black/60"
-          : "header-top bg-transparent py-5"
+        scrolled
+          ? "bg-[#040a1a]/90 backdrop-blur-xl border-b border-[#d4af37]/20 py-3 shadow-2xl shadow-black/60"
+          : "bg-transparent py-5"
       }`}
     >
       <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
@@ -71,7 +60,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center group flex-shrink-0">
             <div className="relative h-9 w-[106px] sm:h-10 sm:w-[118px] transition-transform duration-300 group-hover:scale-[1.02]">
               <Image
-                src={theme === "light" && isHeaderScrolled ? "/logo.webp" : "/logobeyaz.webp"}
+                src="/logobeyaz.webp"
                 alt="ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı"
                 fill
                 className="object-contain object-left"
@@ -149,22 +138,8 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* Quick Contact & Theme Toggle */}
+          {/* Quick Contact */}
           <div className="hidden sm:flex items-center space-x-3 flex-shrink-0">
-            {/* Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full border border-white/10 hover:border-[#d4af37]/50 bg-white/5 hover:bg-white/10 text-white transition-all shadow-sm flex items-center justify-center flex-shrink-0"
-              aria-label="Temayı Değiştir"
-              title={theme === "dark" ? "Aydınlık Moda Geç" : "Karanlık Moda Geç"}
-            >
-              {theme === "dark" ? (
-                <Sun className="w-4 h-4 text-[#d4af37] animate-spin-slow" />
-              ) : (
-                <Moon className="w-4 h-4 text-[#07173e]" />
-              )}
-            </button>
-
             <a
               href="tel:05536221122"
               className="phone-nav-btn whitespace-nowrap flex-shrink-0 flex items-center space-x-1.5 text-xs xl:text-sm text-white/80 hover:text-[#d4af37] transition-colors py-1.5 px-3.5 rounded-full border border-white/10 hover:border-[#d4af37]/40 bg-[#071128]/50"
@@ -187,16 +162,8 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile menu toggle & Theme toggle on mobile */}
+          {/* Mobile menu toggle */}
           <div className="xl:hidden flex items-center space-x-2">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full border border-white/10 bg-white/5 text-white transition-all"
-              aria-label="Temayı Değiştir"
-            >
-              {theme === "dark" ? <Sun className="w-4 h-4 text-[#d4af37]" /> : <Moon className="w-4 h-4 text-[#07173e]" />}
-            </button>
-
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg bg-white/5 text-white/80 hover:text-white focus:outline-none"
