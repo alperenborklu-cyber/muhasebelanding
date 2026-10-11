@@ -72,9 +72,9 @@ export default function Navbar() {
           {/* Desktop Nav Links */}
           <nav className="hidden xl:flex items-center space-x-1.5 2xl:space-x-2.5">
             <Link
-              href="/muhasebecilik"
+              href="/malimusavirlik"
               className={`whitespace-nowrap flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs xl:text-sm font-medium transition-all flex items-center space-x-1.5 ${
-                pathname.startsWith("/muhasebe")
+                pathname.startsWith("/malimusavirlik")
                   ? "nav-link-active text-white bg-[#0f214a] border border-[#d4af37]/40 shadow-sm shadow-[#d4af37]/10"
                   : "nav-link-inactive text-white/70 hover:text-white hover:bg-white/5"
               }`}
@@ -179,10 +179,10 @@ export default function Navbar() {
           <div className="mobile-menu-drawer xl:hidden mt-3 rounded-2xl bg-[#06112c]/95 border border-[#d4af37]/20 p-5 shadow-2xl backdrop-blur-2xl">
             <div className="flex flex-col space-y-2.5">
               <Link
-                href="/muhasebecilik"
+                href="/malimusavirlik"
                 onClick={() => setMobileMenuOpen(false)}
                 className={`text-sm font-medium py-2 px-3 rounded-lg flex items-center justify-between ${
-                  pathname.startsWith("/muhasebe") ? "nav-link-active bg-[#0f214a] text-white" : "nav-link-inactive text-white/90 hover:bg-white/5"
+                  pathname.startsWith("/malimusavirlik") ? "nav-link-active bg-[#0f214a] text-white" : "nav-link-inactive text-white/90 hover:bg-white/5"
                 }`}
               >
                 <span className="flex items-center space-x-2">

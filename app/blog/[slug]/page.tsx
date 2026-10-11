@@ -141,7 +141,7 @@ export default function BlogPostDetail({ params }: { params: { slug: string } })
           </p>
           <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href={post.category === "Mali Müşavirlik" || post.category === "Vergi Mevzuatı" || post.category === "Yönetim Muhasebesi" ? "/muhasebecilik" : "/danismanlik"}
+              href={post.category === "Mali Müşavirlik" || post.category === "Vergi Mevzuatı" || post.category === "Yönetim Muhasebesi" ? "/malimusavirlik" : "/danismanlik"}
               className="px-6 py-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#b89025] text-black font-semibold text-xs hover:opacity-90 transition-all"
             >
               Ücretsiz Ön Değerlendirme İsteyin

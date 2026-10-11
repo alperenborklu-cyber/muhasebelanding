@@ -6,7 +6,7 @@ Awwwards standartlarında tasarlanmış, Next.js 14 (App Router), Tailwind CSS v
 
 - **3D Altın Kapı Canvas Animasyonu (60 FPS):** Kullanıcının kaydırma hareketine duyarlı, donanım hızlandırmalı 120 karelik WebP sekans oynatımı (`useScroll` + `useSpring`).
 - **İkiye Ayrılan Giriş Portalı:**
-  - 🚪 **Sol Kanat — Muhasebecilik:** Mali Müşavirlik, Yönetim Muhasebesi, Vergi & SGK İstihdam Teşvikleri (`/muhasebecilik`)
+  - 🚪 **Sol Kanat — Muhasebecilik:** Mali Müşavirlik, Yönetim Muhasebesi, Vergi & SGK İstihdam Teşvikleri (`/malimusavirlik`)
   - 🚪 **Sağ Kanat — Danışmanlık:** Yönetim Danışmanlığı, KOSGEB, Yatırım Teşvik Belgeleri ve Kurumsal Gelişim (`/danismanlik`)
 - **10 Makalelik Blog Sistemi:** Kategori filtreleme, arama ve detay sayfalarıyla tam teşekküllü mali mevzuat ve hibe rehberi (`/blog`).
 - **Lüks Estetik:** Gece mavisi zemin (`#040a1a`), altın detaylar, cam efektleri (glassmorphism) ve minimalist içerik yapısı.

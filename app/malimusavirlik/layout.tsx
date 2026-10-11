@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function MuhasebecilikLayout({
+export default function MaliMusavirlikLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -28,22 +28,22 @@ export default function Footer() {
             </div>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/muhasebecilik" className="text-white/60 hover:text-[#d4af37] transition-colors">
+                <Link href="/malimusavirlik" className="text-white/60 hover:text-[#d4af37] transition-colors">
                   Yönetim Muhasebesi & Raporlama
                 </Link>
               </li>
               <li>
-                <Link href="/muhasebecilik" className="text-white/60 hover:text-[#d4af37] transition-colors">
+                <Link href="/malimusavirlik" className="text-white/60 hover:text-[#d4af37] transition-colors">
                   SGK & İstihdam Teşvikleri
                 </Link>
               </li>
               <li>
-                <Link href="/muhasebecilik" className="text-white/60 hover:text-[#d4af37] transition-colors">
+                <Link href="/malimusavirlik" className="text-white/60 hover:text-[#d4af37] transition-colors">
                   Mali Müşavirlik & Vergi Mevzuatı
                 </Link>
               </li>
               <li>
-                <Link href="/muhasebecilik" className="text-white/60 hover:text-[#d4af37] transition-colors">
+                <Link href="/malimusavirlik" className="text-white/60 hover:text-[#d4af37] transition-colors">
                   Bordrolama & Personel Özlük
                 </Link>
               </li>
@@ -136,7 +136,7 @@ export default function Footer() {
           <p>© 2026 ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı. Tüm hakları saklıdır.</p>
           <div className="flex flex-wrap gap-4 sm:gap-5">
             <Link href="/hakkimizda" className="hover:text-[#d4af37] transition-colors">Hakkımızda</Link>
-            <Link href="/muhasebecilik" className="hover:text-[#d4af37] transition-colors">Mali Müşavirlik</Link>
+            <Link href="/malimusavirlik" className="hover:text-[#d4af37] transition-colors">Mali Müşavirlik</Link>
             <Link href="/danismanlik" className="hover:text-[#d4af37] transition-colors">Danışmanlık</Link>
             <Link href="/blog" className="hover:text-[#d4af37] transition-colors">Blog</Link>
             <Link href="/portal" className="text-[#d4af37] hover:underline font-semibold">Müşteri Portalı</Link>

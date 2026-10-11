@@ -248,7 +248,7 @@ export default function ScrollCanvasDoor() {
         door === "left"
           ? "/danismanlik"
           : door === "right"
-          ? "/muhasebecilik"
+          ? "/malimusavirlik"
           : "/hakkimizda";
       const startProgress = smoothProgress.get();
       const targetProgress = 0.65; // Frame ~78: doors wide open, traveling forward into dark portal
@@ -406,7 +406,7 @@ export default function ScrollCanvasDoor() {
 
               {/* SAĞ KAPI LINK (MALİ MÜŞAVİRLİK) */}
               <Link
-                href="/muhasebecilik"
+                href="/malimusavirlik"
                 onClick={(e) => handleDoorSelect("right", e)}
                 onMouseEnter={() => !openingDoor && setHoveredDoor("right")}
                 onMouseLeave={() => !openingDoor && setHoveredDoor(null)}
@@ -518,7 +518,7 @@ export default function ScrollCanvasDoor() {
 
                     {/* SAĞ TARAFA GOLDEN OK (MALİ MÜŞAVİRLİK - 2 SATIR, EŞİT ALAN) */}
                     <Link
-                      href="/muhasebecilik"
+                      href="/malimusavirlik"
                       onClick={(e) => handleDoorSelect("right", e)}
                       onMouseEnter={() => {
                         setCenterActiveSide("right");
@@ -687,7 +687,7 @@ export default function ScrollCanvasDoor() {
 
             {/* SAĞ KAPI: MALİ MÜŞAVİRLİK (SAĞ TARAF MALİ) */}
             <Link
-              href="/muhasebecilik"
+              href="/malimusavirlik"
               onMouseEnter={() => setHoveredPortal("right")}
               onMouseLeave={() => setHoveredPortal(null)}
               className={`group pointer-events-auto relative rounded-3xl p-7 transition-all duration-500 overflow-hidden border ${
