@@ -464,9 +464,9 @@ export default function ScrollCanvasDoor() {
                   {/* Dış altın ışıltı aurası */}
                   <div className="absolute -inset-2 bg-gradient-to-r from-[#c59b27]/0 via-[#c59b27]/25 to-[#c59b27]/0 rounded-full blur-md opacity-70 group-hover/hub:opacity-100 transition-opacity" />
 
-                  {/* Arka planla birleşik, nefes alan cam kapsül */}
-                  <div className="relative flex items-center max-w-[95vw] bg-[#040a1a]/85 hover:bg-[#040a1a]/95 backdrop-blur-xl border border-[#c59b27]/40 hover:border-[#c59b27] rounded-full px-2.5 sm:px-5 py-1.5 sm:py-2.5 shadow-[0_0_35px_rgba(4,10,26,0.95)] hover:shadow-[0_0_30px_rgba(197,155,39,0.35)] transition-all duration-300">
-                    {/* SOL TARAFA GOLDEN OK (HİBE TEŞVİK DANIŞMANLIĞI) */}
+                  {/* Arka planla birleşik, nefes alan cam kapsül (Eşit Alanlı 3 Sütunlu Izgara) */}
+                  <div className="relative grid grid-cols-[1fr_auto_1fr] items-center max-w-[96vw] sm:max-w-xl md:max-w-2xl bg-[#040a1a]/85 hover:bg-[#040a1a]/95 backdrop-blur-xl border border-[#c59b27]/40 hover:border-[#c59b27] rounded-full px-2 sm:px-4 py-1.5 sm:py-2 shadow-[0_0_35px_rgba(4,10,26,0.95)] hover:shadow-[0_0_30px_rgba(197,155,39,0.35)] transition-all duration-300">
+                    {/* SOL TARAFA GOLDEN OK (HİBE TEŞVİK DANIŞMANLIĞI - 2 SATIR, EŞİT ALAN) */}
                     <Link
                       href="/danismanlik"
                       onClick={(e) => handleDoorSelect("left", e)}
@@ -476,7 +476,7 @@ export default function ScrollCanvasDoor() {
                       onMouseLeave={() => {
                         setCenterActiveSide(null);
                       }}
-                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center justify-center space-x-1.5 sm:space-x-2.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
                         centerActiveSide === "left"
                           ? "bg-[#dfa929]/25 text-white"
                           : "hover:bg-[#dfa929]/15 text-[#dfa929]"
@@ -484,18 +484,23 @@ export default function ScrollCanvasDoor() {
                       aria-label="Hibe Teşvik Danışmanlığına Git"
                     >
                       <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dfa929] group-hover/hub:animate-pulse transition-transform hover:-translate-x-1 shrink-0" />
-                      <span className="no-underline hover:no-underline border-0 outline-none text-[10px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#dfa929] whitespace-nowrap">
-                        HİBE TEŞVİK DANIŞMANLIĞI
-                      </span>
+                      <div className="flex flex-col items-center justify-center text-center leading-[1.15] select-none">
+                        <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase whitespace-nowrap">
+                          HİBE TEŞVİK
+                        </span>
+                        <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase whitespace-nowrap">
+                          DANIŞMANLIĞI
+                        </span>
+                      </div>
                     </Link>
 
-                    {/* ORTADA BOŞLUK & ARKAPLANLA BİRLEŞİK LOGOMUZ */}
-                    <div className="flex items-center px-1.5 sm:px-3 shrink-0">
-                      <span className="h-4 w-px bg-[#dfa929]/30 mr-1.5 sm:mr-3" />
+                    {/* ORTADA BOŞLUK & ARKAPLANLA BİRLEŞİK LOGOMUZ (TAM ORTADA) */}
+                    <div className="flex items-center px-1.5 sm:px-3 shrink-0 justify-center">
+                      <span className="h-6 sm:h-7 w-px bg-[#dfa929]/30 mr-1.5 sm:mr-3" />
                       <Link
                         href="/hakkimizda"
                         onClick={(e) => handleDoorSelect("center", e)}
-                        className={`relative h-5 w-16 sm:h-7 sm:w-24 opacity-95 transition-transform duration-300 hover:scale-105 cursor-pointer block ${
+                        className={`relative h-6 w-16 sm:h-7 sm:w-22 opacity-95 transition-transform duration-300 hover:scale-105 cursor-pointer block ${
                           openingDoor ? "pointer-events-none" : ""
                         }`}
                         aria-label="ROTAYD Hakkımızda Sayfasına Git"
@@ -508,10 +513,10 @@ export default function ScrollCanvasDoor() {
                           priority
                         />
                       </Link>
-                      <span className="h-4 w-px bg-[#dfa929]/30 ml-1.5 sm:ml-3" />
+                      <span className="h-6 sm:h-7 w-px bg-[#dfa929]/30 ml-1.5 sm:ml-3" />
                     </div>
 
-                    {/* SAĞ TARAFA GOLDEN OK (MALİ MÜŞAVİRLİK) */}
+                    {/* SAĞ TARAFA GOLDEN OK (MALİ MÜŞAVİRLİK - 2 SATIR, EŞİT ALAN) */}
                     <Link
                       href="/muhasebecilik"
                       onClick={(e) => handleDoorSelect("right", e)}
@@ -521,16 +526,21 @@ export default function ScrollCanvasDoor() {
                       onMouseLeave={() => {
                         setCenterActiveSide(null);
                       }}
-                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center justify-center space-x-1.5 sm:space-x-2.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
                         centerActiveSide === "right"
                           ? "bg-[#dfa929]/25 text-white"
                           : "hover:bg-[#dfa929]/15 text-[#dfa929]"
                       }`}
                       aria-label="Mali Müşavirliğe Git"
                     >
-                      <span className="no-underline hover:no-underline border-0 outline-none text-[10px] sm:text-xs font-bold tracking-wider uppercase select-none text-[#dfa929] whitespace-nowrap">
-                        MALİ MÜŞAVİRLİK
-                      </span>
+                      <div className="flex flex-col items-center justify-center text-center leading-[1.15] select-none">
+                        <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase whitespace-nowrap">
+                          MALİ
+                        </span>
+                        <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase whitespace-nowrap">
+                          MÜŞAVİRLİK
+                        </span>
+                      </div>
                       <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dfa929] group-hover/hub:animate-pulse transition-transform hover:translate-x-1 shrink-0" />
                     </Link>
                   </div>
