@@ -617,6 +617,7 @@ export default function ScrollCanvasDoor() {
 
         {/* BEAT D: 75 - 100% (THE GRAND OPENING - SPLIT PORTAL) */}
         <motion.div
+          id="uzmanlik-kanallari"
           style={{
             opacity: beatDOpacity,
             y: beatDY,

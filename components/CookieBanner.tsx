@@ -2,22 +2,93 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Cookie, X, Check, Shield } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Cookie, X, Check } from "lucide-react";
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
+    // Daha önce onay verildiyse hiçbir zaman gösterme
     try {
       const consent = localStorage.getItem("rotayd_cookie_consent");
-      if (!consent) {
-        const timer = setTimeout(() => setVisible(true), 1500);
-        return () => clearTimeout(timer);
+      if (consent) {
+        setVisible(false);
+        return;
       }
     } catch {
       // localStorage may fail in private mode
     }
-  }, []);
+
+    // 1. DURUM: Kullanıcı ana sayfa DIŞINDA bir sayfadaysa (/danismanlik, /malimusavirlik, /hakkimizda vb.)
+    // O sayfalarda kullanıcıyı rahatsız etmeden 1.2 sn sonra açılsın
+    if (pathname !== "/") {
+      const timer = setTimeout(() => {
+        setVisible(true);
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+
+    // 2. DURUM: Kullanıcı ana sayfadaysa (pathname === "/")
+    // İlk açılışta ve hero animasyonunda ASLA rol çalmasın.
+    // Yalnızca kullanıcı aşağı kaydırıp "İki Ana Uzmanlık Kanalımız" bölümüne ulaştığında açılsın.
+    setVisible(false);
+
+    const checkScrollPosition = () => {
+      // a) Canvas door scrollytelling container scroll ilerlemesi (Beat D: İki Ana Uzmanlık Kanalımız)
+      const doorSection = document.getElementById("canvas-door-section");
+      if (doorSection) {
+        const rect = doorSection.getBoundingClientRect();
+        const totalScrollable = rect.height - window.innerHeight;
+        if (totalScrollable > 0) {
+          const currentProgress = -rect.top / totalScrollable;
+          // ~0.68 ilerlemesi "İki Ana Uzmanlık Kanalımız" kapılarının tam ekranda belirdiği andır
+          if (currentProgress >= 0.68) {
+            setVisible(true);
+            window.removeEventListener("scroll", checkScrollPosition);
+            return;
+          }
+        }
+      }
+
+      // b) Doğrudan "uzmanlik-kanallari" ID kontrolü
+      const channelsSection = document.getElementById("uzmanlik-kanallari");
+      if (channelsSection) {
+        const cRect = channelsSection.getBoundingClientRect();
+        if (cRect.top <= window.innerHeight * 0.9 && cRect.bottom >= 0) {
+          setVisible(true);
+          window.removeEventListener("scroll", checkScrollPosition);
+          return;
+        }
+      }
+
+      // c) Yedek kontrol: Rakamlarla ROTAYD bölümü yaklaştıysa
+      const statsSection = document.getElementById("rakamlarla-rotayd");
+      if (statsSection) {
+        const statsRect = statsSection.getBoundingClientRect();
+        if (statsRect.top <= window.innerHeight * 1.1) {
+          setVisible(true);
+          window.removeEventListener("scroll", checkScrollPosition);
+          return;
+        }
+      }
+
+      // d) Genel piksel derinliği eşiği (en az 1800px aşağı inildiyse)
+      if (window.scrollY >= 1800) {
+        setVisible(true);
+        window.removeEventListener("scroll", checkScrollPosition);
+      }
+    };
+
+    window.addEventListener("scroll", checkScrollPosition, { passive: true });
+    // Sayfa refresh yapıldığında kullanıcı zaten aşağıdaysa hemen tetikle
+    checkScrollPosition();
+
+    return () => {
+      window.removeEventListener("scroll", checkScrollPosition);
+    };
+  }, [pathname]);
 
   const handleAccept = (type: "all" | "necessary") => {
     try {
