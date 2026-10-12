@@ -11,8 +11,6 @@ import {
   Users,
   Sparkles,
   TrendingUp,
-  ShieldCheck,
-  Award,
   RotateCcw,
 } from "lucide-react";
 
@@ -98,7 +96,6 @@ function StatCard({
   item,
   index,
   progress,
-  isRunning,
   isCompleted,
   hasStarted,
 }: {
@@ -159,15 +156,7 @@ function StatCard({
 
       {/* Top row: Icon + Badge / Category */}
       <div className="flex items-center justify-between mb-5 sm:mb-6">
-        <motion.div
-          animate={
-            isCompleted
-              ? {
-                  scale: [1, 1.06, 1],
-                  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-                }
-              : {}
-          }
+        <div
           className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
             item.isKeyHighlight
               ? "bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#040a1a]"
@@ -175,7 +164,7 @@ function StatCard({
           }`}
         >
           <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300" />
-        </motion.div>
+        </div>
 
         {item.isKeyHighlight && item.highlightTag ? (
           <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#f3d47c] tracking-wide">
@@ -189,67 +178,31 @@ function StatCard({
         )}
       </div>
 
-      {/* Center: ELEGANT & SUBTLE NUMBER POP WITH LUXURY LIGHT SHEEN */}
+      {/* Center: Hero Number + Suffix with Subtle Stretch & Squash upon completion */}
       <div className="relative space-y-2 my-auto py-2">
-        {/* Soft, Velvety Ambient Aura Bloom on completion (No harsh borders or explosion rings) */}
-        {isCompleted && (
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{
-              scale: [0.8, 1.25, 1.35],
-              opacity: [0, 0.35, 0],
-            }}
-            transition={{
-              duration: 1.0,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className={`absolute -inset-4 rounded-full blur-2xl pointer-events-none ${
-              item.isKeyHighlight ? "bg-[#d4af37]/30" : "bg-[#38bdf8]/25"
-            }`}
-          />
-        )}
-
-        {/* Number container with subtle, velvety micro-pop */}
         <motion.div
           key={`num-container-${item.id}`}
+          style={{ transformOrigin: "bottom center" }}
           animate={
             isCompleted
               ? {
-                  scale: [1, 1.045, 0.995, 1],
-                  y: [0, -3, 0.5, 0],
+                  scaleX: [1, 1.08, 0.94, 1.02, 1],
+                  scaleY: [1, 0.92, 1.07, 0.98, 1],
+                  y: [0, 1.5, -2.5, 0.5, 0],
                   transition: {
-                    duration: 0.65,
-                    times: [0, 0.35, 0.7, 1],
-                    ease: [0.16, 1, 0.3, 1],
+                    duration: 0.55,
+                    times: [0, 0.25, 0.55, 0.8, 1],
+                    ease: [0.22, 1, 0.36, 1],
                   },
                 }
-              : isRunning
-              ? { scale: 1.01, y: -1, transition: { duration: 0.2 } }
-              : { scale: 1, y: 0 }
+              : {
+                  scaleX: 1,
+                  scaleY: 1,
+                  y: 0,
+                }
           }
-          className="relative inline-flex items-baseline space-x-1 overflow-hidden pr-2"
+          className="inline-flex items-baseline space-x-1"
         >
-          {/* Subtle Satin Light Gleam Sweep over the numbers when completed */}
-          {isCompleted && (
-            <motion.span
-              initial={{ x: "-120%", opacity: 0 }}
-              animate={{
-                x: "160%",
-                opacity: [0, 0.75, 0.75, 0],
-              }}
-              transition={{
-                duration: 0.85,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.05,
-              }}
-              className={`absolute inset-y-0 w-20 -skew-x-25 pointer-events-none blur-[1px] ${
-                item.isKeyHighlight
-                  ? "bg-gradient-to-r from-transparent via-[#faecc0]/45 to-transparent"
-                  : "bg-gradient-to-r from-transparent via-white/35 to-transparent"
-              }`}
-            />
-          )}
-
           <span
             className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight tabular-nums select-none ${
               item.isKeyHighlight
@@ -260,29 +213,13 @@ function StatCard({
             {count}
           </span>
 
-          <motion.span
-            animate={
-              isCompleted
-                ? {
-                    scale: [0.95, 1.08, 0.99, 1],
-                    y: [1, -2, 0],
-                    opacity: 1,
-                    transition: {
-                      duration: 0.6,
-                      times: [0, 0.35, 0.7, 1],
-                      ease: [0.16, 1, 0.3, 1],
-                    },
-                  }
-                : isRunning
-                ? { scale: 0.98, y: 0, opacity: 0.85 }
-                : { scale: 1, y: 0, opacity: 0.9 }
-            }
+          <span
             className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold select-none ${
               item.isKeyHighlight ? "text-[#d4af37]" : "text-[#93c5fd]"
             }`}
           >
             {item.suffix}
-          </motion.span>
+          </span>
         </motion.div>
 
         <h3 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug pt-1">
@@ -295,20 +232,6 @@ function StatCard({
         <p className="text-xs sm:text-[13px] text-white/70 group-hover:text-white/90 transition-colors leading-relaxed font-normal">
           {item.description}
         </p>
-      </div>
-
-      {/* Subtle Synchronized Progress Accent at the bottom of the card */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5 overflow-hidden pointer-events-none">
-        <div
-          className={`h-full transition-all duration-75 ${
-            item.isKeyHighlight
-              ? "bg-gradient-to-r from-[#d4af37]/60 via-[#fce28b] to-[#d4af37]"
-              : "bg-gradient-to-r from-[#2563eb]/60 via-[#60a5fa] to-[#38bdf8]"
-          }`}
-          style={{
-            width: `${Math.round(progress * 100)}%`,
-          }}
-        />
       </div>
     </motion.div>
   );
@@ -447,21 +370,6 @@ export default function RotaydStats() {
               hasStarted={hasStarted}
             />
           ))}
-        </div>
-
-        {/* Bottom Trust Note */}
-        <div className="mt-12 sm:mt-16 text-center">
-          <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-white/60 bg-[#071128]/80 border border-[#1d3b7d]/40 rounded-full px-5 py-2.5 backdrop-blur-md">
-            <span className="inline-flex items-center space-x-1.5 text-white/80">
-              <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
-              <span>%100 Mevzuat &amp; Süreç Güvencesi</span>
-            </span>
-            <span className="hidden sm:inline text-white/30">•</span>
-            <span className="inline-flex items-center space-x-1.5 text-white/80">
-              <Award className="w-4 h-4 text-[#d4af37]" />
-              <span>15+ Yıllık Sektör Kıdemi</span>
-            </span>
-          </div>
         </div>
       </div>
     </section>
