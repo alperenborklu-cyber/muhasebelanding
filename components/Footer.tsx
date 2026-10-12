@@ -139,7 +139,7 @@ export default function Footer() {
             <Link href="/malimusavirlik" className="hover:text-[#d4af37] transition-colors">Mali Müşavirlik</Link>
             <Link href="/danismanlik" className="hover:text-[#d4af37] transition-colors">Danışmanlık</Link>
             <Link href="/blog" className="hover:text-[#d4af37] transition-colors">Blog</Link>
-            <Link href="/portal" className="text-[#d4af37] hover:underline font-semibold">Müşteri Portalı</Link>
+            <Link href="/portal" className="text-[#d4af37] hover:underline font-semibold">Mükellef Portalı</Link>
           </div>
         </div>
       </div>
