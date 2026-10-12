@@ -14,7 +14,8 @@ import {
   BookOpen,
   Building2,
   MessageSquare,
-  Users
+  Users,
+  Lock
 } from "lucide-react";
 
 export default function Navbar() {
@@ -250,6 +251,18 @@ export default function Navbar() {
                   <span>Mükellef Portalı (Fiş &amp; Fatura)</span>
                 </span>
                 <ArrowRight className="w-4 h-4 text-[#d4af37]" />
+              </Link>
+
+              <Link
+                href="/portal/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-xs font-semibold py-2 px-3 rounded-lg text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between transition-colors"
+              >
+                <span className="flex items-center space-x-2">
+                  <Lock className="w-3.5 h-3.5 text-[#d4af37]" />
+                  <span>Mali Müşavir / Admin Girişi</span>
+                </span>
+                <ArrowRight className="w-3.5 h-3.5 text-white/40" />
               </Link>
 
               <div className="pt-3 border-t border-white/10 flex flex-col space-y-2">

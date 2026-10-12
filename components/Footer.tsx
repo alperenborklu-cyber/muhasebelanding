@@ -47,11 +47,6 @@ export default function Footer() {
                   Bordrolama & Personel Özlük
                 </Link>
               </li>
-              <li>
-                <Link href="/portal" className="text-[#d4af37] hover:underline transition-colors font-medium">
-                  Mükellef Portalı
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -145,6 +140,7 @@ export default function Footer() {
             <Link href="/danismanlik" className="hover:text-[#d4af37] transition-colors">Danışmanlık</Link>
             <Link href="/blog" className="hover:text-[#d4af37] transition-colors">Blog</Link>
             <Link href="/portal" className="text-[#d4af37] hover:underline font-semibold">Mükellef Portalı</Link>
+            <Link href="/portal/admin" className="text-white/50 hover:text-[#d4af37] transition-colors">Admin Girişi</Link>
           </div>
         </div>
       </div>

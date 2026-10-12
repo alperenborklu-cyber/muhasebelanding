@@ -715,6 +715,18 @@ export default function PortalPage() {
                 </button>
               </div>
             </div>
+
+            {/* Yönetici & Mali Müşavir Girişi */}
+            <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
+              <span className="text-slate-400">Mali Müşavir / Yönetici misiniz?</span>
+              <Link
+                href="/portal/admin"
+                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#d4af37]/20 to-[#b89025]/20 hover:from-[#d4af37]/35 hover:to-[#b89025]/35 text-[#faecc0] hover:text-white border border-[#d4af37]/45 text-xs font-semibold flex items-center space-x-1.5 transition-all shadow-[0_0_12px_rgba(212,175,55,0.15)]"
+              >
+                <Lock className="w-3.5 h-3.5 text-[#d4af37]" />
+                <span>Admin Girişi &rarr;</span>
+              </Link>
+            </div>
           </div>
 
           {/* Güvenlik Rozetleri */}
