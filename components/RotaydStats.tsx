@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   FileCheck2,
@@ -13,6 +13,7 @@ import {
   TrendingUp,
   ShieldCheck,
   Award,
+  RotateCcw,
 } from "lucide-react";
 
 interface StatItem {
@@ -96,78 +97,62 @@ const statsData: StatItem[] = [
 function StatCard({
   item,
   index,
+  progress,
+  isRunning,
+  isCompleted,
+  hasStarted,
 }: {
   item: StatItem;
   index: number;
+  progress: number;
+  isRunning: boolean;
+  isCompleted: boolean;
+  hasStarted: boolean;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  // Kart ekrana en az %25 girdiğinde tam kullanıcının gözü önünde başlasın
-  const isCardInView = useInView(cardRef, { once: true, amount: 0.25 });
-  const [count, setCount] = useState<number>(0);
-  const [isCompleted, setIsCompleted] = useState<boolean>(false);
-  const lastValRef = useRef<number>(0);
   const IconComponent = item.icon;
 
-  useEffect(() => {
-    if (!isCardInView) return;
+  // Akıcı ve enerjik cubic easing: Başta hızlı hızlanır, sona doğru tatlı bir süzülüşle basamağa oturur
+  const easeProgress = hasStarted ? 1 - Math.pow(1 - progress, 3) : 0;
 
-    // Kartlar arasında sakin, belirgin bir kademe (150ms)
-    const startDelay = index * 150;
-    let animationFrameId: number;
-    let startTimestamp: number | null = null;
-
-    // Gerçekten sakin, ağırbaşlı ve gözle tane tane okunabilen süre (3.6s - 4.8s)
-    const duration = 3600 + Math.min(1200, item.targetNumber * 8);
-
-    const timeoutId = setTimeout(() => {
-      const step = (timestamp: number) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const elapsed = timestamp - startTimestamp;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Asla fırlamayan Ease-In-Out Quad eğrisi:
-        // Başlangıçta sakin başlar, akış boyunca tane tane okunur, sonda zarifçe oturur
-        const ease =
-          progress < 0.5
-            ? 2 * progress * progress
-            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-
-        const currentVal = Math.round(ease * item.targetNumber);
-
-        // Yalnızca tam sayı değiştiğinde render tetikle
-        if (currentVal !== lastValRef.current) {
-          lastValRef.current = currentVal;
-          setCount(currentVal);
-        }
-
-        if (progress < 1) {
-          animationFrameId = requestAnimationFrame(step);
-        } else {
-          setCount(item.targetNumber);
-          setIsCompleted(true);
-        }
-      };
-
-      animationFrameId = requestAnimationFrame(step);
-    }, startDelay);
-
-    return () => {
-      clearTimeout(timeoutId);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [isCardInView, item.targetNumber, index]);
+  // KESİN KURAL: Hepsi 1'den başlar ve aynı anda targetNumber'a ulaşır
+  const count = hasStarted
+    ? isCompleted
+      ? item.targetNumber
+      : Math.max(
+          1,
+          Math.min(
+            item.targetNumber,
+            Math.round(1 + (item.targetNumber - 1) * easeProgress)
+          )
+        )
+    : 1;
 
   return (
     <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 32 }}
-      animate={isCardInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
-      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.21, 1, 0.36, 1] }}
-      className={`group relative rounded-2xl p-5 sm:p-6 lg:p-7 transition-all duration-500 flex flex-col justify-between overflow-hidden ${
+      initial={{ opacity: 0, y: 35, scaleX: 1.04, scaleY: 0.88 }}
+      animate={{ opacity: 1, y: 0, scaleX: 1, scaleY: 1 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.05,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={{
+        y: -7,
+        scaleX: 0.985,
+        scaleY: 1.025,
+        transition: { type: "spring", stiffness: 450, damping: 18 },
+      }}
+      whileTap={{
+        scaleX: 1.05,
+        scaleY: 0.94,
+        y: 0,
+        transition: { duration: 0.1 },
+      }}
+      className={`group relative rounded-2xl p-5 sm:p-6 lg:p-7 flex flex-col justify-between overflow-hidden cursor-default transition-colors duration-300 ${
         item.isKeyHighlight
-          ? "bg-gradient-to-br from-[#0c1b3d]/90 via-[#07132e]/95 to-[#040a1a] border border-[#d4af37]/45 shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] hover:border-[#d4af37] hover:shadow-[0_15px_45px_-10px_rgba(212,175,55,0.35)]"
-          : "bg-[#071128]/70 border border-[#1d3b7d]/40 shadow-lg hover:border-[#2a4d9e]/70 hover:bg-[#0b1938]/80 hover:shadow-[0_10px_30px_-10px_rgba(37,99,235,0.15)]"
-      } backdrop-blur-md hover:-translate-y-1`}
+          ? "bg-gradient-to-br from-[#0c1b3d]/90 via-[#07132e]/95 to-[#040a1a] border border-[#d4af37]/45 shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] hover:border-[#d4af37] hover:shadow-[0_18px_50px_-10px_rgba(212,175,55,0.38)]"
+          : "bg-[#071128]/70 border border-[#1d3b7d]/40 shadow-lg hover:border-[#2a4d9e]/70 hover:bg-[#0b1938]/80 hover:shadow-[0_12px_36px_-10px_rgba(37,99,235,0.2)]"
+      } backdrop-blur-md`}
     >
       {/* Background ambient glow on hover */}
       <div
@@ -178,15 +163,24 @@ function StatCard({
 
       {/* Top row: Icon + Badge / Category */}
       <div className="flex items-center justify-between mb-5 sm:mb-6">
-        <div
+        <motion.div
+          animate={
+            isCompleted
+              ? {
+                  scale: [1, 1.22, 0.95, 1],
+                  rotate: [0, -8, 6, 0],
+                  transition: { duration: 0.5, ease: "easeOut" },
+                }
+              : {}
+          }
           className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
             item.isKeyHighlight
-              ? "bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#040a1a] group-hover:scale-105"
-              : "bg-[#122654]/70 border border-[#1d3b7d]/60 text-[#93c5fd] group-hover:bg-[#1b3a80] group-hover:text-white group-hover:scale-105"
+              ? "bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#040a1a]"
+              : "bg-[#122654]/70 border border-[#1d3b7d]/60 text-[#93c5fd] group-hover:bg-[#1b3a80] group-hover:text-white"
           }`}
         >
           <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300" />
-        </div>
+        </motion.div>
 
         {item.isKeyHighlight && item.highlightTag ? (
           <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#f3d47c] tracking-wide">
@@ -200,26 +194,92 @@ function StatCard({
         )}
       </div>
 
-      {/* Center: Hero Animated Number + Clean Title */}
-      <div className="space-y-2 my-auto">
-        <div className="flex items-baseline space-x-0.5">
-          <span
-            className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight tabular-nums transition-colors duration-300 ${
+      {/* Center: AWWWARDS-LEVEL STRETCH & SQUASH NUMBER */}
+      <div className="relative space-y-2 my-auto py-2">
+        {/* Synchronized Climax Shockwave Ripple on completion */}
+        {isCompleted && (
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0.9 }}
+            animate={{ scale: [0.5, 1.5, 1.9], opacity: [0.9, 0.35, 0] }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+            className={`absolute -inset-3 rounded-2xl pointer-events-none ${
               item.isKeyHighlight
-                ? "gold-gradient-text drop-shadow-[0_2px_14px_rgba(212,175,55,0.28)]"
-                : "text-white"
+                ? "border border-[#d4af37]/60 shadow-[0_0_25px_rgba(212,175,55,0.4)]"
+                : "border border-[#38bdf8]/60 shadow-[0_0_25px_rgba(56,189,248,0.3)]"
+            }`}
+          />
+        )}
+
+        {/* Stretch & Squash Number Container:
+            - Rolling: Dikey esneme (Stretch: scaleY: 1.10, scaleX: 0.92) ile yukarı ivmelenme
+            - Bitiş anında (Impact): Basma (Squash: scaleY: 0.78, scaleX: 1.25, y: +5)
+            - Rebound (Spring Stretch): Geri yaylanma (scaleY: 1.18, scaleX: 0.88, y: -8)
+            - Sönümlenme ve Denge: (scaleY: 0.94 -> 1.02 -> 1.00)
+        */}
+        <motion.div
+          key={`num-container-${item.id}`}
+          style={{ transformOrigin: "bottom left" }}
+          animate={
+            isCompleted
+              ? {
+                  scaleX: [0.92, 1.25, 0.88, 1.05, 0.98, 1],
+                  scaleY: [1.1, 0.78, 1.18, 0.94, 1.02, 1],
+                  y: [-3, 5, -8, 2, -1, 0],
+                  transition: {
+                    duration: 0.65,
+                    times: [0, 0.22, 0.48, 0.72, 0.88, 1],
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                }
+              : isRunning
+              ? {
+                  scaleX: 0.92,
+                  scaleY: 1.1,
+                  y: -3,
+                  transition: { duration: 0.2, ease: "easeOut" },
+                }
+              : {
+                  scaleX: 1,
+                  scaleY: 1,
+                  y: 0,
+                }
+          }
+          className="inline-flex items-baseline space-x-1"
+        >
+          <span
+            className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight tabular-nums select-none ${
+              item.isKeyHighlight
+                ? "gold-gradient-text drop-shadow-[0_2px_16px_rgba(212,175,55,0.35)]"
+                : "text-white drop-shadow-[0_2px_14px_rgba(59,130,246,0.3)]"
             }`}
           >
             {count}
           </span>
-          <span
-            className={`text-2xl sm:text-3xl lg:text-4xl font-bold ${
+
+          <motion.span
+            animate={
+              isCompleted
+                ? {
+                    scale: [0.75, 1.45, 0.9, 1.1, 1],
+                    rotate: [-18, 14, -5, 2, 0],
+                    opacity: [0.8, 1, 1, 1, 1],
+                    transition: {
+                      duration: 0.65,
+                      times: [0, 0.25, 0.5, 0.75, 1],
+                      ease: [0.175, 0.885, 0.32, 1.275],
+                    },
+                  }
+                : isRunning
+                ? { scale: 0.85, rotate: -6, opacity: 0.75 }
+                : { scale: 1, rotate: 0, opacity: 0.9 }
+            }
+            className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold select-none ${
               item.isKeyHighlight ? "text-[#d4af37]" : "text-[#93c5fd]"
             }`}
           >
             {item.suffix}
-          </span>
-        </div>
+          </motion.span>
+        </motion.div>
 
         <h3 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug pt-1">
           {item.title}
@@ -233,19 +293,86 @@ function StatCard({
         </p>
       </div>
 
-      {/* Subtle indicator bar at the bottom */}
-      <div
-        className={`absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-500 ${
-          item.isKeyHighlight
-            ? "bg-gradient-to-r from-transparent via-[#d4af37] to-transparent opacity-60 group-hover:opacity-100"
-            : "bg-gradient-to-r from-transparent via-[#2563eb]/60 to-transparent opacity-0 group-hover:opacity-100"
-        }`}
-      />
+      {/* Synchronized Energy Charging Beam at the bottom of the card */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-white/5 overflow-hidden pointer-events-none">
+        <motion.div
+          className={`h-full ${
+            item.isKeyHighlight
+              ? "bg-gradient-to-r from-[#d4af37] via-[#fce28b] to-[#d4af37] shadow-[0_0_12px_rgba(212,175,55,0.8)]"
+              : "bg-gradient-to-r from-[#2563eb] via-[#60a5fa] to-[#38bdf8] shadow-[0_0_12px_rgba(56,189,248,0.8)]"
+          }`}
+          style={{
+            width: `${Math.round(progress * 100)}%`,
+          }}
+          animate={
+            isCompleted
+              ? {
+                  opacity: [1, 0.7, 1],
+                }
+              : {}
+          }
+        />
+      </div>
     </motion.div>
   );
 }
 
 export default function RotaydStats() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  // Bölüm ekranın %20'sine girdiğinde aynı anda tetiklensin
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+
+  const [hasStarted, setHasStarted] = useState<boolean>(false);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
+
+  // Synchronized Master Clock: Tüm kartlar tam aynı milisaniyede 1'den başlar, aynı anda biter
+  const startAnimation = useCallback(() => {
+    setIsCompleted(false);
+    setIsRunning(true);
+    setHasStarted(true);
+    setProgress(0);
+
+    // 1400ms (1.4 saniye): Enerjik, ödül seviyesinde tempo, sıkmayan dinamik ritim
+    const DURATION = 1400;
+    let startTimestamp: number | null = null;
+    let animId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const elapsed = timestamp - startTimestamp;
+      const currentProgress = Math.min(elapsed / DURATION, 1);
+
+      setProgress(currentProgress);
+
+      if (currentProgress < 1) {
+        animId = requestAnimationFrame(step);
+      } else {
+        setProgress(1);
+        setIsRunning(false);
+        setIsCompleted(true);
+      }
+    };
+
+    animId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  useEffect(() => {
+    if (isInView && !hasStarted) {
+      // Kartların ekrana inişinin ardından (180ms) aynı anda başlasınlar
+      const timer = setTimeout(() => {
+        startAnimation();
+      }, 180);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, hasStarted, startAnimation]);
+
+  const handleReplay = () => {
+    startAnimation();
+  };
+
   return (
     <section
       id="rakamlarla-rotayd"
@@ -266,7 +393,10 @@ export default function RotaydStats() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div
+        ref={containerRef}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-xs font-semibold uppercase tracking-wider mb-4 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
@@ -288,12 +418,37 @@ export default function RotaydStats() {
           <p className="mt-2 text-xs sm:text-sm text-white/50 max-w-2xl mx-auto">
             Yalnızca başvuru yapan bir danışmanlık firması değil; işletmelerin mali, hibe ve teşvik süreçlerini uçtan uca ve uzun vadeli yöneten güvenilir çözüm ortağınız.
           </p>
+
+          {/* Replay Micro-Interaction: Awwwards-style interactive test/preview control */}
+          <div className="mt-5 flex justify-center">
+            <button
+              onClick={handleReplay}
+              type="button"
+              className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full text-xs font-medium text-white/75 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4af37]/50 transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm"
+              aria-label="Animasyonu Yeniden Oynat"
+            >
+              <RotateCcw
+                className={`w-3.5 h-3.5 text-[#d4af37] transition-transform duration-500 ${
+                  isRunning ? "animate-spin" : ""
+                }`}
+              />
+              <span>Animasyonu Yeniden Oynat</span>
+            </button>
+          </div>
         </div>
 
-        {/* Stats Grid: 3 columns on desktop (lg:grid-cols-3), 2 columns on mobile (grid-cols-2) */}
+        {/* Stats Grid: 3 columns on desktop, 2 columns on mobile */}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8">
           {statsData.map((item, index) => (
-            <StatCard key={item.id} item={item} index={index} />
+            <StatCard
+              key={item.id}
+              item={item}
+              index={index}
+              progress={progress}
+              isRunning={isRunning}
+              isCompleted={isCompleted}
+              hasStarted={hasStarted}
+            />
           ))}
         </div>
 
