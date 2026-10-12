@@ -96,27 +96,28 @@ const statsData: StatItem[] = [
 function StatCard({
   item,
   index,
-  sectionInView,
 }: {
   item: StatItem;
   index: number;
-  sectionInView: boolean;
 }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  // Kart ekrana en az %25 girdiğinde tam kullanıcının gözü önünde başlasın
+  const isCardInView = useInView(cardRef, { once: true, amount: 0.25 });
   const [count, setCount] = useState<number>(0);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const lastValRef = useRef<number>(0);
   const IconComponent = item.icon;
 
   useEffect(() => {
-    if (!sectionInView) return;
+    if (!isCardInView) return;
 
-    // Kademeli ve zarif başlangıç (120ms stagger - kartlar gözü yormadan sırayla başlar)
-    const startDelay = index * 120;
+    // Kartlar arasında sakin, belirgin bir kademe (150ms)
+    const startDelay = index * 150;
     let animationFrameId: number;
     let startTimestamp: number | null = null;
 
-    // Rakamın büyüklüğüne göre sakin, prestijli ve gözle takip edilebilir süre (2.4s - 2.8s)
-    const duration = 2400 + Math.min(400, item.targetNumber * 3);
+    // Gerçekten sakin, ağırbaşlı ve gözle tane tane okunabilen süre (3.6s - 4.8s)
+    const duration = 3600 + Math.min(1200, item.targetNumber * 8);
 
     const timeoutId = setTimeout(() => {
       const step = (timestamp: number) => {
@@ -124,8 +125,13 @@ function StatCard({
         const elapsed = timestamp - startTimestamp;
         const progress = Math.min(elapsed / duration, 1);
 
-        // Sinematik Ease-Out Quart eğrisi: yumuşak ivmelenme ve hedefe yaklaşırken zarifçe durulma
-        const ease = 1 - Math.pow(1 - progress, 4);
+        // Asla fırlamayan Ease-In-Out Quad eğrisi:
+        // Başlangıçta sakin başlar, akış boyunca tane tane okunur, sonda zarifçe oturur
+        const ease =
+          progress < 0.5
+            ? 2 * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
         const currentVal = Math.round(ease * item.targetNumber);
 
         // Yalnızca tam sayı değiştiğinde render tetikle
@@ -149,13 +155,14 @@ function StatCard({
       clearTimeout(timeoutId);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [sectionInView, item.targetNumber, index]);
+  }, [isCardInView, item.targetNumber, index]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
-      animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.21, 1, 0.36, 1] }}
+      ref={cardRef}
+      initial={{ opacity: 0, y: 32 }}
+      animate={isCardInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.21, 1, 0.36, 1] }}
       className={`group relative rounded-2xl p-5 sm:p-6 lg:p-7 transition-all duration-500 flex flex-col justify-between overflow-hidden ${
         item.isKeyHighlight
           ? "bg-gradient-to-br from-[#0c1b3d]/90 via-[#07132e]/95 to-[#040a1a] border border-[#d4af37]/45 shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] hover:border-[#d4af37] hover:shadow-[0_15px_45px_-10px_rgba(212,175,55,0.35)]"
@@ -239,13 +246,8 @@ function StatCard({
 }
 
 export default function RotaydStats() {
-  const sectionRef = useRef<HTMLElement>(null);
-  // Bölüm ekrana girerken tek noktadan senkron tetikleme
-  const isSectionInView = useInView(sectionRef, { once: true, margin: "-60px" });
-
   return (
     <section
-      ref={sectionRef}
       id="rakamlarla-rotayd"
       aria-label="Rakamlarla ROTAYD İstatistikleri"
       className="relative py-16 sm:py-24 bg-gradient-to-b from-[#040a1a] via-[#071128] to-[#040a1a] text-white overflow-hidden"
@@ -291,12 +293,7 @@ export default function RotaydStats() {
         {/* Stats Grid: 3 columns on desktop (lg:grid-cols-3), 2 columns on mobile (grid-cols-2) */}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8">
           {statsData.map((item, index) => (
-            <StatCard
-              key={item.id}
-              item={item}
-              index={index}
-              sectionInView={isSectionInView}
-            />
+            <StatCard key={item.id} item={item} index={index} />
           ))}
         </div>
 
