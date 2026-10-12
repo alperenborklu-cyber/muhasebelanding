@@ -12,16 +12,14 @@ import {
   Sparkles,
   TrendingUp,
   ShieldCheck,
-  Award
+  Award,
 } from "lucide-react";
 
 interface StatItem {
   id: string;
   targetNumber: number;
-  prefix?: string;
   suffix?: string;
-  displayValue: string; // e.g. "100'den Fazla"
-  label: string;
+  title: string;
   description: string;
   icon: React.ElementType;
   isKeyHighlight?: boolean;
@@ -34,21 +32,19 @@ const statsData: StatItem[] = [
     id: "yatirim-tesvik",
     targetNumber: 100,
     suffix: "+",
-    displayValue: "100'den Fazla",
-    label: "Yatırım Teşvik Belgesi",
-    description: "Alınan Yatırım Teşvik Belgesi",
+    title: "Yatırım Teşvik Belgesi",
+    description: "100'den fazla resmi başvuru ve tamamlanan teşvik süreci",
     icon: FileCheck2,
     isKeyHighlight: true,
     highlightTag: "Stratejik Başarı",
-    category: "Yatırım & Hibe",
+    category: "Yatırım & Teşvik",
   },
   {
     id: "tubitak",
     targetNumber: 10,
     suffix: "+",
-    displayValue: "10'dan Fazla",
-    label: "TÜBİTAK Projesi",
-    description: "TÜBİTAK Projesi Başvuru ve Yürütme",
+    title: "TÜBİTAK Projesi",
+    description: "10'dan fazla Ar-Ge başvuru, onay ve yürütme süreci",
     icon: Atom,
     isKeyHighlight: false,
     category: "Ar-Ge & İnovasyon",
@@ -57,9 +53,8 @@ const statsData: StatItem[] = [
     id: "arge-tasarim",
     targetNumber: 5,
     suffix: "+",
-    displayValue: "5'ten Fazla",
-    label: "Ar-Ge & Tasarım Merkezi",
-    description: "Merkez Başvuru ve Süreç Yönetimi",
+    title: "Ar-Ge & Tasarım Merkezi",
+    description: "5'ten fazla resmi merkez başvuru ve süreç yönetimi",
     icon: Building2,
     isKeyHighlight: false,
     category: "Teknoloji & Tescil",
@@ -68,20 +63,18 @@ const statsData: StatItem[] = [
     id: "ticaret-bakanligi",
     targetNumber: 20,
     suffix: "+",
-    displayValue: "20'den Fazla Firma",
-    label: "İhracat & Ticaret Desteği",
-    description: "Aylık Ticaret Bakanlığı Destek Takibi",
+    title: "Ticaret Bakanlığı Destekleri",
+    description: "20'den fazla firma için aylık düzenli ihracat destek takibi",
     icon: Globe2,
     isKeyHighlight: false,
-    category: "Dış Ticaret",
+    category: "İhracat & Destek",
   },
   {
     id: "mali-danismanlik",
     targetNumber: 50,
     suffix: "+",
-    displayValue: "50'den Fazla Firma",
-    label: "Mali Danışmanlık",
-    description: "Aylık Mali Danışmanlık Hizmeti",
+    title: "Aylık Mali Danışmanlık",
+    description: "50'den fazla kurumsal işletmeye sürekli ve güvenilir hizmet",
     icon: Calculator,
     isKeyHighlight: true,
     highlightTag: "Sürekli Güven",
@@ -91,61 +84,83 @@ const statsData: StatItem[] = [
     id: "sgk-tesvik",
     targetNumber: 150,
     suffix: "+",
-    displayValue: "150'den Fazla Firma",
-    label: "SGK Teşvik Takibi",
-    description: "Aylık Düzenli SGK Teşvik Takibi",
+    title: "Aylık SGK Teşvik Takibi",
+    description: "150'den fazla firmaya aylık düzenli prim ve istihdam kazancı",
     icon: Users,
     isKeyHighlight: true,
-    highlightTag: "Düzenli Çözüm Ortaklığı",
+    highlightTag: "Çözüm Ortaklığı",
     category: "Bordro & İstihdam",
   },
 ];
 
-function StatCard({ item, index }: { item: StatItem; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: true, margin: "-40px" });
+function StatCard({
+  item,
+  index,
+  sectionInView,
+}: {
+  item: StatItem;
+  index: number;
+  sectionInView: boolean;
+}) {
   const [count, setCount] = useState<number>(0);
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const lastValRef = useRef<number>(0);
   const IconComponent = item.icon;
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!sectionInView) return;
 
-    let startTimestamp: number | null = null;
-    const duration = 2000; // 2 seconds smooth count-up
+    // Senkronize ve yumuşak kademeli başlangıç (50ms stagger)
+    const startDelay = index * 50;
     let animationFrameId: number;
+    let startTimestamp: number | null = null;
 
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      // Smooth easeOutExpo
-      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      const currentVal = Math.floor(ease * item.targetNumber);
+    // Rakamın büyüklüğüne göre dengeli, akıcı süre hesabı (asla takılma / donma yapmaz)
+    const duration = Math.min(1450, Math.max(850, 700 + item.targetNumber * 5));
 
-      setCount(currentVal);
+    const timeoutId = setTimeout(() => {
+      const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const elapsed = timestamp - startTimestamp;
+        const progress = Math.min(elapsed / duration, 1);
 
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(step);
-      } else {
-        setCount(item.targetNumber);
-      }
+        // Standart akıcı Ease-Out Cubic eğrisi: yumuşak kalkış ve zarif yavaşlama
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.round(ease * item.targetNumber);
+
+        // Yalnızca tam sayı değiştiğinde render tetikle (aşırı CPU ve re-render sıçramalarını önler)
+        if (currentVal !== lastValRef.current) {
+          lastValRef.current = currentVal;
+          setCount(currentVal);
+        }
+
+        if (progress < 1) {
+          animationFrameId = requestAnimationFrame(step);
+        } else {
+          setCount(item.targetNumber);
+          setIsCompleted(true);
+        }
+      };
+
+      animationFrameId = requestAnimationFrame(step);
+    }, startDelay);
+
+    return () => {
+      clearTimeout(timeoutId);
+      cancelAnimationFrame(animationFrameId);
     };
-
-    animationFrameId = requestAnimationFrame(step);
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isInView, item.targetNumber]);
+  }, [sectionInView, item.targetNumber, index]);
 
   return (
     <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
+      initial={{ opacity: 0, y: 24 }}
+      animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
       className={`group relative rounded-2xl p-5 sm:p-6 lg:p-7 transition-all duration-500 flex flex-col justify-between overflow-hidden ${
         item.isKeyHighlight
-          ? "bg-gradient-to-br from-[#0c1b3d]/90 via-[#07132e]/95 to-[#040a1a] border border-[#d4af37]/40 shadow-[0_10px_35px_-10px_rgba(212,175,55,0.18)] hover:border-[#d4af37] hover:shadow-[0_15px_45px_-10px_rgba(212,175,55,0.3)]"
+          ? "bg-gradient-to-br from-[#0c1b3d]/90 via-[#07132e]/95 to-[#040a1a] border border-[#d4af37]/45 shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] hover:border-[#d4af37] hover:shadow-[0_15px_45px_-10px_rgba(212,175,55,0.35)]"
           : "bg-[#071128]/70 border border-[#1d3b7d]/40 shadow-lg hover:border-[#2a4d9e]/70 hover:bg-[#0b1938]/80 hover:shadow-[0_10px_30px_-10px_rgba(37,99,235,0.15)]"
-      } backdrop-blur-md hover:-translate-y-1.5`}
+      } backdrop-blur-md hover:-translate-y-1`}
     >
       {/* Background ambient glow on hover */}
       <div
@@ -154,10 +169,10 @@ function StatCard({ item, index }: { item: StatItem; index: number }) {
         }`}
       />
 
-      {/* Top row: Icon + Highlight Tag / Category */}
-      <div className="flex items-center justify-between mb-4 sm:mb-6">
+      {/* Top row: Icon + Badge / Category */}
+      <div className="flex items-center justify-between mb-5 sm:mb-6">
         <div
-          className={`w-11 h-11 sm:w-13 sm:h-13 rounded-xl flex items-center justify-center transition-all duration-300 ${
+          className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
             item.isKeyHighlight
               ? "bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#040a1a] group-hover:scale-105"
               : "bg-[#122654]/70 border border-[#1d3b7d]/60 text-[#93c5fd] group-hover:bg-[#1b3a80] group-hover:text-white group-hover:scale-105"
@@ -167,45 +182,46 @@ function StatCard({ item, index }: { item: StatItem; index: number }) {
         </div>
 
         {item.isKeyHighlight && item.highlightTag ? (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[#d4af37]/15 border border-[#d4af37]/35 text-[#f3d47c] tracking-wide">
+          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#f3d47c] tracking-wide">
             <Sparkles className="w-3 h-3 text-[#d4af37]" />
-            <span className="hidden xs:inline">{item.highlightTag}</span>
-            <span className="xs:hidden">Öne Çıkan</span>
+            <span>{item.highlightTag}</span>
           </span>
         ) : (
-          <span className="text-[11px] sm:text-xs font-medium text-white/40 tracking-wider uppercase">
+          <span className="text-[11px] sm:text-xs font-medium text-white/45 tracking-wider uppercase">
             {item.category}
           </span>
         )}
       </div>
 
-      {/* Center: Large animated number & display value */}
-      <div className="space-y-1 sm:space-y-1.5 my-auto">
-        <div className="flex items-baseline space-x-1.5 flex-wrap">
+      {/* Center: Hero Animated Number + Clean Title */}
+      <div className="space-y-2 my-auto">
+        <div className="flex items-baseline space-x-0.5">
           <span
-            className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight tabular-nums ${
+            className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight tabular-nums transition-colors duration-300 ${
               item.isKeyHighlight
-                ? "gold-gradient-text drop-shadow-[0_2px_10px_rgba(212,175,55,0.25)]"
+                ? "gold-gradient-text drop-shadow-[0_2px_14px_rgba(212,175,55,0.28)]"
                 : "text-white"
             }`}
           >
             {count}
+          </span>
+          <span
+            className={`text-2xl sm:text-3xl lg:text-4xl font-bold ${
+              item.isKeyHighlight ? "text-[#d4af37]" : "text-[#93c5fd]"
+            }`}
+          >
             {item.suffix}
           </span>
         </div>
 
-        <div
-          className={`text-xs sm:text-sm font-semibold tracking-wide ${
-            item.isKeyHighlight ? "text-[#f3d47c]" : "text-white/80"
-          }`}
-        >
-          {item.displayValue}
-        </div>
+        <h3 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug pt-1">
+          {item.title}
+        </h3>
       </div>
 
-      {/* Bottom: Description */}
-      <div className="mt-3 pt-3 border-t border-white/10">
-        <p className="text-xs sm:text-sm text-white/70 group-hover:text-white/90 transition-colors leading-relaxed font-normal">
+      {/* Bottom: Clear Description */}
+      <div className="mt-4 pt-3 border-t border-white/10">
+        <p className="text-xs sm:text-[13px] text-white/70 group-hover:text-white/90 transition-colors leading-relaxed font-normal">
           {item.description}
         </p>
       </div>
@@ -224,6 +240,8 @@ function StatCard({ item, index }: { item: StatItem; index: number }) {
 
 export default function RotaydStats() {
   const sectionRef = useRef<HTMLElement>(null);
+  // Bölüm ekrana girerken tek noktadan senkron tetikleme
+  const isSectionInView = useInView(sectionRef, { once: true, margin: "-60px" });
 
   return (
     <section
@@ -270,10 +288,15 @@ export default function RotaydStats() {
           </p>
         </div>
 
-        {/* Stats Grid: 3 columns & 2 rows on desktop (lg:grid-cols-3), 2 columns on mobile (grid-cols-2) */}
+        {/* Stats Grid: 3 columns on desktop (lg:grid-cols-3), 2 columns on mobile (grid-cols-2) */}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8">
           {statsData.map((item, index) => (
-            <StatCard key={item.id} item={item} index={index} />
+            <StatCard
+              key={item.id}
+              item={item}
+              index={index}
+              sectionInView={isSectionInView}
+            />
           ))}
         </div>
 
