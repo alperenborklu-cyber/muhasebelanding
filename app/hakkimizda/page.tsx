@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ReferencesMarquee from "@/components/ReferencesMarquee";
+import RotaydStats from "@/components/RotaydStats";
 import {
   ShieldCheck,
   Briefcase,
@@ -35,13 +36,6 @@ export const metadata: Metadata = {
 };
 
 export default function HakkimizdaPage() {
-  const stats = [
-    { value: "15+", label: "Yıllık Sektör Tecrübesi", desc: "Vergi, muhasebe ve teşvik mevzuatında kıdem" },
-    { value: "450+", label: "Aktif Kurumsal Portföy", desc: "Sanayi, ticaret ve teknoloji şirketleri" },
-    { value: "50M+ TL", label: "Sağlanan Teşvik & Tasarruf", desc: "SGK, yatırım teşvik ve vergi optimizasyonu" },
-    { value: "%99", label: "Proje ve Hibe Başarısı", desc: "Bakanlık ve KOSGEB onay performansı" },
-  ];
-
   const corePillars = [
     {
       icon: ShieldCheck,
@@ -253,7 +247,7 @@ export default function HakkimizdaPage() {
 
                     <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border-2 border-[#d4af37]/60 shadow-2xl bg-[#0b1938]">
                       <Image
-                        src="/images/canan-ilhan-yonetim-danismani.webp"
+                        src="/images/canan-ilhan-rotayd.png"
                         alt="Canan İlhan - ROTAYD Kurucu Ortak, Yönetim Danışmanı ve Devlet Teşvikleri Müşaviri"
                         fill
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
@@ -351,22 +345,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* 3. İstatistikler & Rakamlarla ROTAYD */}
-      <section className="px-4 sm:px-6 lg:px-8 py-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {stats.map((stat, i) => (
-              <div
-                key={i}
-                className="glass-panel p-6 rounded-2xl border border-[#d4af37]/20 text-center space-y-2 hover:border-[#d4af37]/50 transition-all"
-              >
-                <div className="text-3xl sm:text-4xl font-black gold-gradient-text">{stat.value}</div>
-                <div className="text-xs sm:text-sm font-semibold text-white">{stat.label}</div>
-                <p className="text-[11px] text-white/60 leading-snug">{stat.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <RotaydStats />
 
       {/* 4. Misyonumuz ve Vizyonumuz */}
       <section className="px-4 sm:px-6 lg:px-8 py-12">
