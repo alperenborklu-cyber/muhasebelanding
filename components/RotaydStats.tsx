@@ -11,7 +11,6 @@ import {
   Users,
   Sparkles,
   TrendingUp,
-  RotateCcw,
 } from "lucide-react";
 
 interface StatItem {
@@ -102,7 +101,6 @@ function StatCard({
   item: StatItem;
   index: number;
   progress: number;
-  isRunning: boolean;
   isCompleted: boolean;
   hasStarted: boolean;
 }) {
@@ -243,14 +241,12 @@ export default function RotaydStats() {
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
   const [hasStarted, setHasStarted] = useState<boolean>(false);
-  const [isRunning, setIsRunning] = useState<boolean>(false);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
 
   // Synchronized Master Clock: Tüm kartlar tam aynı milisaniyede 1'den başlar, aynı anda biter
   const startAnimation = useCallback(() => {
     setIsCompleted(false);
-    setIsRunning(true);
     setHasStarted(true);
     setProgress(0);
 
@@ -270,7 +266,6 @@ export default function RotaydStats() {
         animId = requestAnimationFrame(step);
       } else {
         setProgress(1);
-        setIsRunning(false);
         setIsCompleted(true);
       }
     };
@@ -288,10 +283,6 @@ export default function RotaydStats() {
       return () => clearTimeout(timer);
     }
   }, [isInView, hasStarted, startAnimation]);
-
-  const handleReplay = () => {
-    startAnimation();
-  };
 
   return (
     <section
@@ -338,23 +329,6 @@ export default function RotaydStats() {
           <p className="mt-2 text-xs sm:text-sm text-white/50 max-w-2xl mx-auto">
             Yalnızca başvuru yapan bir danışmanlık firması değil; işletmelerin mali, hibe ve teşvik süreçlerini uçtan uca ve uzun vadeli yöneten güvenilir çözüm ortağınız.
           </p>
-
-          {/* Replay Micro-Interaction */}
-          <div className="mt-5 flex justify-center">
-            <button
-              onClick={handleReplay}
-              type="button"
-              className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full text-xs font-medium text-white/75 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4af37]/50 transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm"
-              aria-label="Animasyonu Yeniden Oynat"
-            >
-              <RotateCcw
-                className={`w-3.5 h-3.5 text-[#d4af37] transition-transform duration-500 ${
-                  isRunning ? "animate-spin" : ""
-                }`}
-              />
-              <span>Animasyonu Yeniden Oynat</span>
-            </button>
-          </div>
         </div>
 
         {/* Stats Grid: 3 columns on desktop, 2 columns on mobile */}
@@ -365,7 +339,6 @@ export default function RotaydStats() {
               item={item}
               index={index}
               progress={progress}
-              isRunning={isRunning}
               isCompleted={isCompleted}
               hasStarted={hasStarted}
             />
