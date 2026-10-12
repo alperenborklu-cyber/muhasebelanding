@@ -9,15 +9,12 @@ export const authOptions: NextAuthOptions = {
       id: 'mukellef-auth',
       name: 'Mükellef Girişi',
       credentials: {
-        vkn: { label: 'Vergi Numarası (VKN / TCKN)', type: 'text' },
+        vkn: { label: 'Vergi Kimlik Numarası (VKN)', type: 'text' },
         password: { label: 'Şifre', type: 'password' },
-        unvan: { label: 'Unvan / İsim', type: 'text' },
-        email: { label: 'E-Posta Adresi', type: 'email' },
-        name: { label: 'Ad Soyad', type: 'text' },
-        phone: { label: 'Telefon Numarası', type: 'text' }
+        unvan: { label: 'Unvan / İsim', type: 'text' }
       },
       async authorize(credentials) {
-        // 1. VKN / TCKN ile Giriş
+        // 1. Sadece 10 Haneli VKN ile Giriş
         if (credentials?.vkn) {
           const res = ServerDb.loginWithVkn({
             vkn: credentials.vkn,
@@ -39,27 +36,7 @@ export const authOptions: NextAuthOptions = {
           };
         }
 
-        // 2. Klasik E-posta ile Giriş
-        if (!credentials?.email) return null;
-
-        const email = credentials.email.trim().toLowerCase();
-        const name = credentials.name?.trim() || email.split('@')[0];
-        const phone = credentials.phone?.trim();
-
-        const user = ServerDb.registerOrLoginUser({
-          email,
-          name,
-          phone
-        });
-
-        return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          image: user.image,
-          role: user.role,
-          status: user.status
-        };
+        return null;
       }
     })
   ],

@@ -97,14 +97,10 @@ export default function PortalPage() {
   const [isRefreshingStatus, setIsRefreshingStatus] = useState(false);
   const [activeTab, setActiveTab] = useState<'documents' | 'companies'>('documents');
 
-  // Giriş Formu State (VKN vs. E-Posta)
-  const [loginMode, setLoginMode] = useState<'vkn' | 'email'>('vkn');
+  // Giriş Formu State (Sadece VKN)
   const [loginVkn, setLoginVkn] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginUnvan, setLoginUnvan] = useState('');
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginName, setLoginName] = useState('');
-  const [loginPhone, setLoginPhone] = useState('');
   const [isSubmittingLogin, setIsSubmittingLogin] = useState(false);
   const [loginError, setLoginError] = useState('');
 
@@ -242,7 +238,7 @@ export default function PortalPage() {
     }
   };
 
-  // Mükellef Girişi (VKN veya E-Posta)
+  // Mükellef Girişi (Sadece 10 Haneli VKN)
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
@@ -252,48 +248,26 @@ export default function PortalPage() {
       return;
     }
 
+    const cleanV = loginVkn.trim().replace(/\D/g, '');
+    if (!cleanV || cleanV.length !== 10) {
+      setLoginError('Lütfen geçerli 10 haneli Vergi Kimlik Numarası (VKN) giriniz.');
+      return;
+    }
+
     setIsSubmittingLogin(true);
 
     try {
-      if (loginMode === 'vkn') {
-        const cleanV = loginVkn.trim();
-        if (!cleanV || cleanV.length < 10) {
-          setLoginError('Lütfen geçerli 10 haneli VKN veya 11 haneli TCKN giriniz.');
-          setIsSubmittingLogin(false);
-          return;
-        }
+      const res = await signIn('mukellef-auth', {
+        vkn: cleanV,
+        password: loginPassword.trim() || cleanV, // Şifre de vergi numarası!
+        unvan: loginUnvan.trim() || `Mükellef ${cleanV}`,
+        redirect: false
+      });
 
-        const res = await signIn('mukellef-auth', {
-          vkn: cleanV,
-          password: loginPassword.trim() || cleanV, // Şifre de vergi numarası!
-          unvan: loginUnvan.trim() || `Mükellef ${cleanV}`,
-          redirect: false
-        });
-
-        if (res?.error) {
-          setLoginError(res.error || 'Giriş yapılamadı. Şifrenizin VKN ile aynı olduğundan emin olunuz.');
-        } else {
-          await fetchPortalStatus();
-        }
+      if (res?.error) {
+        setLoginError(res.error || 'Giriş yapılamadı. Şifrenizin 10 haneli VKN numaranız ile aynı olduğundan emin olunuz.');
       } else {
-        if (!loginEmail) {
-          setLoginError('Lütfen geçerli bir e-posta adresi giriniz.');
-          setIsSubmittingLogin(false);
-          return;
-        }
-
-        const res = await signIn('mukellef-auth', {
-          email: loginEmail.trim(),
-          name: loginName.trim() || loginEmail.split('@')[0],
-          phone: loginPhone.trim(),
-          redirect: false
-        });
-
-        if (res?.error) {
-          setLoginError('Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyiniz.');
-        } else {
-          await fetchPortalStatus();
-        }
+        await fetchPortalStatus();
       }
     } catch (err) {
       setLoginError('Bağlantı hatası oluştu.');
@@ -304,17 +278,9 @@ export default function PortalPage() {
 
   // Hızlı VKN Doldurma
   const prefillVknUser = (vkn: string, unvan: string) => {
-    setLoginMode('vkn');
     setLoginVkn(vkn);
     setLoginPassword(vkn);
     setLoginUnvan(unvan);
-  };
-
-  // Hızlı Test / E-Posta Doldurma
-  const prefillUser = (email: string, name: string) => {
-    setLoginMode('email');
-    setLoginEmail(email);
-    setLoginName(name);
   };
 
   // Çıkış
@@ -602,38 +568,12 @@ export default function PortalPage() {
               Mükellef Girişi
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-2">
-              Vergi Numaranız (VKN/TCKN) ve şifreniz ile güvenli giriş yapabilirsiniz.
+              10 haneli Vergi Kimlik Numaranız (VKN) ve şifreniz ile güvenli giriş yapabilirsiniz.
             </p>
           </div>
 
           {/* Giriş Kartı */}
           <div className="p-6 sm:p-8 rounded-3xl bg-[#07173e]/90 border border-[#d4af37]/35 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
-            {/* Sekmeler: VKN ile Giriş vs E-Posta */}
-            <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-[#040a1a] border border-white/10 mb-6 text-xs font-semibold">
-              <button
-                type="button"
-                onClick={() => setLoginMode('vkn')}
-                className={`py-2 rounded-lg transition-all ${
-                  loginMode === 'vkn'
-                    ? 'bg-[#d4af37] text-black font-bold shadow'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                Vergi No (VKN / TCKN)
-              </button>
-              <button
-                type="button"
-                onClick={() => setLoginMode('email')}
-                className={`py-2 rounded-lg transition-all ${
-                  loginMode === 'email'
-                    ? 'bg-[#d4af37] text-black font-bold shadow'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                E-Posta ile Giriş
-              </button>
-            </div>
-
             {loginError && (
               <div className="p-3.5 mb-5 rounded-xl bg-red-500/20 border border-red-500/40 text-red-300 text-xs flex items-center space-x-2">
                 <AlertTriangle className="w-4 h-4 flex-shrink-0" />
@@ -642,139 +582,78 @@ export default function PortalPage() {
             )}
 
             <form onSubmit={handleLoginSubmit} className="space-y-4">
-              {loginMode === 'vkn' ? (
-                <>
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                      Vergi Kimlik No (VKN) veya TCKN *
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                        <Building2 className="w-4 h-4 text-[#d4af37]" />
-                      </div>
-                      <input
-                        type="text"
-                        required
-                        maxLength={11}
-                        placeholder="10 Haneli VKN veya 11 Haneli TCKN"
-                        value={loginVkn}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/\D/g, '');
-                          setLoginVkn(val);
-                          // Şifre de vergi numarası olacak şekilde otomatik eşle
-                          setLoginPassword(val);
-                        }}
-                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm font-mono transition-colors"
-                      />
-                    </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Vergi Kimlik Numarası (VKN) *
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <Building2 className="w-4 h-4 text-[#d4af37]" />
                   </div>
+                  <input
+                    type="text"
+                    required
+                    maxLength={10}
+                    placeholder="10 Haneli Vergi Kimlik Numarası (VKN)"
+                    value={loginVkn}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                      setLoginVkn(val);
+                      // Şifre de vergi numarası olacak şekilde otomatik eşle
+                      setLoginPassword(val);
+                    }}
+                    className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm font-mono transition-colors"
+                  />
+                </div>
+              </div>
 
-                  {/* Şifre Bilgilendirme Kutusu */}
-                  <div className="p-3 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#faecc0] text-xs flex items-center space-x-2.5">
-                    <Lock className="w-4 h-4 text-[#d4af37] shrink-0" />
-                    <div className="text-[11px] leading-relaxed">
-                      <strong>Otomatik Şifre:</strong> Şifreniz Vergi Numaranız (VKN/TCKN) ile aynıdır. Ekstra şifre oluşturmanıza gerek yoktur.
-                    </div>
-                  </div>
+              {/* Şifre Bilgilendirme Kutusu */}
+              <div className="p-3 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#faecc0] text-xs flex items-center space-x-2.5">
+                <Lock className="w-4 h-4 text-[#d4af37] shrink-0" />
+                <div className="text-[11px] leading-relaxed">
+                  <strong>Otomatik Şifre:</strong> Şifreniz 10 haneli Vergi Kimlik Numaranız (VKN) ile aynıdır. Ekstra şifre oluşturmanıza gerek yoktur.
+                </div>
+              </div>
 
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-semibold text-slate-300">
-                        Şifreniz * <span className="text-[#d4af37] font-normal">(Vergi Numaranız ile Otomatik Eşleşir)</span>
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                        <KeyRound className="w-4 h-4 text-[#d4af37]" />
-                      </div>
-                      <input
-                        type="password"
-                        required
-                        placeholder="Vergi Numaranız"
-                        value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
-                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm font-mono transition-colors"
-                      />
-                    </div>
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs font-semibold text-slate-300">
+                    Şifreniz * <span className="text-[#d4af37] font-normal">(10 Haneli VKN ile Otomatik Eşleşir)</span>
+                  </label>
+                </div>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <KeyRound className="w-4 h-4 text-[#d4af37]" />
                   </div>
+                  <input
+                    type="password"
+                    required
+                    maxLength={10}
+                    placeholder="10 Haneli VKN Şifreniz"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm font-mono transition-colors"
+                  />
+                </div>
+              </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                      Firma Unvanı / Ad Soyad <span className="text-slate-500 font-normal">(İsteğe Bağlı)</span>
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                        <User className="w-4 h-4 text-[#d4af37]" />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="Örn: Anadolu Teknoloji A.Ş."
-                        value={loginUnvan}
-                        onChange={(e) => setLoginUnvan(e.target.value)}
-                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
-                      />
-                    </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Firma Unvanı <span className="text-slate-500 font-normal">(İsteğe Bağlı)</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <User className="w-4 h-4 text-[#d4af37]" />
                   </div>
-                </>
-              ) : (
-                <>
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                      E-Posta Adresiniz *
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                        <Mail className="w-4 h-4 text-[#d4af37]" />
-                      </div>
-                      <input
-                        type="email"
-                        required
-                        placeholder="ornek@sirket.com"
-                        value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
-                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                      Adınız ve Soyadınız *
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                        <User className="w-4 h-4 text-[#d4af37]" />
-                      </div>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Adınız Soyadınız"
-                        value={loginName}
-                        onChange={(e) => setLoginName(e.target.value)}
-                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                      Telefon Numaranız <span className="text-slate-500 font-normal">(İsteğe Bağlı)</span>
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                        <Phone className="w-4 h-4 text-[#d4af37]" />
-                      </div>
-                      <input
-                        type="tel"
-                        placeholder="05XX XXX XX XX"
-                        value={loginPhone}
-                        onChange={(e) => setLoginPhone(e.target.value)}
-                        className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
-                      />
-                    </div>
-                  </div>
-                </>
-              )}
+                  <input
+                    type="text"
+                    placeholder="Örn: Anadolu Teknoloji A.Ş."
+                    value={loginUnvan}
+                    onChange={(e) => setLoginUnvan(e.target.value)}
+                    className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#040a1a] border border-white/10 text-white placeholder-slate-500 focus:border-[#d4af37] focus:outline-none text-sm transition-colors"
+                  />
+                </div>
+              </div>
 
               {/* KVKK Onay Kutusu */}
               <div className="p-3.5 rounded-xl bg-[#040a1a]/70 border border-[#d4af37]/20 my-4 flex items-start space-x-3">
@@ -823,7 +702,7 @@ export default function PortalPage() {
             {/* Test Kullanıcıları / Hızlı Seçim */}
             <div className="mt-8 pt-5 border-t border-white/10 text-xs">
               <span className="block text-[11px] font-semibold text-[#faecc0] uppercase tracking-wider mb-2.5 text-center">
-                Hızlı Giriş Örnekleri:
+                Örnek Giriş:
               </span>
               <div className="grid grid-cols-1 gap-2">
                 <button
@@ -833,14 +712,6 @@ export default function PortalPage() {
                 >
                   <span className="font-semibold font-mono">VKN: 1234567891 (Anadolu Teknoloji A.Ş.)</span>
                   <span className="text-[10px] bg-emerald-500 text-black px-1.5 py-0.5 rounded font-bold">Mükellef</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => prefillUser('suleyman@rotayd.com', 'Süleyman İlhan')}
-                  className="px-3 py-2 rounded-lg bg-[#d4af37]/15 hover:bg-[#d4af37]/25 text-[#faecc0] border border-[#d4af37]/30 flex items-center justify-between text-left cursor-pointer"
-                >
-                  <span className="font-semibold">Mali Müşavir (Admin)</span>
-                  <span className="text-[10px] bg-[#d4af37] text-black px-1.5 py-0.5 rounded font-bold">Admin</span>
                 </button>
               </div>
             </div>

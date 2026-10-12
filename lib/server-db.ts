@@ -254,18 +254,18 @@ export const ServerDb = {
     return { success: true, user: newUser };
   },
 
-  // VKN & TCKN ile Mükellef Girişi (Şifre = VKN)
+  // Sadece 10 Haneli VKN ile Mükellef Girişi (Şifre = VKN)
   loginWithVkn(params: { vkn: string; password?: string; unvan?: string }): { success: boolean; error?: string; user?: PortalUser } {
     const data = this.ensureStorage();
-    const cleanVkn = params.vkn.trim();
+    const cleanVkn = params.vkn.trim().replace(/\D/g, '');
     const password = (params.password?.trim()) || cleanVkn;
 
-    if (!cleanVkn || cleanVkn.length < 10) {
-      return { success: false, error: 'Lütfen geçerli 10 haneli VKN veya 11 haneli TCKN giriniz.' };
+    if (!cleanVkn || cleanVkn.length !== 10) {
+      return { success: false, error: 'Lütfen geçerli 10 haneli Vergi Kimlik Numarası (VKN) giriniz.' };
     }
 
     if (password !== cleanVkn) {
-      return { success: false, error: 'Şifreniz Vergi Numaranız (VKN/TCKN) ile aynı olmalıdır.' };
+      return { success: false, error: 'Şifreniz 10 haneli Vergi Numaranız (VKN) ile aynı olmalıdır.' };
     }
 
     // Bu VKN'ye sahip kayıtlı bir şirket var mı kontrol et
@@ -283,7 +283,7 @@ export const ServerDb = {
 
     if (!user) {
       // Yeni kullanıcı oluştur
-      const unvan = params.unvan?.trim() || (cleanVkn.length === 11 ? 'Mükellef ' + cleanVkn : 'Firma ' + cleanVkn);
+      const unvan = params.unvan?.trim() || ('Firma ' + cleanVkn);
       user = {
         id: `usr_vkn_${cleanVkn}`,
         name: unvan,
@@ -304,7 +304,7 @@ export const ServerDb = {
           unvan: unvan,
           vkn: cleanVkn,
           vergiDairesi: 'Çankaya Vergi Dairesi',
-          sirketTuru: cleanVkn.length === 11 ? 'Şahıs Şirketi' : 'Limited Şirket',
+          sirketTuru: 'Limited Şirket',
           adres: 'Ankara',
           telefon: '0553 622 11 22',
           yetkiliKisi: unvan,
