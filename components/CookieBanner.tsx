@@ -29,7 +29,7 @@ export default function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 left-4 sm:left-auto sm:max-w-md z-50 animate-in fade-in slide-in-from-bottom-5 duration-500">
+    <div className="fixed bottom-4 left-4 right-4 sm:right-auto sm:max-w-md z-50 animate-in fade-in slide-in-from-bottom-5 duration-500">
       <div className="glass-panel p-5 sm:p-6 rounded-2xl border border-[#d4af37]/40 shadow-2xl bg-[#040a1a]/95 backdrop-blur-xl relative">
         <button
           onClick={() => handleAccept("necessary")}
