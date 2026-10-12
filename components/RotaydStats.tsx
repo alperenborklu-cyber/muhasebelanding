@@ -110,13 +110,13 @@ function StatCard({
   useEffect(() => {
     if (!sectionInView) return;
 
-    // Senkronize ve yumuşak kademeli başlangıç (50ms stagger)
-    const startDelay = index * 50;
+    // Kademeli ve zarif başlangıç (120ms stagger - kartlar gözü yormadan sırayla başlar)
+    const startDelay = index * 120;
     let animationFrameId: number;
     let startTimestamp: number | null = null;
 
-    // Rakamın büyüklüğüne göre dengeli, akıcı süre hesabı (asla takılma / donma yapmaz)
-    const duration = Math.min(1450, Math.max(850, 700 + item.targetNumber * 5));
+    // Rakamın büyüklüğüne göre sakin, prestijli ve gözle takip edilebilir süre (2.4s - 2.8s)
+    const duration = 2400 + Math.min(400, item.targetNumber * 3);
 
     const timeoutId = setTimeout(() => {
       const step = (timestamp: number) => {
@@ -124,11 +124,11 @@ function StatCard({
         const elapsed = timestamp - startTimestamp;
         const progress = Math.min(elapsed / duration, 1);
 
-        // Standart akıcı Ease-Out Cubic eğrisi: yumuşak kalkış ve zarif yavaşlama
-        const ease = 1 - Math.pow(1 - progress, 3);
+        // Sinematik Ease-Out Quart eğrisi: yumuşak ivmelenme ve hedefe yaklaşırken zarifçe durulma
+        const ease = 1 - Math.pow(1 - progress, 4);
         const currentVal = Math.round(ease * item.targetNumber);
 
-        // Yalnızca tam sayı değiştiğinde render tetikle (aşırı CPU ve re-render sıçramalarını önler)
+        // Yalnızca tam sayı değiştiğinde render tetikle
         if (currentVal !== lastValRef.current) {
           lastValRef.current = currentVal;
           setCount(currentVal);
@@ -153,9 +153,9 @@ function StatCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-      transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
+      initial={{ opacity: 0, y: 28 }}
+      animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.21, 1, 0.36, 1] }}
       className={`group relative rounded-2xl p-5 sm:p-6 lg:p-7 transition-all duration-500 flex flex-col justify-between overflow-hidden ${
         item.isKeyHighlight
           ? "bg-gradient-to-br from-[#0c1b3d]/90 via-[#07132e]/95 to-[#040a1a] border border-[#d4af37]/45 shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] hover:border-[#d4af37] hover:shadow-[0_15px_45px_-10px_rgba(212,175,55,0.35)]"
