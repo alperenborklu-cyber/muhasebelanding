@@ -111,7 +111,7 @@ function StatCard({
 }) {
   const IconComponent = item.icon;
 
-  // Akıcı ve enerjik cubic easing: Başta hızlı hızlanır, sona doğru tatlı bir süzülüşle basamağa oturur
+  // Akıcı, pürüzsüz ve asil easing eğrisi (Apple cubic-bezier standardı)
   const easeProgress = hasStarted ? 1 - Math.pow(1 - progress, 3) : 0;
 
   // KESİN KURAL: Hepsi 1'den başlar ve aynı anda targetNumber'a ulaşır
@@ -129,28 +129,24 @@ function StatCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 35, scaleX: 1.04, scaleY: 0.88 }}
-      animate={{ opacity: 1, y: 0, scaleX: 1, scaleY: 1 }}
+      initial={{ opacity: 0, y: 28 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.5,
-        delay: index * 0.05,
-        ease: [0.22, 1, 0.36, 1],
+        duration: 0.6,
+        delay: index * 0.06,
+        ease: [0.16, 1, 0.3, 1],
       }}
       whileHover={{
-        y: -7,
-        scaleX: 0.985,
-        scaleY: 1.025,
-        transition: { type: "spring", stiffness: 450, damping: 18 },
+        y: -5,
+        transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
       }}
       whileTap={{
-        scaleX: 1.05,
-        scaleY: 0.94,
-        y: 0,
-        transition: { duration: 0.1 },
+        scale: 0.99,
+        transition: { duration: 0.15 },
       }}
-      className={`group relative rounded-2xl p-5 sm:p-6 lg:p-7 flex flex-col justify-between overflow-hidden cursor-default transition-colors duration-300 ${
+      className={`group relative rounded-2xl p-5 sm:p-6 lg:p-7 flex flex-col justify-between overflow-hidden cursor-default transition-all duration-300 ${
         item.isKeyHighlight
-          ? "bg-gradient-to-br from-[#0c1b3d]/90 via-[#07132e]/95 to-[#040a1a] border border-[#d4af37]/45 shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] hover:border-[#d4af37] hover:shadow-[0_18px_50px_-10px_rgba(212,175,55,0.38)]"
+          ? "bg-gradient-to-br from-[#0c1b3d]/90 via-[#07132e]/95 to-[#040a1a] border border-[#d4af37]/45 shadow-[0_10px_35px_-10px_rgba(212,175,55,0.2)] hover:border-[#d4af37] hover:shadow-[0_16px_45px_-10px_rgba(212,175,55,0.35)]"
           : "bg-[#071128]/70 border border-[#1d3b7d]/40 shadow-lg hover:border-[#2a4d9e]/70 hover:bg-[#0b1938]/80 hover:shadow-[0_12px_36px_-10px_rgba(37,99,235,0.2)]"
       } backdrop-blur-md`}
     >
@@ -167,9 +163,8 @@ function StatCard({
           animate={
             isCompleted
               ? {
-                  scale: [1, 1.22, 0.95, 1],
-                  rotate: [0, -8, 6, 0],
-                  transition: { duration: 0.5, ease: "easeOut" },
+                  scale: [1, 1.06, 1],
+                  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
                 }
               : {}
           }
@@ -194,63 +189,72 @@ function StatCard({
         )}
       </div>
 
-      {/* Center: AWWWARDS-LEVEL STRETCH & SQUASH NUMBER */}
+      {/* Center: ELEGANT & SUBTLE NUMBER POP WITH LUXURY LIGHT SHEEN */}
       <div className="relative space-y-2 my-auto py-2">
-        {/* Synchronized Climax Shockwave Ripple on completion */}
+        {/* Soft, Velvety Ambient Aura Bloom on completion (No harsh borders or explosion rings) */}
         {isCompleted && (
           <motion.div
-            initial={{ scale: 0.5, opacity: 0.9 }}
-            animate={{ scale: [0.5, 1.5, 1.9], opacity: [0.9, 0.35, 0] }}
-            transition={{ duration: 0.65, ease: "easeOut" }}
-            className={`absolute -inset-3 rounded-2xl pointer-events-none ${
-              item.isKeyHighlight
-                ? "border border-[#d4af37]/60 shadow-[0_0_25px_rgba(212,175,55,0.4)]"
-                : "border border-[#38bdf8]/60 shadow-[0_0_25px_rgba(56,189,248,0.3)]"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{
+              scale: [0.8, 1.25, 1.35],
+              opacity: [0, 0.35, 0],
+            }}
+            transition={{
+              duration: 1.0,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className={`absolute -inset-4 rounded-full blur-2xl pointer-events-none ${
+              item.isKeyHighlight ? "bg-[#d4af37]/30" : "bg-[#38bdf8]/25"
             }`}
           />
         )}
 
-        {/* Stretch & Squash Number Container:
-            - Rolling: Dikey esneme (Stretch: scaleY: 1.10, scaleX: 0.92) ile yukarı ivmelenme
-            - Bitiş anında (Impact): Basma (Squash: scaleY: 0.78, scaleX: 1.25, y: +5)
-            - Rebound (Spring Stretch): Geri yaylanma (scaleY: 1.18, scaleX: 0.88, y: -8)
-            - Sönümlenme ve Denge: (scaleY: 0.94 -> 1.02 -> 1.00)
-        */}
+        {/* Number container with subtle, velvety micro-pop */}
         <motion.div
           key={`num-container-${item.id}`}
-          style={{ transformOrigin: "bottom left" }}
           animate={
             isCompleted
               ? {
-                  scaleX: [0.92, 1.25, 0.88, 1.05, 0.98, 1],
-                  scaleY: [1.1, 0.78, 1.18, 0.94, 1.02, 1],
-                  y: [-3, 5, -8, 2, -1, 0],
+                  scale: [1, 1.045, 0.995, 1],
+                  y: [0, -3, 0.5, 0],
                   transition: {
                     duration: 0.65,
-                    times: [0, 0.22, 0.48, 0.72, 0.88, 1],
-                    ease: [0.22, 1, 0.36, 1],
+                    times: [0, 0.35, 0.7, 1],
+                    ease: [0.16, 1, 0.3, 1],
                   },
                 }
               : isRunning
-              ? {
-                  scaleX: 0.92,
-                  scaleY: 1.1,
-                  y: -3,
-                  transition: { duration: 0.2, ease: "easeOut" },
-                }
-              : {
-                  scaleX: 1,
-                  scaleY: 1,
-                  y: 0,
-                }
+              ? { scale: 1.01, y: -1, transition: { duration: 0.2 } }
+              : { scale: 1, y: 0 }
           }
-          className="inline-flex items-baseline space-x-1"
+          className="relative inline-flex items-baseline space-x-1 overflow-hidden pr-2"
         >
+          {/* Subtle Satin Light Gleam Sweep over the numbers when completed */}
+          {isCompleted && (
+            <motion.span
+              initial={{ x: "-120%", opacity: 0 }}
+              animate={{
+                x: "160%",
+                opacity: [0, 0.75, 0.75, 0],
+              }}
+              transition={{
+                duration: 0.85,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 0.05,
+              }}
+              className={`absolute inset-y-0 w-20 -skew-x-25 pointer-events-none blur-[1px] ${
+                item.isKeyHighlight
+                  ? "bg-gradient-to-r from-transparent via-[#faecc0]/45 to-transparent"
+                  : "bg-gradient-to-r from-transparent via-white/35 to-transparent"
+              }`}
+            />
+          )}
+
           <span
             className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight tabular-nums select-none ${
               item.isKeyHighlight
-                ? "gold-gradient-text drop-shadow-[0_2px_16px_rgba(212,175,55,0.35)]"
-                : "text-white drop-shadow-[0_2px_14px_rgba(59,130,246,0.3)]"
+                ? "gold-gradient-text drop-shadow-[0_2px_16px_rgba(212,175,55,0.32)]"
+                : "text-white drop-shadow-[0_2px_14px_rgba(59,130,246,0.25)]"
             }`}
           >
             {count}
@@ -260,18 +264,18 @@ function StatCard({
             animate={
               isCompleted
                 ? {
-                    scale: [0.75, 1.45, 0.9, 1.1, 1],
-                    rotate: [-18, 14, -5, 2, 0],
-                    opacity: [0.8, 1, 1, 1, 1],
+                    scale: [0.95, 1.08, 0.99, 1],
+                    y: [1, -2, 0],
+                    opacity: 1,
                     transition: {
-                      duration: 0.65,
-                      times: [0, 0.25, 0.5, 0.75, 1],
-                      ease: [0.175, 0.885, 0.32, 1.275],
+                      duration: 0.6,
+                      times: [0, 0.35, 0.7, 1],
+                      ease: [0.16, 1, 0.3, 1],
                     },
                   }
                 : isRunning
-                ? { scale: 0.85, rotate: -6, opacity: 0.75 }
-                : { scale: 1, rotate: 0, opacity: 0.9 }
+                ? { scale: 0.98, y: 0, opacity: 0.85 }
+                : { scale: 1, y: 0, opacity: 0.9 }
             }
             className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold select-none ${
               item.isKeyHighlight ? "text-[#d4af37]" : "text-[#93c5fd]"
@@ -293,24 +297,17 @@ function StatCard({
         </p>
       </div>
 
-      {/* Synchronized Energy Charging Beam at the bottom of the card */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-white/5 overflow-hidden pointer-events-none">
-        <motion.div
-          className={`h-full ${
+      {/* Subtle Synchronized Progress Accent at the bottom of the card */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5 overflow-hidden pointer-events-none">
+        <div
+          className={`h-full transition-all duration-75 ${
             item.isKeyHighlight
-              ? "bg-gradient-to-r from-[#d4af37] via-[#fce28b] to-[#d4af37] shadow-[0_0_12px_rgba(212,175,55,0.8)]"
-              : "bg-gradient-to-r from-[#2563eb] via-[#60a5fa] to-[#38bdf8] shadow-[0_0_12px_rgba(56,189,248,0.8)]"
+              ? "bg-gradient-to-r from-[#d4af37]/60 via-[#fce28b] to-[#d4af37]"
+              : "bg-gradient-to-r from-[#2563eb]/60 via-[#60a5fa] to-[#38bdf8]"
           }`}
           style={{
             width: `${Math.round(progress * 100)}%`,
           }}
-          animate={
-            isCompleted
-              ? {
-                  opacity: [1, 0.7, 1],
-                }
-              : {}
-          }
         />
       </div>
     </motion.div>
@@ -334,8 +331,8 @@ export default function RotaydStats() {
     setHasStarted(true);
     setProgress(0);
 
-    // 1400ms (1.4 saniye): Enerjik, ödül seviyesinde tempo, sıkmayan dinamik ritim
-    const DURATION = 1400;
+    // 1350ms (1.35 saniye): Ne hızlı ne yavaş, pürüzsüz ve asil bir akış
+    const DURATION = 1350;
     let startTimestamp: number | null = null;
     let animId: number;
 
@@ -361,10 +358,10 @@ export default function RotaydStats() {
 
   useEffect(() => {
     if (isInView && !hasStarted) {
-      // Kartların ekrana inişinin ardından (180ms) aynı anda başlasınlar
+      // Kartların yumuşakça belirmesinin ardından (150ms) aynı anda başlasınlar
       const timer = setTimeout(() => {
         startAnimation();
-      }, 180);
+      }, 150);
       return () => clearTimeout(timer);
     }
   }, [isInView, hasStarted, startAnimation]);
@@ -419,7 +416,7 @@ export default function RotaydStats() {
             Yalnızca başvuru yapan bir danışmanlık firması değil; işletmelerin mali, hibe ve teşvik süreçlerini uçtan uca ve uzun vadeli yöneten güvenilir çözüm ortağınız.
           </p>
 
-          {/* Replay Micro-Interaction: Awwwards-style interactive test/preview control */}
+          {/* Replay Micro-Interaction */}
           <div className="mt-5 flex justify-center">
             <button
               onClick={handleReplay}
