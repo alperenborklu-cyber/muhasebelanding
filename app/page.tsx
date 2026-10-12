@@ -1,6 +1,7 @@
 "use client";
 
 import ScrollCanvasDoor from "@/components/ScrollCanvasDoor";
+import RotaydStats from "@/components/RotaydStats";
 import ReferencesMarquee from "@/components/ReferencesMarquee";
 import AppointmentForm from "@/components/AppointmentForm";
 import { useEffect } from "react";
@@ -29,10 +30,13 @@ export default function Home() {
       <ScrollCanvasDoor />
 
       <div className="page-container">
-        {/* 2. Sürekli Dönen Türk Firmaları Referanslar Silsilesi */}
+        {/* 2. Rakamlarla ROTAYD - Başarı ve Güven İstatistikleri */}
+        <RotaydStats />
+
+        {/* 3. Sürekli Dönen Türk Firmaları Referanslar Silsilesi */}
         <ReferencesMarquee />
 
-        {/* 3. Stratejik Randevu Formu */}
+        {/* 4. Stratejik Randevu Formu */}
         <AppointmentForm />
       </div>
     </div>
