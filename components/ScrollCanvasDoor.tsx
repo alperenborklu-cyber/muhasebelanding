@@ -18,6 +18,10 @@ import {
 
 const TOTAL_FRAMES = 120;
 
+// Persistent module-level cache so frames remain in memory across navigations and fast remounts
+const globalImageCache: (HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(null);
+let hasPreloadedSequence = false;
+
 // Shared responsive door layout calculation (ensures doors and interactive overlay align identically)
 function calcDoorLayout(clientWidth: number, clientHeight: number) {
   const imgRatio = 1920 / 1080;
@@ -60,8 +64,6 @@ export default function ScrollCanvasDoor() {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loadedCount, setLoadedCount] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredPortal, setHoveredPortal] = useState<"left" | "right" | null>(null);
@@ -94,39 +96,41 @@ export default function ScrollCanvasDoor() {
   // Draw frame to canvas with responsive contain-fit
   const renderFrame = useCallback((progress: number) => {
     const canvas = canvasRef.current;
-    const imgs = imagesRef.current.length > 0 ? imagesRef.current : images;
-    if (!canvas || imgs.length === 0) return;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     // Calculate current frame index clamped to bounds
     const frameIndex = Math.min(
-      imgs.length - 1,
-      Math.max(0, Math.floor(progress * imgs.length))
+      TOTAL_FRAMES - 1,
+      Math.max(0, Math.round(progress * (TOTAL_FRAMES - 1)))
     );
 
-    let img = imgs[frameIndex];
-    // If target frame hasn't finished loading yet, pick the nearest available frame so canvas never flickers
+    let img = globalImageCache[frameIndex];
+    // If target frame hasn't finished loading yet, find the closest loaded frame by minimal distance
+    // This guarantees that opening animation ALWAYS progresses forward and NEVER freezes on frame 0
     if (!img || !img.complete || img.naturalWidth === 0) {
-      for (let offset = 1; offset < imgs.length; offset++) {
-        const lower = frameIndex - offset;
-        if (lower >= 0 && imgs[lower]?.complete && imgs[lower].naturalWidth > 0) {
-          img = imgs[lower];
-          break;
-        }
-        const higher = frameIndex + offset;
-        if (higher < imgs.length && imgs[higher]?.complete && imgs[higher].naturalWidth > 0) {
-          img = imgs[higher];
-          break;
+      let minDiff = Infinity;
+      let nearestImg: HTMLImageElement | null = null;
+      for (let i = 0; i < TOTAL_FRAMES; i++) {
+        const candidate = globalImageCache[i];
+        if (candidate && candidate.complete && candidate.naturalWidth > 0) {
+          const diff = Math.abs(i - frameIndex);
+          if (diff < minDiff) {
+            minDiff = diff;
+            nearestImg = candidate;
+          }
         }
       }
+      img = nearestImg;
     }
     if (!img || !img.complete || img.naturalWidth === 0) return;
 
     // Device Pixel Ratio for ultra-crisp Retina display
     const dpr = window.devicePixelRatio || 1;
-    const clientWidth = canvas.clientWidth;
-    const clientHeight = canvas.clientHeight;
+    const clientWidth = canvas.clientWidth || (typeof window !== "undefined" ? window.innerWidth : 1920);
+    const clientHeight = canvas.clientHeight || (typeof window !== "undefined" ? window.innerHeight : 1080);
+    if (clientWidth === 0 || clientHeight === 0) return;
 
     if (canvas.width !== clientWidth * dpr || canvas.height !== clientHeight * dpr) {
       canvas.width = clientWidth * dpr;
@@ -159,96 +163,98 @@ export default function ScrollCanvasDoor() {
     ctx.fillRect(0, 0, clientWidth, clientHeight);
 
     ctx.restore();
-  }, [images]);
+  }, []);
 
-  // High-performance dual-tier parallel frame loader:
-  // 1. Instantly loads frame 0 so the canvas is live in <100ms
-  // 2. Queues keyframe anchors across the full 0-119 range (every 2nd frame) so door opening works immediately anywhere
-  // 3. Concurrently loads all remaining in-between frames for continuous 60fps smoothness
+  // Robust frame preloader & instant cache:
+  // 1. Immediately renders frame 0 (cached or newly loaded) in <50ms
+  // 2. High-priority parallel preloading of the door opening range (frames 4 to 100)
+  // 3. Concurrently loads all remaining frames so 60fps is continuous
+  // 4. Prefetches /malimusavirlik, /danismanlik, and /hakkimizda for instant route change
   useEffect(() => {
     let isCancelled = false;
-    const loadedImgs: HTMLImageElement[] = new Array(TOTAL_FRAMES);
 
-    // 1. Critical frame 0 (closed doors baseline)
-    const img0 = new window.Image();
-    img0.src = `/sequence/frame_0.webp`;
-    img0.onload = () => {
-      if (isCancelled) return;
+    // Prefetch all door target pages so route transitions feel instantaneous
+    try {
+      router.prefetch("/malimusavirlik");
+      router.prefetch("/danismanlik");
+      router.prefetch("/hakkimizda");
+    } catch (_) {}
+
+    // Check if frame 0 is already loaded from cache
+    if (globalImageCache[0]?.complete && globalImageCache[0].naturalWidth > 0) {
       setIsLoaded(true);
       renderFrame(smoothProgress.get());
-    };
-    loadedImgs[0] = img0;
+    }
 
-    // 2. Keyframes spanning full door sequence (dense at start 0-20, every 2nd frame thereafter)
-    const keyframes = new Set<number>();
-    for (let i = 0; i <= 20; i++) keyframes.add(i);
-    for (let i = 22; i < TOTAL_FRAMES; i += 2) keyframes.add(i);
-    keyframes.add(TOTAL_FRAMES - 1);
+    // 1. Critical Frame 0
+    if (!globalImageCache[0]) {
+      const img0 = new window.Image();
+      img0.src = `/sequence/frame_0.webp`;
+      img0.onload = () => {
+        if (isCancelled) return;
+        globalImageCache[0] = img0;
+        setIsLoaded(true);
+        renderFrame(smoothProgress.get());
+      };
+      globalImageCache[0] = img0;
+    }
 
-    keyframes.forEach((i) => {
-      if (i === 0) return;
+    // 2. Priority door opening keyframes (frames 4 to 100 every 4 frames)
+    const priorityFrames = [4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92, 96, 100];
+    priorityFrames.forEach((i) => {
+      if (globalImageCache[i]) return;
       const img = new window.Image();
       img.src = `/sequence/frame_${i}.webp`;
       img.onload = () => {
         if (isCancelled) return;
+        globalImageCache[i] = img;
         setLoadedCount((prev) => prev + 1);
       };
-      img.onerror = () => {
-        if (isCancelled) return;
-        setLoadedCount((prev) => prev + 1);
-      };
-      loadedImgs[i] = img;
+      globalImageCache[i] = img;
     });
 
-    // 3. Concurrently load all remaining in-between frames
+    // 3. Load all remaining frames
     for (let i = 1; i < TOTAL_FRAMES; i++) {
-      if (keyframes.has(i)) continue;
+      if (globalImageCache[i]) continue;
       const img = new window.Image();
       img.src = `/sequence/frame_${i}.webp`;
       img.onload = () => {
         if (isCancelled) return;
+        globalImageCache[i] = img;
         setLoadedCount((prev) => prev + 1);
       };
-      img.onerror = () => {
-        if (isCancelled) return;
-        setLoadedCount((prev) => prev + 1);
-      };
-      loadedImgs[i] = img;
+      globalImageCache[i] = img;
     }
 
-    imagesRef.current = loadedImgs;
-    setImages(loadedImgs);
-
-    if (img0.complete && img0.naturalWidth > 0) {
-      setIsLoaded(true);
-      renderFrame(smoothProgress.get());
-    }
-
-    // Safety fallback - activate canvas within 150ms
+    // Safety fallback - activate interactive doors within 80ms
     const fallbackTimer = setTimeout(() => {
       if (!isCancelled) {
         setIsLoaded(true);
         renderFrame(smoothProgress.get());
       }
-    }, 150);
+    }, 80);
 
     return () => {
       isCancelled = true;
       clearTimeout(fallbackTimer);
     };
-  }, [renderFrame, smoothProgress]);
+  }, [renderFrame, smoothProgress, router]);
 
   // Measure canvas and calculate image draw bounds for overlay positioning
   const updateLayout = useCallback(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const clientWidth = canvas.clientWidth;
-    const clientHeight = canvas.clientHeight;
+    const clientWidth = canvas?.clientWidth || (typeof window !== "undefined" ? window.innerWidth : 1920);
+    const clientHeight = canvas?.clientHeight || (typeof window !== "undefined" ? window.innerHeight : 1080);
     if (!clientWidth || !clientHeight) return;
 
     const layout = calcDoorLayout(clientWidth, clientHeight);
     setDoorLayout(layout);
   }, []);
+
+  // Ensure door layout is measured immediately on mount
+  useEffect(() => {
+    updateLayout();
+  }, [updateLayout]);
 
   // Hook render loop to smoothed scroll progress
   useEffect(() => {
@@ -271,10 +277,12 @@ export default function ScrollCanvasDoor() {
   const handleDoorSelect = useCallback(
     (door: "left" | "right" | "center", e: React.MouseEvent) => {
       e.preventDefault();
+      e.stopPropagation();
       if (isOpeningAnimRef.current) return;
       isOpeningAnimRef.current = true;
       setOpeningDoor(door);
       setHoveredDoor(null);
+      setCenterActiveSide(null);
 
       const destination =
         door === "left"
@@ -282,16 +290,22 @@ export default function ScrollCanvasDoor() {
           : door === "right"
           ? "/danismanlik"
           : "/hakkimizda";
-      const startProgress = smoothProgress.get();
-      const targetProgress = 0.65; // Frame ~78: doors wide open, traveling forward into dark portal
-      const duration = 950; // ms: snappy, dynamic door swing
+
+      try {
+        router.prefetch(destination);
+      } catch (_) {}
+
+      const startProgress = smoothProgress.get() || 0;
+      // Target progress 0.82 (Frame ~98: doors swing wide open and camera plunges into the doorway portal)
+      const targetProgress = 0.82;
+      const duration = 1150; // ms: cinematic, smooth, majestic door swing
       const startTime = performance.now();
 
       const animateStep = (now: number) => {
         const elapsed = now - startTime;
         const t = Math.min(1, elapsed / duration);
-        // Smooth cubic ease out curve
-        const ease = 1 - Math.pow(1 - t, 3);
+        // Cinematic cubic ease-in-out: starts gently, opens doors dramatically, zooms through
+        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
         const currentProgress = startProgress + (targetProgress - startProgress) * ease;
 
         setScrollProgressVal(currentProgress);
@@ -379,12 +393,14 @@ export default function ScrollCanvasDoor() {
         {/* Interactive Door Wings Overlay (Beat A: Mouse Hover Effect) */}
         {doorLayout && isLoaded && (
           <motion.div
+            animate={{ opacity: openingDoor ? 0 : 1 }}
+            transition={{ duration: 0.2 }}
             style={{
               opacity: openingDoor ? 0 : doorHoverOpacity,
               pointerEvents: openingDoor ? "none" : (isDoorInteractive ? "auto" : "none"),
               display: scrollProgressVal < 0.22 ? "block" : "none",
             }}
-            className="absolute inset-0 z-40 transition-opacity duration-300"
+            className="absolute inset-0 z-40 transition-opacity duration-200"
           >
             <div
               style={{
@@ -419,7 +435,7 @@ export default function ScrollCanvasDoor() {
                   width: `${(364 / 1920) * 100}%`,
                   height: `${(875 / 1080) * 100}%`,
                 }}
-                className={`door-link-left group pointer-events-auto cursor-pointer block focus:outline-none no-underline border-0 ${
+                className={`door-link-left group pointer-events-auto cursor-pointer block focus:outline-none no-underline border-0 touch-manipulation ${
                   openingDoor ? "pointer-events-none" : ""
                 }`}
                 aria-label="Mali Müşavirlik Kapısı"
@@ -470,7 +486,7 @@ export default function ScrollCanvasDoor() {
                   width: `${(364 / 1920) * 100}%`,
                   height: `${(875 / 1080) * 100}%`,
                 }}
-                className={`door-link-right group pointer-events-auto cursor-pointer block focus:outline-none no-underline border-0 ${
+                className={`door-link-right group pointer-events-auto cursor-pointer block focus:outline-none no-underline border-0 touch-manipulation ${
                   openingDoor ? "pointer-events-none" : ""
                 }`}
                 aria-label="Hibe Teşvik Danışmanlığı Kapısı"
@@ -532,7 +548,7 @@ export default function ScrollCanvasDoor() {
                         setCenterActiveSide(null);
                         setHoveredDoor(null);
                       }}
-                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center justify-center space-x-1 sm:space-x-2.5 px-1.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center justify-center space-x-1 sm:space-x-2.5 px-1.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full transition-all duration-200 cursor-pointer touch-manipulation ${
                         centerActiveSide === "left" || hoveredDoor === "left"
                           ? "bg-[#dfa929]/25 text-white"
                           : "hover:bg-[#dfa929]/15 text-[#dfa929]"
@@ -556,7 +572,7 @@ export default function ScrollCanvasDoor() {
                       <Link
                         href="/hakkimizda"
                         onClick={(e) => handleDoorSelect("center", e)}
-                        className={`relative h-8 w-[94px] sm:h-[38px] sm:w-[112px] md:h-[40px] md:w-[118px] opacity-95 transition-transform duration-300 hover:scale-105 cursor-pointer block ${
+                        className={`relative h-8 w-[94px] sm:h-[38px] sm:w-[112px] md:h-[40px] md:w-[118px] opacity-95 transition-transform duration-300 hover:scale-105 cursor-pointer block touch-manipulation ${
                           openingDoor ? "pointer-events-none" : ""
                         }`}
                         aria-label="ROTAYD Hakkımızda Sayfasına Git"
@@ -584,7 +600,7 @@ export default function ScrollCanvasDoor() {
                         setCenterActiveSide(null);
                         setHoveredDoor(null);
                       }}
-                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center justify-center space-x-1 sm:space-x-2.5 px-1.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                      className={`no-underline hover:no-underline focus:no-underline border-0 outline-none decoration-transparent flex items-center justify-center space-x-1 sm:space-x-2.5 px-1.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full transition-all duration-200 cursor-pointer touch-manipulation ${
                         centerActiveSide === "right" || hoveredDoor === "right"
                           ? "bg-[#dfa929]/25 text-white"
                           : "hover:bg-[#dfa929]/15 text-[#dfa929]"
@@ -610,7 +626,9 @@ export default function ScrollCanvasDoor() {
 
         {/* BEAT A: 0 - 20% (DOĞRU ROTA & GÜÇLÜ İŞLETME in Pure White + Slogan Açıklaması) */}
         <motion.div
-          style={{ opacity: beatAOpacity, y: beatAY }}
+          animate={{ opacity: openingDoor ? 0 : 1 }}
+          transition={{ duration: 0.2 }}
+          style={{ opacity: openingDoor ? 0 : beatAOpacity, y: beatAY }}
           className="absolute bottom-12 sm:bottom-16 md:bottom-20 lg:bottom-22 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
         >
           <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight flex flex-col items-start gap-y-0.5 sm:gap-y-1 uppercase">
@@ -799,28 +817,14 @@ export default function ScrollCanvasDoor() {
           </div>
         </motion.div>
 
-        {/* Cinematic Door Opening Transition Screen */}
+        {/* Cinematic Door Opening Finish Overlay */}
         {openingDoor && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.65, duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-[#040a1a]/95 flex flex-col items-center justify-center pointer-events-none backdrop-blur-sm"
-          >
-            <div className="flex flex-col items-center space-y-4">
-              <div className="relative w-12 h-12">
-                <div className="absolute inset-0 rounded-full border-2 border-[#d4af37]/20" />
-                <div className="absolute inset-0 rounded-full border-2 border-[#d4af37] border-t-transparent animate-spin" />
-              </div>
-              <p className="text-sm font-medium tracking-widest text-[#c59b27] uppercase">
-                {openingDoor === "left"
-                  ? "Mali Müşavirlik Kapısı Açılıyor..."
-                  : openingDoor === "right"
-                  ? "Hibe Teşvik Danışmanlığı Kapısı Açılıyor..."
-                  : "Kurumsal Vizyon & Hakkımızda Kapısı Açılıyor..."}
-              </p>
-            </div>
-          </motion.div>
+            transition={{ delay: 0.92, duration: 0.23 }}
+            className="fixed inset-0 z-50 bg-[#040a1a] flex flex-col items-center justify-center pointer-events-none"
+          />
         )}
       </div>
     </div>
