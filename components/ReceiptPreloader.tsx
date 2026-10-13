@@ -10,7 +10,12 @@ export default function ReceiptPreloader() {
   const [isCut, setIsCut] = useState(false);
 
   useEffect(() => {
-    // Check if user has already seen preloader in this session (optional: allow fresh look)
+    // Only show once per session so navigating around the site is instant
+    if (typeof window !== "undefined" && sessionStorage.getItem("rotayd_seen_preloader")) {
+      setLoading(false);
+      return;
+    }
+
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -18,10 +23,10 @@ export default function ReceiptPreloader() {
           return 100;
         }
         // Accelerate smoothly
-        const step = Math.floor(Math.random() * 8) + 4;
+        const step = Math.floor(Math.random() * 10) + 8;
         return Math.min(100, prev + step);
       });
-    }, 60);
+    }, 25);
 
     return () => clearInterval(interval);
   }, []);
@@ -31,9 +36,12 @@ export default function ReceiptPreloader() {
       setIsCut(true);
     }
     if (progress >= 100) {
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("rotayd_seen_preloader", "true");
+      }
       const timeout = setTimeout(() => {
         setLoading(false);
-      }, 700);
+      }, 200);
       return () => clearTimeout(timeout);
     }
   }, [progress, isCut]);
@@ -128,7 +136,7 @@ export default function ReceiptPreloader() {
                     MALİ MÜŞAVİRLİK & YÖNETİM DANIŞMANLIĞI
                   </p>
                   <p className="text-[8px] text-white/50 font-mono">
-                    SMMM SÜLEYMAN İLHAN • ANKARA
+                    TÜRMOB &amp; ASMMMO RUHSATLI • ÇAYYOLU / ANKARA
                   </p>
                 </div>
 

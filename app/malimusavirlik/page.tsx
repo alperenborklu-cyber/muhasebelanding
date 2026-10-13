@@ -85,7 +85,7 @@ export default function MuhasebecilikPage() {
       number: "01",
       title: "Şirket Türü Seçimi: Şahıs Şirketi mi, Limited Şirket mi?",
       summary: "Gelir vergisi dilimi vs. sabit kurumlar vergisi oranı, itibar ve ciro beklentisi karşılaştırması.",
-      content: `Şahıs Şirketi kuruluş maliyeti düşük, aynı gün açılabilen ve masrafı az bir modeldir; ancak kârınız arttıkça %15'ten başlayıp %40'a varan artan oranlı Gelir Vergisi dilimine girersiniz. Limited Şirket (LTD) ise sabit %25 Kurumlar Vergisi oranına tabidir. Yıllık net kâr beklentiniz belli bir eşiğin üzerindeyse, kurumsal müşterilerle çalışacaksanız ve marka imajı ön plandaysa Limited Şirket çok daha avantajlıdır.`
+      content: `Şahıs Şirketi kuruluş maliyeti düşük, aynı gün açılabilen ve masrafı az bir modeldir; ancak kârınız arttıkça %15'ten başlayıp %40'a varan artan oranlı Gelir Vergisi dilimine girersiniz. Limited Şirket (LTD) ise sabit %25 Kurumlar Vergisi oranına tabidir. Yıllık net kâr beklentiniz belli bir eşiğin üzerindeyse, kurumsal müşterilerle çalışacaksanız ve marka imajı ön plandaysa Limited Şirket kurmak daha avantajlı olabilir.`
     },
     {
       number: "02",
@@ -97,7 +97,7 @@ export default function MuhasebecilikPage() {
       number: "03",
       title: "Borç ve Kamu Yükümlülüklerinde Şahsi Sorumluluk Riski",
       summary: "Şahıs şirketinde tüm mal varlığınız risk altındayken, limited şirkette sorumluluk sınırlandırılmıştır.",
-      content: `Şahıs şirketi tüzel kişilik değildir; ticari ve kamu borçlarından şahsi mal varlığınızla (ev, araç, kişisel hesaplar) sınırsız sorumlu olursunuz. Limited şirkette ise ticari borçlarda sorumluluk şirkete koyduğunuz taahhüt edilen sermaye ile sınırlıdır (kamu borçlarında ortaklar hisseleri oranında sorumludur). Yüksek riskli sektörlerde LTD seçimi şahsi varlıklarınızı korur.`
+      content: `Şahıs şirketi tüzel kişilik değildir; ticari ve kamu borçlarından şahsi mal varlığınızla (ev, araç, kişisel hesaplar) sınırsız sorumlu olursunuz. Limited şirkette ise ticari borçlarda sorumluluk şirkete koyduğunuz taahhüt edilen sermaye ile sınırlıdır (kamu borçlarında ortaklar hisseleri oranında sorumludur). Riskli sektörlerde LTD seçimi şahsi varlıklarınızı korumaya yardımcı olabilir.`
     },
     {
       number: "04",
@@ -139,7 +139,7 @@ export default function MuhasebecilikPage() {
       number: "10",
       title: "Doğru Mali Müşavir Seçimi: Sadece Defter Tutan Değil, Proaktif Danışman",
       summary: "Ayda bir evrak alan değil; finansal yön gösteren, dijital portalla çalışan SMMM farkı.",
-      content: `Mali müşavir şirketinizin en kritik iş ortağıdır. Yalnızca ay sonu vergi tahakkuk fişini gönderen değil; vergi indirimlerini vaktinde hatırlatan, dijital fiş/fatura yükleme portalı sunan, nakit akışınızı ve kârlılığınızı grafiklerle özetleyen yetkili bir SMMM ile çalışmak şirketinize yüz binlerce liralık kâr ve sıfır denetim riski kazandırır.`
+      content: `Mali müşavir şirketinizin en kritik iş ortağıdır. Yalnızca ay sonu vergi tahakkuk fişini gönderen değil; vergi indirimlerini vaktinde hatırlatan, dijital fiş/fatura yükleme portalı sunan, nakit akışınızı ve kârlılığınızı grafiklerle özetleyen yetkili bir SMMM ile çalışmak şirketinize önemli mali tasarruflar ve güvenli denetim süreçleri sağlayabilir.`
     }
   ];
 
@@ -214,7 +214,7 @@ export default function MuhasebecilikPage() {
             </div>
 
             <h1 className="subpage-hero-title text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
-              Mali Disiplin, Sıfır Risk &amp; <span className="gold-gradient-text font-serif italic">Stratejik Finans</span>
+              Mali Disiplin, Güvenli Süreçler &amp; <span className="gold-gradient-text font-serif italic">Stratejik Finans</span>
             </h1>
 
             <p className="subpage-hero-desc text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-2xl">
@@ -239,22 +239,6 @@ export default function MuhasebecilikPage() {
                 <span>0553 622 11 22</span>
               </a>
             </div>
-
-            {/* Trust Badges */}
-            <div className="subpage-hero-trust grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70 max-w-lg">
-              <div className="flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span>%100 Yasal Uyum</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span>Gizli Bordrolama</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span>Suit Tower Çankaya</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -275,7 +259,7 @@ export default function MuhasebecilikPage() {
             <span className="gold-gradient-text font-serif italic">Nelere Dikkat Etmeliyim? Şahıs mı, Limited mi?</span>
           </h2>
           <p className="text-xs sm:text-sm text-white/60 leading-relaxed max-w-2xl mx-auto">
-            Hatalı şirket türü seçimi ve eksik vergi planlaması yılda yüz binlerce liralık gereksiz vergiye yol açabilir. İşte bilmeniz gereken 10 temel ilke:
+            Hatalı şirket türü veya NACE kodu seçimi, gereksiz vergi yüklerine ve devlet teşviklerinden yararlanma fırsatlarının kaybedilmesine neden olabilir. İşte şirket kurmadan önce bilmeniz gereken 10 önemli nokta.
           </p>
         </div>
 
@@ -322,7 +306,7 @@ export default function MuhasebecilikPage() {
                     <div className="pt-2 flex items-center justify-between text-xs text-[#d4af37]">
                       <span className="font-semibold flex items-center space-x-1">
                         <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>SMMM Süleyman İlhan Tavsiyesi</span>
+                        <span>ROTAYD Uzman Tavsiyesi</span>
                       </span>
                       <button
                         type="button"

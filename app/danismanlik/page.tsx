@@ -220,22 +220,6 @@ export default function DanismanlikPage() {
                 <span>0553 622 11 22</span>
               </a>
             </div>
-
-            {/* Trust Badges */}
-            <div className="subpage-hero-trust grid grid-cols-3 gap-3 pt-4 border-t border-white/10 text-[11px] text-white/70 max-w-lg">
-              <div className="flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span>Bakanlık Akredite</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span>Geri Ödemesiz Hibe</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <span>Uçtan Uca Takip</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -283,7 +267,7 @@ export default function DanismanlikPage() {
                 <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
                   <div className="flex items-center space-x-2 text-[#d4af37] font-semibold text-xs">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>Ön Eleme &amp; Sıfır Hata Prensibi</span>
+                    <span>Ön Eleme &amp; Titiz İnceleme Prensibi</span>
                   </div>
                   <p className="text-xs text-white/60 leading-relaxed">
                     Bakanlık onay şartlarını sağlamayan hiçbir dosyayı sürece dahil etmeyiz; hazırladığımız projelerde en yüksek kabul standartlarını koruruz.

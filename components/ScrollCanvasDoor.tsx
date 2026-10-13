@@ -90,41 +90,87 @@ export default function ScrollCanvasDoor() {
     restDelta: 0.0001,
   });
 
-  // Preload frames with immediate initial readiness
+  // Ultra-fast progressive frame preloader: Load frame 0 immediately, buffer first 12 frames, then idle-load remainder
   useEffect(() => {
     let isCancelled = false;
-    const loadedImgs: HTMLImageElement[] = [];
+    const loadedImgs: (HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(null);
 
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
-      const img = new window.Image();
-      img.src = `/sequence/frame_${i}.webp`;
-      img.onload = () => {
+    const loadSingleFrame = (i: number): Promise<HTMLImageElement | null> => {
+      return new Promise((resolve) => {
+        if (loadedImgs[i]) return resolve(loadedImgs[i]);
+        const img = new window.Image();
+        img.src = `/sequence/frame_${i}.webp`;
+        img.onload = () => {
+          if (isCancelled) return resolve(null);
+          loadedImgs[i] = img;
+          setLoadedCount((prev) => prev + 1);
+          if (i === 0) {
+            setIsLoaded(true);
+          }
+          resolve(img);
+        };
+        img.onerror = () => {
+          if (isCancelled) return resolve(null);
+          setLoadedCount((prev) => prev + 1);
+          resolve(null);
+        };
+      });
+    };
+
+    // 1. Instantly load critical frame 0
+    loadSingleFrame(0).then((img0) => {
+      if (!isCancelled && img0) {
+        setIsLoaded(true);
+        setImages([...loadedImgs as HTMLImageElement[]]);
+      }
+    });
+
+    // 2. Buffer early scroll frames (1 to 12)
+    const runProgressiveLoad = async () => {
+      for (let i = 1; i <= 12; i++) {
         if (isCancelled) return;
-        setLoadedCount((prev) => prev + 1);
-        if (i === 0) {
-          setIsLoaded(true);
+        await loadSingleFrame(i);
+      }
+      if (!isCancelled) {
+        setImages([...loadedImgs as HTMLImageElement[]]);
+      }
+
+      // 3. Incrementally load remaining frames in idle slices
+      let currentIdx = 13;
+      const loadNextSlice = () => {
+        if (isCancelled || currentIdx >= TOTAL_FRAMES) return;
+        const nextTarget = Math.min(currentIdx + 6, TOTAL_FRAMES);
+        const batchPromises: Promise<any>[] = [];
+        for (let idx = currentIdx; idx < nextTarget; idx++) {
+          batchPromises.push(loadSingleFrame(idx));
         }
+        currentIdx = nextTarget;
+        Promise.all(batchPromises).then(() => {
+          if (isCancelled) return;
+          setImages([...loadedImgs as HTMLImageElement[]]);
+          if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+            (window as any).requestIdleCallback(loadNextSlice, { timeout: 200 });
+          } else {
+            setTimeout(loadNextSlice, 60);
+          }
+        });
       };
-      img.onerror = () => {
-        if (isCancelled) return;
-        setLoadedCount((prev) => prev + 1);
-      };
-      loadedImgs.push(img);
-    }
 
-    setImages(loadedImgs);
+      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+        (window as any).requestIdleCallback(loadNextSlice, { timeout: 200 });
+      } else {
+        setTimeout(loadNextSlice, 80);
+      }
+    };
 
-    // If frame 0 is already cached
-    if (loadedImgs[0]?.complete && loadedImgs[0].naturalWidth > 0) {
-      setIsLoaded(true);
-    }
+    runProgressiveLoad();
 
-    // Safety fallback - activate canvas within 200ms
+    // Safety fallback - activate canvas within 120ms
     const fallbackTimer = setTimeout(() => {
       if (!isCancelled) {
         setIsLoaded(true);
       }
-    }, 200);
+    }, 120);
 
     return () => {
       isCancelled = true;
@@ -579,8 +625,9 @@ export default function ScrollCanvasDoor() {
             <span className="font-extrabold text-white tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">DOĞRU ROTA</span>
             <span className="font-extrabold tracking-wide hero-gold-gradient">GÜÇLÜ İŞLETME</span>
           </h1>
-          <p className="mt-2 sm:mt-2.5 max-w-[280px] sm:max-w-md text-xs sm:text-sm font-medium text-white/85 leading-snug sm:leading-relaxed filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] tracking-normal normal-case">
-            Finansal gücünüzü artırıyor, devlet desteklerini fırsata dönüştürüyoruz.
+          <p className="mt-2 sm:mt-2.5 max-w-[340px] sm:max-w-md text-xs sm:text-sm font-medium text-white/85 leading-relaxed filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] tracking-normal normal-case">
+            <span className="block">Finansal gücünüzü artırıyor, devlet desteklerini</span>
+            <span className="block">fırsata dönüştürüyoruz.</span>
           </p>
         </motion.div>
 

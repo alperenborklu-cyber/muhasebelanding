@@ -9,13 +9,13 @@ import CookieBanner from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rotayd.com'),
-  title: "ROTAYD | Mali Müşavirlik & Yönetim Danışmanlığı",
-  description: "ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı. Stratejik yönetim muhasebesi, vergi denetimi, SGK istihdam teşvikleri, yatırım teşvik belgesi ve KOSGEB hibe danışmanlığı.",
-  keywords: "Rotayd, Mali Müşavirlik, Muhasebecilik, Müşavirlik, Yönetim Danışmanlığı, Muhasebe, Danışmanlık, SGK Teşvikleri, Yatırım Teşvik, KOSGEB, Çankaya Muhasebeci, Ankara Mali Müşavirlik, Ankara Yönetim Danışmanı, Konutkent Suit Tower, SMMM Süleyman İlhan",
+  title: "ROTAYD | Mali Müşavir & Yönetim Danışmanlığı Ankara Çayyolu",
+  description: "ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı. Ankara Çayyolu ve Çankaya'da Türkçe muhasebeci, mali müşavir, vergi planlaması, SGK istihdam teşvikleri ve KOSGEB hibe danışmanlığı.",
+  keywords: "türkçe muhasebeci, mali müşavir ankara çayyolu, ankara mali müşavir, çayyolu muhasebeci, çankaya mali müşavir, rotayd, yönetim danışmanlığı, muhasebe, danışmanlık, sgk teşvikleri, yatırım teşvik, kosgeb hibe, ankara smmm, vergi planlaması, şirket kuruluşu çayyolu",
   openGraph: {
-    title: "ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı",
-    description: "Stratejik yönetim muhasebesi ve devlet teşvikleri rehberliği.",
-    images: ["/logo.png"],
+    title: "ROTAYD | Mali Müşavir & Yönetim Danışmanlığı Ankara Çayyolu",
+    description: "Ankara Çayyolu ve Çankaya'da Türkçe muhasebeci, stratejik mali müşavirlik ve devlet teşvikleri rehberliği.",
+    images: ["/logo.webp"],
   },
   icons: {
     icon: [

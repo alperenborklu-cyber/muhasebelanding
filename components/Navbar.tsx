@@ -214,7 +214,7 @@ export default function Navbar() {
               >
                 <span className="flex items-center space-x-2">
                   <Users className="w-4 h-4 text-[#d4af37]" />
-                  <span>Hakkımızda (Süleyman İlhan)</span>
+                  <span>Hakkımızda &amp; Ekibimiz</span>
                 </span>
                 <ArrowRight className="w-4 h-4 text-white/40" />
               </Link>

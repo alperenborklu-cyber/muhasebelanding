@@ -22,13 +22,13 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Hakkımızda | Süleyman İlhan & Canan İlhan | ROTAYD Danışmanlık",
+  title: "Hakkımızda & Ekibimiz | ROTAYD Mali Müşavirlik & Yönetim Danışmanlığı",
   description:
-    "ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı kurucu ortakları SMMM Süleyman İlhan ve Yönetim Danışmanı Canan İlhan liderliğinde; yönetim muhasebesi, vergi denetimi, yatırım teşvikleri, belgelendirme ve KOSGEB hibe danışmanlığında 15+ yıllık tecrübe.",
+    "ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı. Ankara Çayyolu ve Çankaya bölgesinde kurucu ortaklarımız SMMM Süleyman İlhan ve Yönetim Danışmanı Canan İlhan liderliğinde Türkçe muhasebeci, mali müşavir ve teşvik danışmanlığı.",
   keywords:
-    "Süleyman İlhan, Canan İlhan, SMMM Süleyman İlhan, Canan İlhan LinkedIn, Rotayd Hakkımızda, Mali Müşavir Ankara, Yönetim Danışmanı, Belgelendirme Danışmanı, PROYAD, ASMMMO, TÜRMOB, Çankaya Mali Müşavirlik",
+    "türkçe muhasebeci, mali müşavir ankara çayyolu, ankara mali müşavir, çayyolu muhasebeci, Süleyman İlhan, Canan İlhan, SMMM Süleyman İlhan, Canan İlhan LinkedIn, Rotayd Hakkımızda, Yönetim Danışmanı, ASMMMO, TÜRMOB, Çankaya Mali Müşavirlik",
   openGraph: {
-    title: "Hakkımızda | Süleyman İlhan & Canan İlhan | ROTAYD Danışmanlık",
+    title: "Hakkımızda & Ekibimiz | ROTAYD Mali Müşavirlik & Yönetim Danışmanlığı",
     description:
       "Stratejik yönetim muhasebesi, devlet teşvikleri, belgelendirme ve kurumsal danışmanlıkta 15+ yıllık uzmanlık ve güvence.",
     images: ["/images/suleyman-ilhan-mali-musavir-yonetim-danismani.webp"],
@@ -39,7 +39,7 @@ export default function HakkimizdaPage() {
   const corePillars = [
     {
       icon: ShieldCheck,
-      title: "Sıfır Hata & Yasal Güven",
+      title: "Titiz Denetim & Yasal Güven",
       desc: "GİB, SGK ve ilgili bakanlıkların en güncel mevzuatlarına tam entegre, denetim standartlarında kusursuz defter ve beyan yönetimi.",
     },
     {
@@ -247,7 +247,7 @@ export default function HakkimizdaPage() {
 
                     <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border-2 border-[#d4af37]/60 shadow-2xl bg-[#0b1938]">
                       <Image
-                        src="/images/canan-ilhan-rotayd.png"
+                        src="/images/canan-ilhan-rotayd.webp"
                         alt="Canan İlhan - ROTAYD Kurucu Ortak, Yönetim Danışmanı ve Devlet Teşvikleri Müşaviri"
                         fill
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"

@@ -430,7 +430,7 @@ export default function AppointmentForm() {
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-black" />
                 </button>
                 <p className="text-[11px] text-center text-white/50 mt-2.5">
-                  🔒 Bilgileriniz KVKK kapsamında %100 gizlilik prensibiyle korunmaktadır.
+                  🔒 Bilgileriniz KVKK kapsamında gizlilik prensibiyle titizlikle korunmaktadır.
                 </p>
               </div>
             </form>
