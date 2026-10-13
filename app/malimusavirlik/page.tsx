@@ -19,7 +19,8 @@ import {
   Calculator, 
   Mail, 
   MapPin, 
-  Calendar 
+  Calendar,
+  AlertCircle 
 } from "lucide-react";
 import AppointmentForm from "@/components/AppointmentForm";
 import ReferencesMarquee from "@/components/ReferencesMarquee";
@@ -64,11 +65,16 @@ export default function MuhasebecilikPage() {
       points: ["Ana Sözleşme & Tescil", "LTD'den A.Ş.'ye Geçiş", "Sermaye Artırımı", "Vergisiz Hisse Devri"]
     },
     {
-      title: "E-Dönüşüm & Dijital Defter Yönetimi",
+      title: "E-Dönüşüm ve Dijital Muhasebe Hizmetleri",
       image: "/images/e-defter-e-fatura-vergi-mevzuati-mali-musavirlik.webp",
-      desc: "E-Fatura, E-Arşiv, E-Defter ve zaman damgalı bulut yedekleme altyapısıyla hata payı sıfıra indirilmiş dijital muhasebe mimarisi.",
-      badge: "Dijital Entegrasyon",
-      points: ["E-Fatura Entegrasyonu", "E-Defter Berat Gönderimi", "Dijital Arşiv Güvencesi", "ERP Muhasebe Uyumu"]
+      desc: "e-Fatura, e-Arşiv ve e-Defter süreçlerinizi mevzuata uygun şekilde yönetiyor; elektronik belge düzenleme, e-Defter beratlarının hazırlanması ve gönderilmesi ile dijital muhasebe uygulamalarında işletmenize destek oluyoruz. Muhasebe işlemlerinizin daha hızlı, düzenli ve güvenilir yürütülmesine katkı sağlıyoruz.",
+      badge: "Dijital Muhasebe Çözümleri",
+      points: [
+        "e-Fatura ve e-Arşiv İşlemleri",
+        "e-Defter ve Berat Gönderimi",
+        "Dijital Belge Yönetimi",
+        "Muhasebe Programı Entegrasyonu"
+      ]
     },
     {
       title: "Mali Tablolar & Bağımsız Denetim",
@@ -79,67 +85,93 @@ export default function MuhasebecilikPage() {
     }
   ];
 
-  // 10 BAŞLIK: İLK DEFA ŞİRKET KURUYORUM NELERE DİKKAT ETMELİYİM, ŞAHIS ŞİRKETİ Mİ LİMİTED ŞİRKET Mİ?
+  // ŞİRKET KURULUŞ REHBERİ: İLK DEFA ŞİRKET KURUYORUM NELERE DİKKAT ETMELİYİM, ŞAHIS ŞİRKETİ Mİ LİMİTED ŞİRKET Mİ?
   const companySetupGuides = [
     {
       number: "01",
       title: "Şirket Türü Seçimi: Şahıs Şirketi mi, Limited Şirket mi?",
       summary: "Gelir vergisi dilimi vs. sabit kurumlar vergisi oranı, itibar ve ciro beklentisi karşılaştırması.",
-      content: `Şahıs Şirketi kuruluş maliyeti düşük, aynı gün açılabilen ve masrafı az bir modeldir; ancak kârınız arttıkça %15'ten başlayıp %40'a varan artan oranlı Gelir Vergisi dilimine girersiniz. Limited Şirket (LTD) ise sabit %25 Kurumlar Vergisi oranına tabidir. Yıllık net kâr beklentiniz belli bir eşiğin üzerindeyse, kurumsal müşterilerle çalışacaksanız ve marka imajı ön plandaysa Limited Şirket kurmak daha avantajlı olabilir.`
+      paragraphs: [
+        "Şahıs Şirketi kuruluş maliyeti düşük, aynı gün açılabilen ve masrafı az bir modeldir; ancak kârınız arttıkça %15'ten başlayıp %40'a varan artan oranlı Gelir Vergisi dilimine girersiniz.",
+        "Limited Şirket (LTD) ise sabit %25 Kurumlar Vergisi oranına tabidir. Yıllık net kâr beklentiniz belli bir eşiğin üzerindeyse, kurumsal müşterilerle çalışacaksanız ve marka imajı ön plandaysa Limited Şirket kurmak daha avantajlı olabilir."
+      ]
     },
     {
       number: "02",
       title: "Sermaye Şartları ve Kuruluş Maliyeti Farkı",
       summary: "Şahıs şirketinde asgari sermaye yoktur; Limited şirkette asgari 50.000 TL sermaye şartı bulunur.",
-      content: `Şahıs şirketinde Ticaret Sicil'e sermaye taahhüdü zorunlu değildir. Limited şirket kurarken ise Türk Ticaret Kanunu uyarınca en az 50.000 TL esas sermaye taahhüt edilir (kuruluş aşamasında bloke şartı kalkmış olup 24 ay içinde şirket hesabına yatırılması yeterlidir). Kuruluş harçları ve noter masrafları şahıs şirketinde minimum düzeydeyken, limited şirkette ticaret odası tescil ve ilan giderleri bulunur.`
+      paragraphs: [
+        "Şahıs şirketinde Ticaret Sicil'e sermaye taahhüdü zorunlu değildir.",
+        "Limited şirket kurarken ise Türk Ticaret Kanunu uyarınca en az 50.000 TL esas sermaye taahhüt edilir (kuruluş aşamasında bloke şartı kalkmış olup 24 ay içinde şirket hesabına yatırılması yeterlidir). Kuruluş harçları ve noter masrafları şahıs şirketinde minimum düzeydeyken, limited şirkette ticaret odası tescil ve ilan giderleri bulunur."
+      ]
     },
     {
       number: "03",
       title: "Borç ve Kamu Yükümlülüklerinde Şahsi Sorumluluk Riski",
       summary: "Şahıs şirketinde tüm mal varlığınız risk altındayken, limited şirkette sorumluluk sınırlandırılmıştır.",
-      content: `Şahıs şirketi tüzel kişilik değildir; ticari ve kamu borçlarından şahsi mal varlığınızla (ev, araç, kişisel hesaplar) sınırsız sorumlu olursunuz. Limited şirkette ise ticari borçlarda sorumluluk şirkete koyduğunuz taahhüt edilen sermaye ile sınırlıdır (kamu borçlarında ortaklar hisseleri oranında sorumludur). Riskli sektörlerde LTD seçimi şahsi varlıklarınızı korumaya yardımcı olabilir.`
+      paragraphs: [
+        "Şahıs şirketi tüzel kişilik değildir; ticari ve kamu borçlarından şahsi mal varlığınızla (ev, araç, kişisel hesaplar) sınırsız sorumlu olursunuz.",
+        "Limited şirkette ise ticari borçlarda sorumluluk şirkete koyduğunuz taahhüt edilen sermaye ile sınırlıdır (kamu borçlarında ortaklar hisseleri oranında sorumludur). Riskli sektörlerde LTD seçimi şahsi varlıklarınızı korumaya yardımcı olabilir."
+      ]
     },
     {
       number: "04",
       title: "Doğru NACE Faaliyet Kodunun Belirlenmesi",
       summary: "Yanlış NACE kodu ileride fatura kesme kısıtları ve ruhsat iptallerine yol açabilir.",
-      content: `Şirket açılışında ana sözleşmeye veya vergi dairesi kaydına girilen 6 haneli NACE kodu, faaliyet alanınızı resmen belirler. E-ticaret, yazılım, danışmanlık veya imalat gibi farklı alanların defter hadleri ve tabi olduğu mevzuat değişir. Mali müşavirinizle birlikte şirketin ileride yapacağı yan faaliyetleri de kapsayacak geniş bir NACE kodu seçilmelidir.`
+      paragraphs: [
+        "Şirket açılışında ana sözleşmeye veya vergi dairesi kaydına girilen 6 haneli NACE kodu, faaliyet alanınızı resmen belirler. E-ticaret, yazılım, danışmanlık veya imalat gibi farklı alanların defter hadleri ve tabi olduğu mevzuat değişir.",
+        "Mali müşavirinizle birlikte şirketin ileride yapacağı yan faaliyetleri de kapsayacak geniş bir NACE kodu seçilmelidir."
+      ]
     },
     {
       number: "05",
-      title: "Ofis Adresi: Sanal Ofis mi, Ev (Home-Ofis) mi, Fiziksel Kiralama mı?",
-      summary: "Kira stopajı (%20) yükü vs. faturalı sanal ofis kiralama avantajı.",
-      content: `Fiziksel veya ev adresi gösterildiğinde, mülk sahibi gerçek kişi ise her ay net kira üzerinden %20 stopaj (gelir vergisi kesintisi) doğar. Kurumsal sanal ofis tercih ettiğinizde ise adres sağlayıcı firma size KDV'li fatura keser; stopaj ödemezsiniz ve KDV'yi gider olarak mahsup edebilirsiniz. Prestijli bir plazada (örneğin Ankara Suit Tower) sanal ofis adresi göstermek maliyeti düşürür.`
+      title: "Şirket Adresi Seçimi: Maliyet ve Vergi Avantajlarını Değerlendirin",
+      summary: "Kira stopajı (%20) ve prestijli sanal ofis tercihinin maliyet ve vergi avantajları.",
+      paragraphs: [
+        "Şirket kuruluşunda doğru adres seçimi, işletmenizin sabit giderlerini ve vergi yükümlülüklerini doğrudan etkileyebilir. Gerçek kişilerden kiralanan iş yerlerinde, gerekli şartların oluşması halinde kira ödemeleri üzerinden %20 gelir vergisi stopajı uygulanır. Kurumsal sanal ofis hizmetlerinde ise hizmet sağlayıcı tarafından KDV'li fatura düzenlenir ve hizmet bedeli üzerinden kira stopajı doğmaz.",
+        "Ayrıca sanal ofis giderleri ve faturadaki KDV, mevzuattaki şartlar çerçevesinde vergi hesaplamalarında dikkate alınabilir.",
+        "Prestijli bir iş merkezinde sanal ofis tercih etmek, işletmenize kurumsal bir adres kazandırırken ofis maliyetlerinizi de önemli ölçüde azaltabilir."
+      ]
     },
     {
       number: "06",
-      title: "e-Fatura, e-Arşiv ve Dijital Dönüşüm Zorunlulukları",
-      summary: "İlk günden itibaren e-fatura sistemine dahil olmanın maliyet ve zaman avantajları.",
-      content: `Artık kâğıt fatura dönemi neredeyse bitti. Ciro sınırınız zorunlu olmasa dahi şirket kuruluşuyla birlikte e-Arşiv / e-Fatura entegrasyonu yapmak; kargo maliyetini sıfırlar, tahsilat hızını artırır ve muhasebenize anında dijital entegre olur. Mali müşaviriniz aracılığıyla mali mühür temini veya e-İmza ile sistem bir saatte aktif edilir.`
+      title: "e-Fatura, e-Arşiv ve Dijital Dönüşüm",
+      summary: "Dijital fatura sistemleriyle işlemlerinizi hızlandırın, maliyetlerinizi azaltın.",
+      paragraphs: [
+        "Şirket kuruluşundan itibaren dijital fatura sistemlerini kullanmak, işletmenize zaman ve maliyet avantajı sağlayabilir. e-Fatura ve e-Arşiv uygulamaları sayesinde fatura düzenleme, gönderme ve arşivleme işlemlerinizi elektronik ortamda gerçekleştirebilir; muhasebe süreçlerinizi daha hızlı, düzenli ve güvenilir şekilde yönetebilirsiniz.",
+        "Zorunluluk kapsamında olmasanız bile dijital dönüşüme erken geçiş yaparak operasyonel verimliliğinizi artırabilirsiniz. ROTAYD olarak işletmenize uygun e-belge sisteminin belirlenmesi, başvuru ve aktivasyon süreçlerinde yanınızdayız."
+      ]
     },
     {
       number: "07",
-      title: "Bağ-Kur ve SGK Yükümlülükleri & Genç Girişimci İstisnası",
-      summary: "29 yaş altı genç girişimciler için 1 yıl Bağ-Kur prim muafiyeti ve vergi avantajı.",
-      content: `Şirket kurduğunuz gün otomatik olarak 4B (Bağ-Kur) sigortalısı olursunuz. Ancak başka bir iş yerinde 4A sigortalı çalışıyorsanız Bağ-Kur primi ödemeniz gerekmez. Ayrıca ilk defa şirket kuran 29 yaş altı gençler için 'Genç Girişimci Desteği' kapsamında 1 yıl boyunca Bağ-Kur primi devlet tarafından ödenir ve 3 yıl boyunca yıllık gelir vergisinden belirli bir tutar muaf tutulur.`
+      title: "Bağ-Kur Yükümlülükleri ve Genç Girişimci Vergi İstisnası",
+      summary: "29 yaşını doldurmamış girişimciler için 2026 yılında 400.000 TL'ye kadar gelir vergisi kazanç istisnası.",
+      paragraphs: [
+        "Şirket kuruluşunda Bağ-Kur (4/B) yükümlülüklerinin ve mevcut sigortalılık durumunuzun doğru değerlendirilmesi önemlidir. Başka bir iş yerinde 4/A kapsamında sigortalı çalışmanız, sigortalılık durumunuza göre Bağ-Kur prim yükümlülüğünüzü etkileyebilir.",
+        "İlk defa gelir vergisi mükellefi olan ve işe başlama tarihinde 29 yaşını doldurmamış girişimciler, yasal şartları sağlamaları halinde, faaliyete başladıkları yıldan itibaren 3 vergilendirme dönemi boyunca gelir vergisi kazanç istisnasından yararlanabilir. 2026 yılı için istisna tutarı 400.000 TL'dir."
+      ],
+      note: "Genç girişimcilere sağlanan 1 yıllık Bağ-Kur prim desteği, 1 Ocak 2026 itibarıyla kaldırılmıştır. Gelir vergisi istisnası ise devam etmektedir.",
+      expertTip: "Şirket kuruluşundan önce sigortalılık durumunuzu ve vergi avantajlarını birlikte değerlendirerek gereksiz maliyetlerin önüne geçebiliriz."
     },
     {
       number: "08",
-      title: "Vergi Takvimi ve Düzenli Yasal Gider Yönetimi",
-      summary: "Hangi harcamalar şirket gideri yazılabilir? Vergi cezalarından nasıl korunulur?",
-      content: `Şirketinize ait yakıt, yemek, ofis kırtasiyesi, bilgisayar, internet ve temsil giderleri yasal fatura karşılığında kurum kârından düşülebilir. Ancak şahsi harcamalar şirket gideri gösterilemez. Her ay KDV-1, Muhtasar ve Prim Hizmet Beyannamesi (SGK), üç ayda bir Geçici Vergi ve yıllık Kurumlar/Gelir Vergisi beyanları gecikmeksizin mali müşavirinizce verilmeli, sürpriz cezalara mahal verilmemelidir.`
+      title: "Şirket Banka Hesabı, Ticari Kredi Kartı ve Kasa Disiplini",
+      summary: "Şirket parası ile şahsi paranın birbirine karıştırılmaması kuralı.",
+      paragraphs: [
+        "Şirket adına açılan ticari vadesiz hesap ve şirket kredi kartı ile tüm tahsilat ve ödemeler yapılmalıdır.",
+        "Ortakların şirket kasasından kontrolsüz para çekmesi 'örtülü kazanç' veya 'adat faizi' gibi ağır vergi cezalarına neden olabilir. Sağlıklı bir şirket, banka ekstreleri ile fatura defterlerinin her ay sonu kuruşu kuruşuna örtüştüğü şirkettir."
+      ]
     },
     {
       number: "09",
-      title: "Şirket Banka Hesabı, Ticari Kredi Kartı ve Kasa Disiplini",
-      summary: "Şirket parası ile şahsi paranın birbirine karıştırılmaması kuralı.",
-      content: `Şirket adına açılan ticari vadesiz hesap ve şirket kredi kartı ile tüm tahsilat ve ödemeler yapılmalıdır. Ortakların şirket kasasından kontrolsüz para çekmesi 'örtülü kazanç' veya 'adat faizi' gibi ağır vergi cezalarına neden olabilir. Sağlıklı bir şirket, banka ekstreleri ile fatura defterlerinin her ay sonu kuruşu kuruşuna örtüştüğü şirkettir.`
-    },
-    {
-      number: "10",
-      title: "Doğru Mali Müşavir Seçimi: Sadece Defter Tutan Değil, Proaktif Danışman",
-      summary: "Ayda bir evrak alan değil; finansal yön gösteren, dijital portalla çalışan SMMM farkı.",
-      content: `Mali müşavir şirketinizin en kritik iş ortağıdır. Yalnızca ay sonu vergi tahakkuk fişini gönderen değil; vergi indirimlerini vaktinde hatırlatan, dijital fiş/fatura yükleme portalı sunan, nakit akışınızı ve kârlılığınızı grafiklerle özetleyen yetkili bir SMMM ile çalışmak şirketinize önemli mali tasarruflar ve güvenli denetim süreçleri sağlayabilir.`
+      title: "Doğru Mali Müşavir Seçimi: Muhasebeden Daha Fazlası",
+      summary: "Sadece muhasebe işlemlerinizi takip eden değil, işletmenizin finansal geleceğine yön veren bir iş ortağı seçin.",
+      paragraphs: [
+        "Doğru mali müşavir seçimi, işletmenizin finansal yapısını ve geleceğini doğrudan etkileyen önemli kararlardan biridir.",
+        "İyi bir mali müşavir yalnızca beyannamelerinizi hazırlamakla kalmaz; vergi yükümlülüklerinizi takip eder, yararlanabileceğiniz yasal avantajları değerlendirir, mali tablolarınızı analiz eder ve işletmenizin finansal kararlarına rehberlik eder.",
+        "ROTAYD olarak muhasebe ve vergi danışmanlığını finansal raporlama, mali analiz ve devlet teşvikleriyle birleştiriyor; işletmenizin mali süreçlerini güvenle yönetmesine ve sürdürülebilir büyümesine katkı sağlıyoruz."
+      ],
+      expertTip: "Mali müşaviriniz yalnızca geçmiş işlemlerinizi kaydeden değil, geleceğinizi planlarken danışabileceğiniz güvenilir bir iş ortağınız olmalıdır."
     }
   ];
 
@@ -247,19 +279,19 @@ export default function MuhasebecilikPage() {
         {/* 2. Kesintisiz Dönen Türk Firmaları Referanslar Silsilesi */}
         <ReferencesMarquee />
 
-      {/* 3. 10 BAŞLIK: İLK DEFA BİR ŞİRKET KURUYORUM: NELERE DİKKAT ETMELİYİM? ŞAHIS MI LİMİTED Mİ? */}
+      {/* 3. ŞİRKET KURULUŞ REHBERİ: İLK DEFA BİR ŞİRKET KURUYORUM: NELERE DİKKAT ETMELİYİM? ŞAHIS MI LİMİTED Mİ? */}
       <section id="sirket-kurulus-rehberi" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-[#d4af37]/40 bg-[#071128] text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
             <BookOpen className="w-3.5 h-3.5" />
-            <span>GİRİŞİMCİLER &amp; YATIRIMCILAR İÇİN 10 KRİTİK BAŞLIK</span>
+            <span>GİRİŞİMCİLER &amp; YATIRIMCILAR İÇİN 9 KRİTİK BAŞLIK</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
             İlk Defa Bir Şirket Kuruyorum: <br className="hidden sm:inline" />
             <span className="gold-gradient-text font-serif italic">Nelere Dikkat Etmeliyim? Şahıs mı, Limited mi?</span>
           </h2>
           <p className="text-xs sm:text-sm text-white/60 leading-relaxed max-w-2xl mx-auto">
-            Hatalı şirket türü veya NACE kodu seçimi, gereksiz vergi yüklerine ve devlet teşviklerinden yararlanma fırsatlarının kaybedilmesine neden olabilir. İşte şirket kurmadan önce bilmeniz gereken 10 önemli nokta.
+            Hatalı şirket türü veya NACE kodu seçimi, gereksiz vergi yüklerine ve devlet teşviklerinden yararlanma fırsatlarının kaybedilmesine neden olabilir. İşte şirket kurmadan önce bilmeniz gereken 9 önemli nokta.
           </p>
         </div>
 
@@ -301,17 +333,42 @@ export default function MuhasebecilikPage() {
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-white/10 text-xs sm:text-sm text-white/80 leading-relaxed space-y-3 bg-[#040d24]/60">
-                    <p>{guide.content}</p>
+                  <div className="px-5 sm:px-6 pb-6 pt-3 border-t border-white/10 text-xs sm:text-sm text-white/80 leading-relaxed space-y-3.5 bg-[#040d24]/60">
+                    <div className="space-y-2.5">
+                      {guide.paragraphs.map((p, pIdx) => (
+                        <p key={pIdx} className="leading-relaxed text-white/80">{p}</p>
+                      ))}
+                    </div>
+
+                    {guide.note && (
+                      <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200/90 text-xs sm:text-sm flex items-start gap-2.5">
+                        <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                        <div>
+                          <strong className="font-semibold text-amber-300">Önemli: </strong>
+                          <span>{guide.note}</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {guide.expertTip && (
+                      <div className="p-3.5 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/30 text-white/90 text-xs sm:text-sm flex items-start gap-2.5">
+                        <CheckCircle2 className="w-4 h-4 text-[#d4af37] shrink-0 mt-0.5" />
+                        <div>
+                          <strong className="font-semibold text-[#d4af37]">ROTAYD Uzman Görüşü: </strong>
+                          <span className="text-white/85">{guide.expertTip}</span>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="pt-2 flex items-center justify-between text-xs text-[#d4af37]">
                       <span className="font-semibold flex items-center space-x-1">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>ROTAYD Uzman Tavsiyesi</span>
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        <span>ROTAYD Danışmanlık Güvencesi</span>
                       </span>
                       <button
                         type="button"
                         onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
-                        className="hover:underline flex items-center space-x-1"
+                        className="hover:underline flex items-center space-x-1 cursor-pointer"
                       >
                         <span>Bu Konuda Danışın</span>
                         <ArrowRight className="w-3 h-3" />
@@ -326,18 +383,19 @@ export default function MuhasebecilikPage() {
 
         {/* Callout box inside guide */}
         <div className="mt-12 max-w-4xl mx-auto p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#071330] to-[#0a1e4a] border border-[#d4af37]/40 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
-          <div className="space-y-1 text-center sm:text-left">
-            <h4 className="text-base font-bold text-white">Şirketinizi Kurmaya Hazır mısınız?</h4>
-            <p className="text-xs text-white/60">
-              Ticaret sicil ana sözleşmesi, vergi dairesi yoklaması ve e-fatura açılışınızı 48 saatte tamamlayalım.
+          <div className="space-y-2 text-center sm:text-left max-w-2xl">
+            <h4 className="text-base sm:text-lg font-bold text-white">Şirketinizi Kurmaya Hazır mısınız?</h4>
+            <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
+              Doğru şirket türü ve faaliyet kodunun belirlenmesinden ticaret sicili, vergi dairesi ve e-belge işlemlerine kadar tüm kuruluş sürecinizi ROTAYD’ın deneyimiyle güvenle yönetin. Siz işinizi büyütmeye odaklanın, kuruluş işlemlerinizde biz yanınızda olalım.
             </p>
           </div>
           <button
             type="button"
             onClick={() => document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" })}
-            className="whitespace-nowrap px-6 py-3 rounded-full bg-[#d4af37] text-black font-bold text-xs hover:bg-[#faecc0] transition-colors shadow-lg"
+            className="whitespace-nowrap px-6 py-3.5 rounded-full bg-[#d4af37] text-black font-bold text-xs hover:bg-[#faecc0] transition-colors shadow-lg shrink-0 flex items-center space-x-1.5 cursor-pointer"
           >
-            Kuruluş Sürecini Başlat
+            <span>Kuruluş Sürecini Başlat</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </section>
