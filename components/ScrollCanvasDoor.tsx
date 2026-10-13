@@ -60,6 +60,7 @@ export default function ScrollCanvasDoor() {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loadedCount, setLoadedCount] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -83,126 +84,39 @@ export default function ScrollCanvasDoor() {
     offset: ["start start", "end end"],
   });
 
-  // Spring physics for ultra-smooth 60fps interpolation without jitter
+  // Spring physics for ultra-smooth, responsive 60fps interpolation without jitter
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 130,
+    damping: 26,
     restDelta: 0.0001,
   });
-
-  // Ultra-fast progressive frame preloader: Load frame 0 immediately, buffer first 12 frames, then idle-load remainder
-  useEffect(() => {
-    let isCancelled = false;
-    const loadedImgs: (HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(null);
-
-    const loadSingleFrame = (i: number): Promise<HTMLImageElement | null> => {
-      return new Promise((resolve) => {
-        if (loadedImgs[i]) return resolve(loadedImgs[i]);
-        const img = new window.Image();
-        img.src = `/sequence/frame_${i}.webp`;
-        img.onload = () => {
-          if (isCancelled) return resolve(null);
-          loadedImgs[i] = img;
-          setLoadedCount((prev) => prev + 1);
-          if (i === 0) {
-            setIsLoaded(true);
-          }
-          resolve(img);
-        };
-        img.onerror = () => {
-          if (isCancelled) return resolve(null);
-          setLoadedCount((prev) => prev + 1);
-          resolve(null);
-        };
-      });
-    };
-
-    // 1. Instantly load critical frame 0
-    loadSingleFrame(0).then((img0) => {
-      if (!isCancelled && img0) {
-        setIsLoaded(true);
-        setImages([...loadedImgs as HTMLImageElement[]]);
-      }
-    });
-
-    // 2. Buffer early scroll frames (1 to 12)
-    const runProgressiveLoad = async () => {
-      for (let i = 1; i <= 12; i++) {
-        if (isCancelled) return;
-        await loadSingleFrame(i);
-      }
-      if (!isCancelled) {
-        setImages([...loadedImgs as HTMLImageElement[]]);
-      }
-
-      // 3. Incrementally load remaining frames in idle slices
-      let currentIdx = 13;
-      const loadNextSlice = () => {
-        if (isCancelled || currentIdx >= TOTAL_FRAMES) return;
-        const nextTarget = Math.min(currentIdx + 6, TOTAL_FRAMES);
-        const batchPromises: Promise<any>[] = [];
-        for (let idx = currentIdx; idx < nextTarget; idx++) {
-          batchPromises.push(loadSingleFrame(idx));
-        }
-        currentIdx = nextTarget;
-        Promise.all(batchPromises).then(() => {
-          if (isCancelled) return;
-          setImages([...loadedImgs as HTMLImageElement[]]);
-          if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-            (window as any).requestIdleCallback(loadNextSlice, { timeout: 200 });
-          } else {
-            setTimeout(loadNextSlice, 60);
-          }
-        });
-      };
-
-      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-        (window as any).requestIdleCallback(loadNextSlice, { timeout: 200 });
-      } else {
-        setTimeout(loadNextSlice, 80);
-      }
-    };
-
-    runProgressiveLoad();
-
-    // Safety fallback - activate canvas within 120ms
-    const fallbackTimer = setTimeout(() => {
-      if (!isCancelled) {
-        setIsLoaded(true);
-      }
-    }, 120);
-
-    return () => {
-      isCancelled = true;
-      clearTimeout(fallbackTimer);
-    };
-  }, []);
 
   // Draw frame to canvas with responsive contain-fit
   const renderFrame = useCallback((progress: number) => {
     const canvas = canvasRef.current;
-    if (!canvas || images.length === 0) return;
+    const imgs = imagesRef.current.length > 0 ? imagesRef.current : images;
+    if (!canvas || imgs.length === 0) return;
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     // Calculate current frame index clamped to bounds
     const frameIndex = Math.min(
-      images.length - 1,
-      Math.max(0, Math.floor(progress * images.length))
+      imgs.length - 1,
+      Math.max(0, Math.floor(progress * imgs.length))
     );
 
-    let img = images[frameIndex];
+    let img = imgs[frameIndex];
     // If target frame hasn't finished loading yet, pick the nearest available frame so canvas never flickers
     if (!img || !img.complete || img.naturalWidth === 0) {
-      for (let offset = 1; offset < images.length; offset++) {
+      for (let offset = 1; offset < imgs.length; offset++) {
         const lower = frameIndex - offset;
-        if (lower >= 0 && images[lower]?.complete && images[lower].naturalWidth > 0) {
-          img = images[lower];
+        if (lower >= 0 && imgs[lower]?.complete && imgs[lower].naturalWidth > 0) {
+          img = imgs[lower];
           break;
         }
         const higher = frameIndex + offset;
-        if (higher < images.length && images[higher]?.complete && images[higher].naturalWidth > 0) {
-          img = images[higher];
+        if (higher < imgs.length && imgs[higher]?.complete && imgs[higher].naturalWidth > 0) {
+          img = imgs[higher];
           break;
         }
       }
@@ -246,6 +160,83 @@ export default function ScrollCanvasDoor() {
 
     ctx.restore();
   }, [images]);
+
+  // High-performance dual-tier parallel frame loader:
+  // 1. Instantly loads frame 0 so the canvas is live in <100ms
+  // 2. Queues keyframe anchors across the full 0-119 range (every 2nd frame) so door opening works immediately anywhere
+  // 3. Concurrently loads all remaining in-between frames for continuous 60fps smoothness
+  useEffect(() => {
+    let isCancelled = false;
+    const loadedImgs: HTMLImageElement[] = new Array(TOTAL_FRAMES);
+
+    // 1. Critical frame 0 (closed doors baseline)
+    const img0 = new window.Image();
+    img0.src = `/sequence/frame_0.webp`;
+    img0.onload = () => {
+      if (isCancelled) return;
+      setIsLoaded(true);
+      renderFrame(smoothProgress.get());
+    };
+    loadedImgs[0] = img0;
+
+    // 2. Keyframes spanning full door sequence (dense at start 0-20, every 2nd frame thereafter)
+    const keyframes = new Set<number>();
+    for (let i = 0; i <= 20; i++) keyframes.add(i);
+    for (let i = 22; i < TOTAL_FRAMES; i += 2) keyframes.add(i);
+    keyframes.add(TOTAL_FRAMES - 1);
+
+    keyframes.forEach((i) => {
+      if (i === 0) return;
+      const img = new window.Image();
+      img.src = `/sequence/frame_${i}.webp`;
+      img.onload = () => {
+        if (isCancelled) return;
+        setLoadedCount((prev) => prev + 1);
+      };
+      img.onerror = () => {
+        if (isCancelled) return;
+        setLoadedCount((prev) => prev + 1);
+      };
+      loadedImgs[i] = img;
+    });
+
+    // 3. Concurrently load all remaining in-between frames
+    for (let i = 1; i < TOTAL_FRAMES; i++) {
+      if (keyframes.has(i)) continue;
+      const img = new window.Image();
+      img.src = `/sequence/frame_${i}.webp`;
+      img.onload = () => {
+        if (isCancelled) return;
+        setLoadedCount((prev) => prev + 1);
+      };
+      img.onerror = () => {
+        if (isCancelled) return;
+        setLoadedCount((prev) => prev + 1);
+      };
+      loadedImgs[i] = img;
+    }
+
+    imagesRef.current = loadedImgs;
+    setImages(loadedImgs);
+
+    if (img0.complete && img0.naturalWidth > 0) {
+      setIsLoaded(true);
+      renderFrame(smoothProgress.get());
+    }
+
+    // Safety fallback - activate canvas within 150ms
+    const fallbackTimer = setTimeout(() => {
+      if (!isCancelled) {
+        setIsLoaded(true);
+        renderFrame(smoothProgress.get());
+      }
+    }, 150);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(fallbackTimer);
+    };
+  }, [renderFrame, smoothProgress]);
 
   // Measure canvas and calculate image draw bounds for overlay positioning
   const updateLayout = useCallback(() => {
@@ -293,7 +284,7 @@ export default function ScrollCanvasDoor() {
           : "/hakkimizda";
       const startProgress = smoothProgress.get();
       const targetProgress = 0.65; // Frame ~78: doors wide open, traveling forward into dark portal
-      const duration = 1200; // ms
+      const duration = 950; // ms: snappy, dynamic door swing
       const startTime = performance.now();
 
       const animateStep = (now: number) => {
@@ -303,6 +294,7 @@ export default function ScrollCanvasDoor() {
         const ease = 1 - Math.pow(1 - t, 3);
         const currentProgress = startProgress + (targetProgress - startProgress) * ease;
 
+        setScrollProgressVal(currentProgress);
         renderFrame(currentProgress);
 
         if (t < 1) {
@@ -812,7 +804,7 @@ export default function ScrollCanvasDoor() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.85, duration: 0.35 }}
+            transition={{ delay: 0.65, duration: 0.3 }}
             className="fixed inset-0 z-50 bg-[#040a1a]/95 flex flex-col items-center justify-center pointer-events-none backdrop-blur-sm"
           >
             <div className="flex flex-col items-center space-y-4">

@@ -33,6 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className="scroll-smooth dark">
+      <head>
+        <link rel="preload" as="image" href="/sequence/frame_0.webp" type="image/webp" />
+      </head>
       <body className="bg-[#040a1a] text-white antialiased selection:bg-[#d4af37] selection:text-[#040a1a]">
         <Providers>
           <ReceiptPreloader />
