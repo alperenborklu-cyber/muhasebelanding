@@ -24,14 +24,14 @@ import {
 export const metadata: Metadata = {
   title: "Hakkımızda & Ekibimiz | ROTAYD Mali Müşavirlik & Yönetim Danışmanlığı",
   description:
-    "ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı. Ankara Çayyolu ve Çankaya bölgesinde kurucu ortaklarımız SMMM Süleyman İlhan ve Yönetim Danışmanı Canan İlhan liderliğinde Türkçe muhasebeci, mali müşavir ve teşvik danışmanlığı.",
+    "ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı. Ankara Çayyolu ve Çankaya bölgesinde kurucu ortaklarımız SMMM Canan İlhan ve SMMM Süleyman İlhan liderliğinde Türkçe muhasebeci, mali müşavir ve yönetim danışmanlığı.",
   keywords:
-    "türkçe muhasebeci, mali müşavir ankara çayyolu, ankara mali müşavir, çayyolu muhasebeci, Süleyman İlhan, Canan İlhan, SMMM Süleyman İlhan, Canan İlhan LinkedIn, Rotayd Hakkımızda, Yönetim Danışmanı, ASMMMO, TÜRMOB, Çankaya Mali Müşavirlik",
+    "türkçe muhasebeci, mali müşavir ankara çayyolu, ankara mali müşavir, çayyolu muhasebeci, Canan İlhan, Süleyman İlhan, SMMM Canan İlhan, SMMM Süleyman İlhan, Canan İlhan LinkedIn, Rotayd Hakkımızda, Yönetim Danışmanı, ASMMMO, TÜRMOB, Çankaya Mali Müşavirlik",
   openGraph: {
     title: "Hakkımızda & Ekibimiz | ROTAYD Mali Müşavirlik & Yönetim Danışmanlığı",
     description:
       "Stratejik yönetim muhasebesi, devlet teşvikleri, belgelendirme ve kurumsal danışmanlıkta 15+ yıllık uzmanlık ve güvence.",
-    images: ["/images/suleyman-ilhan-mali-musavir-yonetim-danismani.webp"],
+    images: ["/images/canan-ilhan-rotayd.webp"],
   },
 };
 
@@ -94,7 +94,7 @@ export default function HakkimizdaPage() {
       </section>
 
       <div className="page-container">
-        {/* 2. Kurumsal Liderlik & Kurucu Ortaklar (Süleyman İlhan & Canan İlhan) */}
+        {/* 2. Kurumsal Liderlik & Kurucu Ortaklar (Canan İlhan & Süleyman İlhan) */}
         <section className="px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Section Header */}
@@ -108,15 +108,125 @@ export default function HakkimizdaPage() {
               <span className="gold-gradient-text font-serif italic">Kurucu Ortaklarımız</span>
             </h2>
             <p className="text-xs sm:text-sm text-white/60 max-w-2xl mx-auto leading-relaxed">
-              Mali müşavirlik ve vergi mevzuatı disiplini ile yönetim danışmanlığı, belgelendirme ve devlet teşvikleri uzmanlığını tek bir kurumsal yapıda birleştiren güçlü lider kadromuz.
+              Mali müşavirlik, vergi mevzuatı disiplini, finansal yönetim ve kurumsal danışmanlık uzmanlığını tek bir kurumsal yapıda birleştiren güçlü lider kadromuz.
             </p>
           </div>
 
           <div className="space-y-10">
-            {/* Süleyman İlhan Profil Kartı */}
+            {/* Canan İlhan Profil Kartı (Kurucu & Mali Müşavir) */}
             <div className="glass-panel p-6 sm:p-10 lg:p-12 rounded-3xl border border-[#d4af37]/30 shadow-2xl relative overflow-hidden">
               {/* Ambient Background Glow */}
               <div className="absolute top-0 right-0 w-80 h-80 bg-[#d4af37]/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                {/* Profile Photo Column */}
+                <div className="lg:col-span-4 flex flex-col items-center text-center">
+                  <div className="relative group">
+                    {/* Golden Rotating Ring */}
+                    <div className="absolute -inset-2 rounded-2xl bg-gradient-to-tr from-[#b89025] via-[#d4af37] to-[#faecc0] opacity-40 blur-md group-hover:opacity-75 transition-all duration-500" />
+
+                    <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border-2 border-[#d4af37]/60 shadow-2xl bg-[#0b1938]">
+                      <Image
+                        src="/images/canan-ilhan-rotayd.webp"
+                        alt="SMMM Canan İlhan - ROTAYD Kurucu & Mali Müşavir Ankara"
+                        fill
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        priority
+                      />
+                    </div>
+
+                    {/* Status Badge */}
+                    <div className="absolute -bottom-3 inset-x-0 flex justify-center">
+                      <span className="px-3.5 py-1 rounded-full bg-[#05112e] border border-[#d4af37] text-[11px] font-bold text-[#faecc0] shadow-lg flex items-center space-x-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37]" />
+                        <span>TÜRMOB &amp; ASMMMO Ruhsatlı</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 space-y-1">
+                    <h3 className="text-2xl font-bold text-white tracking-tight">Canan İlhan</h3>
+                    <p className="text-xs sm:text-sm text-[#faecc0] font-semibold">
+                      Kurucu &amp; Mali Müşavir
+                    </p>
+                    <p className="text-[11px] text-white/60">Serbest Muhasebeci Mali Müşavir (SMMM)</p>
+                  </div>
+
+                  {/* LinkedIn Button */}
+                  <div className="mt-5 w-full max-w-xs">
+                    <a
+                      href="https://www.linkedin.com/in/canan-ilhan-1b7050a4/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#0a66c2]/20 hover:bg-[#0a66c2]/30 border border-[#0a66c2]/40 text-white transition-all text-xs font-semibold flex items-center justify-center space-x-2 group/btn shadow-md"
+                    >
+                      <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                      </svg>
+                      <span>LinkedIn Profilini Görüntüle</span>
+                      <ExternalLink className="w-3 h-3 text-white/70 group-hover/btn:text-white" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Biography & Vision Column */}
+                <div className="lg:col-span-8 space-y-5 text-left">
+                  <div className="border-b border-white/10 pb-4">
+                    <span className="text-xs uppercase tracking-widest text-[#d4af37] font-semibold">
+                      Mali Müşavirlik &amp; Finansal Yönetim
+                    </span>
+                    <h4 className="text-xl sm:text-2xl font-light text-white mt-1">
+                      Stratejik Mali Müşavirlik, Vergi Mevzuatı ve Finansal Denetim
+                    </h4>
+                  </div>
+
+                  <div className="space-y-4 text-xs sm:text-sm text-white/80 leading-relaxed font-light">
+                    <p>
+                      <strong className="text-white font-semibold">Canan İlhan</strong>, ROTAYD bünyesinde kurucu ve mali müşavir olarak; üretim, teknoloji, perakende, hizmet ve ticaret sektörlerinde faaliyet gösteren işletmelere stratejik mali müşavirlik, vergi planlaması ve yasal uyum danışmanlığı sağlamaktadır.
+                    </p>
+                    <p>
+                      İşletmelerin yasal defter tutma, vergi beyannameleri, e-Dönüşüm (e-Fatura, e-Arşiv, e-Defter) ve dönem sonu mali tablolarının mevzuata tam uyumlu şekilde hazırlanması süreçlerini titizlikle yönetmektedir. Mali süreçlerin yalnızca yasal bir zorunluluk olarak değil, işletmenin kârlılığını ve finansal gücünü artıran stratejik bir yönetim aracı olarak yürütülmesine öncülük etmektedir.
+                    </p>
+                    <p>
+                      <strong className="text-white font-semibold">Ankara SMMM Odası (ASMMMO)</strong> ve{" "}
+                      <strong className="text-white font-semibold">TÜRMOB</strong> üyesi olan İlhan; finansal analiz, yönetim muhasebesi, bordrolama ve SGK mevzuatı, vergi optimizasyonu ve kurumsal şirket kuruluş süreçlerinde zengin mesleki birikimiyle işletmelerin sürdürülebilir büyümesine katkı sunmaktadır.
+                    </p>
+                  </div>
+
+                  {/* Founder Quote */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white/5 border-l-4 border-[#d4af37] border-y border-r border-white/10 italic text-xs sm:text-sm text-white/90">
+                    &ldquo;Mali müşavirlik yalnızca geçmiş finansal verileri kaydetmek değil; işletmenin gelecekteki güvenliğini, kârlılığını ve sürdürülebilir büyümesini doğru finansal kararlarla inşa etmektir.&rdquo;
+                    <span className="block mt-2 not-italic font-bold text-[#faecc0] text-xs">
+                      — Canan İlhan
+                    </span>
+                  </div>
+
+                  {/* Credential Tags */}
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
+                      ✓ SMMM &amp; Vergi Mevzuatı
+                    </span>
+                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
+                      ✓ Yönetim Muhasebesi &amp; Raporlama
+                    </span>
+                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
+                      ✓ E-Fatura, E-Arşiv &amp; E-Defter
+                    </span>
+                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
+                      ✓ Bordrolama &amp; SGK İşlemleri
+                    </span>
+                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
+                      ✓ Finansal Tablolar &amp; Bilanço Analizi
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Süleyman İlhan Profil Kartı */}
+            <div className="glass-panel p-6 sm:p-10 lg:p-12 rounded-3xl border border-[#d4af37]/30 shadow-2xl relative overflow-hidden">
+              {/* Ambient Background Glow */}
+              <div className="absolute top-0 right-0 w-80 h-80 bg-[#1d3b7d]/15 rounded-full blur-3xl pointer-events-none" />
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 {/* Profile Photo Column */}
@@ -131,7 +241,6 @@ export default function HakkimizdaPage() {
                         alt="SMMM Süleyman İlhan - ROTAYD Yetkili Mali Müşavir ve Kıdemli Yönetim Danışmanı Ankara"
                         fill
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                        priority
                       />
                     </div>
 
@@ -227,114 +336,6 @@ export default function HakkimizdaPage() {
                     </span>
                     <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
                       ✓ Şirket Nevi Değişiklikleri &amp; Birleşmeler
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Canan İlhan Profil Kartı */}
-            <div className="glass-panel p-6 sm:p-10 lg:p-12 rounded-3xl border border-[#d4af37]/30 shadow-2xl relative overflow-hidden">
-              {/* Ambient Background Glow */}
-              <div className="absolute top-0 right-0 w-80 h-80 bg-[#1d3b7d]/15 rounded-full blur-3xl pointer-events-none" />
-
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                {/* Profile Photo Column */}
-                <div className="lg:col-span-4 flex flex-col items-center text-center">
-                  <div className="relative group">
-                    {/* Golden Rotating Ring */}
-                    <div className="absolute -inset-2 rounded-2xl bg-gradient-to-tr from-[#b89025] via-[#d4af37] to-[#faecc0] opacity-40 blur-md group-hover:opacity-75 transition-all duration-500" />
-
-                    <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border-2 border-[#d4af37]/60 shadow-2xl bg-[#0b1938]">
-                      <Image
-                        src="/images/canan-ilhan-rotayd.webp"
-                        alt="Canan İlhan - ROTAYD Kurucu Ortak, Yönetim Danışmanı ve Devlet Teşvikleri Müşaviri"
-                        fill
-                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-
-                    {/* Status Badge */}
-                    <div className="absolute -bottom-3 inset-x-0 flex justify-center">
-                      <span className="px-3.5 py-1 rounded-full bg-[#05112e] border border-[#d4af37] text-[11px] font-bold text-[#faecc0] shadow-lg flex items-center space-x-1.5">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37]" />
-                        <span>Yönetim &amp; Teşvik Danışmanı</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-8 space-y-1">
-                    <h3 className="text-2xl font-bold text-white tracking-tight">Canan İlhan</h3>
-                    <p className="text-xs sm:text-sm text-[#faecc0] font-semibold">
-                      Kurucu Ortak &amp; Yönetim Danışmanı
-                    </p>
-                    <p className="text-[11px] text-white/60">Belgelendirme &amp; Devlet Destekleri Uzmanı</p>
-                  </div>
-
-                  {/* LinkedIn Button */}
-                  <div className="mt-5 w-full max-w-xs">
-                    <a
-                      href="https://www.linkedin.com/in/canan-ilhan-1b7050a4/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#0a66c2]/20 hover:bg-[#0a66c2]/30 border border-[#0a66c2]/40 text-white transition-all text-xs font-semibold flex items-center justify-center space-x-2 group/btn shadow-md"
-                    >
-                      <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                      </svg>
-                      <span>LinkedIn Profilini Görüntüle</span>
-                      <ExternalLink className="w-3 h-3 text-white/70 group-hover/btn:text-white" />
-                    </a>
-                  </div>
-                </div>
-
-                {/* Biography & Vision Column */}
-                <div className="lg:col-span-8 space-y-5 text-left">
-                  <div className="border-b border-white/10 pb-4">
-                    <span className="text-xs uppercase tracking-widest text-[#d4af37] font-semibold">
-                      Yönetim Danışmanlığı &amp; Akreditasyon
-                    </span>
-                    <h4 className="text-xl sm:text-2xl font-light text-white mt-1">
-                      Stratejik Yönetim, Devlet Destekleri ve Süreç İyileştirme Uzmanlığı
-                    </h4>
-                  </div>
-
-                  <div className="space-y-4 text-xs sm:text-sm text-white/80 leading-relaxed font-light">
-                    <p>
-                      <strong className="text-white font-semibold">Canan İlhan</strong>, Rota Yönetim Danışmanlığı bünyesinde kurucu ortak ve yönetim danışmanı olarak; sanayi, ihracat, üretim ve teknoloji alanlarında faaliyet gösteren işletmelerin kurumsal gelişim, belgelendirme ve devlet hibeleri yolculuğuna rehberlik etmektedir.
-                    </p>
-                    <p>
-                      İşletmelerin küresel rekabet standartlarına uyum sağlaması için gerekli olan kalite yönetim sistemleri, uluslararası standart belgelendirmeleri (ISO süreçleri, CE, uygunluk değerlendirme) ve kurumsal akreditasyon mekanizmalarının tesisinde geniş bir portföy yönetmektedir.
-                    </p>
-                    <p>
-                      KOSGEB destek programları, Ticaret Bakanlığı mal ve hizmet ihracatı destekleri, e-ihracat teşvikleri ve yatırım fizibilite çalışmaları konusunda saha tecrübesine sahip olan İlhan; işletmelerin kamu hibe mekanizmalarından zamanında ve eksiksiz biçimde faydalanmasını sağlayarak sürdürülebilir kurumsal katma değer üretmektedir.
-                    </p>
-                  </div>
-
-                  {/* Founder Quote */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white/5 border-l-4 border-[#d4af37] border-y border-r border-white/10 italic text-xs sm:text-sm text-white/90">
-                    &ldquo;Kurumsal büyüme yalnızca finansal kaynaklarla değil; doğru teşviklerin, etkin iş süreçlerinin ve uluslararası kalite standartlarının birleşimiyle sürdürülebilir kılınır.&rdquo;
-                    <span className="block mt-2 not-italic font-bold text-[#faecc0] text-xs">
-                      — Canan İlhan
-                    </span>
-                  </div>
-
-                  {/* Credential Tags */}
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
-                      ✓ Kurumsal Yönetim Danışmanlığı
-                    </span>
-                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
-                      ✓ Belgelendirme &amp; Kalite Sistemleri (ISO / CE)
-                    </span>
-                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
-                      ✓ KOSGEB Destek &amp; Hibe Danışmanlığı
-                    </span>
-                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
-                      ✓ Ticaret Bakanlığı İhracat Destekleri
-                    </span>
-                    <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
-                      ✓ Proje Yönetimi &amp; Süreç İyileştirme
                     </span>
                   </div>
                 </div>
@@ -465,7 +466,7 @@ export default function HakkimizdaPage() {
                 <span className="gold-gradient-text font-serif italic">Rotayı Birlikte Çizelim.</span>
               </h3>
               <p className="text-xs sm:text-sm text-white/70 max-w-xl mx-auto">
-                Süleyman İlhan, Canan İlhan ve ROTAYD uzman ekibiyle tanışarak işletmenizin mali denetim, vergi ve teşvik check-up&apos;ını
+                Canan İlhan, Süleyman İlhan ve ROTAYD uzman ekibiyle tanışarak işletmenizin mali denetim, vergi ve kurumsal yönetim check-up&apos;ını
                 hemen başlatabilirsiniz.
               </p>
             </div>
@@ -480,7 +481,7 @@ export default function HakkimizdaPage() {
               </Link>
 
               <a
-                href="https://wa.me/905536221122?text=Merhaba%2C%20ROTAYD%20Mali%20M%C3%BC%C5%9favirlik%20ve%20Dan%C4%B1%C5%9Fmanl%C4%B1k%20hakk%C4%B1nda%20S%C3%BCleyman%20%C4%B0lhan%20ile%20g%C3%B6r%C3%BC%C5%9Fmek%20istiyorum."
+                href="https://wa.me/905536221122?text=Merhaba%2C%20ROTAYD%20Mali%20M%C3%BC%C5%9favirlik%20ve%20Y%C3%B6netim%20Dan%C4%B1%C5%9Fmanl%C4%B1%C4%9F%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center space-x-2 transition-all shadow-lg"

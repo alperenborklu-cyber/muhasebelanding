@@ -208,8 +208,8 @@ export default function MuhasebecilikPage() {
       a: "Anonim Şirketlerde hisse senetleri 2 yıl elde tutulduktan sonra satıldığında elde edilen kazanç %0 Gelir Vergisi istisnasına tabidir. Ayrıca A.Ş. ortakları şirket kamu borçlarından şahsi mal varlığıyla sorumlu tutulmaz. Büyüyen LTD'ler için en kritik vergisiz çıkış stratejisidir."
     },
     {
-      q: "Bordrolama hizmetini dış kaynağa (BPO) aktarmanın faydası nedir?",
-      a: "Şirket içi maaş gizliliğini %100 korur, bordro hesaplama yükünü idari kadronuzdan alır ve İş Kanunu ile SGK mevzuatındaki ağır cezai yaptırımlara karşı yetkili mali müşavir güvencesi sağlar."
+      q: "ROTAYD, Bordro ve SGK İşlemlerinde İşletmeme Nasıl Katkı Sağlar?",
+      a: "İşletmeniz tarafından iletilen aylık puantajlar doğrultusunda ücret bordrolarınızı hazırlıyor, SGK bildirgelerinizi yasal sürelerinde ilgili kuruma iletiyoruz.\n\nAyrıca SGK prim teşvikleri, KOSGEB istihdam destekleri ve İŞKUR programlarını takip ederek işletmenizin yararlanabileceği destekleri belirliyor, personel maliyetlerinizi azaltabilecek fırsatları değerlendiriyoruz."
     },
     {
       q: "Olası bir Vergi İncelemesi sürecinde nasıl bir yol izleniyor?",
@@ -506,7 +506,7 @@ export default function MuhasebecilikPage() {
                 <ChevronRight className={`w-4 h-4 text-[#d4af37] transition-transform duration-300 ${openFaq === i ? "rotate-90" : ""}`} />
               </button>
               {openFaq === i && (
-                <div className="px-5 pb-5 text-xs text-white/70 leading-relaxed border-t border-white/5 pt-3">
+                <div className="px-5 pb-5 text-xs text-white/70 leading-relaxed border-t border-white/5 pt-3 whitespace-pre-line">
                   {f.a}
                 </div>
               )}
