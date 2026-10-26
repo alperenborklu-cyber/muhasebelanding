@@ -789,7 +789,7 @@ export default function PortalPage() {
 
             <p className="text-sm text-slate-300 leading-relaxed mb-6">
               Sayın <strong className="text-white">{currentUser.name}</strong>,{' '}
-              <strong className="text-[#faecc0]">{currentUser.email}</strong> hesabınızla oluşturduğunuz mükellef kaydı, finansal veri gizliliği gereğince <strong>Mali Müşavir Süleyman İlhan</strong> onayına sunulmuştur.
+              <strong className="text-[#faecc0]">{currentUser.email}</strong> hesabınızla oluşturduğunuz mükellef kaydı, finansal veri gizliliği gereğince <strong>ROTAYD Mali Müşavirlik Yönetimi</strong> onayına sunulmuştur.
             </p>
 
             <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs mb-6 text-left flex items-start space-x-3">

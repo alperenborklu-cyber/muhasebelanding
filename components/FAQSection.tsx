@@ -29,8 +29,8 @@ const FAQ_ITEMS: FAQItem[] = [
     category: "Mali Müşavirlik",
     tag: "Devir & Mevzuat",
     question: "Mevcut mali müşavirimizden ROTAYD'a geçiş süreci nasıl yürütülür ve şirket operasyonlarımız aksar mı?",
-    answer: "Geçiş süreci 3568 sayılı Meslek Kanunu ve TÜRMOB devir-teslim protokollerine tam uyumlu şekilde, sıfır operasyonel riskle yürütülür. Önceki meslek mensubu ile resmi devir tutanağı hazırlanır; geçmiş mizanlar, e-defter beratları, SGK bildirgeleri ve beyannameler eksiksiz teslim alınır. Şirketinizin günlük faturalandırma ve banka operasyonlarında tek bir gün dahi aksama yaşanmaz.",
-    highlights: ["Sıfır operasyonel risk", "TÜRMOB resmi devir protokolü", "Kesintisiz fatura ve defter akışı"]
+    answer: "Geçiş süreci 3568 sayılı Meslek Kanunu ve TÜRMOB devir-teslim protokollerine uygun şekilde, operasyonel aksaklıkların önüne geçecek profesyonel bir planlamayla yürütülür. Önceki meslek mensubu ile resmi devir tutanağı hazırlanır; geçmiş mizanlar, e-defter beratları, SGK bildirgeleri ve beyannameler titizlikle teslim alınır. Şirketinizin günlük faturalandırma ve banka operasyonlarının aksamadan sürdürülmesi hedeflenir.",
+    highlights: ["Güvenli operasyonel geçiş", "TÜRMOB resmi devir protokolü", "Düzenli fatura ve defter akışı"]
   },
   {
     id: "faq-2",
@@ -53,8 +53,8 @@ const FAQ_ITEMS: FAQItem[] = [
     category: "Yönetim Danışmanlığı",
     tag: "KOSGEB & İhracat Hibeleri",
     question: "KOSGEB ve Ticaret Bakanlığı hibe programlarına başvurularda kabul oranınız nedir?",
-    answer: "ROTAYD olarak proje hazırlıklarında %99 dosya kabul oranı ile çalışıyoruz. Başvuru öncesinde firmanızın mali yapısı, NACE kodu ve hedefleri uzman kadromuzca ön puanlamaya tabi tutulur. Puan kriterlerini tam karşılamayan hiçbir başvuru sisteme yüklenmez; stratejik revizyonlar ve bütçe planlaması yapıldıktan sonra sunularak hibenin kesin onayı hedeflenir.",
-    highlights: ["%99 Dosya Kabul Oranı", "Ön Puanlama & Uygunluk Analizi", "Bütçe ve Harcama Süreç Yönetimi"]
+    answer: "ROTAYD olarak proje hazırlıklarında yüksek kabul başarısı hedefiyle çalışıyoruz. Başvuru öncesinde firmanızın mali yapısı, NACE kodu ve hedefleri uzman kadromuzca ön incelemeye tabi tutulur. Kriterleri yeterince karşılamayan dosyalar üzerinde gerekli revizyonlar ve bütçe planlaması tamamlandıktan sonra başvuru yapılarak kabul ihtimalinin en üst düzeye çıkarılması hedeflenir.",
+    highlights: ["Yüksek dosya kabul hedefi", "Ön inceleme & uygunluk analizi", "Bütçe ve harcama süreç yönetimi"]
   },
   {
     id: "faq-5",
@@ -69,7 +69,7 @@ const FAQ_ITEMS: FAQItem[] = [
     category: "Süreç & Gizlilik",
     tag: "İlk Randevu",
     question: "ROTAYD ile ilk keşif ve tanışma toplantısı ücretli midir, süreç nasıl işler?",
-    answer: "Hayır, ilk keşif ve strateji toplantımız tamamen ücretsizdir. Hemen aşağıdaki online randevu formundan veya 0553 622 11 22 numaralı iletişim hattımızdan Zoom/Meet üzerinden online ya da ofisimizde yüz yüze görüşme oluşturabilirsiniz. Bu görüşmede firmanızın mevcut mali durumu dinlenir ve yararlanılabilecek teşvik haritası çıkartılır.",
+    answer: "Hayır, ilk keşif ve strateji toplantımız tamamen ücretsizdir. Hemen aşağıdaki online randevu formundan veya doğrudan iletişim hatlarımızdan (Mali Müşavirlik: 0542 622 11 32 / Danışmanlık: 0553 622 11 22) Zoom/Meet üzerinden online ya da ofisimizde yüz yüze görüşme oluşturabilirsiniz. Bu görüşmede firmanızın mevcut mali durumu dinlenir ve yararlanılabilecek teşvik haritası çıkartılır.",
     highlights: ["Tamamen ücretsiz ilk görüşme", "Online veya yüz yüze seçenek", "Ön analiz ve teşvik yol haritası"]
   },
   {
@@ -78,7 +78,7 @@ const FAQ_ITEMS: FAQItem[] = [
     tag: "Veri Güvenliği",
     question: "Şirketimizin finansal ve ticari verilerinin gizliliği nasıl korunuyor?",
     answer: "Tüm kurumsal iş ortaklarımızla sürecin en başında iki taraflı cezai şart içeren Gizlilik ve Sır Saklama Sözleşmesi (NDA) akdedilir. Verileriniz KVKK standartlarına uygun yüksek güvenlikli sunucularda saklanır; yalnızca dosyanızla ilgilenen yeminli müşavir ve denetmenlerin erişimine açılır. Üçüncü taraflarla asla paylaşılmaz.",
-    highlights: ["Resmi Gizlilik Sözleşmesi (NDA)", "KVKK tam uyumu", "Banka seviyesinde şifreli veri saklama"]
+    highlights: ["Resmi Gizlilik Sözleşmesi (NDA)", "KVKK uyumu & veri güvenliği", "Banka seviyesinde şifreli veri saklama"]
   },
   {
     id: "faq-8",
@@ -86,7 +86,7 @@ const FAQ_ITEMS: FAQItem[] = [
     tag: "Ücretlendirme Modeli",
     question: "Danışmanlık ve teşvik projelerinde ücretlendirme modeliniz nasıldır?",
     answer: "Şeffaf ve müşteri odaklı modeller uyguluyoruz. Özellikle devlet teşvikleri, hibe dosyaları ve SGK prim optimizasyonlarında 'Kazan-Kazan' (Başarı Primi / Success-Fee) prensibiyle çalışıyoruz. Şirketiniz hibe onayını alıp veya net mali tasarruf sağladığında faturalandırma gerçekleştirilir.",
-    highlights: ["Performans & başarı odaklı model", "Şeffaf hakediş prensibi", "Sıfır gizli maliyet güvencesi"]
+    highlights: ["Performans & başarı odaklı model", "Şeffaf hakediş prensibi", "Net ve şeffaf maliyet yapısı"]
   }
 ];
 

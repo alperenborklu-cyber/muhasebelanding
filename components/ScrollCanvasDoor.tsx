@@ -658,12 +658,12 @@ export default function ScrollCanvasDoor() {
             </h2>
 
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
-              Kusursuz vergi optimizasyonu, 360° mali analiz ve kârlılık denetimi.
+              Stratejik vergi planlaması, 360° mali analiz ve kârlılık takibi.
             </p>
 
             <div className="pt-1 flex items-center space-x-3 text-xs text-[#c59b27]">
               <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">2.6M+ TL SGK Teşviki</span>
-              <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">%99 Başarı</span>
+              <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">Mevzuat Güveni</span>
             </div>
           </div>
         </motion.div>

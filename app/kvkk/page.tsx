@@ -40,11 +40,11 @@ export default function KvkkPage() {
               <span>1. Veri Sorumlusunun Kimliği</span>
             </h2>
             <p>
-              6698 sayılı Kişisel Verilerin Korunması Kanunu (&ldquo;KVKK&rdquo;) uyarınca, kişisel verileriniz veri sorumlusu sıfatıyla <strong>ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı</strong> (Süleyman İlhan - SMMM) tarafından aşağıda açıklanan kapsamda işlenmektedir.
+              6698 sayılı Kişisel Verilerin Korunması Kanunu (&ldquo;KVKK&rdquo;) uyarınca, kişisel verileriniz veri sorumlusu sıfatıyla <strong>ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı</strong> tarafından aşağıda açıklanan kapsamda işlenmektedir.
             </p>
             <div className="bg-[#071330]/80 p-4 rounded-xl border border-white/5 space-y-1.5 text-xs text-white/70">
               <p><strong>Adres:</strong> Konutkent Mahallesi Diyap Ağa Caddesi No:74 Suit Tower B Blok Kat:6 No:39 Çankaya / Ankara</p>
-              <p><strong>Telefon:</strong> 0553 622 11 22</p>
+              <p><strong>Telefon:</strong> 0542 622 11 32 (Mali Müşavirlik) / 0553 622 11 22 (Danışmanlık)</p>
               <p><strong>E-Posta:</strong> info@rotayd.com</p>
             </div>
           </section>

@@ -147,11 +147,11 @@ export default function BlogPostDetail({ params }: { params: { slug: string } })
               Ücretsiz Ön Değerlendirme İsteyin
             </Link>
             <a
-              href="tel:05536221122"
+              href={post.category === "Mali Müşavirlik" || post.category === "Vergi Mevzuatı" || post.category === "Yönetim Muhasebesi" ? "tel:05426221132" : "tel:05536221122"}
               className="phone-nav-btn px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-xs hover:bg-white/10 transition-all flex items-center space-x-1.5"
             >
               <Phone className="w-3.5 h-3.5 text-[#d4af37]" />
-              <span>0553 622 11 22</span>
+              <span>{post.category === "Mali Müşavirlik" || post.category === "Vergi Mevzuatı" || post.category === "Yönetim Muhasebesi" ? "0542 622 11 32" : "0553 622 11 22"}</span>
             </a>
           </div>
         </div>

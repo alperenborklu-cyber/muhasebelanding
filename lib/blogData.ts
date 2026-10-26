@@ -101,7 +101,7 @@ export const BLOG_POSTS: BlogPost[] = [
     content: [
       "Gelir İdaresi Başkanlığı (GİB) tarafından yayımlanan tebliğlerle e-Dönüşüm zorunluluk kapsamı her yıl genişlemektedir. Brüt satış hasılatı kriterleri ve e-ticaret faaliyetinde bulunan şirketlerin sisteme entegrasyonu sıkı denetlenmektedir.",
       "Zamanında e-Defter beratı yüklememek veya e-Fatura yerine kağıt fatura düzenlemek özel usulsüzlük cezalarına yol açmaktadır.",
-      "ROTAYD, müşterilerinin entegratör seçiminden yasal berat onaylarına kadar tüm dijital muhasebe süreçlerini sıfır hata prensibiyle yürütmektedir."
+      "ROTAYD, müşterilerinin entegratör seçiminden yasal berat onaylarına kadar tüm dijital muhasebe süreçlerini yüksek titizlik ve profesyonel kontrol standartlarıyla yürütmektedir."
     ]
   },
   {
@@ -181,7 +181,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "bordrolama-sureclerinde-dis-kaynak-kullaniminin-faydalari",
     instagramCode: "IG-10",
     title: "Bordrolama Süreçlerinde Dış Kaynak (BPO) Kullanımının 6 Faydası",
-    excerpt: "Maaş gizliliğinin korunması, yasal ceza risklerinin sıfırlanması ve İK departmanının ana hedeflere odaklanmasını sağlayan modern yöntem.",
+    excerpt: "Maaş gizliliğinin korunması, yasal ceza risklerinin asgariye indirilmesi ve İK departmanının ana hedeflere odaklanmasını sağlayan modern yaklaşım.",
     category: "Mali Müşavirlik",
     date: "24 Mart 2026",
     readTime: "4 dk okuma",
@@ -190,7 +190,7 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["Bordrolama", "BPO", "İnsan Kaynakları", "Gizlilik"],
     content: [
       "Şirket içi maaş dengelerinin korunması ve çalışan gizliliği günümüz kurumsal dünyasında kritik bir konudur. Bordrolama sürecini dış kaynağa devreden işletmeler bilgi sızıntılarını engeller.",
-      "Maaş gizliliği, SGK cezalarından tam muafiyet, zaman tasarrufu ve teşviklerin hatasız takibi sağlanır.",
+      "Maaş gizliliği, mevzuata uyum, zaman tasarrufu ve istihdam teşviklerinin etkin takibi sağlanır.",
       "ROTAYD Bordrolama Hizmetleri, en üst düzey güvenlik protokolleriyle çalışanlarınızın haklarını korur."
     ]
   }

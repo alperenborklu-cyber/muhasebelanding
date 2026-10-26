@@ -87,9 +87,18 @@ export default function Footer() {
             </h3>
             <div className="space-y-2.5 text-xs">
 
-              <div className="flex items-center space-x-2.5">
-                <Phone className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-                <a href="tel:05536221122" className="hover:text-white">0553 622 11 22</a>
+              <div className="flex items-start space-x-2.5">
+                <Phone className="w-3.5 h-3.5 text-[#d4af37] shrink-0 mt-0.5" />
+                <div className="flex flex-col space-y-1">
+                  <a href="tel:05426221132" className="hover:text-white transition-colors">
+                    <span className="text-white/50 text-[10px] block leading-none">Mali Müşavirlik:</span>
+                    <span className="font-semibold text-white">0542 622 11 32</span>
+                  </a>
+                  <a href="tel:05536221122" className="hover:text-white transition-colors pt-0.5">
+                    <span className="text-white/50 text-[10px] block leading-none">Teşvik &amp; Danışmanlık:</span>
+                    <span className="font-semibold text-white">0553 622 11 22</span>
+                  </a>
+                </div>
               </div>
               <div className="flex items-center space-x-2.5">
                 <Mail className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />

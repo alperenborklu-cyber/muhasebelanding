@@ -40,7 +40,7 @@ export default function HakkimizdaPage() {
     {
       icon: ShieldCheck,
       title: "Titiz Denetim & Yasal Güven",
-      desc: "GİB, SGK ve ilgili bakanlıkların en güncel mevzuatlarına tam entegre, denetim standartlarında kusursuz defter ve beyan yönetimi.",
+      desc: "GİB, SGK ve ilgili bakanlıkların güncel mevzuatlarına entegre, denetim standartlarında güvenilir defter ve beyan yönetimi.",
     },
     {
       icon: TrendingUp,
@@ -87,7 +87,7 @@ export default function HakkimizdaPage() {
 
           <p className="mt-6 text-sm sm:text-base text-white/70 max-w-3xl leading-relaxed">
             ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı, Türkiye&apos;nin rekabetçi iş dünyasında işletmelerin
-            yasal defter, vergi ve bordrolama süreçlerini sıfır hata prensibiyle yönetirken; devlet teşvikleri,
+            yasal defter, vergi ve bordrolama süreçlerini yüksek mesleki titizlik ve kalite standartlarıyla yönetirken; devlet teşvikleri,
             hibeler ve yönetim muhasebesiyle sürdürülebilir kurumsal kârlılığı inşa etmektedir.
           </p>
         </div>
@@ -152,8 +152,8 @@ export default function HakkimizdaPage() {
                     <p className="text-[11px] text-white/60">Serbest Muhasebeci Mali Müşavir (SMMM)</p>
                   </div>
 
-                  {/* LinkedIn Button */}
-                  <div className="mt-5 w-full max-w-xs">
+                  {/* LinkedIn & Contact Buttons */}
+                  <div className="mt-5 w-full max-w-xs space-y-2">
                     <a
                       href="https://www.linkedin.com/in/canan-ilhan-1b7050a4/"
                       target="_blank"
@@ -165,6 +165,13 @@ export default function HakkimizdaPage() {
                       </svg>
                       <span>LinkedIn Profilini Görüntüle</span>
                       <ExternalLink className="w-3 h-3 text-white/70 group-hover/btn:text-white" />
+                    </a>
+                    <a
+                      href="tel:05426221132"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#d4af37]/15 hover:bg-[#d4af37]/25 border border-[#d4af37]/40 text-white transition-all text-xs font-semibold flex items-center justify-center space-x-2 shadow-md"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-[#d4af37]" />
+                      <span>Mali Müşavirlik: 0542 622 11 32</span>
                     </a>
                   </div>
                 </div>
@@ -182,10 +189,10 @@ export default function HakkimizdaPage() {
 
                   <div className="space-y-4 text-xs sm:text-sm text-white/80 leading-relaxed font-light">
                     <p>
-                      <strong className="text-white font-semibold">Canan İlhan</strong>, ROTAYD bünyesinde kurucu ve mali müşavir olarak; üretim, teknoloji, perakende, hizmet ve ticaret sektörlerinde faaliyet gösteren işletmelere stratejik mali müşavirlik, vergi planlaması ve yasal uyum danışmanlığı sağlamaktadır.
+                      <strong className="text-white font-semibold">Canan İlhan</strong>, ROTAYD bünyesinde kurucu ve mali müşavir olarak; üretim, teknoloji, perakende, hizmet ve ticaret sektörlerinde faaliyet gösteren işletmelere stratejik mali müşavirlik, vergi planlaması ve mevzuata uyum danışmanlığı sağlamaktadır.
                     </p>
                     <p>
-                      İşletmelerin yasal defter tutma, vergi beyannameleri, e-Dönüşüm (e-Fatura, e-Arşiv, e-Defter) ve dönem sonu mali tablolarının mevzuata tam uyumlu şekilde hazırlanması süreçlerini titizlikle yönetmektedir. Mali süreçlerin yalnızca yasal bir zorunluluk olarak değil, işletmenin kârlılığını ve finansal gücünü artıran stratejik bir yönetim aracı olarak yürütülmesine öncülük etmektedir.
+                      İşletmelerin yasal defter tutma, vergi beyannameleri, e-Dönüşüm (e-Fatura, e-Arşiv, e-Defter) ve dönem sonu mali tablolarının mevzuata uygun şekilde hazırlanması süreçlerini titizlikle yönetmektedir. Mali süreçlerin yalnızca yasal bir zorunluluk olarak değil, işletmenin kârlılığını ve finansal gücünü artıran stratejik bir yönetim aracı olarak yürütülmesine öncülük etmektedir.
                     </p>
                     <p>
                       <strong className="text-white font-semibold">Ankara SMMM Odası (ASMMMO)</strong> ve{" "}
@@ -261,8 +268,8 @@ export default function HakkimizdaPage() {
                     <p className="text-[11px] text-white/60">Serbest Muhasebeci Mali Müşavir (SMMM)</p>
                   </div>
 
-                  {/* LinkedIn Button */}
-                  <div className="mt-5 w-full max-w-xs">
+                  {/* LinkedIn & Contact Buttons */}
+                  <div className="mt-5 w-full max-w-xs space-y-2">
                     <a
                       href="https://www.linkedin.com/in/s%C3%BCleyman-ilhan-48298445/"
                       target="_blank"
@@ -274,6 +281,13 @@ export default function HakkimizdaPage() {
                       </svg>
                       <span>LinkedIn Profilini Görüntüle</span>
                       <ExternalLink className="w-3 h-3 text-white/70 group-hover/btn:text-white" />
+                    </a>
+                    <a
+                      href="tel:05536221122"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#d4af37]/15 hover:bg-[#d4af37]/25 border border-[#d4af37]/40 text-white transition-all text-xs font-semibold flex items-center justify-center space-x-2 shadow-md"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-[#d4af37]" />
+                      <span>Teşvik &amp; Danışmanlık: 0553 622 11 22</span>
                     </a>
                   </div>
                 </div>
@@ -361,9 +375,9 @@ export default function HakkimizdaPage() {
                 Kurumsal <span className="gold-gradient-text font-serif italic">Misyonumuz</span>
               </h3>
               <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
-                İş ortaklarımızın finansal risklerini sıfıra indirmek, mevzuat uyumunu proaktif bir zırh gibi kurgulamak
-                ve devletin sunduğu her teşvik imkânından zamanında ve eksiksiz yararlanmalarını sağlayarak öz kaynak
-                verimliliklerini en üst düzeye taşımak.
+                İş ortaklarımızın finansal risklerini asgariye indirmek, mevzuata uyumu proaktif bir yaklaşımla kurgulamak
+                ve mevzuat dahilindeki teşvik imkânlarından etkin şekilde yararlanmalarını sağlayarak öz kaynak
+                verimliliklerini desteklemek.
               </p>
             </div>
 

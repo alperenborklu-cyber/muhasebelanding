@@ -34,6 +34,10 @@ export default function Navbar() {
     }
   };
   const pathname = usePathname();
+  const isMaliPage = pathname.startsWith("/malimusavirlik");
+  const phoneHref = isMaliPage ? "tel:05426221132" : "tel:05536221122";
+  const phoneDisplay = isMaliPage ? "0542 622 11 32" : "0553 622 11 22";
+  const whatsappHref = isMaliPage ? "https://wa.me/905426221132" : "https://wa.me/905536221122";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -142,15 +146,15 @@ export default function Navbar() {
           {/* Quick Contact */}
           <div className="hidden sm:flex items-center space-x-3 flex-shrink-0">
             <a
-              href="tel:05536221122"
+              href={phoneHref}
               className="phone-nav-btn whitespace-nowrap flex-shrink-0 flex items-center space-x-1.5 text-xs xl:text-sm text-white/80 hover:text-[#d4af37] transition-colors py-1.5 px-3.5 rounded-full border border-white/10 hover:border-[#d4af37]/40 bg-[#071128]/50"
             >
               <Phone className="w-3.5 h-3.5 text-[#d4af37] flex-shrink-0" />
-              <span className="font-semibold tracking-wide whitespace-nowrap">0553 622 11 22</span>
+              <span className="font-semibold tracking-wide whitespace-nowrap">{phoneDisplay}</span>
             </a>
 
             <a
-              href="https://wa.me/905536221122"
+              href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
               className="relative group overflow-hidden rounded-full p-px text-xs xl:text-sm font-semibold whitespace-nowrap flex-shrink-0"
@@ -267,11 +271,11 @@ export default function Navbar() {
 
               <div className="pt-3 border-t border-white/10 flex flex-col space-y-2">
                 <a
-                  href="tel:05536221122"
+                  href={phoneHref}
                   className="phone-nav-btn flex items-center justify-center space-x-2 py-2 rounded-xl bg-white/5 text-sm font-medium text-white"
                 >
                   <Phone className="w-4 h-4 text-[#d4af37]" />
-                  <span>0553 622 11 22</span>
+                  <span>{phoneDisplay}</span>
                 </a>
               </div>
             </div>

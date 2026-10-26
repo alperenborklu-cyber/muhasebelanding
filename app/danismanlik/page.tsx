@@ -79,8 +79,8 @@ export default function DanismanlikPage() {
       title: "Ar-Ge & Teknokent Teşvikleri",
       badge: "Yüksek Teknoloji",
       icon: Cpu,
-      desc: "5746 Sayılı Kanun Ar-Ge Merkezi kurulumu ve Teknoloji Geliştirme Bölgeleri (TGB) kapsamında %100 kurumlar vergisi muafiyeti ile personel gelir vergisi ve damga istisnası.",
-      points: ["Kurumlar Vergisi %100 Muaf", "Personel Stopaj Terkini", "%50 SGK İşveren Desteği", "TÜBİTAK TEYDEB Hibesi"]
+      desc: "5746 Sayılı Kanun Ar-Ge Merkezi kurulumu ve Teknoloji Geliştirme Bölgeleri (TGB) kapsamında kapsamlı kurumlar vergisi muafiyeti ile personel gelir vergisi ve damga istisnası.",
+      points: ["Kurumlar Vergisi Muafiyeti", "Personel Stopaj Terkini", "%50 SGK İşveren Desteği", "TÜBİTAK TEYDEB Hibesi"]
     }
   ];
 
@@ -117,7 +117,7 @@ export default function DanismanlikPage() {
     {
       title: "Ar-Ge ve Tasarım Merkezi Kurulumu",
       image: "/images/yonetim-danismanligi-arge-tasarim-merkezi-kurulumu.webp",
-      desc: "5746 Sayılı Kanun kapsamında personel gelir vergisi stopaj terkini, damga vergisi muafiyeti ve %100 Ar-Ge kurumlar vergisi indirimi.",
+      desc: "5746 Sayılı Kanun kapsamında personel gelir vergisi stopaj terkini, damga vergisi muafiyeti ve kapsamlı Ar-Ge kurumlar vergisi indirimi.",
       badge: "Yüksek Teknoloji",
       points: ["Stopaj & Damga Muafiyeti", "%50 SGK İşveren Desteği", "TÜBİTAK TEYDEB", "Anahtar Teslim Merkez"]
     }
@@ -132,7 +132,7 @@ export default function DanismanlikPage() {
     {
       step: "02",
       title: "Bakanlık & KOSGEB Proje Yazımı",
-      desc: "Fizibilite raporları, makine listeleri ve finansal tablolar uzman danışmanlarımızca resmî formatlara uygun olarak sıfır hata ile hazırlanır."
+      desc: "Fizibilite raporları, makine listeleri ve finansal tablolar uzman danışmanlarımızca resmî formatlara ve mevzuata uygun şekilde titizlikle hazırlanır."
     },
     {
       step: "03",

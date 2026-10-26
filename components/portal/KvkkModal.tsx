@@ -74,7 +74,7 @@ export default function KvkkModal({
               </h3>
               <p className="text-xs text-slate-300">
                 6698 sayılı Kişisel Verilerin Korunması Kanunu (&ldquo;KVKK&rdquo;) uyarınca; verileriniz, veri sorumlusu sıfatıyla{' '}
-                <strong className="text-white">Süleyman İlhan - Rotayd Mali Müşavirlik &amp; Yönetim Danışmanlığı</strong> tarafından aşağıda belirtilen kapsamda ve yasal çerçevede işlenmektedir.
+                <strong className="text-white">ROTAYD Mali Müşavirlik &amp; Yönetim Danışmanlığı</strong> tarafından aşağıda belirtilen kapsamda ve yasal çerçevede işlenmektedir.
               </p>
             </div>
 

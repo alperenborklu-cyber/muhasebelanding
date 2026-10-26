@@ -1,13 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function FloatingWhatsApp() {
   const [isHovered, setIsHovered] = useState(false);
-  const phoneNumber = "905536221122";
-  const displayPhone = "0553 622 11 22";
+  const pathname = usePathname();
+  const isMali = pathname?.startsWith("/malimusavirlik");
+
+  const phoneNumber = isMali ? "905426221132" : "905536221122";
+  const displayPhone = isMali ? "0542 622 11 32" : "0553 622 11 22";
   const defaultMessage = encodeURIComponent(
-    "Merhaba, ROTAYD Mali Müşavirlik ve Danışmanlık hizmetleriniz hakkında bilgi almak istiyorum."
+    isMali
+      ? "Merhaba, ROTAYD Mali Müşavirlik hizmetleriniz hakkında bilgi almak istiyorum."
+      : "Merhaba, ROTAYD Danışmanlık ve Teşvik hizmetleriniz hakkında bilgi almak istiyorum."
   );
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${defaultMessage}`;
 

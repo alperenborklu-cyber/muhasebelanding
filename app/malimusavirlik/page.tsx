@@ -46,16 +46,16 @@ export default function MuhasebecilikPage() {
     {
       title: "Mali Müşavirlik & Vergi Mevzuatı",
       image: "/images/mali-musavirlik-vergi-mevzuati-denetim.webp",
-      desc: "Vergi mevzuatına tam uyum, indirim ve istisnalardan maksimum faydalanma, beyanname hazırlığı ve vergi denetimi danışmanlığı.",
-      badge: "Mevzuat Uyumu",
+      desc: "Vergi mevzuatı çerçevesinde yasal yükümlülüklerin takibi, geçerli indirim ve istisnaların değerlendirilmesi, beyanname hazırlığı ve vergi denetimi rehberliği.",
+      badge: "Mevzuat Danışmanlığı",
       points: ["KDV & Kurumlar Vergisi", "E-Defter / E-Fatura", "Vergi İnceleme Danışmanlığı", "Muafiyet Analizi"]
     },
     {
-      title: "Bordrolama & Personel Özlük (BPO)",
+      title: "Bordrolama & Personel Özlük Yönetimi",
       image: "/images/mali-musavirlik-bordrolama-ozluk-yonetimi.webp",
-      desc: "İş Kanunu'na tam uyumlu, %100 gizlilik esaslı dış kaynak bordrolama, kıdem-ihbar hesaplamaları ve personel özlük dosyası yönetimi.",
-      badge: "%100 Gizlilik",
-      points: ["Gizli Maaş Bordrosu", "Kıdem / İhbar Hesaplama", "Özlük Dosyası Uyumu", "İş Hukuku Danışmanlığı"]
+      desc: "İş Kanunu ve ilgili yasal mevzuat standartlarında, kurumsal gizlilik esaslı bordrolama, kıdem-ihbar hesaplamaları ve personel özlük dosyası yönetimi.",
+      badge: "Kurumsal Gizlilik",
+      points: ["Maaş Bordrolama", "Kıdem / İhbar Hesaplama", "Özlük Dosyası Yönetimi", "İş Hukuku Danışmanlığı"]
     },
     {
       title: "Şirket Kuruluşu, Nevi & Tür Değişikliği",
@@ -189,7 +189,7 @@ export default function MuhasebecilikPage() {
     {
       step: "03",
       title: "Dijital E-Dönüşüm & Portal",
-      desc: "Mükellef portalımız üzerinden fiş, fatura ve belgeleriniz anlık dijital arşive alınarak kaybolma riski sıfırlanır."
+      desc: "Mükellef portalımız üzerinden fiş, fatura ve belgeleriniz güvenli dijital arşive alınarak kaybolma riski asgariye indirilir."
     },
     {
       step: "04",
@@ -250,7 +250,7 @@ export default function MuhasebecilikPage() {
             </h1>
 
             <p className="subpage-hero-desc text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-2xl">
-              Yalnızca geçmişi deftere işleyen değil; proaktif vergi planlaması, şirket kuruluş mimarisi, gizli bordrolama ve yönetim raporlamasıyla şirketinizin net kârlılığını güvence altına alan mali müşavirlik ortaklığı.
+              Yalnızca geçmişi deftere işleyen değil; proaktif vergi planlaması, şirket kuruluş süreçleri, bordrolama ve yönetim raporlamasıyla şirketinizin finansal yapısını ve kârlılığını destekleyen mali müşavirlik ortaklığı.
             </p>
 
             {/* CTAs */}
@@ -264,11 +264,11 @@ export default function MuhasebecilikPage() {
                 <ArrowRight className="w-4 h-4" />
               </button>
               <a
-                href="tel:05536221122"
+                href="tel:05426221132"
                 className="phone-nav-btn px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-all flex items-center space-x-2 backdrop-blur-sm"
               >
                 <Phone className="w-4 h-4 text-[#d4af37]" />
-                <span>0553 622 11 22</span>
+                <span>0542 622 11 32</span>
               </a>
             </div>
           </div>
@@ -363,7 +363,7 @@ export default function MuhasebecilikPage() {
                     <div className="pt-2 flex items-center justify-between text-xs text-[#d4af37]">
                       <span className="font-semibold flex items-center space-x-1">
                         <ShieldCheck className="w-3.5 h-3.5" />
-                        <span>ROTAYD Danışmanlık Güvencesi</span>
+                        <span>ROTAYD Danışmanlık Rehberliği</span>
                       </span>
                       <button
                         type="button"

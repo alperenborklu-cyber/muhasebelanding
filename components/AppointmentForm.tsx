@@ -160,17 +160,23 @@ export default function AppointmentForm() {
               </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-                <a
-                  href={`https://wa.me/905536221122?text=${encodeURIComponent(
-                    `Merhaba, ${formatDisplayDate(date)} ${timeSlot} için ${service} konulu randevu talebinde bulundum.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-900/30"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>WhatsApp ile Hızlı Teyit Alın</span>
-                </a>
+                {(() => {
+                  const isMaliService = serviceOptions[0].items.includes(service);
+                  const targetWaNumber = isMaliService ? "905426221132" : "905536221122";
+                  return (
+                    <a
+                      href={`https://wa.me/${targetWaNumber}?text=${encodeURIComponent(
+                        `Merhaba, ${formatDisplayDate(date)} ${timeSlot} için ${service} konulu randevu talebinde bulundum.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-900/30"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      <span>WhatsApp ile Hızlı Teyit Alın</span>
+                    </a>
+                  );
+                })()}
 
                 <button
                   type="button"
