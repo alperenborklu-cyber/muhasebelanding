@@ -51,6 +51,13 @@ export class AppointmentsStore {
     );
   }
 
+  public static getBookedSlotsForDate(date: string): string[] {
+    const list = this.ensureDataFile();
+    return list
+      .filter((a) => a.date === date && a.status !== 'iptal')
+      .map((a) => a.timeSlot);
+  }
+
   public static addAppointment(
     data: Omit<AppointmentData, 'id' | 'createdAt'> & { notificationSent?: boolean }
   ): StoredAppointment {

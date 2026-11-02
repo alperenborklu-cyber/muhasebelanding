@@ -2,8 +2,20 @@ import { NextResponse } from 'next/server';
 import { AppointmentsStore } from '@/lib/appointments-store';
 import { sendAppointmentNotification, generateIcsContent } from '@/lib/calendar-mailer';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const dateQuery = searchParams.get('date');
+
+    if (dateQuery) {
+      const bookedSlots = AppointmentsStore.getBookedSlotsForDate(dateQuery);
+      return NextResponse.json({
+        success: true,
+        date: dateQuery,
+        bookedSlots
+      });
+    }
+
     const appointments = AppointmentsStore.getAppointments();
     return NextResponse.json({ success: true, appointments });
   } catch (err: any) {
@@ -26,7 +38,21 @@ export async function POST(request: Request) {
       );
     }
 
-    // Randevuyu kalıcı veritabanına kaydet
+    // SLOT DOLULUK KONTROLÜ: Seçilen tarih ve saatte aktif randevu var mı?
+    const currentBookedSlots = AppointmentsStore.getBookedSlotsForDate(date);
+    if (currentBookedSlots.includes(timeSlot)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Seçilen ${date} tarihindeki saat ${timeSlot} slotu daha önce doldurulmuştur. Lütfen başka bir saat seçiniz.`,
+          isSlotBooked: true,
+          bookedSlots: currentBookedSlots
+        },
+        { status: 409 }
+      );
+    }
+
+    // Randevuyu kalıcı veritabanına kaydet (slot anında dolar)
     const appointment = AppointmentsStore.addAppointment({
       service,
       format: format || 'online',

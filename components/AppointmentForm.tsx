@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Calendar,
   Clock,
@@ -40,8 +40,42 @@ export default function AppointmentForm() {
   const [icsContent, setIcsContent] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [notificationStatus, setNotificationStatus] = useState<string | null>(null);
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [isLoadingSlots, setIsLoadingSlots] = useState(false);
 
   const timeSlots = ["10:00", "11:30", "14:00", "15:30", "16:30", "17:30"];
+
+  // Seçili tarihteki dolu slotları API'den çek
+  useEffect(() => {
+    let isMounted = true;
+    const fetchSlots = async () => {
+      if (!date) return;
+      setIsLoadingSlots(true);
+      try {
+        const res = await fetch(`/api/appointments?date=${encodeURIComponent(date)}`);
+        const data = await res.json();
+        if (isMounted && data.success && Array.isArray(data.bookedSlots)) {
+          setBookedSlots(data.bookedSlots);
+          // Eğer şu an seçili olan saat doluysa, ilk müsait saate otomatik geç
+          if (data.bookedSlots.includes(timeSlot)) {
+            const firstFree = timeSlots.find((s) => !data.bookedSlots.includes(s));
+            if (firstFree) {
+              setTimeSlot(firstFree);
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Dolu slotlar alınamadı:", e);
+      } finally {
+        if (isMounted) setIsLoadingSlots(false);
+      }
+    };
+
+    fetchSlots();
+    return () => {
+      isMounted = false;
+    };
+  }, [date]);
 
   const serviceOptions = [
     {
@@ -71,6 +105,11 @@ export default function AppointmentForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (bookedSlots.includes(timeSlot)) {
+      setErrorMessage(`Seçilen ${timeSlot} saati doludur. Lütfen listeden boş bir saat dilimi seçiniz.`);
+      return;
+    }
+
     setIsSubmitting(true);
     setErrorMessage("");
 
@@ -96,8 +135,24 @@ export default function AppointmentForm() {
         setGoogleCalendarUrl(data.googleCalendarUrl || "");
         setIcsContent(data.icsContent || "");
         setNotificationStatus(data.notificationMessage || null);
+        // Slotu hemen DOLU olarak işaretle
+        setBookedSlots((prev) => (prev.includes(timeSlot) ? prev : [...prev, timeSlot]));
         setSubmitted(true);
+
+        // Google Calendar'ı yeni sekmede otomatik aç (otomatik takvime ekleme deneyimi)
+        if (data.googleCalendarUrl) {
+          try {
+            window.open(data.googleCalendarUrl, "_blank", "noopener,noreferrer");
+          } catch {
+            // Popup engelleyici olursa kullanıcı ekrandaki butona tıklayabilir
+          }
+        }
       } else {
+        if (data.isSlotBooked && Array.isArray(data.bookedSlots)) {
+          setBookedSlots(data.bookedSlots);
+          const firstFree = timeSlots.find((s) => !data.bookedSlots.includes(s));
+          if (firstFree) setTimeSlot(firstFree);
+        }
         setErrorMessage(data.error || "Randevu talebi oluşturulamadı. Lütfen tekrar deneyiniz.");
       }
     } catch (err: any) {
@@ -113,7 +168,11 @@ export default function AppointmentForm() {
         `Danışan: ${name}\nTelefon: ${phone}\nE-Posta: ${email}\nHizmet: ${service}\nFormat: ${format}`
       )}&add=info@rotayd.com,rotaydmm@gmail.com`;
       setGoogleCalendarUrl(fallbackUrl);
+      setBookedSlots((prev) => (prev.includes(timeSlot) ? prev : [...prev, timeSlot]));
       setSubmitted(true);
+      try {
+        window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+      } catch {}
     } finally {
       setIsSubmitting(false);
     }
@@ -424,25 +483,82 @@ export default function AppointmentForm() {
 
                   {/* Saat Dilimi */}
                   <div className="space-y-2">
-                    <label className="block text-xs font-semibold text-white/90">
-                      Uygun Saat Dilimi Seçiniz <span className="text-[#d4af37]">*</span>
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {timeSlots.map((slot) => (
-                        <button
-                          key={slot}
-                          type="button"
-                          onClick={() => setTimeSlot(slot)}
-                          className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 ${
-                            timeSlot === slot
-                              ? "bg-gradient-to-r from-[#d4af37] to-[#b89025] text-black shadow-md shadow-[#d4af37]/20 scale-[1.02]"
-                              : "bg-white/5 hover:bg-white/10 text-white/80 border border-white/10"
-                          }`}
-                        >
-                          <Clock className="w-3 h-3 opacity-70" />
-                          <span>{slot}</span>
-                        </button>
-                      ))}
+                    <div className="flex items-center justify-between">
+                      <label className="block text-xs font-semibold text-white/90">
+                        Uygun Saat Dilimi Seçiniz <span className="text-[#d4af37]">*</span>
+                      </label>
+                      {isLoadingSlots && (
+                        <span className="text-[10px] text-white/50 flex items-center gap-1">
+                          <Loader2 className="w-3 h-3 animate-spin text-[#d4af37]" />
+                          Kontrol ediliyor...
+                        </span>
+                      )}
+                    </div>
+
+                    {bookedSlots.length >= timeSlots.length ? (
+                      <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/25 text-red-300 text-xs text-center font-medium">
+                        ⚠️ Seçili tarihteki tüm randevu saatleri dolmuştur. Lütfen başka bir gün seçiniz.
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {timeSlots.map((slot) => {
+                          const isBooked = bookedSlots.includes(slot);
+                          const isSelected = timeSlot === slot && !isBooked;
+
+                          if (isBooked) {
+                            return (
+                              <button
+                                key={slot}
+                                type="button"
+                                disabled
+                                className="py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-between bg-red-950/20 border border-red-500/25 text-red-300/60 cursor-not-allowed select-none opacity-80"
+                                title="Bu randevu saati doludur"
+                              >
+                                <span className="flex items-center space-x-1.5 line-through">
+                                  <Clock className="w-3 h-3 opacity-40" />
+                                  <span>{slot}</span>
+                                </span>
+                                <span className="text-[9px] uppercase font-black px-1.5 py-0.5 rounded bg-red-500/25 text-red-400 border border-red-500/35">
+                                  DOLU
+                                </span>
+                              </button>
+                            );
+                          }
+
+                          return (
+                            <button
+                              key={slot}
+                              type="button"
+                              onClick={() => setTimeSlot(slot)}
+                              className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 cursor-pointer ${
+                                isSelected
+                                  ? "bg-gradient-to-r from-[#d4af37] to-[#b89025] text-black shadow-md shadow-[#d4af37]/20 scale-[1.02]"
+                                  : "bg-white/5 hover:bg-white/10 text-white/80 border border-white/10 hover:border-white/20"
+                              }`}
+                            >
+                              <Clock className="w-3 h-3 opacity-70" />
+                              <span>{slot}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Müsaitlik Bilgisi */}
+                    <div className="flex items-center justify-between text-[11px] text-white/50 pt-1">
+                      <span>
+                        {Math.max(0, timeSlots.length - bookedSlots.length)} / {timeSlots.length} slot müsait
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <span className="flex items-center gap-1">
+                          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+                          Müsait
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span className="inline-block w-2 h-2 rounded-full bg-red-400"></span>
+                          Dolu
+                        </span>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -541,14 +657,16 @@ export default function AppointmentForm() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#b89025] text-black font-extrabold text-sm uppercase tracking-wider hover:opacity-95 transition-all shadow-[0_0_30px_rgba(212,175,55,0.3)] flex items-center justify-center space-x-2 cursor-pointer group disabled:opacity-50"
+                  disabled={isSubmitting || bookedSlots.length >= timeSlots.length}
+                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#b89025] text-black font-extrabold text-sm uppercase tracking-wider hover:opacity-95 transition-all shadow-[0_0_30px_rgba(212,175,55,0.3)] flex items-center justify-center space-x-2 cursor-pointer group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin text-black" />
                       <span>Google Calendar & Bildirim İletiliyor...</span>
                     </>
+                  ) : bookedSlots.length >= timeSlots.length ? (
+                    <span>Seçili Tarihte Boş Slot Bulunmuyor</span>
                   ) : (
                     <>
                       <span>Randevu Talebini Oluştur ve Gönder</span>
