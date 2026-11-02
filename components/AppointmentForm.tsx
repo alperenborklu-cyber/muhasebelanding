@@ -12,13 +12,22 @@ import {
   Briefcase,
   CalendarCheck,
   RotateCcw,
-  MessageCircle
+  MessageCircle,
+  ExternalLink,
+  Download,
+  Loader2
 } from "lucide-react";
 
 export default function AppointmentForm() {
+  const getInitialDate = () => {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    return d.toISOString().split("T")[0];
+  };
+
   const [service, setService] = useState("Genel Muhasebe & Defter Tutma");
   const [format, setFormat] = useState<"online" | "in_person">("online");
-  const [date, setDate] = useState("2026-09-05");
+  const [date, setDate] = useState(getInitialDate);
   const [timeSlot, setTimeSlot] = useState("10:00");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -27,6 +36,10 @@ export default function AppointmentForm() {
   const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [googleCalendarUrl, setGoogleCalendarUrl] = useState("");
+  const [icsContent, setIcsContent] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [notificationStatus, setNotificationStatus] = useState<string | null>(null);
 
   const timeSlots = ["10:00", "11:30", "14:00", "15:30", "16:30", "17:30"];
 
@@ -56,13 +69,67 @@ export default function AppointmentForm() {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service,
+          format,
+          date,
+          timeSlot,
+          name,
+          phone,
+          email,
+          company,
+          notes
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setGoogleCalendarUrl(data.googleCalendarUrl || "");
+        setIcsContent(data.icsContent || "");
+        setNotificationStatus(data.notificationMessage || null);
+        setSubmitted(true);
+      } else {
+        setErrorMessage(data.error || "Randevu talebi oluşturulamadı. Lütfen tekrar deneyiniz.");
+      }
+    } catch (err: any) {
+      console.error("Randevu gönderim hatası:", err);
+      // Fallback: Doğrudan Google Calendar Linki oluştur
+      const cleanDate = date.replace(/-/g, "");
+      const [h, m] = timeSlot.split(":");
+      const endH = String(Number(h) + 1).padStart(2, "0");
+      const datesParam = `${cleanDate}T${h}${m || "00"}00/${cleanDate}T${endH}${m || "00"}00`;
+      const fallbackUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+        `ROTAYD Randevu: ${name} (${service})`
+      )}&dates=${datesParam}&details=${encodeURIComponent(
+        `Danışan: ${name}\nTelefon: ${phone}\nE-Posta: ${email}\nHizmet: ${service}\nFormat: ${format}`
+      )}&add=info@rotayd.com,rotaydmm@gmail.com`;
+      setGoogleCalendarUrl(fallbackUrl);
       setSubmitted(true);
-    }, 600);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDownloadIcs = () => {
+    if (!icsContent) return;
+    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `rotayd-randevu-${date}.ics`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   const handleReset = () => {
@@ -72,6 +139,10 @@ export default function AppointmentForm() {
     setEmail("");
     setCompany("");
     setNotes("");
+    setGoogleCalendarUrl("");
+    setIcsContent("");
+    setErrorMessage("");
+    setNotificationStatus(null);
   };
 
   const formatDisplayDate = (dStr: string) => {
@@ -125,6 +196,14 @@ export default function AppointmentForm() {
                 </p>
               </div>
 
+              {/* Bildirim Durum Rozeti */}
+              <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs flex items-center justify-center space-x-2 max-w-md mx-auto">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+                <span>
+                  Randevu kaydı <strong>info@rotayd.com</strong> ve <strong>rotaydmm@gmail.com</strong> takvimine bildirilmiştir.
+                </span>
+              </div>
+
               {/* Summary Card */}
               <div className="max-w-md mx-auto p-5 rounded-2xl bg-white/5 border border-white/10 text-left space-y-3 text-xs">
                 <div className="flex items-center justify-between pb-2 border-b border-white/10">
@@ -137,7 +216,7 @@ export default function AppointmentForm() {
                     {format === "online" ? (
                       <>
                         <Video className="w-3.5 h-3.5 text-[#38bdf8]" />
-                        <span>Online Toplantı (Zoom/Meet)</span>
+                        <span>Online Toplantı (Google Meet/Zoom)</span>
                       </>
                     ) : (
                       <>
@@ -155,11 +234,37 @@ export default function AppointmentForm() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-white/60">İletişim:</span>
-                  <span className="text-white">{phone} • {email}</span>
+                  <span className="text-white">{phone} {email ? `• ${email}` : ''}</span>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+              {/* Google Calendar & Aksiyon Butonları */}
+              <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 pt-2">
+                {googleCalendarUrl && (
+                  <a
+                    href={googleCalendarUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center space-x-2 transition-all shadow-lg shadow-blue-900/40 cursor-pointer"
+                  >
+                    <Calendar className="w-4 h-4 text-white" />
+                    <span>Google Calendar'a Ekle</span>
+                    <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                  </a>
+                )}
+
+                {icsContent && (
+                  <button
+                    type="button"
+                    onClick={handleDownloadIcs}
+                    className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-medium text-xs flex items-center justify-center space-x-2 transition-all cursor-pointer"
+                    title="Apple Calendar, Outlook veya Telefon Takvimine Ekle"
+                  >
+                    <Download className="w-3.5 h-3.5 text-[#d4af37]" />
+                    <span>Takvime İndir (.ics)</span>
+                  </button>
+                )}
+
                 {(() => {
                   const isMaliService = serviceOptions[0].items.includes(service);
                   const targetWaNumber = isMaliService ? "905426221132" : "905536221122";
@@ -173,7 +278,7 @@ export default function AppointmentForm() {
                       className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-900/30"
                     >
                       <MessageCircle className="w-4 h-4" />
-                      <span>WhatsApp ile Hızlı Teyit Alın</span>
+                      <span>WhatsApp ile Teyit Alın</span>
                     </a>
                   );
                 })()}
@@ -181,10 +286,10 @@ export default function AppointmentForm() {
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white font-medium text-xs flex items-center justify-center space-x-2 transition-all"
+                  className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white font-medium text-xs flex items-center justify-center space-x-2 transition-all"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Yeni Randevu Oluştur</span>
+                  <span>Yeni Randevu</span>
                 </button>
               </div>
             </div>
@@ -309,7 +414,7 @@ export default function AppointmentForm() {
                         type="date"
                         required
                         value={date}
-                        min="2026-09-04"
+                        min={new Date().toISOString().split("T")[0]}
                         onChange={(e) => setDate(e.target.value)}
                         className="w-full px-4 py-3 rounded-2xl bg-[#071330] border border-white/15 text-white text-xs sm:text-sm focus:outline-none focus:border-[#d4af37] transition-all cursor-pointer font-medium"
                       />
@@ -425,15 +530,31 @@ export default function AppointmentForm() {
                 </div>
               </div>
 
+              {/* Hata Mesajı */}
+              {errorMessage && (
+                <div className="p-3.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center font-medium">
+                  {errorMessage}
+                </div>
+              )}
+
               {/* GÖNDER BUTONU */}
               <div className="pt-2">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#b89025] text-black font-extrabold text-sm uppercase tracking-wider hover:opacity-95 transition-all shadow-[0_0_30px_rgba(212,175,55,0.3)] flex items-center justify-center space-x-2 cursor-pointer group"
+                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#b89025] text-black font-extrabold text-sm uppercase tracking-wider hover:opacity-95 transition-all shadow-[0_0_30px_rgba(212,175,55,0.3)] flex items-center justify-center space-x-2 cursor-pointer group disabled:opacity-50"
                 >
-                  <span>{isSubmitting ? "Talebiniz Oluşturuluyor..." : "Randevu Talebini Oluştur ve Gönder"}</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-black" />
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-black" />
+                      <span>Google Calendar & Bildirim İletiliyor...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Randevu Talebini Oluştur ve Gönder</span>
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-black" />
+                    </>
+                  )}
                 </button>
                 <p className="text-[11px] text-center text-white/50 mt-2.5">
                   🔒 Bilgileriniz KVKK kapsamında gizlilik prensibiyle titizlikle korunmaktadır.

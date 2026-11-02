@@ -43,14 +43,16 @@ import {
   TrendingUp,
   Tag,
   Calendar,
-  Check
+  Check,
+  MessageCircle,
+  Video
 } from 'lucide-react';
 import { PortalUser, TuzelKisi, FaturaBelge, AuditLog, BelgeDurumu } from '@/lib/portal-types';
 import { ReferenceItem } from '@/lib/references-store';
 import { BlogPost } from '@/lib/blogData';
 import { IncentiveProgram } from '@/lib/incentives-store';
 
-const ADMIN_PASSWORDS = ['Rotayd2026!', 'Suleyman2026!', 'rotayd123', 'admin2026'];
+const ADMIN_PASSWORDS = ['Rotayd2026!', 'Alideniz2020', 'Suleyman2026!', 'rotayd123', 'admin2026'];
 const SESSION_UNLOCKED_KEY = 'rotayd_admin_session_unlocked_v1';
 const ADMIN_KEY_STORAGE = 'rotayd_admin_key_v1';
 
@@ -62,8 +64,8 @@ export default function AdminPortalPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   
-  // Active Tab: references, blog, incentives, pending, documents, companies, logs
-  const [activeTab, setActiveTab] = useState<'references' | 'blog' | 'incentives' | 'pending' | 'documents' | 'companies' | 'logs'>('references');
+  // Active Tab: references, blog, incentives, appointments, pending, documents, companies, logs
+  const [activeTab, setActiveTab] = useState<'references' | 'blog' | 'incentives' | 'appointments' | 'pending' | 'documents' | 'companies' | 'logs'>('references');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isZipping, setIsZipping] = useState(false);
 
@@ -77,6 +79,7 @@ export default function AdminPortalPage() {
   const [references, setReferences] = useState<ReferenceItem[]>([]);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [incentives, setIncentives] = useState<IncentiveProgram[]>([]);
+  const [appointments, setAppointments] = useState<any[]>([]);
 
   // Search & Filter
   const [searchFilter, setSearchFilter] = useState('');
@@ -148,14 +151,15 @@ export default function AdminPortalPage() {
     setIsRefreshing(true);
     try {
       const headers = getAdminHeaders();
-      const [usersRes, compRes, docRes, logsRes, refRes, blogRes, incRes] = await Promise.all([
+      const [usersRes, compRes, docRes, logsRes, refRes, blogRes, incRes, aptRes] = await Promise.all([
         fetch('/api/portal/admin/users', { headers }).catch(() => null),
         fetch('/api/portal/companies', { headers }).catch(() => null),
         fetch('/api/portal/documents', { headers }).catch(() => null),
         fetch('/api/portal/admin/logs', { headers }).catch(() => null),
         fetch('/api/references?all=true').catch(() => null),
         fetch('/api/blog').catch(() => null),
-        fetch('/api/incentives').catch(() => null)
+        fetch('/api/incentives').catch(() => null),
+        fetch('/api/appointments').catch(() => null)
       ]);
 
       if (usersRes?.ok) {
@@ -185,6 +189,10 @@ export default function AdminPortalPage() {
       if (incRes?.ok) {
         const d = await incRes.json();
         setIncentives(d.programs || []);
+      }
+      if (aptRes?.ok) {
+        const d = await aptRes.json();
+        setAppointments(d.appointments || []);
       }
     } catch (err) {
       console.error('Error refreshing admin data:', err);
@@ -440,6 +448,38 @@ export default function AdminPortalPage() {
       }
     } catch {
       alert('İşlem başarısız.');
+    }
+  };
+
+  // ==========================================
+  // APPOINTMENTS (GOOGLE CALENDAR) HANDLERS
+  // ==========================================
+  const handleUpdateAppointmentStatus = async (id: string, status: string) => {
+    try {
+      const res = await fetch('/api/appointments', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status })
+      });
+      if (res.ok) {
+        setAppointments(prev => prev.map(a => a.id === id ? { ...a, status } : a));
+      }
+    } catch (err) {
+      console.error('Randevu durumu güncelleme hatası:', err);
+    }
+  };
+
+  const handleDeleteAppointment = async (id: string, name: string) => {
+    if (!confirm(`"${name}" adlı danışanın randevusunu silmek istediğinize emin misiniz?`)) return;
+    try {
+      const res = await fetch(`/api/appointments?id=${encodeURIComponent(id)}`, {
+        method: 'DELETE'
+      });
+      if (res.ok) {
+        setAppointments(prev => prev.filter(a => a.id !== id));
+      }
+    } catch {
+      alert('Randevu silinemedi.');
     }
   };
 
@@ -800,6 +840,18 @@ export default function AdminPortalPage() {
           >
             <Award className="w-4 h-4" />
             <span>Hibe &amp; Teşvik Danışmanlık ({incentives.length})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('appointments')}
+            className={`px-4 py-2.5 rounded-xl font-bold text-xs tracking-wider uppercase transition-all flex items-center space-x-2 whitespace-nowrap cursor-pointer ${
+              activeTab === 'appointments'
+                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-900/30'
+                : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+            }`}
+          >
+            <Calendar className="w-4 h-4 text-blue-400" />
+            <span>Google Takvim &amp; Randevular ({appointments.length})</span>
           </button>
 
           <button
@@ -1168,6 +1220,159 @@ export default function AdminPortalPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* =====================================================================
+          TAB: GOOGLE CALENDAR & RANDEVULAR
+          ===================================================================== */}
+      {activeTab === 'appointments' && (
+        <div className="max-w-7xl mx-auto space-y-6">
+          <div className="p-6 rounded-3xl bg-[#07173e] border border-blue-500/30 shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div>
+                <h2 className="text-lg font-bold text-white flex items-center space-x-2">
+                  <Calendar className="w-5 h-5 text-blue-400" />
+                  <span>Google Calendar &amp; Alınan Randevular ({appointments.length})</span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Web sitesinden alınan randevular Google Calendar hesabına (<strong>rotaydmm@gmail.com</strong>) ve <strong>info@rotayd.com</strong> bildirim merkezine iletilir.
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <a
+                  href="https://calendar.google.com/calendar/u/0/r"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider flex items-center space-x-2 shadow-lg shadow-blue-900/30 cursor-pointer"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Google Takvimi Aç</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Bilgi Kutusu */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-xs">
+              <div className="p-4 rounded-2xl bg-[#040a1a] border border-white/5 space-y-1">
+                <span className="text-[10px] text-slate-500 font-bold uppercase">Google Calendar Hesabı</span>
+                <p className="text-sm font-bold text-blue-300 font-mono">rotaydmm@gmail.com</p>
+                <p className="text-[11px] text-slate-400">Takvim etkinlikleri bu hesapta toplanır.</p>
+              </div>
+              <div className="p-4 rounded-2xl bg-[#040a1a] border border-white/5 space-y-1">
+                <span className="text-[10px] text-slate-500 font-bold uppercase">Bildirim E-postası</span>
+                <p className="text-sm font-bold text-emerald-300 font-mono">info@rotayd.com</p>
+                <p className="text-[11px] text-slate-400">Yeni randevu anında e-posta daveti düşer.</p>
+              </div>
+              <div className="p-4 rounded-2xl bg-[#040a1a] border border-white/5 space-y-1">
+                <span className="text-[10px] text-slate-500 font-bold uppercase">Toplam Randevu</span>
+                <p className="text-sm font-bold text-[#faecc0] font-mono">{appointments.length} Randevu Kaydı</p>
+                <p className="text-[11px] text-slate-400">Web sitesi üzerinden oluşturulan tüm talepler.</p>
+              </div>
+            </div>
+
+            {/* Randevu Tablosu */}
+            {appointments.length === 0 ? (
+              <div className="text-center py-12 border border-dashed border-white/10 rounded-2xl bg-[#040a1a]">
+                <Calendar className="w-10 h-10 mx-auto text-slate-500 mb-2" />
+                <p className="text-sm text-slate-300 font-medium">Henüz kayıtlı randevu bulunmuyor.</p>
+                <p className="text-xs text-slate-500 mt-1">Web sitesindeki randevu formundan gönderilen talepler anında burada listelenecektir.</p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs text-slate-300">
+                  <thead className="bg-[#040a1a] text-slate-400 uppercase text-[10px] tracking-wider border-b border-white/10">
+                    <tr>
+                      <th className="py-3 px-4">Tarih &amp; Saat</th>
+                      <th className="py-3 px-4">Danışan &amp; Şirket</th>
+                      <th className="py-3 px-4">İletişim</th>
+                      <th className="py-3 px-4">Hizmet Konusu</th>
+                      <th className="py-3 px-4">Format</th>
+                      <th className="py-3 px-4">Durum</th>
+                      <th className="py-3 px-4 text-right">Aksiyonlar</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5">
+                    {appointments.map((apt) => (
+                      <tr key={apt.id} className="hover:bg-white/[0.02] transition-colors">
+                        <td className="py-3.5 px-4 font-mono">
+                          <span className="font-bold text-white block">{apt.date}</span>
+                          <span className="text-[11px] text-[#d4af37]">{apt.timeSlot}</span>
+                        </td>
+                        <td className="py-3.5 px-4">
+                          <p className="font-bold text-white text-sm">{apt.name}</p>
+                          {apt.company && <p className="text-[11px] text-slate-400">{apt.company}</p>}
+                        </td>
+                        <td className="py-3.5 px-4 space-y-0.5">
+                          <p><a href={`tel:${apt.phone}`} className="text-blue-400 hover:underline">{apt.phone}</a></p>
+                          {apt.email && <p className="text-[11px] text-slate-400">{apt.email}</p>}
+                        </td>
+                        <td className="py-3.5 px-4 font-medium text-slate-200">
+                          {apt.service}
+                          {apt.notes && (
+                            <p className="text-[10px] text-slate-400 italic mt-0.5 max-w-xs truncate" title={apt.notes}>
+                              &quot;{apt.notes}&quot;
+                            </p>
+                          )}
+                        </td>
+                        <td className="py-3.5 px-4">
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                            apt.format === 'online'
+                              ? 'bg-blue-500/15 text-blue-300 border border-blue-500/30'
+                              : 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                          }`}>
+                            {apt.format === 'online' ? '📹 Online Meet' : '🏢 Yüz Yüze'}
+                          </span>
+                        </td>
+                        <td className="py-3.5 px-4">
+                          <select
+                            value={apt.status || 'beklemede'}
+                            onChange={(e) => handleUpdateAppointmentStatus(apt.id, e.target.value)}
+                            className="px-2 py-1 rounded bg-[#040a1a] border border-white/10 text-[11px] font-semibold text-white focus:outline-none"
+                          >
+                            <option value="beklemede">Beklemede</option>
+                            <option value="onaylandi">Onaylandı</option>
+                            <option value="tamamlandi">Tamamlandı</option>
+                            <option value="iptal">İptal</option>
+                          </select>
+                        </td>
+                        <td className="py-3.5 px-4 text-right space-x-1.5 whitespace-nowrap">
+                          {apt.googleCalendarUrl && (
+                            <a
+                              href={apt.googleCalendarUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block p-1.5 rounded-lg bg-blue-500/15 hover:bg-blue-500/25 text-blue-300 border border-blue-500/30 transition-colors"
+                              title="Google Calendar'da Aç"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+                          )}
+                          <a
+                            href={`https://wa.me/${apt.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Merhaba ${apt.name}, ROTAYD Danışmanlık randevunuz için iletişime geçiyoruz.`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block p-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition-colors"
+                            title="WhatsApp'tan Yaz"
+                          >
+                            <MessageCircle className="w-3.5 h-3.5" />
+                          </a>
+                          <button
+                            onClick={() => handleDeleteAppointment(apt.id, apt.name)}
+                            className="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-colors cursor-pointer"
+                            title="Randevuyu Sil"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       )}
