@@ -31,31 +31,45 @@ function calcDoorLayout(clientWidth: number, clientHeight: number) {
 
   let drawW: number;
   let drawH: number;
-  let downwardOffset = 0;
+  let drawX: number;
+  let drawY: number;
 
   if (canvasRatio >= imgRatio) {
     drawW = clientWidth;
     drawH = drawW / imgRatio;
+    drawX = 0;
+    drawY = (clientHeight - drawH) / 2;
   } else {
-    // Standard height-based fit
-    drawH = clientHeight;
-    drawW = drawH * imgRatio;
-
-    // Mobile / Portrait check: ensure the two doors are comfortably visible and not cropped horizontally
-    const targetDoorRatio = clientWidth < 640 ? 0.88 : 0.92;
-    if (drawW * doorWidthFraction > clientWidth * targetDoorRatio) {
+    // Mobile / Portrait view
+    if (clientWidth < 768) {
+      // Modern iPhones and mobile portrait screens:
+      // Frame both doors nicely so they are majestic and fully interactive
+      const targetDoorRatio = clientWidth < 380 ? 0.92 : 0.88;
       drawW = (clientWidth * targetDoorRatio) / doorWidthFraction;
       drawH = drawW / imgRatio;
-    }
+      drawX = (clientWidth - drawW) / 2;
 
-    // Slightly lift doors on portrait mobile so bottom slogan has breathing room
-    if (clientWidth < 768 && clientHeight > drawH) {
-      downwardOffset = -22;
+      // Position: keep door near the top to eliminate the black gap on tall phone screens
+      // and leave generous breathing room at the bottom for the slogan text
+      const remainingHeight = clientHeight - drawH;
+      if (remainingHeight > 0) {
+        drawY = Math.max(10, Math.min(26, remainingHeight * 0.10));
+      } else {
+        drawY = 0;
+      }
+    } else {
+      // Tablet / Desktop portrait
+      drawH = clientHeight;
+      drawW = drawH * imgRatio;
+      const targetDoorRatio = 0.92;
+      if (drawW * doorWidthFraction > clientWidth * targetDoorRatio) {
+        drawW = (clientWidth * targetDoorRatio) / doorWidthFraction;
+        drawH = drawW / imgRatio;
+      }
+      drawX = (clientWidth - drawW) / 2;
+      drawY = (clientHeight - drawH) / 2;
     }
   }
-
-  const drawX = (clientWidth - drawW) / 2;
-  const drawY = (clientHeight - drawH) / 2 + downwardOffset;
 
   return { drawX, drawY, drawW, drawH };
 }
@@ -145,8 +159,8 @@ export default function ScrollCanvasDoor() {
     const { drawX, drawY, drawW, drawH } = calcDoorLayout(clientWidth, clientHeight);
     ctx.drawImage(img, drawX, drawY, drawW, drawH);
 
-    // Deep luxury navy ambient vignette blend centered on the shifted door
-    const vignetteCenterY = clientHeight / 2;
+    // Deep luxury navy ambient vignette blend centered on the door
+    const vignetteCenterY = clientWidth < 768 ? drawY + drawH * 0.48 : clientHeight / 2;
     const gradient = ctx.createRadialGradient(
       clientWidth / 2,
       vignetteCenterY,
@@ -156,8 +170,8 @@ export default function ScrollCanvasDoor() {
       Math.max(clientWidth, clientHeight) * 0.72
     );
     gradient.addColorStop(0, "rgba(4, 10, 26, 0)");
-    gradient.addColorStop(0.68, "rgba(4, 10, 26, 0.45)");
-    gradient.addColorStop(1, "rgba(4, 10, 26, 0.95)");
+    gradient.addColorStop(0.68, "rgba(4, 10, 26, 0.35)");
+    gradient.addColorStop(1, clientWidth < 768 ? "rgba(4, 10, 26, 0.65)" : "rgba(4, 10, 26, 0.95)");
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, clientWidth, clientHeight);
@@ -332,6 +346,7 @@ export default function ScrollCanvasDoor() {
       }
     };
     window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
 
     const canvas = canvasRef.current;
     let ro: ResizeObserver | null = null;
@@ -344,6 +359,7 @@ export default function ScrollCanvasDoor() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
       if (ro) ro.disconnect();
     };
   }, [isLoaded, smoothProgress, renderFrame, updateLayout]);
@@ -372,8 +388,8 @@ export default function ScrollCanvasDoor() {
 
   return (
     <div id="canvas-door-section" ref={containerRef} className="relative h-[420vh] bg-[#040a1a]">
-      {/* Sticky Fullscreen Canvas Viewport */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#040a1a]">
+      {/* Sticky Fullscreen Canvas Viewport (100dvh for pixel-perfect iOS Safari & modern mobile fit) */}
+      <div className="sticky top-0 h-[100dvh] min-h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-[#040a1a]">
         {/* Instant Hero First Frame Poster so the door renders with zero delay */}
         <div 
           className="absolute inset-0 bg-[#040a1a] bg-cover bg-center -z-10 opacity-60 pointer-events-none"
@@ -386,9 +402,9 @@ export default function ScrollCanvasDoor() {
           style={{ opacity: isLoaded ? 1 : 0.8 }}
         />
 
-        {/* Ambient Top & Bottom Vignette Overlays */}
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#040a1a] via-[#040a1a]/70 to-transparent pointer-events-none" />
-        <div className="canvas-bottom-vignette absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/80 to-transparent pointer-events-none transition-colors duration-500" />
+        {/* Ambient Top & Bottom Vignette Overlays (Subtle on mobile so no dark bar is created at the top) */}
+        <div className="absolute inset-x-0 top-0 h-10 sm:h-32 bg-gradient-to-b from-[#040a1a]/40 sm:from-[#040a1a] via-transparent to-transparent pointer-events-none" />
+        <div className="canvas-bottom-vignette absolute inset-x-0 bottom-0 h-20 sm:h-36 bg-gradient-to-t from-[#040a1a]/70 sm:from-[#040a1a] via-[#040a1a]/30 sm:via-[#040a1a]/80 to-transparent pointer-events-none transition-colors duration-500" />
 
         {/* Interactive Door Wings Overlay (Beat A: Mouse Hover Effect) */}
         {doorLayout && isLoaded && (
@@ -629,13 +645,13 @@ export default function ScrollCanvasDoor() {
           animate={{ opacity: openingDoor ? 0 : 1 }}
           transition={{ duration: 0.2 }}
           style={{ opacity: openingDoor ? 0 : beatAOpacity, y: beatAY }}
-          className="absolute bottom-12 sm:bottom-16 md:bottom-20 lg:bottom-22 left-6 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20"
+          className="absolute bottom-4 sm:bottom-16 md:bottom-20 lg:bottom-22 left-4 sm:left-10 md:left-14 lg:left-16 pointer-events-none z-20 pb-[env(safe-area-inset-bottom,0px)]"
         >
-          <h1 id="canvas-hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight flex flex-col items-start gap-y-0.5 sm:gap-y-1 uppercase">
+          <h1 id="canvas-hero-title" className="text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight flex flex-col items-start gap-y-0.5 sm:gap-y-1 uppercase">
             <span className="font-extrabold text-white tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">DOĞRU ROTA</span>
             <span className="font-extrabold tracking-wide hero-gold-gradient">GÜÇLÜ İŞLETME</span>
           </h1>
-          <p className="mt-2 sm:mt-2.5 max-w-[340px] sm:max-w-md text-xs sm:text-sm font-medium text-white/85 leading-relaxed filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] tracking-normal normal-case">
+          <p className="mt-1 sm:mt-2.5 max-w-[300px] sm:max-w-md text-[11px] sm:text-sm font-medium text-white/90 leading-snug filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] tracking-normal normal-case">
             <span className="block">Finansal gücünüzü artırıyor, devlet desteklerini</span>
             <span className="block">fırsata dönüştürüyoruz.</span>
           </p>
@@ -644,9 +660,9 @@ export default function ScrollCanvasDoor() {
         {/* BEAT B: 25 - 45% (Left Aligned - Mali Müşavirlik Beat) */}
         <motion.div
           style={{ opacity: beatBOpacity, y: beatBY }}
-          className="absolute left-6 sm:left-12 lg:left-24 top-1/2 -translate-y-1/2 max-w-md z-20 pointer-events-none"
+          className="absolute left-4 sm:left-12 lg:left-24 top-1/2 -translate-y-1/2 max-w-[calc(100vw-2rem)] sm:max-w-md z-20 pointer-events-none"
         >
-          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-[#d4af37]/30 shadow-2xl space-y-3">
+          <div className="glass-panel p-5 sm:p-8 rounded-3xl border border-[#d4af37]/30 shadow-2xl space-y-2.5 sm:space-y-3">
             <div className="inline-flex items-center space-x-2 text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
               <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
               <span>Mali Disiplin</span>
@@ -671,9 +687,9 @@ export default function ScrollCanvasDoor() {
         {/* BEAT C: 50 - 70% (Right Aligned - Hibe Teşvik Beat) */}
         <motion.div
           style={{ opacity: beatCOpacity, y: beatCY }}
-          className="absolute right-6 sm:right-12 lg:right-24 top-1/2 -translate-y-1/2 max-w-md z-20 pointer-events-none text-right"
+          className="absolute right-4 sm:right-12 lg:right-24 top-1/2 -translate-y-1/2 max-w-[calc(100vw-2rem)] sm:max-w-md z-20 pointer-events-none text-right"
         >
-          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-[#d4af37]/30 shadow-2xl space-y-3 inline-block text-left">
+          <div className="glass-panel p-5 sm:p-8 rounded-3xl border border-[#d4af37]/30 shadow-2xl space-y-2.5 sm:space-y-3 inline-block text-left">
             <div className="inline-flex items-center space-x-2 text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
               <Briefcase className="w-4 h-4 text-[#d4af37]" />
               <span>Devlet Destekleri</span>

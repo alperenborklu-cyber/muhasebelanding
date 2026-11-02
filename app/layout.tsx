@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,6 +6,13 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Providers from "@/components/Providers";
 import ReceiptPreloader from "@/components/ReceiptPreloader";
 import CookieBanner from "@/components/CookieBanner";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#040a1a",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rotayd.com'),
