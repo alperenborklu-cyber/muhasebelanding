@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { AppointmentData, generateGoogleCalendarUrl, generateGoogleCalendarAdminUrl } from './calendar-mailer';
 
 export interface StoredAppointment extends AppointmentData {
@@ -11,37 +12,69 @@ export interface StoredAppointment extends AppointmentData {
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const DATA_FILE = path.join(DATA_DIR, 'appointments.json');
+const TMP_FILE = path.join(os.tmpdir(), 'rotayd-appointments.json');
 
 export class AppointmentsStore {
+  private static memoryCache: StoredAppointment[] | null = null;
+
   private static ensureDataFile(): StoredAppointment[] {
     try {
-      if (!fs.existsSync(DATA_DIR)) {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
+      // 1. /tmp dosyasını kontrol et (Vercel serverless ortamında en güncel yazılan yer)
+      if (fs.existsSync(TMP_FILE)) {
+        const raw = fs.readFileSync(TMP_FILE, 'utf-8');
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          this.memoryCache = parsed;
+          return parsed;
+        }
       }
-      if (!fs.existsSync(DATA_FILE)) {
-        fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2), 'utf-8');
-        return [];
+
+      // 2. data/appointments.json dosyasını kontrol et
+      if (fs.existsSync(DATA_FILE)) {
+        const raw = fs.readFileSync(DATA_FILE, 'utf-8');
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          this.memoryCache = parsed;
+          return parsed;
+        }
       }
-      const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
+
+      // 3. Hafıza önbelleğini kontrol et
+      if (this.memoryCache && Array.isArray(this.memoryCache)) {
+        return this.memoryCache;
+      }
+
+      return [];
     } catch (err) {
       console.error('Error reading appointments.json:', err);
-      return [];
+      return this.memoryCache || [];
     }
   }
 
   private static saveData(items: StoredAppointment[]): boolean {
+    this.memoryCache = items;
+    let saved = false;
+
+    // Önce /tmp'ye yaz (Vercel'de %100 yazılabilir)
+    try {
+      fs.writeFileSync(TMP_FILE, JSON.stringify(items, null, 2), 'utf-8');
+      saved = true;
+    } catch (e) {
+      console.warn('Could not write to TMP_FILE:', e);
+    }
+
+    // Mümkünse data/appointments.json'a da yaz (Lokal geliştirme ortamı için)
     try {
       if (!fs.existsSync(DATA_DIR)) {
         fs.mkdirSync(DATA_DIR, { recursive: true });
       }
       fs.writeFileSync(DATA_FILE, JSON.stringify(items, null, 2), 'utf-8');
-      return true;
-    } catch (err) {
-      console.error('Error saving appointments.json:', err);
-      return false;
+      saved = true;
+    } catch {
+      // Vercel EROFS beklenir, /tmp zaten kurtardı
     }
+
+    return saved;
   }
 
   public static getAppointments(): StoredAppointment[] {

@@ -1,0 +1,114 @@
+{
+  "users": [
+    {
+      "id": "usr_admin_suleyman",
+      "name": "Süleyman İlhan",
+      "email": "suleyman@rotayd.com",
+      "role": "admin",
+      "status": "approved",
+      "image": "https://api.dicebear.com/7.x/initials/svg?seed=SI&backgroundColor=07173e&textColor=d4af37",
+      "kvkkConsentAt": "2026-09-01T09:00:00.000Z",
+      "createdAt": "2026-09-01T09:00:00.000Z"
+    },
+    {
+      "id": "usr_demo_approved",
+      "name": "Ahmet Yılmaz",
+      "email": "ahmet.yilmaz@anadolutech.com",
+      "role": "user",
+      "status": "approved",
+      "image": "https://api.dicebear.com/7.x/initials/svg?seed=AY&backgroundColor=0d2048&textColor=ffffff",
+      "kvkkConsentAt": "2026-09-02T10:30:00.000Z",
+      "createdAt": "2026-09-02T10:30:00.000Z"
+    },
+    {
+      "id": "usr_demo_pending",
+      "name": "Zeynep Kaya",
+      "email": "zeynep@kayalojistik.com.tr",
+      "role": "user",
+      "status": "rejected",
+      "image": "https://api.dicebear.com/7.x/initials/svg?seed=ZK&backgroundColor=1d4ed8&textColor=ffffff",
+      "kvkkConsentAt": "2026-09-04T11:15:00.000Z",
+      "createdAt": "2026-09-04T11:15:00.000Z",
+      "updatedAt": "2026-09-04T19:06:51.296Z"
+    }
+  ],
+  "companies": [
+    {
+      "id": "comp_anadolu_tech",
+      "userId": "usr_demo_approved",
+      "unvan": "Anadolu Teknoloji ve Yazılım Hizmetleri A.Ş.",
+      "vkn": "1234567891",
+      "vergiDairesi": "Boğaziçi Kurumlar Vergi Dairesi",
+      "ticaretSicilNo": "584920-5",
+      "sirketTuru": "Anonim Şirket",
+      "adres": "Levent Mah. Büyükdere Cad. No:192/4 Beşiktaş / İstanbul",
+      "telefon": "0212 988 44 20",
+      "yetkiliKisi": "Ahmet Yılmaz (Genel Müdür)",
+      "createdAt": "2026-09-02T11:00:00.000Z"
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc_101",
+      "companyId": "comp_anadolu_tech",
+      "companyUnvan": "Anadolu Teknoloji ve Yazılım Hizmetleri A.Ş.",
+      "userId": "usr_demo_approved",
+      "userEmail": "ahmet.yilmaz@anadolutech.com",
+      "fileName": "2026_09_Ofis_Sunucu_Faturasi.pdf",
+      "fileSize": 342000,
+      "fileType": "application/pdf",
+      "belgeTuru": "e-fatura",
+      "kategori": "danismanlik_hizmet",
+      "faturaTarihi": "2026-09-01",
+      "faturaNo": "GIB202600001429",
+      "tutar": 45000,
+      "kdvOrani": 20,
+      "kdvTutari": 9000,
+      "toplamTutar": 54000,
+      "durum": "deftere_islendi",
+      "notlar": "Ağustos ayı bulut sunucu ve veri merkezi hizmet bedeli.",
+      "createdAt": "2026-09-02T12:00:00.000Z"
+    },
+    {
+      "id": "doc_102",
+      "companyId": "comp_anadolu_tech",
+      "companyUnvan": "Anadolu Teknoloji ve Yazılım Hizmetleri A.Ş.",
+      "userId": "usr_demo_approved",
+      "userEmail": "ahmet.yilmaz@anadolutech.com",
+      "fileName": "Akaryakit_Fisi_03092026.jpg",
+      "fileSize": 184500,
+      "fileType": "image/jpeg",
+      "belgeTuru": "fis",
+      "kategori": "akaryakit",
+      "faturaTarihi": "2026-09-03",
+      "faturaNo": "OPET_08492",
+      "tutar": 2150,
+      "kdvOrani": 20,
+      "kdvTutari": 430,
+      "toplamTutar": 2580,
+      "durum": "incelendi",
+      "notlar": "Saha müşteri ziyareti araç yakıt gideri.",
+      "createdAt": "2026-09-03T16:30:00.000Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "audit_1788548811299_3ss4u",
+      "userId": "usr_demo_pending",
+      "userEmail": "zeynep@kayalojistik.com.tr",
+      "action": "KULLANICI_DURUM_GÜNCELLENDİ",
+      "details": "Mali Müşavir mükellef onay durumunu değiştirdi: zeynep@kayalojistik.com.tr -> REJECTED",
+      "ipAddress": "127.0.0.1 (Güvenli Oturum)",
+      "createdAt": "2026-09-04T19:06:51.299Z"
+    },
+    {
+      "id": "audit_1788548612611_gonoj",
+      "userId": "anonymous",
+      "userEmail": "system",
+      "action": "SİSTEM_BAŞLATILDI",
+      "details": "Sunucu güvenlik ve yetkilendirme katmanı hazırlandı.",
+      "ipAddress": "127.0.0.1 (Güvenli Oturum)",
+      "createdAt": "2026-09-04T19:03:32.611Z"
+    }
+  ]
+}

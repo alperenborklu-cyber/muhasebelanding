@@ -89,10 +89,38 @@ export function generateGoogleCalendarAdminUrl(appointment: AppointmentData): st
 
 /**
  * Tüm randevuları içeren canlı iCalendar (.ics) Takvim Beslemesi
- * Google Calendar'da "URL'den Takvim Ekle" ile rotaydmm@gmail.com hesabına 1 kez bağlanır.
+ * Google Calendar, Apple Calendar, Outlook uyumlu RFC-5545 formatı.
  */
 export function generateFullCalendarFeed(appointments: AppointmentData[]): string {
   const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+
+  // Google Calendar uyumlu Europe/Istanbul saat dilimi tanımı
+  const timezoneBlock = [
+    'BEGIN:VTIMEZONE',
+    'TZID:Europe/Istanbul',
+    'X-LIC-LOCATION:Europe/Istanbul',
+    'BEGIN:STANDARD',
+    'TZOFFSETFROM:+0300',
+    'TZOFFSETTO:+0300',
+    'TZNAME:+03',
+    'DTSTART:19700101T000000',
+    'END:STANDARD',
+    'END:VTIMEZONE'
+  ].join('\r\n');
+
+  // Google Calendar'ın boş takvim hatası vermemesi için kalıcı bir başlangıç etkinliği
+  const anchorEvent = [
+    'BEGIN:VEVENT',
+    'UID:rotayd-system-anchor@rotayd.com',
+    `DTSTAMP:${dtStamp}`,
+    'DTSTART;TZID=Europe/Istanbul:20260101T090000',
+    'DTEND;TZID=Europe/Istanbul:20260101T093000',
+    'SUMMARY:ROTAYD Randevu Takvimi Bağlantısı Aktif',
+    'DESCRIPTION:ROTAYD web sitesi canlı randevu senkronizasyon kanalı devrededir. Siteden alınan randevular bu takvimde anında listelenir.',
+    'STATUS:CONFIRMED',
+    'TRANSP:TRANSPARENT',
+    'END:VEVENT'
+  ].join('\r\n');
 
   const events = appointments.map((apt) => {
     const { id, service, format, date, timeSlot, name, phone, email, company, notes } = apt;
@@ -106,21 +134,22 @@ export function generateFullCalendarFeed(appointments: AppointmentData[]): strin
     const dtEnd = `${cleanDate}T${endHourStr}${startMinStr}00`;
     const location =
       format === 'online'
-        ? 'Online Gorusme (Google Meet / Zoom)'
-        : 'ROTAYD Mali Musavirlik Ofisi, Ankara';
-    const description = `Danisan: ${name}\\nTelefon: ${phone}\\nE-Posta: ${email || '-'}\\nSirket: ${company || '-'}\\nHizmet: ${service}\\nFormat: ${format === 'online' ? 'Online Toplanti' : 'Yuz Yuze'}\\nNot: ${notes || '-'}`;
+        ? 'Online Görüşme (Google Meet / Zoom)'
+        : 'ROTAYD Mali Müşavirlik Ofisi, Ankara';
+    const description = `Danışan: ${name}\\nTelefon: ${phone}\\nE-Posta: ${email || '-'}\\nŞirket: ${company || '-'}\\nHizmet: ${service}\\nFormat: ${format === 'online' ? 'Online Toplantı' : 'Yüz Yüze'}\\nNot: ${notes || '-'}`;
 
     return [
       'BEGIN:VEVENT',
       `UID:rotayd-${id}@rotayd.com`,
       `DTSTAMP:${dtStamp}`,
-      `DTSTART:${dtStart}`,
-      `DTEND:${dtEnd}`,
+      `DTSTART;TZID=Europe/Istanbul:${dtStart}`,
+      `DTEND;TZID=Europe/Istanbul:${dtEnd}`,
       `SUMMARY:ROTAYD Randevu: ${name} (${service})`,
       `DESCRIPTION:${description}`,
       `LOCATION:${location}`,
       'ORGANIZER;CN=ROTAYD Danismanlik:mailto:rotaydmm@gmail.com',
       'STATUS:CONFIRMED',
+      'TRANSP:OPAQUE',
       'END:VEVENT'
     ].join('\r\n');
   });
@@ -131,9 +160,11 @@ export function generateFullCalendarFeed(appointments: AppointmentData[]): strin
     'PRODID:-//ROTAYD Danismanlik//TR',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
-    'X-WR-CALNAME:ROTAYD Randevulari',
+    'X-WR-CALNAME:ROTAYD Randevuları',
     'X-WR-TIMEZONE:Europe/Istanbul',
-    'X-WR-CALDESC:ROTAYD Danismanlik Web Sitesi Randevu Takvimi',
+    'X-WR-CALDESC:ROTAYD Danışmanlık Web Sitesi Canlı Randevu Takvimi',
+    timezoneBlock,
+    anchorEvent,
     ...events,
     'END:VCALENDAR'
   ].join('\r\n');

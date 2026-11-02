@@ -1285,27 +1285,38 @@ export default function AdminPortalPage() {
                     Google Calendar&apos;da <strong>Diğer takvimler (+) → URL&apos;den ekle</strong> alanına aşağıdaki adresi yapıştırarak tüm randevuların <strong>rotaydmm@gmail.com</strong> takvimine otomatik düşmesini sağlayabilirsiniz:
                   </p>
                 </div>
-                <div className="flex items-center space-x-2 shrink-0">
+                <div className="flex flex-wrap items-center gap-2 shrink-0">
+                  <a
+                    href="https://calendar.google.com/calendar/r?cid=https%3A%2F%2Frotayd.com%2Fapi%2Fcalendar.ics"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center space-x-1.5 transition-all cursor-pointer shadow-lg shadow-blue-900/40"
+                    title="Google Calendar'da 1-Tıkla Abone Olma Penceresini Açar"
+                  >
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>1-Tıkla Google Takvime Ekle</span>
+                    <ExternalLink className="w-3 h-3 opacity-70" />
+                  </a>
                   <button
                     type="button"
                     onClick={() => {
-                      const feedUrl = `${window.location.origin}/api/appointments/calendar.ics`;
+                      const feedUrl = `${window.location.origin}/api/calendar.ics`;
                       navigator.clipboard.writeText(feedUrl);
-                      alert(`Takvim URL'si panoya kopyalandı:\n${feedUrl}\n\nGoogle Calendar'da "Diğer takvimler (+) -> URL'den ekle" seçeneğine yapıştırabilirsiniz.`);
+                      alert(`Canlı Takvim URL'si panoya kopyalandı:\n${feedUrl}\n\nGoogle Takvim > Diğer takvimler (+) > URL'den ekle alanına yapıştırabilirsiniz.`);
                     }}
-                    className="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center space-x-1.5 transition-all cursor-pointer shadow-md shadow-blue-900/30"
+                    className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs flex items-center space-x-1.5 border border-white/15 transition-all cursor-pointer"
                   >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Canlı Takvim URL&apos;sini Kopyala</span>
+                    <Download className="w-3.5 h-3.5 text-[#d4af37]" />
+                    <span>URL Kopyala</span>
                   </button>
                   <a
                     href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs flex items-center space-x-1.5 border border-white/15 transition-all"
+                    className="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white font-medium text-xs flex items-center space-x-1.5 border border-white/10 transition-all"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
-                    <span>Google&apos;da Aç</span>
+                    <span>Manuel Ekleme Sayfası</span>
                   </a>
                 </div>
               </div>
