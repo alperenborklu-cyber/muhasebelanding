@@ -51,11 +51,11 @@ export default function MuhasebecilikPage() {
       points: ["KDV & Kurumlar Vergisi", "E-Defter / E-Fatura", "Vergi İnceleme Danışmanlığı", "Muafiyet Analizi"]
     },
     {
-      title: "Bordrolama & Personel Özlük Yönetimi",
-      image: "/images/mali-musavirlik-bordrolama-ozluk-yonetimi.webp",
-      desc: "İş Kanunu ve ilgili yasal mevzuat standartlarında, kurumsal gizlilik esaslı bordrolama, kıdem-ihbar hesaplamaları ve personel özlük dosyası yönetimi.",
-      badge: "Kurumsal Gizlilik",
-      points: ["Maaş Bordrolama", "Kıdem / İhbar Hesaplama", "Özlük Dosyası Yönetimi", "İş Hukuku Danışmanlığı"]
+      title: "Vergi Denetimi, İnceleme & Uzlaşma",
+      image: "/images/mali-musavirlik-finansal-tablolar-denetim-destegi.webp",
+      desc: "Vergi Denetim Kurulu ve Gelir İdaresi incelemelerinde defter ve e-kayıtların mevzuata uygun sunumu, izahat hazırlığı ve tarhiyat öncesi/sonrası uzlaşma danışmanlığı.",
+      badge: "Vergi Güvenliği",
+      points: ["Vergi Denetimi Hazırlığı", "İzahat Dosyaları", "Uzlaşma Komisyonu Temsili", "Mevzuat Risk Analizi"]
     },
     {
       title: "Şirket Kuruluşu, Nevi & Tür Değişikliği",
@@ -85,93 +85,55 @@ export default function MuhasebecilikPage() {
     }
   ];
 
-  // ŞİRKET KURULUŞ REHBERİ: İLK DEFA ŞİRKET KURUYORUM NELERE DİKKAT ETMELİYİM, ŞAHIS ŞİRKETİ Mİ LİMİTED ŞİRKET Mİ?
-  const companySetupGuides = [
+  // 2026 ŞİRKET KURULUŞ REHBERİ: TEMEL STRATEJİK KARARLAR
+  const companySetupGuides: Array<{
+    number: string;
+    title: string;
+    summary: string;
+    paragraphs: string[];
+    note?: string;
+    expertTip?: string;
+  }> = [
     {
       number: "01",
-      title: "Şirket Türü Seçimi: Şahıs Şirketi mi, Limited Şirket mi?",
-      summary: "Gelir vergisi dilimi vs. sabit kurumlar vergisi oranı, itibar ve ciro beklentisi karşılaştırması.",
+      title: "Şirket Türü Seçimi: Limited Şirket (LTD) mi, Anonim Şirket (A.Ş.) mi, Şahıs mı?",
+      summary: "2026 yılı sabit %25 Kurumlar Vergisi, ortaklık sorumluluğu ve vergisiz hisse devri kıyaslaması.",
       paragraphs: [
-        "Şahıs Şirketi kuruluş maliyeti düşük, aynı gün açılabilen ve masrafı az bir modeldir; ancak kârınız arttıkça %15'ten başlayıp %40'a varan artan oranlı Gelir Vergisi dilimine girersiniz.",
-        "Limited Şirket (LTD) ise sabit %25 Kurumlar Vergisi oranına tabidir. Yıllık net kâr beklentiniz belli bir eşiğin üzerindeyse, kurumsal müşterilerle çalışacaksanız ve marka imajı ön plandaysa Limited Şirket kurmak daha avantajlı olabilir."
-      ]
+        "Limited Şirket (LTD), sabit %25 Kurumlar Vergisi oranı ve taahhüt edilen sermaye payı kadar sınırlı sorumluluk ile kurumsal imaj için en dengeli modeldir (ihracatçılara 5 puan indirimle %20, sanayicilere %24 uygulanır).",
+        "Anonim Şirket (A.Ş.), pay senetlerinin 2 yıl elde tutulması halinde hisse satışında %0 Gelir Vergisi istisnası ve kamu borçlarına karşı yönetim kalkanı sağlar.",
+        "Şahıs Şirketi ise düşük ciroda hızlı açılış sunsa da, kâr arttıkça %15 ila %40 artan oranlı gelir vergisi ve şahsi malvarlığıyla sınırsız sorumluluk riski taşır."
+      ],
+      expertTip: "Yıllık ciro ve kâr projeksiyonunuza göre en verimli şirket türünü birlikte belirliyoruz."
     },
     {
       number: "02",
-      title: "Sermaye Şartları ve Kuruluş Maliyeti Farkı",
-      summary: "Şahıs şirketinde asgari sermaye yoktur; Limited şirkette asgari 50.000 TL sermaye şartı bulunur.",
+      title: "2026 Asgari Sermaye & Blokajsız Hızlı Tescil Şartları",
+      summary: "Limited şirketlerde 50.000 TL, Anonim şirketlerde 250.000 TL asgari sermaye şartı.",
       paragraphs: [
-        "Şahıs şirketinde Ticaret Sicil'e sermaye taahhüdü zorunlu değildir.",
-        "Limited şirket kurarken ise Türk Ticaret Kanunu uyarınca en az 50.000 TL esas sermaye taahhüt edilir (kuruluş aşamasında bloke şartı kalkmış olup 24 ay içinde şirket hesabına yatırılması yeterlidir). Kuruluş harçları ve noter masrafları şahıs şirketinde minimum düzeydeyken, limited şirkette ticaret odası tescil ve ilan giderleri bulunur."
-      ]
+        "2026 güncel TTK mevzuatına göre Limited Şirket asgari sermayesi 50.000 TL, Anonim Şirket asgari sermayesi 250.000 TL'dir.",
+        "Kuruluş aşamasında bankaya bloke şartı bulunmamakta olup, sermayenin tescilden itibaren 24 ay içinde ödenmesi yeterlidir. MERSİS üzerinden ortalama 2 iş gününde anahtar teslim tescil tamamlanır."
+      ],
+      expertTip: "Doğru sermaye planlaması banka kredibilitesi ve ihale yeterliliklerinde doğrudan avantaj sağlar."
     },
     {
       number: "03",
-      title: "Borç ve Kamu Yükümlülüklerinde Şahsi Sorumluluk Riski",
-      summary: "Şahıs şirketinde tüm mal varlığınız risk altındayken, limited şirkette sorumluluk sınırlandırılmıştır.",
+      title: "2026 Genç Girişimci İstisnası & Sanal Ofis Stopaj Avantajı",
+      summary: "400.000 TL kazanç istisnası ve %20 kira stopajını ortadan kaldıran sanal ofis modeli.",
       paragraphs: [
-        "Şahıs şirketi tüzel kişilik değildir; ticari ve kamu borçlarından şahsi mal varlığınızla (ev, araç, kişisel hesaplar) sınırsız sorumlu olursunuz.",
-        "Limited şirkette ise ticari borçlarda sorumluluk şirkete koyduğunuz taahhüt edilen sermaye ile sınırlıdır (kamu borçlarında ortaklar hisseleri oranında sorumludur). Riskli sektörlerde LTD seçimi şahsi varlıklarınızı korumaya yardımcı olabilir."
-      ]
+        "29 yaşını doldurmamış girişimciler için 3 takvim yılı boyunca yıllık 400.000 TL Gelir Vergisi kazanç istisnası uygulanır (Bağ-Kur prim desteği 2026'da kaldırılmıştır, kazanç istisnası ise sürmektedir).",
+        "Şahıstan kiralanan işyerlerinde %20 kira stopajı doğarken; kurumsal sanal ofis tercihinde faturalı KDV indirimi sağlanır ve stopaj yükü oluşmaz."
+      ],
+      expertTip: "Kuruluş öncesi vergi ve adres planlamasıyla gereksiz operasyonel maliyetlerin önüne geçiyoruz."
     },
     {
       number: "04",
-      title: "Doğru NACE Faaliyet Kodunun Belirlenmesi",
-      summary: "Yanlış NACE kodu ileride fatura kesme kısıtları ve ruhsat iptallerine yol açabilir.",
+      title: "2026 Dijital E-Dönüşüm Zorunlulukları (e-Fatura & e-Defter)",
+      summary: "3 Milyon TL brüt satış ve e-ticaret 500 Bin TL ciro hadleri ile güvenli arşivleme.",
       paragraphs: [
-        "Şirket açılışında ana sözleşmeye veya vergi dairesi kaydına girilen 6 haneli NACE kodu, faaliyet alanınızı resmen belirler. E-ticaret, yazılım, danışmanlık veya imalat gibi farklı alanların defter hadleri ve tabi olduğu mevzuat değişir.",
-        "Mali müşavirinizle birlikte şirketin ileride yapacağı yan faaliyetleri de kapsayacak geniş bir NACE kodu seçilmelidir."
-      ]
-    },
-    {
-      number: "05",
-      title: "Şirket Adresi Seçimi: Maliyet ve Vergi Avantajlarını Değerlendirin",
-      summary: "Kira stopajı (%20) ve prestijli sanal ofis tercihinin maliyet ve vergi avantajları.",
-      paragraphs: [
-        "Şirket kuruluşunda doğru adres seçimi, işletmenizin sabit giderlerini ve vergi yükümlülüklerini doğrudan etkileyebilir. Gerçek kişilerden kiralanan iş yerlerinde, gerekli şartların oluşması halinde kira ödemeleri üzerinden %20 gelir vergisi stopajı uygulanır. Kurumsal sanal ofis hizmetlerinde ise hizmet sağlayıcı tarafından KDV'li fatura düzenlenir ve hizmet bedeli üzerinden kira stopajı doğmaz.",
-        "Ayrıca sanal ofis giderleri ve faturadaki KDV, mevzuattaki şartlar çerçevesinde vergi hesaplamalarında dikkate alınabilir.",
-        "Prestijli bir iş merkezinde sanal ofis tercih etmek, işletmenize kurumsal bir adres kazandırırken ofis maliyetlerinizi de önemli ölçüde azaltabilir."
-      ]
-    },
-    {
-      number: "06",
-      title: "e-Fatura, e-Arşiv ve Dijital Dönüşüm",
-      summary: "Dijital fatura sistemleriyle işlemlerinizi hızlandırın, maliyetlerinizi azaltın.",
-      paragraphs: [
-        "Şirket kuruluşundan itibaren dijital fatura sistemlerini kullanmak, işletmenize zaman ve maliyet avantajı sağlayabilir. e-Fatura ve e-Arşiv uygulamaları sayesinde fatura düzenleme, gönderme ve arşivleme işlemlerinizi elektronik ortamda gerçekleştirebilir; muhasebe süreçlerinizi daha hızlı, düzenli ve güvenilir şekilde yönetebilirsiniz.",
-        "Zorunluluk kapsamında olmasanız bile dijital dönüşüme erken geçiş yaparak operasyonel verimliliğinizi artırabilirsiniz. ROTAYD olarak işletmenize uygun e-belge sisteminin belirlenmesi, başvuru ve aktivasyon süreçlerinde yanınızdayız."
-      ]
-    },
-    {
-      number: "07",
-      title: "Bağ-Kur Yükümlülükleri ve Genç Girişimci Vergi İstisnası",
-      summary: "29 yaşını doldurmamış girişimciler için 2026 yılında 400.000 TL'ye kadar gelir vergisi kazanç istisnası.",
-      paragraphs: [
-        "Şirket kuruluşunda Bağ-Kur (4/B) yükümlülüklerinin ve mevcut sigortalılık durumunuzun doğru değerlendirilmesi önemlidir. Başka bir iş yerinde 4/A kapsamında sigortalı çalışmanız, sigortalılık durumunuza göre Bağ-Kur prim yükümlülüğünüzü etkileyebilir.",
-        "İlk defa gelir vergisi mükellefi olan ve işe başlama tarihinde 29 yaşını doldurmamış girişimciler, yasal şartları sağlamaları halinde, faaliyete başladıkları yıldan itibaren 3 vergilendirme dönemi boyunca gelir vergisi kazanç istisnasından yararlanabilir. 2026 yılı için istisna tutarı 400.000 TL'dir."
+        "2026 e-Dönüşüm hadleri uyarınca yıllık cirosu 3 Milyon TL'yi aşan işletmeler (e-ticarette 500 Bin TL) e-Fatura ve e-Defter sistemine dahil olmak zorundadır.",
+        "Zorunluluk beklemeden dijital faturaya geçmek operasyonel hız kazandırır; ROTAYD Mükellef Portalı ile belgeleriniz anlık arşivlenir."
       ],
-      note: "Genç girişimcilere sağlanan 1 yıllık Bağ-Kur prim desteği, 1 Ocak 2026 itibarıyla kaldırılmıştır. Gelir vergisi istisnası ise devam etmektedir.",
-      expertTip: "Şirket kuruluşundan önce sigortalılık durumunuzu ve vergi avantajlarını birlikte değerlendirerek gereksiz maliyetlerin önüne geçebiliriz."
-    },
-    {
-      number: "08",
-      title: "Şirket Banka Hesabı, Ticari Kredi Kartı ve Kasa Disiplini",
-      summary: "Şirket parası ile şahsi paranın birbirine karıştırılmaması kuralı.",
-      paragraphs: [
-        "Şirket adına açılan ticari vadesiz hesap ve şirket kredi kartı ile tüm tahsilat ve ödemeler yapılmalıdır.",
-        "Ortakların şirket kasasından kontrolsüz para çekmesi 'örtülü kazanç' veya 'adat faizi' gibi ağır vergi cezalarına neden olabilir. Sağlıklı bir şirket, banka ekstreleri ile fatura defterlerinin her ay sonu kuruşu kuruşuna örtüştüğü şirkettir."
-      ]
-    },
-    {
-      number: "09",
-      title: "Doğru Mali Müşavir Seçimi: Muhasebeden Daha Fazlası",
-      summary: "Sadece muhasebe işlemlerinizi takip eden değil, işletmenizin finansal geleceğine yön veren bir iş ortağı seçin.",
-      paragraphs: [
-        "Doğru mali müşavir seçimi, işletmenizin finansal yapısını ve geleceğini doğrudan etkileyen önemli kararlardan biridir.",
-        "İyi bir mali müşavir yalnızca beyannamelerinizi hazırlamakla kalmaz; vergi yükümlülüklerinizi takip eder, yararlanabileceğiniz yasal avantajları değerlendirir, mali tablolarınızı analiz eder ve işletmenizin finansal kararlarına rehberlik eder.",
-        "ROTAYD olarak muhasebe ve vergi danışmanlığını finansal raporlama, mali analiz ve devlet teşvikleriyle birleştiriyor; işletmenizin mali süreçlerini güvenle yönetmesine ve sürdürülebilir büyümesine katkı sağlıyoruz."
-      ],
-      expertTip: "Mali müşaviriniz yalnızca geçmiş işlemlerinizi kaydeden değil, geleceğinizi planlarken danışabileceğiniz güvenilir bir iş ortağınız olmalıdır."
+      expertTip: "Entegratör seçimi ve berat takvimini mevzuata uygun şekilde güvenle yönetiyoruz."
     }
   ];
 
@@ -207,9 +169,9 @@ export default function MuhasebecilikPage() {
       q: "Limited Şirket'ten Anonim Şirket'e geçiş (Nevi Değişikliği) neden tercih edilir?",
       a: "Anonim Şirketlerde hisse senetleri 2 yıl elde tutulduktan sonra satıldığında elde edilen kazanç %0 Gelir Vergisi istisnasına tabidir. Ayrıca A.Ş. ortakları şirket kamu borçlarından şahsi mal varlığıyla sorumlu tutulmaz. Büyüyen LTD'ler için en kritik vergisiz çıkış stratejisidir."
     },
-    {
-      q: "ROTAYD, Bordro ve SGK İşlemlerinde İşletmeme Nasıl Katkı Sağlar?",
-      a: "İşletmeniz tarafından iletilen aylık puantajlar doğrultusunda ücret bordrolarınızı hazırlıyor, SGK bildirgelerinizi yasal sürelerinde ilgili kuruma iletiyoruz.\n\nAyrıca SGK prim teşvikleri, KOSGEB istihdam destekleri ve İŞKUR programlarını takip ederek işletmenizin yararlanabileceği destekleri belirliyor, personel maliyetlerinizi azaltabilecek fırsatları değerlendiriyoruz."
+        {
+      q: "2026 Yılında e-Fatura ve e-Defter Zorunluluğu Kapsamında Mıyım?",
+      a: "İşletmenizin NACE faaliyet kodu, e-ticaret hacmi ve geçmiş yıl brüt satış hasılatını analiz ederek e-Dönüşüm zorunluluğunuzu belirliyoruz. Zorunluluk başlamadan önce başvurularınızı tamamlayarak cezai yaptırımların önüne geçiyoruz."
     },
     {
       q: "Olası bir Vergi İncelemesi sürecinde nasıl bir yol izleniyor?",
@@ -250,7 +212,7 @@ export default function MuhasebecilikPage() {
             </h1>
 
             <p className="subpage-hero-desc text-sm sm:text-base text-white/80 font-light leading-relaxed max-w-2xl">
-              Yalnızca geçmişi deftere işleyen değil; proaktif vergi planlaması, şirket kuruluş süreçleri, bordrolama ve yönetim raporlamasıyla şirketinizin finansal yapısını ve kârlılığını destekleyen mali müşavirlik ortaklığı.
+              Yalnızca geçmişi deftere işleyen değil; proaktif vergi planlaması, şirket kuruluş mimarisi ve yönetim raporlamasıyla şirketinizin finansal yapısını ve kârlılığını destekleyen mali müşavirlik ortaklığı.
             </p>
 
             {/* CTAs */}
@@ -284,14 +246,14 @@ export default function MuhasebecilikPage() {
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-[#d4af37]/40 bg-[#071128] text-xs font-semibold text-[#d4af37] uppercase tracking-wider">
             <BookOpen className="w-3.5 h-3.5" />
-            <span>GİRİŞİMCİLER &amp; YATIRIMCILAR İÇİN 9 KRİTİK BAŞLIK</span>
+            <span>2026 GİRİŞİMCİLER &amp; YATIRIMCILAR İÇİN ŞİRKET KURULUŞ REHBERİ</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
             İlk Defa Bir Şirket Kuruyorum: <br className="hidden sm:inline" />
             <span className="gold-gradient-text font-serif italic">Nelere Dikkat Etmeliyim? Şahıs mı, Limited mi?</span>
           </h2>
           <p className="text-xs sm:text-sm text-white/60 leading-relaxed max-w-2xl mx-auto">
-            Hatalı şirket türü veya NACE kodu seçimi, gereksiz vergi yüklerine ve devlet teşviklerinden yararlanma fırsatlarının kaybedilmesine neden olabilir. İşte şirket kurmadan önce bilmeniz gereken 9 önemli nokta.
+            2026 güncel mevzuatına göre şirket türü, asgari sermaye tutarları, vergi istisnaları ve dijital dönüşüm süreçlerinde bilmeniz gereken temel stratejik kararlar.
           </p>
         </div>
 

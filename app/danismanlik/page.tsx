@@ -51,8 +51,8 @@ export default function DanismanlikPage() {
       title: "Genç Girişimci Teşvikleri",
       badge: "29 Yaş Altı Teşvikler",
       icon: Rocket,
-      desc: "29 yaşını doldurmamış girişimcilere 3 vergilendirme dönemi boyunca yıllık 230.000 TL kazanç istisnası, 1 tam yıl Bağ-Kur prim muafiyeti ve KOSGEB başlangıç sermayesi.",
-      points: ["1 Yıl Bağ-Kur Hibesi", "3 Yıl Gelir Vergisi Muafiyeti", "KOSGEB Kuruluş Desteği", "Sıfır Faizli Finansman"]
+      desc: "29 yaşını doldurmamış girişimcilere 3 vergilendirme dönemi boyunca yıllık 400.000 TL Gelir Vergisi kazanç istisnası ve KOSGEB hibe başlangıç sermayesi.",
+      points: ["3 Yıl Gelir Vergisi İstisnası", "KOSGEB Kuruluş Hibesi", "400.000 TL Kazanç Muafiyeti", "Düşük Faizli Finansman"]
     },
     {
       title: "Fabrika Yatırımları & Teşvikleri",
@@ -149,11 +149,11 @@ export default function DanismanlikPage() {
   const faqs = [
     {
       q: "Yatırım Teşvik Belgesi almak için asgari yatırım tutarı nedir?",
-      a: "Asgari sabit yatırım tutarı yatırımın yapılacağı il ve yatırım türüne göre değişiklik gösterir. 1. ve 2. bölgelerde 3 Milyon TL, 3., 4., 5. ve 6. bölgelerde ise 1.5 Milyon TL asgari yatırım şartı bulunmaktadır."
+      a: "2026 güncel mevzuatına göre asgari sabit yatırım tutarı; 1. ve 2. Bölgeler için 12 Milyon TL, 3., 4., 5. ve 6. Bölgeler için ise 6 Milyon TL'dir. İmalat, sanayi ve teknoloji yatırımlarında bu tutarları aşan makine-ekipman ve bina-inşaat harcamaları teşvik belgesi kapsamına alınabilmektedir."
     },
     {
       q: "Kadın ve genç girişimciler için sağlanan özel KOSGEB destekleri nelerdir?",
-      a: "Kadın girişimcilere KOSGEB Girişimcilik Destek Programı kapsamında hibe üst limitlerinde +%20 pozitif ayrımcılık sağlanır. 29 yaş altı genç girişimciler ise 3 yıl gelir vergisi muafiyeti ve 1 yıl boyunca tüm Bağ-Kur primlerinin devlet tarafından ödenmesi avantajından faydalanır."
+      a: "Kadın girişimcilere KOSGEB Girişimcilik Destek Programı kapsamında hibe üst limitlerinde pozitif ayrımcılık sağlanır. 29 yaş altı genç girişimciler ise 3 vergilendirme dönemi boyunca yıllık 400.000 TL Gelir Vergisi kazanç istisnasından ve KOSGEB kuruluş desteklerinden öncelikli olarak yararlanır."
     },
     {
       q: "KOSGEB Yeşil Sanayi Destek Programı kimleri kapsar?",

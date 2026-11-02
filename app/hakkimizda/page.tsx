@@ -87,7 +87,7 @@ export default function HakkimizdaPage() {
 
           <p className="mt-6 text-sm sm:text-base text-white/70 max-w-3xl leading-relaxed">
             ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı, Türkiye&apos;nin rekabetçi iş dünyasında işletmelerin
-            yasal defter, vergi ve bordrolama süreçlerini yüksek mesleki titizlik ve kalite standartlarıyla yönetirken; devlet teşvikleri,
+            yasal defter, vergi ve mali denetim süreçlerini yüksek mesleki titizlik ve kalite standartlarıyla yönetirken; devlet teşvikleri,
             hibeler ve yönetim muhasebesiyle sürdürülebilir kurumsal kârlılığı inşa etmektedir.
           </p>
         </div>
@@ -196,7 +196,7 @@ export default function HakkimizdaPage() {
                     </p>
                     <p>
                       <strong className="text-white font-semibold">Ankara SMMM Odası (ASMMMO)</strong> ve{" "}
-                      <strong className="text-white font-semibold">TÜRMOB</strong> üyesi olan İlhan; finansal analiz, yönetim muhasebesi, bordrolama ve SGK mevzuatı, vergi optimizasyonu ve kurumsal şirket kuruluş süreçlerinde zengin mesleki birikimiyle işletmelerin sürdürülebilir büyümesine katkı sunmaktadır.
+                      <strong className="text-white font-semibold">TÜRMOB</strong> üyesi olan İlhan; finansal analiz, yönetim muhasebesi, vergi planlaması ve mevzuat danışmanlığı, mali optimizasyon ve kurumsal şirket kuruluş süreçlerinde zengin mesleki birikimiyle işletmelerin sürdürülebilir büyümesine katkı sunmaktadır.
                     </p>
                   </div>
 
@@ -220,7 +220,7 @@ export default function HakkimizdaPage() {
                       ✓ E-Fatura, E-Arşiv &amp; E-Defter
                     </span>
                     <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
-                      ✓ Bordrolama &amp; SGK İşlemleri
+                      ✓ Vergi Denetimi &amp; Mevzuat Danışmanlığı
                     </span>
                     <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
                       ✓ Finansal Tablolar &amp; Bilanço Analizi

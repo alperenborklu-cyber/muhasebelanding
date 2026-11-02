@@ -38,7 +38,7 @@ export default function AppointmentForm() {
         "Yönetim Muhasebesi & Finansal Raporlama",
         "Mali Müşavirlik & Vergi Mevzuatı Denetimi",
         "SGK & İstihdam Teşvikleri Analizi",
-        "Bordrolama & Personel Özlük Yönetimi",
+        "Vergi Denetimi & İnceleme Danışmanlığı",
         "KDV İadesi ve Mahsup İşlemleri",
         "Şirket Kuruluşu & Nevi Değişikliği (LTD'den A.Ş.'ye)"
       ]

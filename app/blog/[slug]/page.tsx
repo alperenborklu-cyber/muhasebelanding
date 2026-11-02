@@ -1,9 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { BLOG_POSTS } from "@/lib/blogData";
+import { BLOG_POSTS, BlogPost } from "@/lib/blogData";
 import { 
   Calendar, 
   Clock, 
@@ -19,10 +20,34 @@ import {
 import LinkedInShareButton from "@/components/LinkedInShareButton";
 
 export default function BlogPostDetail({ params }: { params: { slug: string } }) {
-  const post = BLOG_POSTS.find((p) => p.slug === params.slug);
+  const [post, setPost] = useState<BlogPost | undefined>(() => BLOG_POSTS.find((p) => p.slug === params.slug));
+  const [loading, setLoading] = useState(!post);
+
+  useEffect(() => {
+    if (!post) {
+      fetch('/api/blog')
+        .then(res => res.json())
+        .then(d => {
+          const found = d.posts?.find((p: BlogPost) => p.slug === params.slug);
+          if (found) {
+            setPost(found);
+          }
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    }
+  }, [params.slug, post]);
+
+  if (!loading && !post) {
+    notFound();
+  }
 
   if (!post) {
-    notFound();
+    return (
+      <div className="min-h-screen bg-[#040a1a] flex items-center justify-center text-white">
+        <span className="text-sm text-slate-400">Yükleniyor...</span>
+      </div>
+    );
   }
 
   const relatedPosts = BLOG_POSTS.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 2);

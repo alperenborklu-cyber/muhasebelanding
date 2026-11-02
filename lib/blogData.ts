@@ -29,7 +29,7 @@ export const BLOG_POSTS: BlogPost[] = [
     content: [
       "Türkiye'de faaliyet gösteren işletmelerin en önemli gider kalemlerinden biri istihdam maliyetleridir. Sosyal Güvenlik Kurumu (SGK) ve İŞKUR tarafından yürütülen teşvik programları, doğru analiz edildiğinde şirket bütçelerinde milyonlarca liralık tasarruf sağlayabilir.",
       "6111 Sayılı Genç ve Kadın İstihdamı Teşviki, 7103 Sayılı İmalat ve Bilişim Teşviki ve engelli istihdamı indirimleri başta olmak üzere, ortalama sigortalı sayısına göre hesaplanan haklar çoğu şirket tarafından farkında olmadan kaçırılmaktadır.",
-      "ROTAYD olarak geliştirdiğimiz analitik altyapıyla geriye dönük ve cari dönem personel bordrolarınızı tarıyor, yasal haklarınızı kuruşu kuruşuna tespit ederek şirketinize nakit tasarruf kazandırıyoruz."
+      "ROTAYD olarak geliştirdiğimiz analitik altyapıyla cari ve geçmiş dönem SGK bildirgelerinizi tarıyor, yasal haklarınızı kuruşu kuruşuna tespit ederek şirketinize nakit tasarruf kazandırıyoruz."
     ]
   },
   {
@@ -178,20 +178,20 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: "10",
-    slug: "bordrolama-sureclerinde-dis-kaynak-kullaniminin-faydalari",
+    slug: "2026-e-defter-ve-e-fatura-denetimlerinde-kritik-kurallar",
     instagramCode: "IG-10",
-    title: "Bordrolama Süreçlerinde Dış Kaynak (BPO) Kullanımının 6 Faydası",
-    excerpt: "Maaş gizliliğinin korunması, yasal ceza risklerinin asgariye indirilmesi ve İK departmanının ana hedeflere odaklanmasını sağlayan modern yaklaşım.",
+    title: "2026 Yılında E-Defter ve E-Fatura Denetimlerinde Dikkat Edilmesi Gerekenler",
+    excerpt: "Gelir İdaresi Başkanlığı'nın 2026 dijital denetim kriterleri, zaman damgalı berat onayları ve özel usulsüzlük cezalarından korunma rehberi.",
     category: "Mali Müşavirlik",
     date: "24 Mart 2026",
     readTime: "4 dk okuma",
-    image: "/images/bordrolama-bpo-personel-ozluk-mali-musavirlik.webp",
-    author: "ROTAYD Bordrolama Masası",
-    tags: ["Bordrolama", "BPO", "İnsan Kaynakları", "Gizlilik"],
+    image: "/images/e-defter-e-fatura-vergi-mevzuati-mali-musavirlik.webp",
+    author: "ROTAYD Denetim Masası",
+    tags: ["E-Defter", "E-Fatura", "GİB Denetimi", "Vergi Mevzuatı"],
     content: [
-      "Şirket içi maaş dengelerinin korunması ve çalışan gizliliği günümüz kurumsal dünyasında kritik bir konudur. Bordrolama sürecini dış kaynağa devreden işletmeler bilgi sızıntılarını engeller.",
-      "Maaş gizliliği, mevzuata uyum, zaman tasarrufu ve istihdam teşviklerinin etkin takibi sağlanır.",
-      "ROTAYD Bordrolama Hizmetleri, en üst düzey güvenlik protokolleriyle çalışanlarınızın haklarını korur."
+      "2026 yılı itibarıyla dijital vergi denetimleri algoritmik çapraz kontrollerle çok daha kapsamlı yürütülmektedir. E-Defter beratlarının yasal sürelerinde sisteme yüklenmemesi yüksek özel usulsüzlük cezalarına neden olabilmektedir.",
+      "Zaman damgası doğrulamaları, ikincil kopyaların GİB sistemine aktarımı ve e-Arşiv faturaların doğru dipnotlarla düzenlenmesi şirketlerin vergi güvenliği için hayati önem taşır.",
+      "ROTAYD Mali Müşavirlik, müşterilerinin e-dönüşüm entegrasyonu ve yasal berat onaylarını kurumsal disiplinle takip ederek tam koruma sağlar."
     ]
   }
 ];

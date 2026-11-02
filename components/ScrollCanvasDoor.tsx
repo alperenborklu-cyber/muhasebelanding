@@ -747,7 +747,7 @@ export default function ScrollCanvasDoor() {
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  {["Yönetim Muhasebesi", "SGK Teşvikleri", "Bordrolama", "Vergi"].map((item) => (
+                  {["Yönetim Muhasebesi", "SGK Teşvikleri", "Vergi Denetimi", "Mevzuat"].map((item) => (
                     <span
                       key={item}
                       className="text-[11px] px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-white/80"

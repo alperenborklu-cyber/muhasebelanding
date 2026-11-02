@@ -45,8 +45,8 @@ const FAQ_ITEMS: FAQItem[] = [
     category: "Mali Müşavirlik",
     tag: "SGK Teşvikleri",
     question: "SGK İstihdam ve prim teşviklerinden geçmişe dönük (geriye dönük) yararlanabilir miyiz?",
-    answer: "Evet. Geliştirdiğimiz algoritmik mevzuat analiz altyapısıyla firmanızın geçmiş bordroları ve çalışan nitelikleri taranır. 7103, 6111, genç, kadın ve ilave istihdam teşviklerinden kaçırılan haklar tek tek tespit edilir. SGK nezdinde gerekli resmi yazışmalar ve mahsup işlemleri yasal güvenceyle yapılarak işletmenize net nakit ve prim avantajı kazandırılır.",
-    highlights: ["Geriye dönük bordro taraması", "Yasal hak ediş tespiti", "SGK mahsup ve prim iadesi"]
+    answer: "Evet. Geliştirdiğimiz algoritmik mevzuat analiz altyapısıyla firmanızın geçmiş SGK bildirge ve prim dökümleri taranır. 7103, 6111, genç, kadın ve ilave istihdam teşviklerinden kaçırılan haklar tek tek tespit edilir. SGK nezdinde gerekli resmi yazışmalar ve mahsup işlemleri mevzuat çerçevesinde yapılarak işletmenize net nakit ve prim avantajı kazandırılması hedeflenir.",
+    highlights: ["Geriye dönük SGK prim analizi", "Yasal hak ediş tespiti", "SGK mahsup ve prim iadesi"]
   },
   {
     id: "faq-4",

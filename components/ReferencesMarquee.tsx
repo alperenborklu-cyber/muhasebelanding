@@ -1,9 +1,17 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-// 20 Verified Real Client Brands with Authentic Monochrome Logos
-const REFERENCES = [
+interface RefItem {
+  id?: string;
+  name: string;
+  file?: string;
+  imageUrl?: string;
+  desc: string;
+}
+
+const DEFAULT_REFERENCES: RefItem[] = [
   { name: "ÖZGÜR LEBLEBİ", file: "ozgurleblebi.webp", desc: "Gıda & Kuruyemiş İmalatı" },
   { name: "ANAKAMP KÜÇÜK KAŞİFLER", file: "anakamp.webp", desc: "Okul Öncesi & Erken Çocukluk Eğitimi" },
   { name: "TODO CROISSANT & COFFEE", file: "todocroissant.webp", desc: "Artizan Fırıncılık & Kahve" },
@@ -26,6 +34,31 @@ const REFERENCES = [
 ];
 
 export default function ReferencesMarquee() {
+  const [items, setItems] = useState<RefItem[]>(DEFAULT_REFERENCES);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch('/api/references')
+      .then(res => res.json())
+      .then(data => {
+        if (isMounted && data?.references && Array.isArray(data.references) && data.references.length > 0) {
+          setItems(data.references);
+        }
+      })
+      .catch(() => {
+        // Fallback to default smoothly
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const getImageSrc = (item: RefItem) => {
+    if (item.imageUrl) return item.imageUrl;
+    if (item.file) return `/references/${item.file}`;
+    return "/apple-icon.png";
+  };
+
   return (
     <section id="referanslar" className="relative py-20 overflow-hidden border-y border-[#d4af37]/20 bg-[#030816] transition-colors duration-300">
       {/* Subtle Ambient Glow */}
@@ -45,7 +78,7 @@ export default function ReferencesMarquee() {
         <div className="flex w-max group">
           {/* Track 1 */}
           <div className="flex shrink-0 items-center gap-6 sm:gap-8 pr-6 sm:pr-8 py-4 animate-marquee group-hover:[animation-play-state:paused]">
-            {REFERENCES.map((item, idx) => (
+            {items.map((item, idx) => (
               <div
                 key={`track1-${item.name}-${idx}`}
                 className="group relative flex items-center justify-center px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4af37]/50 backdrop-blur-sm transition-all duration-300 shrink-0 w-44 sm:w-48 md:w-52 h-20 shadow-sm"
@@ -53,9 +86,10 @@ export default function ReferencesMarquee() {
               >
                 <div className="relative h-9 sm:h-10 md:h-11 w-full max-w-[135px] sm:max-w-[155px] flex items-center justify-center">
                   <Image
-                    src={`/references/${item.file}`}
+                    src={getImageSrc(item)}
                     alt={`${item.name} - ROTAYD Danışmanlık ve Mali Müşavirlik Referansı`}
                     fill
+                    unoptimized={!!item.imageUrl && item.imageUrl.startsWith('data:')}
                     className="object-contain filter brightness-0 invert opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
                     sizes="(max-width: 768px) 130px, 155px"
                   />
@@ -66,7 +100,7 @@ export default function ReferencesMarquee() {
 
           {/* Track 2 - Seamless Duplicate */}
           <div aria-hidden="true" className="flex shrink-0 items-center gap-6 sm:gap-8 pr-6 sm:pr-8 py-4 animate-marquee group-hover:[animation-play-state:paused]">
-            {REFERENCES.map((item, idx) => (
+            {items.map((item, idx) => (
               <div
                 key={`track2-${item.name}-${idx}`}
                 className="group relative flex items-center justify-center px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4af37]/50 backdrop-blur-sm transition-all duration-300 shrink-0 w-44 sm:w-48 md:w-52 h-20 shadow-sm"
@@ -74,9 +108,10 @@ export default function ReferencesMarquee() {
               >
                 <div className="relative h-9 sm:h-10 md:h-11 w-full max-w-[135px] sm:max-w-[155px] flex items-center justify-center">
                   <Image
-                    src={`/references/${item.file}`}
+                    src={getImageSrc(item)}
                     alt={`${item.name} - ROTAYD Danışmanlık ve Mali Müşavirlik Referansı`}
                     fill
+                    unoptimized={!!item.imageUrl && item.imageUrl.startsWith('data:')}
                     className="object-contain filter brightness-0 invert opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
                     sizes="(max-width: 768px) 130px, 155px"
                   />

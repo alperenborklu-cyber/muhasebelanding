@@ -87,7 +87,7 @@ const statsData: StatItem[] = [
     icon: Users,
     isKeyHighlight: true,
     highlightTag: "Çözüm Ortaklığı",
-    category: "Bordro & İstihdam",
+    category: "Mevzuat & İstihdam",
   },
 ];
 

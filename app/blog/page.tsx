@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { BLOG_POSTS, BlogPost } from "@/lib/blogData";
@@ -17,8 +17,24 @@ import {
 import LinkedInShareButton from "@/components/LinkedInShareButton";
 
 export default function BlogPage() {
+  const [posts, setPosts] = useState<BlogPost[]>(BLOG_POSTS);
   const [selectedCategory, setSelectedCategory] = useState<string>("Tümü");
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch('/api/blog')
+      .then(res => res.json())
+      .then(data => {
+        if (isMounted && data?.posts && Array.isArray(data.posts) && data.posts.length > 0) {
+          setPosts(data.posts);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const categories = [
     "Tümü",
@@ -29,7 +45,7 @@ export default function BlogPage() {
     "Vergi Mevzuatı"
   ];
 
-  const filteredPosts = BLOG_POSTS.filter((post) => {
+  const filteredPosts = posts.filter((post) => {
     const matchesCategory = selectedCategory === "Tümü" || post.category === selectedCategory;
     const matchesSearch = 
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -38,10 +54,10 @@ export default function BlogPage() {
     return matchesCategory && matchesSearch;
   });
 
-  const featuredPost = BLOG_POSTS[0];
+  const featuredPost = posts[0] || BLOG_POSTS[0];
   const isFeaturedActive = selectedCategory === "Tümü" && !searchQuery;
   const gridPosts = isFeaturedActive
-    ? filteredPosts.filter((post) => post.id !== featuredPost.id)
+    ? filteredPosts.filter((post) => post.id !== featuredPost?.id)
     : filteredPosts;
 
   return (
