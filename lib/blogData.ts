@@ -70,20 +70,20 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: "4",
-    slug: "kosgeb-yesil-sanayi-ve-kobigel-destekleri-2026",
+    slug: "kosgeb-kobigel-ve-kapasite-gelistirme-destekleri-2026",
     instagramCode: "IG-04",
-    title: "KOSGEB Yeşil Sanayi ve KOBİGEL Destekleri Başvuru Kriterleri",
-    excerpt: "Güneş enerjisi (GES), enerji verimliliği ve dijitalleşme yatırımlarında KOBİ'lere sunulan milyonlarca liralık geri ödemesiz hibe programları.",
+    title: "2026 KOSGEB KOBİGEL ve Kapasite Geliştirme Destekleri Başvuru Kriterleri",
+    excerpt: "KOBİ'lerin dijitalleşme, modern otomasyon ve makine-teçhizat yatırımlarında sunulan geri ödemesiz devlet hibeleri ve uygun finansman olanakları.",
     category: "KOSGEB",
     date: "11 Şubat 2026",
     readTime: "4 dk okuma",
     image: "/images/kosgeb-destek-programlari-yonetim-danismanligi-basvuru.webp",
     author: "ROTAYD Hibe & Proje Departmanı",
-    tags: ["KOSGEB", "Yeşil Sanayi", "KOBİGEL", "Geri Ödemesiz Hibe"],
+    tags: ["KOSGEB", "KOBİGEL", "Kapasite Geliştirme", "Geri Ödemesiz Hibe"],
     content: [
-      "KOSGEB tarafından Avrupa Yeşil Mutabakatı uyum süreci kapsamında devreye alınan Yeşil Sanayi Destek Programı, enerji tüketimini azaltan ve karbon ayak izini düşüren işletmelere büyük ölçekli kaynak aktarmaktadır.",
-      "KOBİGEL kapsamında dijital dönüşüm, otomasyon ve modern tezgah yatırımları %70 ila %85 oranında desteklenmektedir.",
-      "Proje dosyasının eksiksiz kurgulanması ve en yüksek değerlendirme puanının alınması için ROTAYD danışmanları tam destek vermektedir."
+      "KOSGEB KOBİGEL programı, imalatçı ve bilişim sektöründeki işletmelerin kurumsal kapasitelerini, rekabet güçlerini ve verimliliklerini artırmak için kritik finansal kaynaklar sağlamaktadır.",
+      "Program kapsamında dijital dönüşüm, otomasyon sistemleri ve yerli makine-teçhizat alımları %70 ila %85 oranında desteklenmektedir.",
+      "Proje dosyasının eksiksiz kurgulanması, puanlama kriterlerine uyum ve bürokratik onay süreçleri ROTAYD danışmanları tarafından uçtan uca yönetilmektedir."
     ]
   },
   {

@@ -1702,7 +1702,7 @@ export default function AdminPortalPage() {
                     <option value="KOSGEB Hibeleri">KOSGEB Hibeleri</option>
                     <option value="Ar-Ge & Tasarım">Ar-Ge & Tasarım</option>
                     <option value="İhracat Destekleri">İhracat Destekleri</option>
-                    <option value="Yeşil Sanayi">Yeşil Sanayi</option>
+                    <option value="KOBİ & Girişimcilik">KOBİ & Girişimcilik</option>
                   </select>
                 </div>
               </div>

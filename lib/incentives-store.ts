@@ -5,7 +5,7 @@ export interface IncentiveProgram {
   id: string;
   name: string;
   institution: string; // T.C. Sanayi ve Teknoloji Bakanlığı, KOSGEB, Ticaret Bakanlığı, TÜBİTAK vb.
-  category: "Yatırım Teşvik" | "KOSGEB Hibeleri" | "Ar-Ge & Tasarım" | "İhracat Destekleri" | "Yeşil Sanayi";
+  category: "Yatırım Teşvik" | "KOSGEB Hibeleri" | "Ar-Ge & Tasarım" | "İhracat Destekleri" | "KOBİ & Girişimcilik";
   supportLimit: string; // e.g. "12 Milyon TL - Sınırsız", "2.000.000 TL Hibe"
   supportRate: string; // e.g. "%70 Hibe", "%100 Vergi Muafiyeti"
   status: "Aktif Başvuru" | "Sürekli Açık" | "Dönemsel Çağrı";
@@ -32,14 +32,14 @@ export const INITIAL_INCENTIVES: IncentiveProgram[] = [
   },
   {
     id: "inc-2",
-    name: "KOSGEB Yeşil Sanayi Destek Programı",
-    institution: "KOSGEB & Dünya Bankası",
-    category: "Yeşil Sanayi",
-    supportLimit: "14.000.000 TL Üst Limit",
-    supportRate: "%60 - %70 Faizsiz Geri Ödemeli & Hibe",
+    name: "KOSGEB KOBİGEL ve Kapasite Geliştirme Destekleri",
+    institution: "T.C. KOSGEB",
+    category: "KOSGEB Hibeleri",
+    supportLimit: "5.000.000 TL Üst Limit",
+    supportRate: "%70 - %85 Geri Ödemesiz & Uygun Vadeli Destek",
     status: "Aktif Başvuru",
-    description: "KOBİ'lerin çatı ve arazi Güneş Enerjisi Santrali (GES) kurulumu ve enerji verimliliği sağlayan modern makine yenilemelerine doğrudan finansman.",
-    requirements: ["KOBİ vasfını taşımak", "En az 2 yıl faal olmak", "Enerji tüketim belgesi"],
+    description: "İmalatçı KOBİ'lerin dijitalleşme, modern otomasyon sistemleri, yerli yazılım entegrasyonu ve rekabet gücünü artırıcı makine yatırımlarına doğrudan kaynak.",
+    requirements: ["KOBİ vasfını taşımak", "İmalat veya bilişim sektöründe faaliyet göstermek", "KOSGEB Veri Tabanına kayıtlı olmak"],
     year: 2026
   },
   {

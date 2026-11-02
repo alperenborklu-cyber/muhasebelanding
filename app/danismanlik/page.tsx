@@ -94,11 +94,11 @@ export default function DanismanlikPage() {
       points: ["KDV & Gümrük İstisnası", "Kurumlar Vergisi İndirimi", "Faiz / Kâr Payı Desteği", "SGK İşveren Primi Desteği"]
     },
     {
-      title: "KOSGEB Hibe & Yeşil Sanayi",
+      title: "KOSGEB Hibe & Destek Programları",
       image: "/images/yonetim-danismanligi-kosgeb-destek-hibe-programlari.webp",
-      desc: "Yeşil Sanayi GES hibeleri, KOBİGEL dijitalleşme ve AR-GE projelerinde milyonlarca liralık geri ödemesiz devlet kaynağı ve proje yazımı.",
+      desc: "KOBİGEL dijitalleşme, Ar-Ge ve kapasite geliştirme projelerinde işletmelere geri ödemesiz devlet kaynağı ve anahtar teslim proje yazımı.",
       badge: "KOBİ Hibeleri",
-      points: ["Yeşil Sanayi GES Hibesi", "KOBİGEL Dijitalleşme", "Geri Ödemesiz Kaynak", "Makine Teçhizat Desteği"]
+      points: ["KOBİGEL Dijitalleşme", "Girişimci Desteği", "Geri Ödemesiz Kaynak", "Makine Teçhizat Desteği"]
     },
     {
       title: "Ticaret Bakanlığı İhracat Destekleri",
@@ -156,8 +156,8 @@ export default function DanismanlikPage() {
       a: "Kadın girişimcilere KOSGEB Girişimcilik Destek Programı kapsamında hibe üst limitlerinde pozitif ayrımcılık sağlanır. 29 yaş altı genç girişimciler ise 3 vergilendirme dönemi boyunca yıllık 400.000 TL Gelir Vergisi kazanç istisnasından ve KOSGEB kuruluş desteklerinden öncelikli olarak yararlanır."
     },
     {
-      q: "KOSGEB Yeşil Sanayi Destek Programı kimleri kapsar?",
-      a: "KOBİ ölçeğindeki sanayi işletmelerinin çatı ve arazi güneş enerjisi (GES) yatırımları ile enerji verimliliği sağlayan modern makine yenilemeleri için faizsiz geri ödemeli ve geri ödemesiz hibeler sunulmaktadır."
+      q: "KOSGEB KOBİGEL ve Kapasite Geliştirme Destekleri kimleri kapsar?",
+      a: "İmalat ve bilişim sektöründeki KOBİ'lerin kurumsal kapasite, otomasyon, yerli yazılım entegrasyonu ve makine-teçhizat modernizasyonu yatırımları için geri ödemesiz ve uygun vadeli finansman destekleri sunulmaktadır."
     },
     {
       q: "Ticaret Bakanlığı fuar ve kira destekleri süreci nasıl yürütülür?",
