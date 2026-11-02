@@ -1254,8 +1254,8 @@ export default function AdminPortalPage() {
               </div>
             </div>
 
-            {/* Bilgi Kutusu */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-xs">
+            {/* Bilgi Kutusu & Canlı Takvim Senkronizasyonu */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-xs">
               <div className="p-4 rounded-2xl bg-[#040a1a] border border-white/5 space-y-1">
                 <span className="text-[10px] text-slate-500 font-bold uppercase">Google Calendar Hesabı</span>
                 <p className="text-sm font-bold text-blue-300 font-mono">rotaydmm@gmail.com</p>
@@ -1270,6 +1270,53 @@ export default function AdminPortalPage() {
                 <span className="text-[10px] text-slate-500 font-bold uppercase">Toplam Randevu</span>
                 <p className="text-sm font-bold text-[#faecc0] font-mono">{appointments.length} Randevu Kaydı</p>
                 <p className="text-[11px] text-slate-400">Web sitesi üzerinden oluşturulan tüm talepler.</p>
+              </div>
+            </div>
+
+            {/* Google Calendar Canlı Abone Olma & Uygulama Şifresi Kartı */}
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-purple-950/20 border border-blue-500/30 mb-6 text-xs space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <div className="flex items-center space-x-2">
+                    <Sparkles className="w-4 h-4 text-[#d4af37]" />
+                    <span className="font-bold text-white text-sm">Google Calendar Otomatik Senkronizasyon (Canlı Besleme)</span>
+                  </div>
+                  <p className="text-slate-300 text-[11px]">
+                    Google Calendar&apos;da <strong>Diğer takvimler (+) → URL&apos;den ekle</strong> alanına aşağıdaki adresi yapıştırarak tüm randevuların <strong>rotaydmm@gmail.com</strong> takvimine otomatik düşmesini sağlayabilirsiniz:
+                  </p>
+                </div>
+                <div className="flex items-center space-x-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const feedUrl = `${window.location.origin}/api/appointments/calendar.ics`;
+                      navigator.clipboard.writeText(feedUrl);
+                      alert(`Takvim URL'si panoya kopyalandı:\n${feedUrl}\n\nGoogle Calendar'da "Diğer takvimler (+) -> URL'den ekle" seçeneğine yapıştırabilirsiniz.`);
+                    }}
+                    className="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center space-x-1.5 transition-all cursor-pointer shadow-md shadow-blue-900/30"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Canlı Takvim URL&apos;sini Kopyala</span>
+                  </button>
+                  <a
+                    href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs flex items-center space-x-1.5 border border-white/15 transition-all"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Google&apos;da Aç</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+                <code className="text-blue-300 font-mono text-[11px] truncate">
+                  /api/appointments/calendar.ics
+                </code>
+                <span className="text-[10px] text-slate-400 bg-white/5 px-2 py-0.5 rounded border border-white/10">
+                  iCalendar RFC-5545
+                </span>
               </div>
             </div>
 
@@ -1339,15 +1386,17 @@ export default function AdminPortalPage() {
                           </select>
                         </td>
                         <td className="py-3.5 px-4 text-right space-x-1.5 whitespace-nowrap">
-                          {apt.googleCalendarUrl && (
+                          {(apt.googleCalendarAdminUrl || apt.googleCalendarUrl) && (
                             <a
-                              href={apt.googleCalendarUrl}
+                              href={apt.googleCalendarAdminUrl || `${apt.googleCalendarUrl}&authuser=rotaydmm@gmail.com`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-block p-1.5 rounded-lg bg-blue-500/15 hover:bg-blue-500/25 text-blue-300 border border-blue-500/30 transition-colors"
-                              title="Google Calendar'da Aç"
+                              className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 transition-all text-xs font-semibold"
+                              title="rotaydmm@gmail.com Takvimine 1-Tıkla Ekle"
                             >
-                              <ExternalLink className="w-3.5 h-3.5" />
+                              <Calendar className="w-3.5 h-3.5 text-blue-400" />
+                              <span>Takvime Ekle</span>
+                              <ExternalLink className="w-3 h-3 opacity-60" />
                             </a>
                           )}
                           <a

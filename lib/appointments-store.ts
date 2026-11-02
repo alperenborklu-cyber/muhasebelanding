@@ -1,10 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import { AppointmentData, generateGoogleCalendarUrl } from './calendar-mailer';
+import { AppointmentData, generateGoogleCalendarUrl, generateGoogleCalendarAdminUrl } from './calendar-mailer';
 
 export interface StoredAppointment extends AppointmentData {
   status: 'beklemede' | 'onaylandi' | 'tamamlandi' | 'iptal';
   googleCalendarUrl: string;
+  googleCalendarAdminUrl?: string;
   notificationSent?: boolean;
 }
 
@@ -72,11 +73,13 @@ export class AppointmentsStore {
     };
 
     const googleCalendarUrl = generateGoogleCalendarUrl(fullAppointment);
+    const googleCalendarAdminUrl = generateGoogleCalendarAdminUrl(fullAppointment);
 
     const newRecord: StoredAppointment = {
       ...fullAppointment,
       status: 'beklemede',
       googleCalendarUrl,
+      googleCalendarAdminUrl,
       notificationSent: data.notificationSent ?? false
     };
 

@@ -18,7 +18,7 @@ export interface AppointmentData {
  * 1-Tıkla Google Calendar Etkinliği Oluşturma URL'si
  * Hem randevuyu alan danışan hem de info@rotayd.com ve rotaydmm@gmail.com davetli olarak eklenir.
  */
-export function generateGoogleCalendarUrl(appointment: AppointmentData): string {
+export function generateGoogleCalendarUrl(appointment: AppointmentData, targetAccount?: string): string {
   const { service, format, date, timeSlot, name, phone, email, company, notes } = appointment;
 
   // Başlangıç ve bitiş zamanı (1 saatlik randevu süresi)
@@ -62,7 +62,7 @@ export function generateGoogleCalendarUrl(appointment: AppointmentData): string 
     attendees.push(email.trim());
   }
 
-  const params = new URLSearchParams({
+  const queryParams: Record<string, string> = {
     action: 'TEMPLATE',
     text: title,
     dates: datesParam,
@@ -70,9 +70,73 @@ export function generateGoogleCalendarUrl(appointment: AppointmentData): string 
     location: location,
     ctz: 'Europe/Istanbul',
     add: attendees.join(',')
+  };
+
+  if (targetAccount) {
+    queryParams['authuser'] = targetAccount;
+  }
+
+  const params = new URLSearchParams(queryParams);
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+/**
+ * Yönetici / rotaydmm@gmail.com hesabı için doğrudan takvim ekleme linki
+ */
+export function generateGoogleCalendarAdminUrl(appointment: AppointmentData): string {
+  return generateGoogleCalendarUrl(appointment, 'rotaydmm@gmail.com');
+}
+
+/**
+ * Tüm randevuları içeren canlı iCalendar (.ics) Takvim Beslemesi
+ * Google Calendar'da "URL'den Takvim Ekle" ile rotaydmm@gmail.com hesabına 1 kez bağlanır.
+ */
+export function generateFullCalendarFeed(appointments: AppointmentData[]): string {
+  const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+
+  const events = appointments.map((apt) => {
+    const { id, service, format, date, timeSlot, name, phone, email, company, notes } = apt;
+    const cleanDate = date.replace(/-/g, '');
+    const [startHour, startMin] = timeSlot.split(':').map(Number);
+    const startHourStr = String(startHour).padStart(2, '0');
+    const startMinStr = String(startMin || 0).padStart(2, '0');
+    const endHourStr = String(startHour + 1).padStart(2, '0');
+
+    const dtStart = `${cleanDate}T${startHourStr}${startMinStr}00`;
+    const dtEnd = `${cleanDate}T${endHourStr}${startMinStr}00`;
+    const location =
+      format === 'online'
+        ? 'Online Gorusme (Google Meet / Zoom)'
+        : 'ROTAYD Mali Musavirlik Ofisi, Ankara';
+    const description = `Danisan: ${name}\\nTelefon: ${phone}\\nE-Posta: ${email || '-'}\\nSirket: ${company || '-'}\\nHizmet: ${service}\\nFormat: ${format === 'online' ? 'Online Toplanti' : 'Yuz Yuze'}\\nNot: ${notes || '-'}`;
+
+    return [
+      'BEGIN:VEVENT',
+      `UID:rotayd-${id}@rotayd.com`,
+      `DTSTAMP:${dtStamp}`,
+      `DTSTART:${dtStart}`,
+      `DTEND:${dtEnd}`,
+      `SUMMARY:ROTAYD Randevu: ${name} (${service})`,
+      `DESCRIPTION:${description}`,
+      `LOCATION:${location}`,
+      'ORGANIZER;CN=ROTAYD Danismanlik:mailto:rotaydmm@gmail.com',
+      'STATUS:CONFIRMED',
+      'END:VEVENT'
+    ].join('\r\n');
   });
 
-  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//ROTAYD Danismanlik//TR',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:ROTAYD Randevulari',
+    'X-WR-TIMEZONE:Europe/Istanbul',
+    'X-WR-CALDESC:ROTAYD Danismanlik Web Sitesi Randevu Takvimi',
+    ...events,
+    'END:VCALENDAR'
+  ].join('\r\n');
 }
 
 /**
