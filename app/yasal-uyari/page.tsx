@@ -37,7 +37,7 @@ export default function YasalUyariPage() {
               <span>1. Bilgilendirme Amacı ve Sorumluluk Reddi</span>
             </h2>
             <p>
-              Bu web sitesinde (rotayd.com) yer alan tüm blog yazıları, mevzuat özetleri, teşvik hesaplama modelleri ve rehber içerikler genel bilgilendirme amacıyla hazırlanmıştır. Sitede yer alan hiçbir içerik, hukuki, mali veya vergisel anlamda tek başına bağlayıcı bir mütalaa veya resmî danışmanlık hizmeti teşkil etmez.
+              Bu web sitesindeki bilgiler yalnızca genel bilgilendirme amaçlıdır; hukuki, mali veya vergisel danışmanlık niteliği taşımaz. Bilgilerin güncelliği ve doğruluğu konusunda garanti verilmez. Bu bilgilere dayanılarak alınan kararlardan doğabilecek zararlara ilişkin, yürürlükteki mevzuatın izin verdiği ölçüde sorumluluk kabul edilmez.
             </p>
             <p className="text-xs text-white/70">
               Mevzuat hükümleri ve devlet teşvikleri şartları dinamik olarak değişebileceğinden, somut şirket işlemleriniz için mali müşavirimiz ile doğrudan sözleşmeli danışmanlık yürütmeniz tavsiye edilir.

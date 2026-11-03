@@ -120,25 +120,30 @@ export default function Footer() {
         </div>
 
         {/* Legal & Policy Navigation Strip */}
-        <div className="py-6 border-b border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-white/60">
-          <span className="font-semibold text-white/80 flex items-center space-x-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
-            <span>Yasal & Hukuki Bilgilendirmeler</span>
-          </span>
-          <div className="flex flex-wrap gap-4 sm:gap-6 text-xs">
-            <Link href="/kvkk" className="hover:text-[#d4af37] transition-colors">
-              KVKK Aydınlatma Metni
-            </Link>
-            <Link href="/cerez-politikasi" className="hover:text-[#d4af37] transition-colors">
-              Çerez Politikası
-            </Link>
-            <Link href="/gizlilik-politikasi" className="hover:text-[#d4af37] transition-colors">
-              Gizlilik ve Veri Güvenliği
-            </Link>
-            <Link href="/yasal-uyari" className="hover:text-[#d4af37] transition-colors">
-              Yasal Uyarı & Şartlar
-            </Link>
+        <div className="py-6 border-b border-white/10 space-y-3 text-xs text-white/60">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <span className="font-semibold text-white/80 flex items-center space-x-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
+              <span>Yasal & Hukuki Bilgilendirmeler</span>
+            </span>
+            <div className="flex flex-wrap gap-4 sm:gap-6 text-xs">
+              <Link href="/kvkk" className="hover:text-[#d4af37] transition-colors">
+                KVKK Aydınlatma Metni
+              </Link>
+              <Link href="/cerez-politikasi" className="hover:text-[#d4af37] transition-colors">
+                Çerez Politikası
+              </Link>
+              <Link href="/gizlilik-politikasi" className="hover:text-[#d4af37] transition-colors">
+                Gizlilik ve Veri Güvenliği
+              </Link>
+              <Link href="/yasal-uyari" className="hover:text-[#d4af37] transition-colors">
+                Yasal Uyarı & Şartlar
+              </Link>
+            </div>
           </div>
+          <p className="text-[11px] text-white/50 leading-relaxed">
+            Bu web sitesindeki bilgiler yalnızca genel bilgilendirme amaçlıdır; hukuki, mali veya vergisel danışmanlık niteliği taşımaz. Bilgilerin güncelliği ve doğruluğu konusunda garanti verilmez. Bu bilgilere dayanılarak alınan kararlardan doğabilecek zararlara ilişkin, yürürlükteki mevzuatın izin verdiği ölçüde sorumluluk kabul edilmez.
+          </p>
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 space-y-3 sm:space-y-0">
