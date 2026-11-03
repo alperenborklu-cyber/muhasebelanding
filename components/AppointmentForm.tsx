@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   Calendar,
   Clock,
@@ -42,6 +43,7 @@ export default function AppointmentForm() {
   const [notificationStatus, setNotificationStatus] = useState<string | null>(null);
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
+  const [kvkkAccepted, setKvkkAccepted] = useState(false);
 
   const timeSlots = ["10:00", "11:30", "14:00", "15:30", "16:30", "17:30"];
 
@@ -83,9 +85,9 @@ export default function AppointmentForm() {
       items: [
         "Genel Muhasebe & Defter Tutma",
         "Yönetim Muhasebesi & Finansal Raporlama",
-        "Mali Müşavirlik & Vergi Mevzuatı Denetimi",
+        "Mali Müşavirlik & Vergi Mevzuatı Danışmanlığı",
         "SGK & İstihdam Teşvikleri Analizi",
-        "Vergi Denetimi & İnceleme Danışmanlığı",
+        "Vergi İncelemeleri ve Mevzuat Danışmanlığı",
         "KDV İadesi ve Mahsup İşlemleri",
         "Şirket Kuruluşu & Nevi Değişikliği (LTD'den A.Ş.'ye)"
       ]
@@ -105,6 +107,10 @@ export default function AppointmentForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!kvkkAccepted) {
+      setErrorMessage("Lütfen KVKK Aydınlatma Metni'ni okuyup onaylayınız.");
+      return;
+    }
     if (bookedSlots.includes(timeSlot)) {
       setErrorMessage(`Seçilen ${timeSlot} saati doludur. Lütfen listeden boş bir saat dilimi seçiniz.`);
       return;
@@ -646,6 +652,24 @@ export default function AppointmentForm() {
                 </div>
               </div>
 
+              {/* KVKK Onay Kutusu */}
+              <div className="flex items-start space-x-2.5 pt-1 pb-2">
+                <input
+                  type="checkbox"
+                  id="appointment-kvkk"
+                  checked={kvkkAccepted}
+                  onChange={(e) => setKvkkAccepted(e.target.checked)}
+                  className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-[#d4af37] focus:ring-[#d4af37] cursor-pointer shrink-0"
+                  required
+                />
+                <label htmlFor="appointment-kvkk" className="text-xs text-white/70 leading-relaxed cursor-pointer select-none">
+                  <Link href="/kvkk" target="_blank" className="text-[#d4af37] underline hover:text-white">
+                    KVKK Aydınlatma Metni
+                  </Link>
+                  &apos;ni okudum ve anladım. Kişisel verilerimin randevu ve iletişim süreçlerinin yürütülmesi amacıyla işlenmesini onaylıyorum.
+                </label>
+              </div>
+
               {/* Hata Mesajı */}
               {errorMessage && (
                 <div className="p-3.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center font-medium">
@@ -657,7 +681,7 @@ export default function AppointmentForm() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  disabled={isSubmitting || bookedSlots.length >= timeSlots.length}
+                  disabled={isSubmitting || bookedSlots.length >= timeSlots.length || !kvkkAccepted}
                   className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#b89025] text-black font-extrabold text-sm uppercase tracking-wider hover:opacity-95 transition-all shadow-[0_0_30px_rgba(212,175,55,0.3)] flex items-center justify-center space-x-2 cursor-pointer group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (

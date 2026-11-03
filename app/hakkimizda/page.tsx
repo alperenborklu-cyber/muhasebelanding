@@ -39,13 +39,13 @@ export default function HakkimizdaPage() {
   const corePillars = [
     {
       icon: ShieldCheck,
-      title: "Titiz Denetim & Yasal Güven",
-      desc: "GİB, SGK ve ilgili bakanlıkların güncel mevzuatlarına entegre, denetim standartlarında güvenilir defter ve beyan yönetimi.",
+      title: "Mevzuata Uyum & Yasal Güven",
+      desc: "GİB, SGK ve ilgili mevzuatlara tam entegre, yüksek mesleki standartlarda güvenilir defter ve beyan yönetimi.",
     },
     {
       icon: TrendingUp,
       title: "Proaktif Teşvik & Hibe Yönetimi",
-      desc: "İşletmenizin hak kazandığı SGK prim indirimlerini, yatırım teşviklerini ve devlet hibelerini gecikmeksizin nakit avantaja dönüştürürüz.",
+      desc: "İşletmenizin koşullarına uygun SGK prim teşviklerini, yatırım teşviklerini ve hibe programlarını güncel mevzuat çerçevesinde değerlendiririz.",
     },
     {
       icon: Scale,
@@ -63,7 +63,7 @@ export default function HakkimizdaPage() {
     { name: "TÜRMOB", desc: "Türkiye Serbest Muhasebeci Mali Müşavirler ve YMM Odaları Birliği" },
     { name: "ASMMMO", desc: "Ankara Serbest Muhasebeci Mali Müşavirler Odası" },
     { name: "PROYAD", desc: "Proje ve Yatırım Destekleri Danışmanları Derneği" },
-    { name: "T.C. Sanayi ve Teknoloji Bakanlığı", desc: "Yatırım Teşvik ve Ar-Ge Uygulama Rehberliği" },
+    { name: "3568 Sayılı Kanun", desc: "Yasal Yetki ve Mesleki Güvence Çerçevesi" },
   ];
 
   return (
@@ -87,7 +87,7 @@ export default function HakkimizdaPage() {
 
           <p className="mt-6 text-sm sm:text-base text-white/70 max-w-3xl leading-relaxed">
             ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı, Türkiye&apos;nin rekabetçi iş dünyasında işletmelerin
-            yasal defter, vergi ve mali denetim süreçlerini yüksek mesleki titizlik ve kalite standartlarıyla yönetirken; devlet teşvikleri,
+            yasal defter, vergi mevzuatı ve mali süreçlerini yüksek mesleki titizlik ve kalite standartlarıyla yönetirken; devlet teşvikleri,
             hibeler ve yönetim muhasebesiyle sürdürülebilir kurumsal kârlılığı inşa etmektedir.
           </p>
         </div>
@@ -183,7 +183,7 @@ export default function HakkimizdaPage() {
                       Mali Müşavirlik &amp; Finansal Yönetim
                     </span>
                     <h4 className="text-xl sm:text-2xl font-light text-white mt-1">
-                      Stratejik Mali Müşavirlik, Vergi Mevzuatı ve Finansal Denetim
+                      Stratejik Mali Müşavirlik, Vergi Mevzuatı ve Finansal Raporlama
                     </h4>
                   </div>
 
@@ -220,7 +220,7 @@ export default function HakkimizdaPage() {
                       ✓ E-Fatura, E-Arşiv &amp; E-Defter
                     </span>
                     <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
-                      ✓ Vergi Denetimi &amp; Mevzuat Danışmanlığı
+                      ✓ Vergi Mevzuatı &amp; Uyum Danışmanlığı
                     </span>
                     <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
                       ✓ Finansal Tablolar &amp; Bilanço Analizi
@@ -312,7 +312,7 @@ export default function HakkimizdaPage() {
                     <p>
                       Klasik defter tutma ve beyan hizmetlerinin ötesine geçen bir yaklaşımla; işletmelerin vergi
                       yüklerini yasal sınırlar dahilinde optimize eden, nakit akışını güçlendiren ve kurumların devlet
-                      tarafından sağlanan tüm finansal hibelerden en üst düzeyde yararlanmasını sağlayan bütünleşik bir
+                      tarafından sağlanan uygun hibe ve teşviklerden mevzuat çerçevesinde yararlanmasını sağlayan bütünleşik bir
                       danışmanlık modeli tesis etmiştir.
                     </p>
                     <p>
@@ -320,15 +320,15 @@ export default function HakkimizdaPage() {
                       <strong className="text-white font-semibold">TÜRMOB</strong> ve{" "}
                       <strong className="text-white font-semibold">PROYAD (Proje ve Yatırım Destekleri Danışmanları Derneği)</strong>{" "}
                       üyesi olan İlhan; Sanayi ve Teknoloji Bakanlığı Yatırım Teşvik Belgesi süreçleri, KOSGEB hibe
-                      programları, SGK istihdam destekleri, Ar-Ge ve Tasarım Merkezi vergi muafiyetleri konularında
-                      Türkiye genelinde uzmanlaşmış bir otorite olarak projeler yönetmektedir.
+                      programları, SGK istihdam destekleri, Ar-Ge ve Tasarım Merkezi teşvik mekanizmaları konularında
+                      Türkiye genelinde zengin mesleki tecrübesiyle projeler yönetmektedir.
                     </p>
                   </div>
 
                   {/* Founder Quote */}
                   <div className="p-4 sm:p-5 rounded-2xl bg-white/5 border-l-4 border-[#d4af37] border-y border-r border-white/10 italic text-xs sm:text-sm text-white/90">
                     &ldquo;Muhasebe yalnızca dünün verilerini deftere işlemek değil; geleceğin doğru kararlarını bugünden
-                    şekillendirmektir. ROTAYD&apos;da biz, şirketlerimizin hem mali kalkanı hem de büyüme pusulasıyız.&rdquo;
+                    şekillendirmektir. ROTAYD&apos;da biz, şirketlerimizin hem mali rehberi hem de büyüme pusulasıyız.&rdquo;
                     <span className="block mt-2 not-italic font-bold text-[#faecc0] text-xs">
                       — Süleyman İlhan
                     </span>
@@ -340,7 +340,7 @@ export default function HakkimizdaPage() {
                       ✓ SMMM &amp; Vergi Mevzuatı
                     </span>
                     <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
-                      ✓ Yatırım Teşvik Belgesi Uzmanı
+                      ✓ Yatırım Teşvik Belgesi Süreçleri
                     </span>
                     <span className="px-3 py-1 rounded-lg bg-[#0b1b3d] border border-[#d4af37]/30 text-[11px] font-medium text-[#faecc0]">
                       ✓ SGK İstihdam Teşvikleri
@@ -390,9 +390,9 @@ export default function HakkimizdaPage() {
                 Stratejik <span className="gold-gradient-text font-serif italic">Vizyonumuz</span>
               </h3>
               <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
-                Mali müşavirlik disiplini ile yönetim danışmanlığı vizyonunu tek bir çatı altında mükemmel bir kurumsal
-                harmoniyle buluşturan; Ankara merkezli olarak tüm Türkiye&apos;de güvenilirlik ve yüksek katma değerin simgesi
-                olan lider danışmanlık markası konumunu sürdürmek.
+                Mali müşavirlik disiplini ile yönetim danışmanlığı vizyonunu tek bir çatı altında kurumsal
+                bütünlükle buluşturan; Ankara merkezli olarak tüm Türkiye&apos;de güvenilirlik ve yüksek kurumsal kalitenin simgesi
+                olan saygın danışmanlık anlayışını sürdürmek.
               </p>
             </div>
           </div>
@@ -410,7 +410,7 @@ export default function HakkimizdaPage() {
               Bizi Farklı Kılan <span className="gold-gradient-text font-serif italic">Değerlerimiz</span>
             </h2>
             <p className="text-xs sm:text-sm text-white/60">
-              Her adımda güven, şeffaflık ve somut finansal getiri odaklı çalışma prensiplerimiz.
+              Her adımda güven, şeffaflık ve mevzuata tam uyum odaklı çalışma prensiplerimiz.
             </p>
           </div>
 
@@ -480,7 +480,7 @@ export default function HakkimizdaPage() {
                 <span className="gold-gradient-text font-serif italic">Rotayı Birlikte Çizelim.</span>
               </h3>
               <p className="text-xs sm:text-sm text-white/70 max-w-xl mx-auto">
-                Canan İlhan, Süleyman İlhan ve ROTAYD uzman ekibiyle tanışarak işletmenizin mali denetim, vergi ve kurumsal yönetim check-up&apos;ını
+                Canan İlhan, Süleyman İlhan ve ROTAYD ekibiyle tanışarak işletmenizin mali süreç, vergi mevzuatı ve kurumsal yönetim değerlendirmesini
                 hemen başlatabilirsiniz.
               </p>
             </div>

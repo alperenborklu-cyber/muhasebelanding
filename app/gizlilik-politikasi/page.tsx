@@ -37,7 +37,7 @@ export default function GizlilikPolitikasiPage() {
               <span>1. Gizlilik İlkemiz</span>
             </h2>
             <p>
-              ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı olarak, müvekkillerimizin ve web sitemizi ziyaret eden tüm kullanıcılarımızın ticari, kurumsal ve şahsi verilerinin gizliliğine azami hassasiyet gösteriyoruz. Meslek sırrının korunması ve güvenliğin sağlanması kurumsal kültürümüzün temel taşıdır.
+              ROTAYD Mali Müşavirlik ve Yönetim Danışmanlığı olarak, mükelleflerimizin, danışanlarımızın ve web sitemizi ziyaret eden tüm kullanıcılarımızın ticari, kurumsal ve şahsi verilerinin gizliliğine azami hassasiyet gösteriyoruz. Meslek sırrının korunması ve güvenliğin sağlanması kurumsal kültürümüzün temel taşıdır.
             </p>
           </section>
 

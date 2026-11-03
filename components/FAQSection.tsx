@@ -45,8 +45,8 @@ const FAQ_ITEMS: FAQItem[] = [
     category: "Mali Müşavirlik",
     tag: "SGK Teşvikleri",
     question: "SGK İstihdam ve prim teşviklerinden geçmişe dönük (geriye dönük) yararlanabilir miyiz?",
-    answer: "Evet. Geliştirdiğimiz algoritmik mevzuat analiz altyapısıyla firmanızın geçmiş SGK bildirge ve prim dökümleri taranır. 7103, 6111, genç, kadın ve ilave istihdam teşviklerinden kaçırılan haklar tek tek tespit edilir. SGK nezdinde gerekli resmi yazışmalar ve mahsup işlemleri mevzuat çerçevesinde yapılarak işletmenize net nakit ve prim avantajı kazandırılması hedeflenir.",
-    highlights: ["Geriye dönük SGK prim analizi", "Yasal hak ediş tespiti", "SGK mahsup ve prim iadesi"]
+    answer: "Evet. Mevzuat analiz altyapısıyla firmanızın geçmiş SGK bildirge ve prim dökümleri taranır. 5510 sayılı Kanun 5 puanlık prim indirimi, 6111 sayılı genç ve kadın istihdamı teşviki ile yürürlükteki diğer istihdam teşvikleri kapsamında işletmenizin koşullarına uygun haklar tespit edilir. SGK nezdinde gerekli yasal bildirim ve mahsup süreçleri mevzuat çerçevesinde yürütülür.",
+    highlights: ["SGK prim ve istihdam analizi", "Yasal teşvik hak edişi", "SGK mahsup ve bildirge süreçleri"]
   },
   {
     id: "faq-4",
@@ -68,16 +68,16 @@ const FAQ_ITEMS: FAQItem[] = [
     id: "faq-6",
     category: "Süreç & Gizlilik",
     tag: "İlk Randevu",
-    question: "ROTAYD ile ilk keşif ve tanışma toplantısı ücretli midir, süreç nasıl işler?",
-    answer: "Hayır, ilk keşif ve strateji toplantımız tamamen ücretsizdir. Hemen aşağıdaki online randevu formundan veya doğrudan iletişim hatlarımızdan (Mali Müşavirlik: 0542 622 11 32 / Danışmanlık: 0553 622 11 22) Zoom/Meet üzerinden online ya da ofisimizde yüz yüze görüşme oluşturabilirsiniz. Bu görüşmede firmanızın mevcut mali durumu dinlenir ve yararlanılabilecek teşvik haritası çıkartılır.",
-    highlights: ["Tamamen ücretsiz ilk görüşme", "Online veya yüz yüze seçenek", "Ön analiz ve teşvik yol haritası"]
+    question: "ROTAYD ile ilk keşif ve tanışma toplantısı nasıl işler?",
+    answer: "İlk tanışma ve ihtiyaç belirleme toplantımız, çalışma şartlarımızın ve hizmet kapsamının belirlenmesi amacıyla gerçekleştirilmektedir. Hemen aşağıdaki online randevu formundan veya doğrudan iletişim hatlarımızdan (Mali Müşavirlik: 0542 622 11 32 / Danışmanlık: 0553 622 11 22) Zoom/Meet üzerinden online ya da ofisimizde yüz yüze görüşme oluşturabilirsiniz. Bu görüşmede firmanızın kurumsal ihtiyaçları değerlendirilerek yol haritası sunulur.",
+    highlights: ["Ön değerlendirme toplantısı", "Online veya yüz yüze seçenek", "İhtiyaç analizi ve yol haritası"]
   },
   {
     id: "faq-7",
     category: "Süreç & Gizlilik",
     tag: "Veri Güvenliği",
     question: "Şirketimizin finansal ve ticari verilerinin gizliliği nasıl korunuyor?",
-    answer: "Tüm kurumsal iş ortaklarımızla sürecin en başında iki taraflı cezai şart içeren Gizlilik ve Sır Saklama Sözleşmesi (NDA) akdedilir. Verileriniz KVKK standartlarına uygun yüksek güvenlikli sunucularda saklanır; yalnızca dosyanızla ilgilenen yeminli müşavir ve denetmenlerin erişimine açılır. Üçüncü taraflarla asla paylaşılmaz.",
+    answer: "Tüm kurumsal iş ortaklarımızla sürecin en başında iki taraflı cezai şart içeren Gizlilik ve Sır Saklama Sözleşmesi (NDA) akdedilir. Verileriniz KVKK standartlarına uygun yüksek güvenlikli sunucularda saklanır; yalnızca dosyanızla ilgilenen yetkili mali müşavir ve danışmanlarımızın erişimine açılır. Üçüncü taraflarla asla paylaşılmaz.",
     highlights: ["Resmi Gizlilik Sözleşmesi (NDA)", "KVKK uyumu & veri güvenliği", "Banka seviyesinde şifreli veri saklama"]
   },
   {
@@ -85,8 +85,8 @@ const FAQ_ITEMS: FAQItem[] = [
     category: "Yönetim Danışmanlığı",
     tag: "Ücretlendirme Modeli",
     question: "Danışmanlık ve teşvik projelerinde ücretlendirme modeliniz nasıldır?",
-    answer: "Şeffaf ve müşteri odaklı modeller uyguluyoruz. Özellikle devlet teşvikleri, hibe dosyaları ve SGK prim optimizasyonlarında 'Kazan-Kazan' (Başarı Primi / Success-Fee) prensibiyle çalışıyoruz. Şirketiniz hibe onayını alıp veya net mali tasarruf sağladığında faturalandırma gerçekleştirilir.",
-    highlights: ["Performans & başarı odaklı model", "Şeffaf hakediş prensibi", "Net ve şeffaf maliyet yapısı"]
+    answer: "Proje ve danışmanlık süreçlerinde hizmet türüne göre şeffaf ve sözleşmeye dayalı ücretlendirme modelleri uygulanır. Devlet teşvikleri ve hibe süreçlerinde dosya hazırlığı, başvuru takibi ve onay aşamalarını kapsayan aşamalı danışmanlık sözleşmeleri ile süreç baştan sona şeffaf ve mevzuata uygun şekilde yönetilir.",
+    highlights: ["Şeffaf sözleşme yapısı", "Aşamalı hakediş takvimi", "Öngörülebilir danışmanlık bütçesi"]
   }
 ];
 

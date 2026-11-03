@@ -34,7 +34,7 @@ const statsData: StatItem[] = [
     description: "100'den fazla resmi başvuru ve tamamlanan teşvik süreci",
     icon: FileCheck2,
     isKeyHighlight: true,
-    highlightTag: "Stratejik Başarı",
+    highlightTag: "Stratejik Çözüm",
     category: "Yatırım & Teşvik",
   },
   {
@@ -83,7 +83,7 @@ const statsData: StatItem[] = [
     targetNumber: 150,
     suffix: "+",
     title: "Aylık SGK Teşvik Takibi",
-    description: "150'den fazla firmaya aylık düzenli prim ve istihdam kazancı",
+    description: "150'den fazla firmaya aylık düzenli teşvik ve istihdam süreç takibi",
     icon: Users,
     isKeyHighlight: true,
     highlightTag: "Çözüm Ortaklığı",
@@ -323,7 +323,7 @@ export default function RotaydStats() {
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-white/75 font-light leading-relaxed">
-            Deneyimimiz rakamlara, çalışmalarımız başarıya dönüşüyor.
+            Deneyimimizle mali ve kurumsal süreçlerinizi destekliyoruz.
           </p>
 
           <p className="mt-2 text-xs sm:text-sm text-white/50 max-w-2xl mx-auto">

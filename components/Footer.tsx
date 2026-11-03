@@ -44,7 +44,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/malimusavirlik" className="text-white/60 hover:text-[#d4af37] transition-colors">
-                  Vergi Denetimi & Uzlaşma
+                  Vergi İncelemeleri & Uzlaşma Danışmanlığı
                 </Link>
               </li>
             </ul>

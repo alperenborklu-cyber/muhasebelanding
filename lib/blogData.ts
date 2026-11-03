@@ -28,7 +28,7 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["SGK Teşvikleri", "İstihdam", "Mevzuat Uyumu", "6111 Teşviki"],
     content: [
       "Türkiye'de faaliyet gösteren işletmelerin en önemli gider kalemlerinden biri istihdam maliyetleridir. Sosyal Güvenlik Kurumu (SGK) ve İŞKUR tarafından yürütülen teşvik programları, doğru analiz edildiğinde şirket bütçelerinde mevzuata uygun maliyet avantajları sağlayabilir.",
-      "6111 Sayılı Genç ve Kadın İstihdamı Teşviki, 7103 Sayılı İmalat ve Bilişim Teşviki ve engelli istihdamı indirimleri başta olmak üzere, ortalama sigortalı sayısına göre hesaplanan haklar titizlikle analiz edilmelidir.",
+      "5510 Sayılı Kanun 5 puanlık prim indirimi, 6111 Sayılı Genç ve Kadın İstihdamı Teşviki ve engelli istihdamı indirimleri başta olmak üzere, ortalama sigortalı sayısına göre hesaplanan haklar titizlikle analiz edilmelidir.",
       "ROTAYD olarak işletmenizin ve çalışanlarınızın koşullarına uygun güncel SGK prim teşviklerini belirliyor, mevzuat süreçlerinizi profesyonelce yönetiyoruz."
     ]
   },
@@ -173,7 +173,7 @@ export const BLOG_POSTS: BlogPost[] = [
     content: [
       "Enflasyon düzeltmesi, yüksek enflasyon dönemlerinde mali tabloların gerçek durumu yansıtması amacıyla uygulanan muhasebe metodolojisidir.",
       "Duran varlıklar ve özkaynak kalemlerinin düzeltme katsayılarıyla güncellenmesi stratejik bilanço yönetimi gerektirir.",
-      "ROTAYD, firmanızın bilanço simülasyonunu önceden çıkartarak sürpriz vergi tahakkuklarının önüne geçer."
+      "ROTAYD, firmanızın bilanço simülasyonunu önceden çıkartarak sürpriz vergi tahakkuklarının önlenmesine ve mevzuata tam uyum sağlanmasına destek olur."
     ]
   },
   {
@@ -191,7 +191,7 @@ export const BLOG_POSTS: BlogPost[] = [
     content: [
       "2026 yılı itibarıyla dijital vergi denetimleri algoritmik çapraz kontrollerle çok daha kapsamlı yürütülmektedir. E-Defter beratlarının yasal sürelerinde sisteme yüklenmemesi yüksek özel usulsüzlük cezalarına neden olabilmektedir.",
       "Zaman damgası doğrulamaları, ikincil kopyaların GİB sistemine aktarımı ve e-Arşiv faturaların doğru dipnotlarla düzenlenmesi şirketlerin vergi güvenliği için hayati önem taşır.",
-      "ROTAYD Mali Müşavirlik, müşterilerinin e-dönüşüm entegrasyonu ve yasal berat onaylarını kurumsal disiplinle takip ederek tam koruma sağlar."
+      "ROTAYD Mali Müşavirlik, müşterilerinin e-dönüşüm entegrasyonu ve yasal berat onaylarını kurumsal disiplinle takip ederek mevzuata uyum sürecini destekler."
     ]
   }
 ];

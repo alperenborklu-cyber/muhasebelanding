@@ -13,7 +13,7 @@ interface PerformanceLeadModalProps {
 export default function PerformanceLeadModal({ targetSectionId = "performans-gostergeleri" }: PerformanceLeadModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [kvkkAccepted, setKvkkAccepted] = useState(true);
+  const [kvkkAccepted, setKvkkAccepted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -198,7 +198,7 @@ export default function PerformanceLeadModal({ targetSectionId = "performans-gos
                     disabled={submitting}
                     className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#b89025] text-black font-bold text-xs sm:text-sm hover:opacity-95 transition-all flex items-center justify-center space-x-2 shadow-lg shadow-[#d4af37]/20 disabled:opacity-50 cursor-pointer"
                   >
-                    <span>{submitting ? "Gönderiliyor..." : "Ücretsiz Raporu E-Postama Gönder"}</span>
+                    <span>{submitting ? "Gönderiliyor..." : "Raporu E-Postama Gönder"}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </form>

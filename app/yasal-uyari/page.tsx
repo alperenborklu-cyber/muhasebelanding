@@ -60,7 +60,7 @@ export default function YasalUyariPage() {
               <span>3. Mesleki Bağımsızlık ve Etik İlkeler</span>
             </h2>
             <p>
-              Ofisimiz, TÜRMOB ve ASMMMO meslek etiği kurallarına, sır saklama yükümlülüğüne ve bağımsız denetim standartlarına harfiyen bağlı olarak hizmet vermektedir.
+              Ofisimiz, 3568 sayılı Kanun, TÜRMOB ve ASMMMO mesleki mevzuatına, meslek etiği kurallarına ve sır saklama yükümlülüğüne tam bağlı olarak hizmet vermektedir.
             </p>
           </section>
         </div>

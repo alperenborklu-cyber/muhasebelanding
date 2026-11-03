@@ -106,7 +106,7 @@ export default function PortalPage() {
 
   // KVKK Modal State
   const [isKvkkOpen, setIsKvkkOpen] = useState(false);
-  const [kvkkAccepted, setKvkkAccepted] = useState(true);
+  const [kvkkAccepted, setKvkkAccepted] = useState(false);
 
   // Data States
   const [companies, setCompanies] = useState<TuzelKisi[]>([]);

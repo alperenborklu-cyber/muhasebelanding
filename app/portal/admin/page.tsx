@@ -715,7 +715,7 @@ export default function AdminPortalPage() {
               <span>ROTAYD MERKEZİ YÖNETİM PLATFORMU</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-light tracking-tight text-white">
-              Yönetici Paneli &amp; <span className="gold-gradient-text font-serif italic">CMS Denetimi</span>
+              Yönetici Paneli &amp; <span className="gold-gradient-text font-serif italic">CMS Yönetimi</span>
             </h1>
             <p className="text-xs text-slate-400">
               Referanslar, blog içerikleri, 2026 teşvik rehberleri ve mükellef evrak havuzu tek ekranda.

@@ -674,11 +674,11 @@ export default function ScrollCanvasDoor() {
             </h2>
 
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
-              Stratejik vergi planlaması, 360° mali analiz ve kârlılık takibi.
+              Vergi mevzuatı danışmanlığı, 360° mali analiz ve raporlama.
             </p>
 
             <div className="pt-1 flex items-center space-x-3 text-xs text-[#c59b27]">
-              <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">2.6M+ TL SGK Teşviki</span>
+              <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">SGK Teşvik Danışmanlığı</span>
               <span className="px-2.5 py-1 rounded-full bg-[#c59b27]/10 border border-[#c59b27]/20">Mevzuat Güveni</span>
             </div>
           </div>
@@ -758,12 +758,12 @@ export default function ScrollCanvasDoor() {
                     MALİ MÜŞAVİRLİK
                   </h3>
                   <p className="text-xs text-[#d4af37]/90 font-medium mt-1">
-                    Stratejik Yönetim Muhasebesi, Vergi &amp; Mali Denetim
+                    Stratejik Yönetim Muhasebesi, Vergi &amp; Finansal Raporlama
                   </p>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  {["Yönetim Muhasebesi", "SGK Teşvikleri", "Vergi Denetimi", "Mevzuat"].map((item) => (
+                  {["Yönetim Muhasebesi", "SGK Teşvikleri", "Vergi Mevzuatı", "Mevzuat"].map((item) => (
                     <span
                       key={item}
                       className="text-[11px] px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-white/80"

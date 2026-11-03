@@ -74,7 +74,7 @@ export default function KvkkPage() {
               Kişisel verileriniz, KVKK&apos;nın 5. ve 6. maddelerinde belirtilen kişisel veri işleme şartları dahilinde aşağıdaki amaçlarla işlenmektedir:
             </p>
             <ul className="list-disc pl-5 space-y-2 text-white/70 text-xs sm:text-sm">
-              <li>Mali müşavirlik, vergi denetimi, yönetim muhasebesi ve teşvik danışmanlığı hizmet taleplerinizin karşılanması ve sözleşme öncesi süreçlerin yürütülmesi,</li>
+              <li>Mali müşavirlik, vergi mevzuatı danışmanlığı, yönetim muhasebesi ve teşvik danışmanlığı hizmet taleplerinizin karşılanması ve sözleşme öncesi süreçlerin yürütülmesi,</li>
               <li>Stratejik randevu ve toplantı planlamalarının organize edilmesi,</li>
               <li>İşletmenize özel SGK prim teşviki, yatırım teşvik belgesi ve KOSGEB hibe uygunluk analizlerinin hazırlanması,</li>
               <li>Talep ettiğiniz bilgilendirme bültenleri, mali mevzuat duyuruları ve performans raporlarının e-posta adresinize iletilmesi,</li>

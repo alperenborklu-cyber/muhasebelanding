@@ -46,16 +46,16 @@ export default function MuhasebecilikPage() {
     {
       title: "Mali Müşavirlik & Vergi Mevzuatı",
       image: "/images/mali-musavirlik-vergi-mevzuati-denetim.webp",
-      desc: "Vergi mevzuatı çerçevesinde yasal yükümlülüklerin takibi, geçerli indirim ve istisnaların değerlendirilmesi, beyanname hazırlığı ve vergi denetimi rehberliği.",
+      desc: "Vergi mevzuatı çerçevesinde yasal yükümlülüklerin takibi, geçerli indirim ve istisnaların değerlendirilmesi, beyanname hazırlığı ve vergi incelemeleri danışmanlığı.",
       badge: "Mevzuat Danışmanlığı",
-      points: ["KDV & Kurumlar Vergisi", "E-Defter / E-Fatura", "Vergi İnceleme Danışmanlığı", "Muafiyet Analizi"]
+      points: ["KDV & Kurumlar Vergisi", "E-Defter / E-Fatura", "Vergi İnceleme Danışmanlığı", "Mevzuat Analizi"]
     },
     {
-      title: "Vergi Denetimi, İnceleme & Uzlaşma",
+      title: "Vergi İncelemeleri ve Uzlaşma Danışmanlığı",
       image: "/images/mali-musavirlik-finansal-tablolar-denetim-destegi.webp",
-      desc: "Vergi Denetim Kurulu ve Gelir İdaresi incelemelerinde defter ve e-kayıtların mevzuata uygun sunumu, izahat hazırlığı ve tarhiyat öncesi/sonrası uzlaşma danışmanlığı.",
+      desc: "Vergi Denetim Kurulu ve Gelir İdaresi incelemelerinde defter ve e-kayıtların mevzuata uygun sunumu, izahat hazırlığı ve tarhiyat öncesi/sonrası uzlaşma süreçlerinde mesleki danışmanlık.",
       badge: "Vergi Güvenliği",
-      points: ["Vergi Denetimi Hazırlığı", "İzahat Dosyaları", "Uzlaşma Komisyonu Temsili", "Mevzuat Risk Analizi"]
+      points: ["Vergi İncelemesine Hazırlık", "İzahat Dosyaları", "Uzlaşma Süreç Danışmanlığı", "Mevzuat Uyum Analizi"]
     },
     {
       title: "Limited Şirketten Anonim Şirkete Dönüşüm ve Pay Devri",
@@ -175,7 +175,7 @@ export default function MuhasebecilikPage() {
     },
     {
       q: "Olası bir Vergi İncelemesi sürecinde nasıl bir yol izleniyor?",
-      a: "Vergi Denetim Kurulu veya Gelir İdaresi müfettişlerince talep edilen yasal defter, e-belge ve kayıtların mevzuata uygun sunumu, izahat toplantıları ve uzlaşma komisyonlarında şirketinizi resmî vekil olarak temsil ediyoruz."
+      a: "Vergi Denetim Kurulu veya Gelir İdaresi Başkanlığı incelemelerinde talep edilen yasal defter, e-belge ve kayıtların mevzuata uygun sunumu, izahat dosyalarının hazırlanması ve uzlaşma görüşmelerinde mevzuat çerçevesinde mesleki danışmanlık desteği sağlıyoruz."
     }
   ];
 
@@ -187,7 +187,7 @@ export default function MuhasebecilikPage() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero-muhasebecilik.webp"
-            alt="ROTAYD Mali Müşavirlik, Vergi Denetimi ve Muhasebecilik Hizmetleri Ankara Çankaya"
+            alt="ROTAYD Mali Müşavirlik, Vergi Mevzuatı ve Muhasebe Hizmetleri Ankara Çankaya"
             fill
             priority
             className="object-cover object-center scale-105 transition-transform duration-1000"
@@ -489,7 +489,7 @@ export default function MuhasebecilikPage() {
               Mali Müşavirlik <span className="gold-gradient-text font-serif italic">Uzman Makaleleri</span>
             </h2>
             <p className="text-xs sm:text-sm text-white/60 max-w-2xl">
-              Şirketinizin finansal mimarisi, vergi tasarrufu ve mevzuat değişiklikleri hakkında en güncel uzman rehberleri.
+              Şirketinizin finansal mimarisi, vergi mevzuatı uyumu ve yasal değişiklikler hakkında en güncel uzman rehberleri.
             </p>
           </div>
         </div>

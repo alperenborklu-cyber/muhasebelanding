@@ -162,14 +162,14 @@ export default function BlogPostDetail({ params }: { params: { slug: string } })
             Bu Konuda Şirketinize Özel <span className="gold-gradient-text">Danışmanlık Almak İster misiniz?</span>
           </h3>
           <p className="text-xs sm:text-sm text-white/60 max-w-xl mx-auto">
-            ROTAYD uzmanları firmanızın mevcut durumunu ücretsiz analiz ederek en uygun yol haritasını çıkartır.
+            ROTAYD danışmanları firmanızın mevcut durumunu mevzuat çerçevesinde değerlendirerek en uygun yol haritasını belirler.
           </p>
           <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
             <Link
               href={post.category === "Mali Müşavirlik" || post.category === "Vergi Mevzuatı" || post.category === "Yönetim Muhasebesi" ? "/malimusavirlik" : "/danismanlik"}
               className="px-6 py-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#b89025] text-black font-semibold text-xs hover:opacity-90 transition-all"
             >
-              Ücretsiz Ön Değerlendirme İsteyin
+              Ön Değerlendirme Randevusu Alın
             </Link>
             <a
               href={post.category === "Mali Müşavirlik" || post.category === "Vergi Mevzuatı" || post.category === "Yönetim Muhasebesi" ? "tel:05426221132" : "tel:05536221122"}
