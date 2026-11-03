@@ -36,8 +36,8 @@ export const BLOG_POSTS: BlogPost[] = [
     id: "2",
     slug: "yatirim-tesvik-belgesi-ile-kdv-ve-gumruk-muafiyeti",
     instagramCode: "IG-02",
-    title: "Yatırım Teşvik Belgesi ile Sıfır KDV ve Gümrük Muafiyeti Rehberi",
-    excerpt: "Makine ve teçhizat alımlarında %20 KDV istisnası, gümrük vergisi muafiyeti ve %90'a varan kurumlar vergisi indirimi kazanma stratejisi.",
+    title: "Yatırım Teşvik Belgesi ile KDV ve Gümrük Vergisi Teşvikleri Rehberi",
+    excerpt: "Makine ve teçhizat alımlarında KDV istisnası, gümrük vergisi muafiyeti ve vergi indiriminden yararlanma süreçleri.",
     category: "Devlet Teşvikleri",
     date: "28 Ocak 2026",
     readTime: "5 dk okuma",
@@ -45,9 +45,9 @@ export const BLOG_POSTS: BlogPost[] = [
     author: "ROTAYD Yatırım Masası",
     tags: ["Yatırım Teşvik", "KDV İstisnası", "Gümrük Muafiyeti", "Vergi İndirimi"],
     content: [
-      "Yeni bir fabrika kurmak, mevcut kapasiteyi artırmak veya teknolojik yenileme yapmak isteyen işletmeler için Sanayi ve Teknoloji Bakanlığı Yatırım Teşvik Belgesi hayati önem taşır.",
-      "Yatırım Teşvik Belgesi alan işletmeler; ithal edilecek makinelerde gümrük vergisi ödemez, yurt içinden veya yurt dışından temin edilen makinelerde KDV ödemez ve yatırıma katkı oranı nispetinde kurumlar vergisini neredeyse sıfırlayabilir.",
-      "ROTAYD uzmanları, yatırımınızın lokasyonuna ve sektör koduna göre en avantajlı teşvik bölgesini belirler, dosyanızı hazırlar ve belge tamamlama vizesine kadar tüm süreci uçtan uca yönetir."
+      "Yeni bir fabrika kurmak, mevcut kapasiteyi artırmak veya teknolojik yenileme yapmak isteyen işletmeler için Sanayi ve Teknoloji Bakanlığı Yatırım Teşvik Belgesi kritik avantajlar sunar.",
+      "Yatırım Teşvik Belgesi alan işletmeler; mevzuat şartlarını sağlamak kaydıyla ithal edilecek makinelerde gümrük vergisi muafiyeti, yurt içi ve yurt dışı alımlarda KDV istisnası ve yatırıma katkı oranı nispetinde vergi indiriminden yararlanabilir.",
+      "ROTAYD uzmanları, yatırımınızın lokasyonuna ve sektör koduna göre uygun teşvik unsurlarını belirler, dosyanızı hazırlar ve tamamlama vizesine kadar tüm süreci profesyonelce yönetir."
     ]
   },
   {
@@ -73,17 +73,17 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "kosgeb-kobigel-ve-kapasite-gelistirme-destekleri-2026",
     instagramCode: "IG-04",
     title: "2026 KOSGEB KOBİGEL ve Kapasite Geliştirme Destekleri Başvuru Kriterleri",
-    excerpt: "KOBİ'lerin dijitalleşme, modern otomasyon ve makine-teçhizat yatırımlarında sunulan geri ödemesiz devlet hibeleri ve uygun finansman olanakları.",
+    excerpt: "KOBİ'lerin dijitalleşme, modern otomasyon ve makine-teçhizat yatırımlarında sunulan KOSGEB destekleri ve uygun finansman olanakları.",
     category: "KOSGEB",
     date: "11 Şubat 2026",
     readTime: "4 dk okuma",
     image: "/images/kosgeb-destek-programlari-yonetim-danismanligi-basvuru.webp",
     author: "ROTAYD Hibe & Proje Departmanı",
-    tags: ["KOSGEB", "KOBİGEL", "Kapasite Geliştirme", "Geri Ödemesiz Hibe"],
+    tags: ["KOSGEB", "KOBİGEL", "Kapasite Geliştirme", "Destek Programları"],
     content: [
       "KOSGEB KOBİGEL programı, imalatçı ve bilişim sektöründeki işletmelerin kurumsal kapasitelerini, rekabet güçlerini ve verimliliklerini artırmak için kritik finansal kaynaklar sağlamaktadır.",
-      "Program kapsamında dijital dönüşüm, otomasyon sistemleri ve yerli makine-teçhizat alımları %70 ila %85 oranında desteklenmektedir.",
-      "Proje dosyasının eksiksiz kurgulanması, puanlama kriterlerine uyum ve bürokratik onay süreçleri ROTAYD danışmanları tarafından uçtan uca yönetilmektedir."
+      "Program kapsamında dijital dönüşüm, otomasyon sistemleri ve yerli makine-teçhizat alımları yürürlükteki çağrı mevzuatında belirlenen oranlarda desteklenebilmektedir.",
+      "Proje dosyasının eksiksiz kurgulanması, puanlama kriterlerine uyum ve bürokratik onay süreçleri ROTAYD danışmanları tarafından profesyonelce yönetilmektedir."
     ]
   },
   {
@@ -126,17 +126,17 @@ export const BLOG_POSTS: BlogPost[] = [
     id: "7",
     slug: "ticaret-bakanligi-ihracat-destekleri-fuar-ve-kira-hibeleri",
     instagramCode: "IG-07",
-    title: "Ticaret Bakanlığı İhracat Destekleri: Fuar ve Ofis Kira Hibeleri",
-    excerpt: "Yurt dışı pazar araştırması, küresel fuar katılımları ve mağaza kira harcamalarınızın %50 ila %70'ini devlet hibesiyle geri alın.",
+    title: "Ticaret Bakanlığı İhracat Destekleri: Fuar ve Birim Kira Destekleri",
+    excerpt: "Yurt dışı pazar araştırması, yetkili fuar katılımları ve yurt dışı birim kira harcamalarına yönelik güncel destek programları rehberi.",
     category: "Devlet Teşvikleri",
     date: "01 Mart 2026",
     readTime: "4 dk okuma",
     image: "/images/ticaret-bakanligi-ihracat-destekleri-yonetim-danismanligi.webp",
     author: "ROTAYD İhracat Masası",
-    tags: ["İhracat Teşvikleri", "Ticaret Bakanlığı", "Fuar Desteği", "Kira Hibesi"],
+    tags: ["İhracat Teşvikleri", "Ticaret Bakanlığı", "Fuar Desteği", "Birim Kira Desteği"],
     content: [
       "Türkiye'den dünyaya açılan şirketlerin küresel rekabet gücünü artırmak amacıyla Ticaret Bakanlığı çok geniş kapsamlı destek paketleri sunmaktadır.",
-      "Yurt dışı yetkili fuar harcamaları, hedef ülkelerde açılan ofis ve depo kiraları, marka tescil masrafları hibe kapsamındadır.",
+      "Yurt dışı yetkili fuar harcamaları, hedef ülkelerde açılan ofis ve depo kiraları, marka tescil masrafları mevzuatta belirlenen oran ve şartlar dahilinde destek kapsamındadır.",
       "Desteklerin onaylanabilmesi için başvuru süreleri ve fatura akışları titizlikle koordine edilmelidir."
     ]
   },
@@ -144,8 +144,8 @@ export const BLOG_POSTS: BlogPost[] = [
     id: "8",
     slug: "ar-ge-ve-tasarim-merkezi-kurulumu-vergi-muafiyetleri",
     instagramCode: "IG-08",
-    title: "Ar-Ge ve Tasarım Merkezi Kurmanın Sağladığı Vergi Muafiyetleri",
-    excerpt: "Personel stopaj teşviki, %50 SGK işveren prim desteği, Ar-Ge indirimi ve gümrük vergisi istisnası ile kurumunuzu inovasyon üssüne dönüştürün.",
+    title: "Ar-Ge ve Tasarım Merkezi Kurmanın Sağladığı Teşvik ve Destekler",
+    excerpt: "5746 sayılı Kanun kapsamında personel stopaj teşvikleri, SGK işveren prim destekleri ve Ar-Ge indirimi mekanizmaları rehberi.",
     category: "Devlet Teşvikleri",
     date: "10 Mart 2026",
     readTime: "6 dk okuma",
@@ -153,9 +153,9 @@ export const BLOG_POSTS: BlogPost[] = [
     author: "ROTAYD Teknoloji Masası",
     tags: ["Ar-Ge Merkezi", "Tasarım Merkezi", "Stopaj Teşviki", "TÜBİTAK"],
     content: [
-      "5746 Sayılı Kanun kapsamında Ar-Ge veya Tasarım Merkezi belgesi alan şirketler muazzam vergisel ve finansal ayrıcalıklar kazanır.",
-      "Merkezde çalışan personellerin gelir vergisi stopajı terkin edilir, damga vergisinden muaf tutulur ve harcamalar kurumlar vergisinden indirilir.",
-      "ROTAYD; fizibilite, organizasyonel yapı ve bakanlık denetim sunumlarına kadar anahtar teslim merkez kurulumu gerçekleştirir."
+      "5746 Sayılı Kanun kapsamında Ar-Ge veya Tasarım Merkezi belgesi alan şirketler kanunda belirlenen teşvik ve destek unsurlarından faydalanabilir.",
+      "Merkezde çalışan personellerin ücretleri mevzuat şartları çerçevesinde gelir vergisi stopajı ve damga vergisi teşviklerine tabi olurken, Ar-Ge harcamaları da kurumlar vergisi indirimine konu edilebilir.",
+      "ROTAYD; fizibilite, organizasyonel yapı ve bakanlık başvuru süreçlerinde profesyonel danışmanlık hizmeti sunar."
     ]
   },
   {

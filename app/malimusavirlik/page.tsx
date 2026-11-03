@@ -111,7 +111,7 @@ export default function MuhasebecilikPage() {
       summary: "Limited şirketlerde 50.000 TL, Anonim şirketlerde 250.000 TL asgari sermaye şartı.",
       paragraphs: [
         "2026 güncel TTK mevzuatına göre Limited Şirket asgari sermayesi 50.000 TL, Anonim Şirket asgari sermayesi 250.000 TL'dir.",
-        "Kuruluş aşamasında bankaya bloke şartı bulunmamakta olup, sermayenin tescilden itibaren 24 ay içinde ödenmesi yeterlidir. MERSİS üzerinden ortalama 2 iş gününde anahtar teslim tescil tamamlanır."
+        "Kuruluş aşamasında bankaya bloke şartı bulunmamakta olup, sermayenin tescilden itibaren 24 ay içinde ödenmesi yeterlidir. MERSİS üzerinden ortalama 2 iş gününde şirket kuruluşu tescili tamamlanır."
       ],
       expertTip: "Doğru sermaye planlaması banka kredibilitesi ve ihale yeterliliklerinde doğrudan avantaj sağlar."
     },

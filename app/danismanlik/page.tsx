@@ -44,43 +44,43 @@ export default function DanismanlikPage() {
       title: "Kadın Girişimci Destekleri",
       badge: "Pozitif Ayrımcılık",
       icon: HeartHandshake,
-      desc: "KOSGEB Girişimcilik Destek Programı kapsamında kadın kuruculara sağlanan +%20 ek hibe puanı, faizsiz finansman ve kadın kooperatifleri hibe projeleri.",
-      points: ["+%20 Ek Hibe Puanı", "Faizsiz Kredi Desteği", "KOSGEB İleri Girişimci", "Kooperatif Hibeleri"]
+      desc: "KOSGEB ve ilgili kurumların kadın girişimcilere yönelik destek programları kapsamında sunulan avantajlar, finansman olanakları ve kadın kooperatiflerine yönelik destekler.",
+      points: ["KOSGEB Destek Programları", "Finansman Olanakları", "Girişimci Avantajları", "Kadın Kooperatifleri"]
     },
     {
-      title: "Genç Girişimci Teşvikleri",
+      title: "Genç Girişimci Destekleri",
       badge: "29 Yaş Altı Teşvikler",
       icon: Rocket,
-      desc: "29 yaşını doldurmamış girişimcilere 3 vergilendirme dönemi boyunca yıllık 400.000 TL Gelir Vergisi kazanç istisnası ve KOSGEB hibe başlangıç sermayesi.",
-      points: ["3 Yıl Gelir Vergisi İstisnası", "KOSGEB Kuruluş Hibesi", "400.000 TL Kazanç Muafiyeti", "Düşük Faizli Finansman"]
+      desc: "Mevzuatta belirtilen şartları sağlayan genç girişimcilere yönelik gelir vergisi kazanç istisnası ve KOSGEB girişimcilik destekleri.",
+      points: ["Gelir Vergisi Kazanç İstisnası", "KOSGEB Girişimcilik Desteği", "Mevzuat Koşulları", "Başvuru Danışmanlığı"]
     },
     {
-      title: "Fabrika Yatırımları & Teşvikleri",
+      title: "Fabrika Yatırımları ve Bölgesel Teşvikler",
       badge: "Sanayi & OSB",
       icon: Factory,
-      desc: "Sıfırdan fabrika ve üretim tesisi kurulumunda OSB arsa tahsisi, bina inşaat harcamalarında KDV muafiyeti ve bölgesel yatırım teşvik belgesi avantajları.",
-      points: ["OSB Bedelsiz Arsa Tahsisi", "İnşaat KDV İstisnası", "Bölgesel Vergi İndirimi", "Altyapı Destekleri"]
+      desc: "Yeni üretim tesisi yatırımlarında; yatırımın yeri, sektörü, kapasitesi ve güncel mevzuat kapsamında değerlendirilebilen OSB olanakları ile yatırım teşviklerinden yararlanma süreçlerine yönelik danışmanlık.",
+      points: ["OSB Yatırım Olanakları", "Yatırım Teşvik Belgesi", "Bölgesel Teşvik Unsurları", "Yatırım Yeri Analizi"]
     },
     {
-      title: "İmalat Sanayi Destekleri",
+      title: "İmalat Sanayi Yatırım Destekleri",
       badge: "Üretim Mimarisi",
       icon: Building2,
-      desc: "İmalat sektörüne yönelik CNC, tezgah ve üretim hatlarında sıfır gümrük vergisi, KDV istisnası, faiz/kâr payı desteği ve %90'a varan kurumlar vergisi indirimi.",
-      points: ["Makine KDV İstisnası", "Gümrük Vergisi Muafiyeti", "Faiz / Kâr Payı Desteği", "Yüksek Vergi İndirimi"]
+      desc: "CNC makineleri, üretim tezgâhları ve makine parkuru yatırımlarında; yatırım teşvik belgesi, makine ve teçhizat alımları ile yatırımın niteliğine göre değerlendirilebilen vergi ve finansman destekleri.",
+      points: ["Makine Teçhizat Alımları", "KDV & Gümrük İstisnası", "Finansman Olanakları", "Yatırım Teşvik Belgesi"]
     },
     {
       title: "İhracat Destekleri",
       badge: "Küresel Pazarlar",
       icon: Globe2,
-      desc: "Ticaret Bakanlığı onaylı yurt dışı ofis/mağaza/depo kiralarında %50-%70 nakit hibesi, uluslararası yetkili fuar katılımı ve küresel marka tescil geri ödemeleri.",
-      points: ["Yurt Dışı Kira Hibesi", "Yetkili Fuar Katılımı", "Pazara Giriş Belgeleri", "E-İhracat Konsorsiyumu"]
+      desc: "Ticaret Bakanlığı'nın yürürlükteki destek programları kapsamında uygun bulunan yurt dışı birim, fuar katılımı, pazara giriş belgeleri ve marka tescili giderlerine yönelik destek başvuru ve takip danışmanlığı.",
+      points: ["Yurt Dışı Birim Desteği", "Yetkili Fuar Katılımı", "Pazara Giriş Belgeleri", "Marka Tescil Desteği"]
     },
     {
-      title: "Ar-Ge & Teknokent Teşvikleri",
+      title: "Ar-Ge Merkezi ve Teknoloji Geliştirme Bölgesi Teşvikleri",
       badge: "Yüksek Teknoloji",
       icon: Cpu,
-      desc: "5746 Sayılı Kanun Ar-Ge Merkezi kurulumu ve Teknoloji Geliştirme Bölgeleri (TGB) kapsamında kapsamlı kurumlar vergisi muafiyeti ile personel gelir vergisi ve damga istisnası.",
-      points: ["Kurumlar Vergisi Muafiyeti", "Personel Stopaj Terkini", "%50 SGK İşveren Desteği", "TÜBİTAK TEYDEB Hibesi"]
+      desc: "5746 ve 4691 sayılı kanunlar kapsamında, gerekli şartları sağlayan işletmeler için uygulanabilen vergi, SGK ve personel teşvikleri ile Ar-Ge desteklerine yönelik danışmanlık.",
+      points: ["5746 & 4691 Sayılı Kanunlar", "Vergi ve SGK Teşvikleri", "Personel Destekleri", "TÜBİTAK Proje Destekleri"]
     }
   ];
 
@@ -89,23 +89,23 @@ export default function DanismanlikPage() {
     {
       title: "Yatırım Teşvik Belgesi",
       image: "/images/yonetim-danismanligi-yatirim-tesvik-belgesi.webp",
-      desc: "Sanayi ve Teknoloji Bakanlığı onaylı makine ve teçhizat alımlarında %20 KDV istisnası, gümrük vergisi muafiyeti ve %90'a varan kurumlar vergisi indirimi.",
+      desc: "Yatırım Teşvik Belgesi kapsamında uygun bulunan makine ve teçhizat alımlarında KDV istisnası, gümrük vergisi muafiyeti, vergi indirimi ve diğer teşvik unsurlarından yararlanma süreçlerinin yönetimi.",
       badge: "Sanayi Bakanlığı",
       points: ["KDV & Gümrük İstisnası", "Kurumlar Vergisi İndirimi", "Faiz / Kâr Payı Desteği", "SGK İşveren Primi Desteği"]
     },
     {
-      title: "KOSGEB Hibe & Destek Programları",
+      title: "KOSGEB Hibe ve Destek Programları",
       image: "/images/yonetim-danismanligi-kosgeb-destek-hibe-programlari.webp",
-      desc: "KOBİGEL dijitalleşme, Ar-Ge ve kapasite geliştirme projelerinde işletmelere geri ödemesiz devlet kaynağı ve anahtar teslim proje yazımı.",
+      desc: "KOSGEB'in yürürlükteki girişimcilik, kapasite geliştirme, dijitalleşme ve ilgili destek programları kapsamında işletmelerin uygunluk değerlendirmesi, proje hazırlığı ve başvuru süreçlerinin yürütülmesi.",
       badge: "KOBİ Hibeleri",
-      points: ["KOBİGEL Dijitalleşme", "Girişimci Desteği", "Geri Ödemesiz Kaynak", "Makine Teçhizat Desteği"]
+      points: ["Girişimcilik Destekleri", "Kapasite Geliştirme", "Dijitalleşme Projeleri", "Makine Teçhizat Desteği"]
     },
     {
       title: "Ticaret Bakanlığı İhracat Destekleri",
       image: "/images/yonetim-danismanligi-ticaret-bakanligi-ihracat-destekleri.webp",
-      desc: "Yurt dışı yetkili fuar harcamaları, hedef ülkelerde ofis/mağaza kira teşviki ve küresel marka tescilde %50 ila %70 oranında devlet nakit hibesi.",
+      desc: "Yurt dışı fuar katılımı, pazara giriş, marka tescili ve yurt dışı birim giderleri gibi uygun harcamalara yönelik güncel destek programlarının değerlendirilmesi ve başvuru danışmanlığı.",
       badge: "Küresel Pazarlar",
-      points: ["Fuar Katılım Hibesi", "Yurt Dışı Ofis Kirası", "Pazara Giriş Belgeleri", "E-İhracat Konsorsiyumu"]
+      points: ["Fuar Katılım Desteği", "Yurt Dışı Birim Giderleri", "Pazara Giriş Belgeleri", "Marka Tescil Desteği"]
     },
     {
       title: "Kurumsal Gelişim & Süreç Optimizasyonu",
@@ -117,9 +117,9 @@ export default function DanismanlikPage() {
     {
       title: "Ar-Ge ve Tasarım Merkezi Kurulumu",
       image: "/images/yonetim-danismanligi-arge-tasarim-merkezi-kurulumu.webp",
-      desc: "5746 Sayılı Kanun kapsamında personel gelir vergisi stopaj terkini, damga vergisi muafiyeti ve kapsamlı Ar-Ge kurumlar vergisi indirimi.",
+      desc: "5746 sayılı Kanun kapsamında gerekli şartları sağlayan Ar-Ge ve tasarım merkezlerinin kurulması, teşvik mekanizmalarının değerlendirilmesi ve başvuru süreçlerinin yönetimi.",
       badge: "Yüksek Teknoloji",
-      points: ["Stopaj & Damga Muafiyeti", "%50 SGK İşveren Desteği", "TÜBİTAK TEYDEB", "Anahtar Teslim Merkez"]
+      points: ["5746 Sayılı Kanun", "Mevzuat Değerlendirmesi", "TÜBİTAK Destekleri", "Süreç Yönetimi"]
     }
   ];
 
@@ -127,7 +127,7 @@ export default function DanismanlikPage() {
     {
       step: "01",
       title: "Teşvik Uygunluk & Lokasyon Analizi",
-      desc: "Yatırım planınız, NACE faaliyet kodunuz ve il/ilçe teşvik bölgesi (1. ila 6. Bölge) taranarak en yüksek devlet desteği oranı belirlenir."
+      desc: "Yatırım planınız, NACE faaliyet kodunuz ve il/ilçe teşvik bölgesi (1. ila 6. Bölge) analiz edilerek uygun destek ve teşvik unsurları belirlenir."
     },
     {
       step: "02",
@@ -136,13 +136,13 @@ export default function DanismanlikPage() {
     },
     {
       step: "03",
-      title: "Resmî Tescil & Hibe Onayı",
-      desc: "E-TUYS ve KOSGEB portalları üzerinden başvurular takip edilir, bakanlık uzman görüşmeleri yürütülerek belge ve hibe hak edişi sağlanır."
+      title: "Resmî Başvuru & Süreç Yönetimi",
+      desc: "E-TUYS ve ilgili kurum portalları üzerinden başvurular takip edilir; gerekli bilgi ve belgeler hazırlanarak başvuru ve değerlendirme süreçlerinde danışmanlık sağlanır."
     },
     {
       step: "04",
       title: "Tamamlama Vizesi & Kapanış",
-      desc: "Yatırım süresi boyunca makine revizyonları yönetilir ve nihai aşamada tamamlama vizesi alınarak teşvik süreci başarıyla kapatılır."
+      desc: "Yatırım sürecinde gerekli revizyonlar ve belge işlemleri takip edilir; yatırımın tamamlanması aşamasında tamamlama vizesi başvuru sürecine destek sağlanır."
     }
   ];
 
@@ -153,15 +153,15 @@ export default function DanismanlikPage() {
     },
     {
       q: "Kadın ve genç girişimciler için sağlanan özel KOSGEB destekleri nelerdir?",
-      a: "Kadın girişimcilere KOSGEB Girişimcilik Destek Programı kapsamında hibe üst limitlerinde pozitif ayrımcılık sağlanır. 29 yaş altı genç girişimciler ise 3 vergilendirme dönemi boyunca yıllık 400.000 TL Gelir Vergisi kazanç istisnasından ve KOSGEB kuruluş desteklerinden öncelikli olarak yararlanır."
+      a: "Kadın girişimcilere KOSGEB ve ilgili kurumların girişimcilik destek programları kapsamında pozitif ayrımcılık sağlanabilmektedir. Şartları sağlayan genç girişimciler ise mevzuat çerçevesinde gelir vergisi kazanç istisnasından ve KOSGEB desteklerinden yararlanabilmektedir."
     },
     {
       q: "KOSGEB KOBİGEL ve Kapasite Geliştirme Destekleri kimleri kapsar?",
-      a: "İmalat ve bilişim sektöründeki KOBİ'lerin kurumsal kapasite, otomasyon, yerli yazılım entegrasyonu ve makine-teçhizat modernizasyonu yatırımları için geri ödemesiz ve uygun vadeli finansman destekleri sunulmaktadır."
+      a: "İmalat ve bilişim sektöründeki KOBİ'lerin kurumsal kapasite, otomasyon, yerli yazılım entegrasyonu ve makine-teçhizat modernizasyonu yatırımları için ilgili destek programı kriterleri dahilinde finansman ve proje destekleri sunulmaktadır."
     },
     {
       q: "Ticaret Bakanlığı fuar ve kira destekleri süreci nasıl yürütülür?",
-      a: "Yurt dışı fuar katılımı ve mağaza/ofis kiralamalarında mevzuatla belirlenen resmî takvim çerçevesinde başvuru dosyası hazırlanır, onaylanan harcamaların %50 ila %70'i doğrudan şirket banka hesabına nakit hibe olarak aktarılır."
+      a: "Yurt dışı fuar katılımı ve birim kiralamalarında mevzuatla belirlenen resmî takvim çerçevesinde başvuru dosyası hazırlanır, onaylanan harcamalar ilgili destek mevzuatı ve oranları kapsamında karşılanır."
     }
   ];
 
@@ -243,7 +243,7 @@ export default function DanismanlikPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#040a1a] via-[#040a1a]/30 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-[#040a1a]/85 backdrop-blur-md border border-[#d4af37]/30">
                   <div className="text-base font-bold text-white">ROTAYD Danışmanlık Masası</div>
-                  <div className="text-xs text-[#d4af37]">Sanayi, Ticaret Bakanlığı ve KOSGEB Akredite Ekibi</div>
+                  <div className="text-xs text-[#d4af37]">Sanayi, Ticaret Bakanlığı ve KOSGEB Destek Programları Danışmanlığı</div>
                   <div className="text-[11px] text-white/50 mt-1">Suit Tower Çankaya / Ankara</div>
                 </div>
               </div>
@@ -260,7 +260,7 @@ export default function DanismanlikPage() {
               </h2>
 
               <p className="text-sm sm:text-base text-white/80 leading-relaxed font-light">
-                ROTAYD Danışmanlık; sanayi tesislerinden yüksek teknoloji girişimlerine, kadın ve genç girişimcilerden ihracatçı KOBİ&apos;lere kadar işletmelerin devlet teşviklerinden en üst düzeyde faydalanmasını sağlayan kurumsal bir yönetim danışmanlığı merkezidir.
+                ROTAYD Danışmanlık; sanayi tesislerinden yüksek teknoloji girişimlerine, kadın ve genç girişimcilerden ihracatçı KOBİ&apos;lere kadar işletmelerin devlet teşviklerini değerlendirmesine, uygun destek programlarını belirlemesine ve başvuru süreçlerini yönetmesine yönelik danışmanlık sunan yönetim danışmanlığı firmasıdır.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -270,7 +270,7 @@ export default function DanismanlikPage() {
                     <span>Ön Eleme &amp; Titiz İnceleme Prensibi</span>
                   </div>
                   <p className="text-xs text-white/60 leading-relaxed">
-                    Bakanlık onay şartlarını sağlamayan hiçbir dosyayı sürece dahil etmeyiz; hazırladığımız projelerde en yüksek kabul standartlarını koruruz.
+                    Başvuru dosyaları ilgili programın mevzuat ve değerlendirme kriterlerine uygun şekilde hazırlanır.
                   </p>
                 </div>
 
@@ -280,7 +280,7 @@ export default function DanismanlikPage() {
                     <span>Fizibiliteden Kapanışa Tam Destek</span>
                   </div>
                   <p className="text-xs text-white/60 leading-relaxed">
-                    Sadece belge almakla kalmaz; yatırım revizyonları, hak ediş ödemeleri ve tamamlama vizesi alınıncaya kadar tüm takvim boyunca yanınızdayız.
+                    Yatırım sürecinde gerekli revizyonlar ve belge işlemleri takip edilir; yatırımın tamamlanması aşamasında tamamlama vizesi başvuru sürecine destek sağlanır.
                   </p>
                 </div>
               </div>
@@ -380,7 +380,7 @@ export default function DanismanlikPage() {
             İşletmenizi Büyütecek <span className="gold-gradient-text font-serif italic">Teşvik Programları</span>
           </h2>
           <p className="text-xs sm:text-sm text-white/60 leading-relaxed">
-            Sanayi ve Teknoloji Bakanlığı, Ticaret Bakanlığı ve KOSGEB nezdinde firmanız için en yüksek devlet hibesini temin eden 5 ana danışmanlık alanı.
+            Sanayi ve Teknoloji Bakanlığı, Ticaret Bakanlığı ve KOSGEB nezdinde firmanız için uygun devlet desteklerinin değerlendirilmesini sağlayan 5 ana danışmanlık alanı.
           </p>
         </div>
 
