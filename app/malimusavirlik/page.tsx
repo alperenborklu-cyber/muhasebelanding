@@ -39,9 +39,9 @@ export default function MuhasebecilikPage() {
     {
       title: "Yönetim Muhasebesi & Raporlama",
       image: "/images/mali-musavirlik-yonetim-muhasebesi-raporlama.webp",
-      desc: "Finansal röntgen, maliyet analizleri, nakit akışı simülasyonu ve aylık yönetim kurulu sunumlarıyla kârlılığı artıran stratejik finans yönetimi.",
+      desc: "Maliyet analizi, nakit akışı simülasyonu ve aylık yönetim raporlamasıyla finansal karar süreçlerinizi güçlendirin.",
       badge: "Finansal Mimari",
-      points: ["Maliyet Analizi", "Bütçe Projeksiyonu", "Aylık Yönetim Raporu", "Kârlılık Rasyoları"]
+      points: ["Maliyet Analizi", "Bütçe Projeksiyonu", "Aylık Yönetim Raporu", "Finansal Rasyolar"]
     },
     {
       title: "Mali Müşavirlik & Vergi Mevzuatı",
@@ -58,11 +58,11 @@ export default function MuhasebecilikPage() {
       points: ["Vergi Denetimi Hazırlığı", "İzahat Dosyaları", "Uzlaşma Komisyonu Temsili", "Mevzuat Risk Analizi"]
     },
     {
-      title: "Şirket Kuruluşu, Nevi & Tür Değişikliği",
+      title: "Limited Şirketten Anonim Şirkete Dönüşüm ve Pay Devri",
       image: "/images/mali-musavirlik-sirket-kurulusu-nevi-degisikligi.webp",
-      desc: "Anonim ve Limited şirket kuruluşu, A.Ş. nevi değişikliğiyle hisse satışında %0 gelir vergisi istisnası ve ana sözleşme tescili.",
+      desc: "Anonim şirket yapılanmasının sunduğu kurumsal avantajlar ve mevzuat kapsamında değerlendirilebilen pay devirlerine ilişkin vergisel avantajlar.",
       badge: "Kurumsal Yapılanma",
-      points: ["Ana Sözleşme & Tescil", "LTD'den A.Ş.'ye Geçiş", "Sermaye Artırımı", "Vergisiz Hisse Devri"]
+      points: ["Ana Sözleşme & Tescil", "LTD'den A.Ş.'ye Geçiş", "Sermaye Artırımı", "Mevzuata Uygun Pay Devri"]
     },
     {
       title: "E-Dönüşüm ve Dijital Muhasebe Hizmetleri",
@@ -77,11 +77,11 @@ export default function MuhasebecilikPage() {
       ]
     },
     {
-      title: "Mali Tablolar & Bağımsız Denetim",
+      title: "Mali Tablolar, Finansal Analiz ve Denetime Hazırlık",
       image: "/images/mali-musavirlik-finansal-tablolar-denetim-destegi.webp",
-      desc: "TMS/TFRS ve VUK standartlarında bilanço ve gelir tablosu analizi, banka kredibilitesi optimizasyonu ve bağımsız denetime hazırlık.",
-      badge: "Denetim & Bilanço",
-      points: ["Mali Tablo Analizi", "Banka Kredi Rasyoları", "Bağımsız Denetim Hazırlığı", "Bilanço İyileştirme"]
+      desc: "VUK ve ilgili finansal raporlama standartları kapsamında mali tabloların analizi, finansal raporlama süreçlerinin değerlendirilmesi ve bağımsız denetime hazırlık danışmanlığı.",
+      badge: "Finansal Analiz & Raporlama",
+      points: ["Mali Tablo Analizi", "Banka Kredi Rasyoları", "Denetime Hazırlık Danışmanlığı", "Finansal Süreç Değerlendirmesi"]
     }
   ];
 
@@ -97,10 +97,10 @@ export default function MuhasebecilikPage() {
     {
       number: "01",
       title: "Şirket Türü Seçimi: Limited Şirket (LTD) mi, Anonim Şirket (A.Ş.) mi, Şahıs mı?",
-      summary: "2026 yılı sabit %25 Kurumlar Vergisi, ortaklık sorumluluğu ve vergisiz hisse devri kıyaslaması.",
+      summary: "2026 yılı sabit %25 Kurumlar Vergisi, ortaklık sorumluluğu ve mevzuat kapsamındaki pay devirlerine ilişkin vergisel avantajlar.",
       paragraphs: [
         "Limited Şirket (LTD), sabit %25 Kurumlar Vergisi oranı ve taahhüt edilen sermaye payı kadar sınırlı sorumluluk ile kurumsal imaj için en dengeli modeldir (ihracatçılara 5 puan indirimle %20, sanayicilere %24 uygulanır).",
-        "Anonim Şirket (A.Ş.), pay senetlerinin 2 yıl elde tutulması halinde hisse satışında %0 Gelir Vergisi istisnası ve kamu borçlarına karşı yönetim kalkanı sağlar.",
+        "Anonim Şirket (A.Ş.), pay senetlerinin mevzuata uygun süreyle elde tutulması halinde değer artış kazançlarına ilişkin vergisel istisnalar ve ortakların kamu borçlarına ilişkin sınırlı sorumluluk yapısıyla kurumsal avantajlar sunabilir.",
         "Şahıs Şirketi ise düşük ciroda hızlı açılış sunsa da, kâr arttıkça %15 ila %40 artan oranlı gelir vergisi ve şahsi malvarlığıyla sınırsız sorumluluk riski taşır."
       ],
       expertTip: "Yıllık ciro ve kâr projeksiyonunuza göre en verimli şirket türünü birlikte belirliyoruz."
@@ -117,21 +117,21 @@ export default function MuhasebecilikPage() {
     },
     {
       number: "03",
-      title: "2026 Genç Girişimci İstisnası & Sanal Ofis Stopaj Avantajı",
-      summary: "400.000 TL kazanç istisnası ve %20 kira stopajını ortadan kaldıran sanal ofis modeli.",
+      title: "2026 Genç Girişimci Kazanç İstisnası ve Sanal Ofis Çözümleri",
+      summary: "Şartları sağlayan genç girişimciler için 400.000 TL'ye kadar gelir vergisi kazanç istisnası ve işletmelere uygun sanal ofis çözümleri.",
       paragraphs: [
-        "29 yaşını doldurmamış girişimciler için 3 takvim yılı boyunca yıllık 400.000 TL Gelir Vergisi kazanç istisnası uygulanır (Bağ-Kur prim desteği 2026'da kaldırılmıştır, kazanç istisnası ise sürmektedir).",
-        "Şahıstan kiralanan işyerlerinde %20 kira stopajı doğarken; kurumsal sanal ofis tercihinde faturalı KDV indirimi sağlanır ve stopaj yükü oluşmaz."
+        "Şartları sağlayan genç girişimciler için 3 takvim yılı boyunca yıllık 400.000 TL'ye kadar gelir vergisi kazanç istisnası mevzuat çerçevesinde değerlendirilir.",
+        "İşletmenizin ihtiyaçlarına ve sözleşme yapısına uygun sanal ofis çözümleriyle kira ve ofis giderlerinin mali açıdan değerlendirilmesi sağlanır."
       ],
       expertTip: "Kuruluş öncesi vergi ve adres planlamasıyla gereksiz operasyonel maliyetlerin önüne geçiyoruz."
     },
     {
       number: "04",
       title: "2026 Dijital E-Dönüşüm Zorunlulukları (e-Fatura & e-Defter)",
-      summary: "3 Milyon TL brüt satış ve e-ticaret 500 Bin TL ciro hadleri ile güvenli arşivleme.",
+      summary: "İşletmenizin faaliyet alanı, yıllık cirosu ve güncel mevzuat kapsamındaki yükümlülüklerine göre e-Fatura ve e-Defter süreçlerinin değerlendirilmesi.",
       paragraphs: [
-        "2026 e-Dönüşüm hadleri uyarınca yıllık cirosu 3 Milyon TL'yi aşan işletmeler (e-ticarette 500 Bin TL) e-Fatura ve e-Defter sistemine dahil olmak zorundadır.",
-        "Zorunluluk beklemeden dijital faturaya geçmek operasyonel hız kazandırır; ROTAYD Mükellef Portalı ile belgeleriniz anlık arşivlenir."
+        "İşletmenizin faaliyet alanı, yıllık cirosu ve güncel mevzuat kapsamındaki yükümlülüklerine göre e-Fatura ve e-Defter süreçlerinin titizlikle değerlendirilmesi ve yasal bildirim takviminin yürütülmesi sağlanır.",
+        "Zorunluluk beklemeden dijital faturaya geçmek operasyonel hız kazandırır; ROTAYD Mükellef Portalı ile belgeleriniz mevzuata uygun şekilde arşivlenir."
       ],
       expertTip: "Entegratör seçimi ve berat takvimini mevzuata uygun şekilde güvenle yönetiyoruz."
     }
@@ -167,7 +167,7 @@ export default function MuhasebecilikPage() {
     },
     {
       q: "Limited Şirket'ten Anonim Şirket'e geçiş (Nevi Değişikliği) neden tercih edilir?",
-      a: "Anonim Şirketlerde hisse senetleri 2 yıl elde tutulduktan sonra satıldığında elde edilen kazanç %0 Gelir Vergisi istisnasına tabidir. Ayrıca A.Ş. ortakları şirket kamu borçlarından şahsi mal varlığıyla sorumlu tutulmaz. Büyüyen LTD'ler için en kritik vergisiz çıkış stratejisidir."
+      a: "Anonim şirket yapılanmasının sunduğu kurumsal avantajlar, mevzuat kapsamında değerlendirilebilen pay devirlerine ilişkin vergisel avantajlar ve ortakların kamu borçlarına ilişkin sınırlı sorumluluk ilkeleri kurumsal şirketler için önemli stratejik imkanlar sağlayabilir."
     },
         {
       q: "2026 Yılında e-Fatura ve e-Defter Zorunluluğu Kapsamında Mıyım?",
@@ -204,7 +204,7 @@ export default function MuhasebecilikPage() {
           <div className="max-w-3xl space-y-6">
             <div className="subpage-hero-badge inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#d4af37]/40 bg-[#071128]/90 backdrop-blur-md text-xs font-semibold text-[#d4af37] shadow-lg shadow-black/40">
               <ShieldCheck className="w-4 h-4 text-[#d4af37]" />
-              <span>TÜRMOB &amp; ASMMMO RUHSATLI MALİ MÜŞAVİRLİK</span>
+              <span>Ankara Serbest Muhasebeci Mali Müşavirler Odası (ASMMMO) Üyesi | TÜRMOB</span>
             </div>
 
             <h1 className="subpage-hero-title text-3xl sm:text-5xl xl:text-6xl font-light tracking-tight text-white leading-[1.15]">
@@ -370,7 +370,7 @@ export default function MuhasebecilikPage() {
             İşletmenizin İhtiyacına Özel <span className="gold-gradient-text font-serif italic">Mali Müşavirlik</span>
           </h2>
           <p className="text-xs sm:text-sm text-white/60 leading-relaxed">
-            Klasik defter tutmanın ötesine geçerek firmanızın kârlılığını, nakit akışını ve yasal bağışıklığını koruyan 6 temel uzmanlık alanı.
+            Firmanızın kârlılığını, nakit akışını ve mevzuata uyum süreçlerini destekleyen 6 temel uzmanlık alanı.
           </p>
         </div>
 

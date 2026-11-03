@@ -42,7 +42,17 @@ export default function ReferencesMarquee() {
       .then(res => res.json())
       .then(data => {
         if (isMounted && data?.references && Array.isArray(data.references) && data.references.length > 0) {
-          setItems(data.references);
+          // Her firma yalnızca bir kez gösterilmeli (Tekrar eden referanslar filtrelenir)
+          const seen = new Set<string>();
+          const uniqueList: RefItem[] = [];
+          for (const ref of data.references) {
+            const key = ref.name.trim().toUpperCase();
+            if (!seen.has(key)) {
+              seen.add(key);
+              uniqueList.push(ref);
+            }
+          }
+          setItems(uniqueList);
         }
       })
       .catch(() => {
@@ -73,52 +83,30 @@ export default function ReferencesMarquee() {
         </p>
       </div>
 
-      {/* Infinite Horizontal Logo Marquee */}
-      <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-        <div className="flex w-max group">
-          {/* Track 1 */}
-          <div className="flex shrink-0 items-center gap-6 sm:gap-8 pr-6 sm:pr-8 py-4 animate-marquee group-hover:[animation-play-state:paused]">
-            {items.map((item, idx) => (
-              <div
-                key={`track1-${item.name}-${idx}`}
-                className="group relative flex items-center justify-center px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4af37]/50 backdrop-blur-sm transition-all duration-300 shrink-0 w-44 sm:w-48 md:w-52 h-20 shadow-sm"
-                title={`${item.name} | ${item.desc}`}
-              >
-                <div className="relative h-9 sm:h-10 md:h-11 w-full max-w-[135px] sm:max-w-[155px] flex items-center justify-center">
-                  <Image
-                    src={getImageSrc(item)}
-                    alt={`${item.name} - ROTAYD Danışmanlık ve Mali Müşavirlik Referansı`}
-                    fill
-                    unoptimized={!!item.imageUrl && item.imageUrl.startsWith('data:')}
-                    className="object-contain filter brightness-0 invert opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
-                    sizes="(max-width: 768px) 130px, 155px"
-                  />
-                </div>
+      {/* Her firma tek ve benzersiz olarak listelenir (Tekrar eden track kaldırıldı) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+          {items.map((item, idx) => (
+            <div
+              key={`ref-${item.name}-${idx}`}
+              className="group relative flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4af37]/60 backdrop-blur-sm transition-all duration-300 h-24 sm:h-28 shadow-sm hover:shadow-[#d4af37]/10"
+              title={`${item.name} | ${item.desc}`}
+            >
+              <div className="relative h-9 sm:h-10 w-full flex items-center justify-center">
+                <Image
+                  src={getImageSrc(item)}
+                  alt={`${item.name} - ROTAYD Danışmanlık ve Mali Müşavirlik Referansı`}
+                  fill
+                  unoptimized={!!item.imageUrl && item.imageUrl.startsWith('data:')}
+                  className="object-contain filter brightness-0 invert opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+                  sizes="(max-width: 768px) 130px, 160px"
+                />
               </div>
-            ))}
-          </div>
-
-          {/* Track 2 - Seamless Duplicate */}
-          <div aria-hidden="true" className="flex shrink-0 items-center gap-6 sm:gap-8 pr-6 sm:pr-8 py-4 animate-marquee group-hover:[animation-play-state:paused]">
-            {items.map((item, idx) => (
-              <div
-                key={`track2-${item.name}-${idx}`}
-                className="group relative flex items-center justify-center px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4af37]/50 backdrop-blur-sm transition-all duration-300 shrink-0 w-44 sm:w-48 md:w-52 h-20 shadow-sm"
-                title={`${item.name} | ${item.desc}`}
-              >
-                <div className="relative h-9 sm:h-10 md:h-11 w-full max-w-[135px] sm:max-w-[155px] flex items-center justify-center">
-                  <Image
-                    src={getImageSrc(item)}
-                    alt={`${item.name} - ROTAYD Danışmanlık ve Mali Müşavirlik Referansı`}
-                    fill
-                    unoptimized={!!item.imageUrl && item.imageUrl.startsWith('data:')}
-                    className="object-contain filter brightness-0 invert opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
-                    sizes="(max-width: 768px) 130px, 155px"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+              <span className="text-[10px] text-white/50 group-hover:text-[#faecc0] transition-colors truncate max-w-full text-center mt-2 font-medium">
+                {item.name}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

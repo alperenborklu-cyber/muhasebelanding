@@ -136,7 +136,7 @@ export default function ReceiptPreloader() {
                     MALİ MÜŞAVİRLİK & YÖNETİM DANIŞMANLIĞI
                   </p>
                   <p className="text-[8px] text-white/50 font-mono">
-                    TÜRMOB &amp; ASMMMO RUHSATLI • ÇAYYOLU / ANKARA
+                    ASMMMO ÜYESİ | TÜRMOB • ÇAYYOLU / ANKARA
                   </p>
                 </div>
 
@@ -147,18 +147,18 @@ export default function ReceiptPreloader() {
                     <span className="text-white font-semibold">Mali Müşavirlik</span>
                   </div>
                   <div className="flex justify-between text-white/80">
-                    <span>SGK TEŞVİK KAZANIM:</span>
-                    <span className="text-[#d4af37] font-bold">2.600.000 TL</span>
+                    <span>SÜREÇ YÖNETİMİ:</span>
+                    <span className="text-[#d4af37] font-bold">Aktif Danışmanlık</span>
                   </div>
                   <div className="flex justify-between text-white/80">
-                    <span>PROJE BAŞARI:</span>
-                    <span className="text-[#d4af37] font-bold">%99</span>
+                    <span>MEVZUAT UYUMU:</span>
+                    <span className="text-[#d4af37] font-bold">Tam Uyum</span>
                   </div>
                   <div className="flex justify-between text-white/80">
                     <span>DURUM:</span>
                     <span className="text-emerald-400 font-semibold flex items-center space-x-1">
                       <CheckCircle2 className="w-2.5 h-2.5 inline" />
-                      <span>ONAYLANDI</span>
+                      <span>SİSTEM AKTİF</span>
                     </span>
                   </div>
                 </div>

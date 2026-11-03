@@ -139,7 +139,7 @@ export default function HakkimizdaPage() {
                     <div className="absolute -bottom-3 inset-x-0 flex justify-center">
                       <span className="px-3.5 py-1 rounded-full bg-[#05112e] border border-[#d4af37] text-[11px] font-bold text-[#faecc0] shadow-lg flex items-center space-x-1.5">
                         <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37]" />
-                        <span>TÜRMOB &amp; ASMMMO Ruhsatlı</span>
+                        <span>ASMMMO Üyesi | TÜRMOB</span>
                       </span>
                     </div>
                   </div>
@@ -255,7 +255,7 @@ export default function HakkimizdaPage() {
                     <div className="absolute -bottom-3 inset-x-0 flex justify-center">
                       <span className="px-3.5 py-1 rounded-full bg-[#05112e] border border-[#d4af37] text-[11px] font-bold text-[#faecc0] shadow-lg flex items-center space-x-1.5">
                         <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37]" />
-                        <span>TÜRMOB &amp; ASMMMO Ruhsatlı</span>
+                        <span>ASMMMO Üyesi | TÜRMOB</span>
                       </span>
                     </div>
                   </div>

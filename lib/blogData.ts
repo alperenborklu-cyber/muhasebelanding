@@ -19,17 +19,17 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "2026-sgk-istihdam-tesvikleri-rehberi",
     instagramCode: "IG-01",
     title: "2026 Yılında Şirketlerin Yararlanabileceği SGK İstihdam Teşvikleri",
-    excerpt: "Personel maliyetlerinizi %20 ila %35 oranında düşüren güncel SGK prim teşvikleri, geriye dönük hak kazanımları ve başvuru adımları.",
+    excerpt: "İşletmenizin ve çalışanlarınızın koşullarına uygun SGK prim teşviklerinin belirlenmesi, güncel desteklerin değerlendirilmesi ve teşvik süreçlerinin yönetimi.",
     category: "Mali Müşavirlik",
     date: "15 Ocak 2026",
     readTime: "4 dk okuma",
     image: "/images/sgk-istihdam-tesvikleri-2026-mali-musavirlik-rehberi.webp",
     author: "ROTAYD Teşvik Departmanı",
-    tags: ["SGK Teşvikleri", "İstihdam", "Personel Maliyeti", "6111 Teşviki"],
+    tags: ["SGK Teşvikleri", "İstihdam", "Mevzuat Uyumu", "6111 Teşviki"],
     content: [
-      "Türkiye'de faaliyet gösteren işletmelerin en önemli gider kalemlerinden biri istihdam maliyetleridir. Sosyal Güvenlik Kurumu (SGK) ve İŞKUR tarafından yürütülen teşvik programları, doğru analiz edildiğinde şirket bütçelerinde milyonlarca liralık tasarruf sağlayabilir.",
-      "6111 Sayılı Genç ve Kadın İstihdamı Teşviki, 7103 Sayılı İmalat ve Bilişim Teşviki ve engelli istihdamı indirimleri başta olmak üzere, ortalama sigortalı sayısına göre hesaplanan haklar çoğu şirket tarafından farkında olmadan kaçırılmaktadır.",
-      "ROTAYD olarak geliştirdiğimiz analitik altyapıyla cari ve geçmiş dönem SGK bildirgelerinizi tarıyor, yasal haklarınızı kuruşu kuruşuna tespit ederek şirketinize nakit tasarruf kazandırıyoruz."
+      "Türkiye'de faaliyet gösteren işletmelerin en önemli gider kalemlerinden biri istihdam maliyetleridir. Sosyal Güvenlik Kurumu (SGK) ve İŞKUR tarafından yürütülen teşvik programları, doğru analiz edildiğinde şirket bütçelerinde mevzuata uygun maliyet avantajları sağlayabilir.",
+      "6111 Sayılı Genç ve Kadın İstihdamı Teşviki, 7103 Sayılı İmalat ve Bilişim Teşviki ve engelli istihdamı indirimleri başta olmak üzere, ortalama sigortalı sayısına göre hesaplanan haklar titizlikle analiz edilmelidir.",
+      "ROTAYD olarak işletmenizin ve çalışanlarınızın koşullarına uygun güncel SGK prim teşviklerini belirliyor, mevzuat süreçlerinizi profesyonelce yönetiyoruz."
     ]
   },
   {
@@ -54,18 +54,18 @@ export const BLOG_POSTS: BlogPost[] = [
     id: "3",
     slug: "yonetim-muhasebesi-ile-sirket-karliligini-artirma",
     instagramCode: "IG-03",
-    title: "Yönetim Muhasebesi ile Şirket Kârlılığını Artırmanın 5 Stratejisi",
-    excerpt: "Geleneksel vergi muhasebesinin ötesine geçerek maliyet analizi, nakit akış simülasyonu ve aylık yönetim raporlamasıyla kârlılığı maksimize edin.",
+    title: "Yönetim Muhasebesi ile Finansal Karar Süreçlerini Güçlendirmenin 5 Stratejisi",
+    excerpt: "Maliyet analizi, nakit akışı simülasyonu ve aylık yönetim raporlamasıyla finansal karar süreçlerinizi güçlendirin.",
     category: "Yönetim Muhasebesi",
     date: "04 Şubat 2026",
     readTime: "6 dk okuma",
     image: "/images/yonetim-muhasebesi-sirket-karliligi-mali-musavirlik.webp",
     author: "ROTAYD Mali Analiz Ekibi",
-    tags: ["Yönetim Muhasebesi", "Finansal Analiz", "Kârlılık", "Bütçe Planlama"],
+    tags: ["Yönetim Muhasebesi", "Finansal Analiz", "Nakit Akışı", "Bütçe Planlama"],
     content: [
-      "Geleneksel muhasebe geçmişi kaydeder; yönetim muhasebesi ise geleceğe yön verir. Şirket yöneticilerinin doğru zamanda doğru yatırımı yapabilmesi için anlık mali göstergelere ihtiyacı vardır.",
-      "Birim maliyet ayrıştırması, nakit akış projeksiyonu ve kârlılık rasyolarıyla şirketin tüm finansal omurgası güvenceye alınır.",
-      "ROTAYD, yönetim kurullarına özel hazırladığı dashboard ve periyodik sunumlarla kârlılığı optimize eden finansal mimariyi kurmaktadır."
+      "Geleneksel muhasebe geçmişi kaydeder; yönetim muhasebesi ise geleceğe yön verir. Şirket yöneticilerinin doğru zamanda doğru kararları alabilmesi için anlık mali göstergelere ihtiyacı vardır.",
+      "Birim maliyet ayrıştırması, nakit akış projeksiyonu ve finansal rasyolarla şirketin mali yapısı desteklenir.",
+      "ROTAYD, yönetim kurullarına özel hazırladığı dashboard ve periyodik sunumlarla finansal karar alma süreçlerini güçlendiren yönetim raporlaması altyapısı sunmaktadır."
     ]
   },
   {
@@ -108,18 +108,18 @@ export const BLOG_POSTS: BlogPost[] = [
     id: "6",
     slug: "limited-sirketten-anonim-sirkete-gecisin-vergisel-avantajlari",
     instagramCode: "IG-06",
-    title: "Limited Şirketten Anonim Şirkete Geçişin Vergisel Avantajları",
-    excerpt: "2 yıl elde tutulan A.Ş. pay senetlerinin satışında %0 gelir vergisi istisnası, ortakların kamu borçlarından korunması ve kurumsal itibar.",
+    title: "Limited Şirketten Anonim Şirkete Dönüşüm ve Pay Devri Süreçleri",
+    excerpt: "Anonim şirket yapılanmasının sunduğu kurumsal avantajlar ve mevzuat kapsamında değerlendirilebilen pay devirlerine ilişkin vergisel avantajlar.",
     category: "Mali Müşavirlik",
     date: "25 Şubat 2026",
     readTime: "5 dk okuma",
     image: "/images/mali-musavirlik-sirket-kurulusu-nevi-degisikligi.webp",
     author: "ROTAYD Şirketler Masası",
-    tags: ["Nevi Değişikliği", "Anonim Şirket", "Vergi Muafiyeti", "Hisse Devri"],
+    tags: ["Nevi Değişikliği", "Anonim Şirket", "Kurumsal Yapılanma", "Pay Devri"],
     content: [
-      "Büyüyen KOBİ'lerin en çok tercih ettiği yapısal dönüşümlerin başında Limited Şirket'ten (LTD) Anonim Şirket'e (A.Ş.) nevi değişikliği gelmektedir.",
-      "En kritik avantaj: Anonim şirketlerde basılı hisse senetleri 2 yıl elde tutulduktan sonra satıldığında elde edilen değer artış kazancı tamamen gelir vergisinden muaftır.",
-      "ROTAYD, özvarlık tespit raporundan ticaret sicil tesciline kadar nevi değişikliği sürecini güvenle yönetmektedir."
+      "Büyüyen işletmelerin en çok değerlendirdiği yapısal dönüşümlerin başında Limited Şirket'ten (LTD) Anonim Şirket'e (A.Ş.) nevi değişikliği gelmektedir.",
+      "Anonim şirket yapılanması; kurumsal itibar, sermaye yapısı ve mevzuat koşulları çerçevesinde pay devirlerine ilişkin vergisel avantajların değerlendirilmesi bakımından stratejik fırsatlar sunabilir.",
+      "ROTAYD, özvarlık tespit raporundan ticaret sicil tesciline kadar nevi değişikliği sürecini mevzuata tam uyumla yönetmektedir."
     ]
   },
   {

@@ -37,8 +37,8 @@ const FAQ_ITEMS: FAQItem[] = [
     category: "Yönetim Danışmanlığı",
     tag: "Yatırım Teşviki",
     question: "Yatırım Teşvik Belgesi kimler için uygundur ve işletmemize hangi somut maliyet avantajlarını sağlar?",
-    answer: "Yeni bir üretim tesisi, kapasite artışı, otel/turizm yatırımı veya makine-ekipman modernizasyonu planlayan tüm tüzel ve gerçek kişi işletmeler Yatırım Teşvik Belgesi alabilir. Belge sayesinde: Yerli ve ithal makinelerde %0 KDV muafiyeti, gümrük vergisi muafiyeti, Kurumlar Vergisinde %80'e varan indirim ve 10 yıla kadar SGK işveren hissesi prim desteği sunulur. ROTAYD fizibilite dosyasından teşvik kapama vizesine kadar tüm süreci anahtar teslim yönetir.",
-    highlights: ["%0 KDV & Gümrük Muafiyeti", "Vergi İndirimi & SGK Prim Desteği", "Bakanlık Onaylı Anahtar Teslim Süreç"]
+    answer: "Yeni bir üretim tesisi, kapasite artışı, otel/turizm yatırımı veya makine-ekipman modernizasyonu planlayan tüm tüzel ve gerçek kişi işletmeler Yatırım Teşvik Belgesi alabilir. Belge sayesinde: Yerli ve ithal makinelerde KDV istisnası, gümrük vergisi muafiyeti, Kurumlar Vergisinde indirim ve SGK işveren hissesi prim desteği gibi destek unsurları mevzuat çerçevesinde sunulur. ROTAYD fizibilite dosyasından teşvik kapama vizesine kadar tüm süreci mevzuata uygun şekilde yönetir.",
+    highlights: ["KDV İstisnası & Gümrük Muafiyeti", "Vergi İndirimi & SGK Prim Desteği", "Bakanlık Onaylı Teşvik Süreci"]
   },
   {
     id: "faq-3",
@@ -61,8 +61,8 @@ const FAQ_ITEMS: FAQItem[] = [
     category: "Mali Müşavirlik",
     tag: "Şirketler Hukuku",
     question: "Limited Şirketten Anonim Şirkete (A.Ş.) nevi değişikliği yapmanın vergisel ve hukuki avantajları nelerdir?",
-    answer: "En kritik stratejik avantaj hisse devir kazancıdır: Anonim şirketlerde pay senetleri (veya geçici ilmühaberler) 2 tam yıl elde tutulduktan sonra satıldığında elde edilen kazanç %0 Gelir Vergisi ile tamamen vergiden muaftır. Limited şirketlerde ise hisse satışı yüksek gelir vergisi dilimlerine tabidir. Ayrıca A.Ş. ortakları kamu borçlarından kişisel malvarlıklarıyla sorumlu tutulmaz.",
-    highlights: ["2 yıl sonra %0 hisse satış vergisi", "Kamu borçlarına karşı ortak kalkanı", "Yüksek kurumsal itibar ve kredi notu"]
+    answer: "Anonim şirket yapılanması; kurumsal itibar, sermaye yapısı ve ortaklık sorumluluğu bakımından önemli avantajlar sunar. Ayrıca mevzuat çerçevesinde pay senetlerinin belirli süre elde tutulması halinde değer artış kazançlarına ilişkin vergisel avantajlar ve kamu borçlarına ilişkin sınırlı sorumluluk ilkeleri değerlendirilebilir.",
+    highlights: ["Mevzuata uygun pay devri avantajları", "Ortaklık sorumluluk yapısı", "Yüksek kurumsal itibar ve kredi notu"]
   },
   {
     id: "faq-6",
