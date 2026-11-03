@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="absolute top-0 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#1d3b7d]/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-8">
           {/* Col 1 */}
           <div className="space-y-4">
             <Link href="/" className="footer-brand inline-block text-2xl font-black tracking-widest text-white hover:text-[#d4af37] transition-colors">
@@ -119,27 +119,27 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Legal & Policy Navigation Strip */}
-        <div className="py-6 border-b border-white/10 space-y-3 text-xs text-white/60">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <span className="font-semibold text-white/80 flex items-center space-x-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
-              <span>Yasal & Hukuki Bilgilendirmeler</span>
-            </span>
-            <div className="flex flex-wrap gap-4 sm:gap-6 text-xs">
-              <Link href="/kvkk" className="hover:text-[#d4af37] transition-colors">
-                KVKK Aydınlatma Metni
-              </Link>
-              <Link href="/cerez-politikasi" className="hover:text-[#d4af37] transition-colors">
-                Çerez Politikası
-              </Link>
-              <Link href="/gizlilik-politikasi" className="hover:text-[#d4af37] transition-colors">
-                Gizlilik ve Veri Güvenliği
-              </Link>
-              <Link href="/yasal-uyari" className="hover:text-[#d4af37] transition-colors">
-                Yasal Uyarı & Şartlar
-              </Link>
-            </div>
+        {/* Policy Links (KVKK, Çerez, Gizlilik, Yasal Uyarı) - Çizginin üstünde */}
+        <div className="pb-6 border-b border-white/10 flex flex-wrap items-center justify-start sm:justify-end gap-4 sm:gap-6 text-xs text-white/60">
+          <Link href="/kvkk" className="hover:text-[#d4af37] transition-colors">
+            KVKK Aydınlatma Metni
+          </Link>
+          <Link href="/cerez-politikasi" className="hover:text-[#d4af37] transition-colors">
+            Çerez Politikası
+          </Link>
+          <Link href="/gizlilik-politikasi" className="hover:text-[#d4af37] transition-colors">
+            Gizlilik ve Veri Güvenliği
+          </Link>
+          <Link href="/yasal-uyari" className="hover:text-[#d4af37] transition-colors">
+            Yasal Uyarı & Şartlar
+          </Link>
+        </div>
+
+        {/* Legal Disclaimer Strip - Çizginin altında */}
+        <div className="py-6 border-b border-white/10 space-y-2 text-xs text-white/60">
+          <div className="flex items-center space-x-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
+            <span className="font-semibold text-white/80">Yasal & Hukuki Bilgilendirmeler</span>
           </div>
           <p className="text-[11px] text-white/50 leading-relaxed">
             Bu web sitesindeki bilgiler yalnızca genel bilgilendirme amaçlıdır; hukuki, mali veya vergisel danışmanlık niteliği taşımaz. Bilgilerin güncelliği ve doğruluğu konusunda garanti verilmez. Bu bilgilere dayanılarak alınan kararlardan doğabilecek zararlara ilişkin, yürürlükteki mevzuatın izin verdiği ölçüde sorumluluk kabul edilmez.
